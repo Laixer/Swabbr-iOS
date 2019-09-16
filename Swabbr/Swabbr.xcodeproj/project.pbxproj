@@ -14,6 +14,7 @@
 		C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DF232FA3E900BF772D /* Assets.xcassets */; };
 		C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */; };
 		C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */; };
+		C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21EF232FB73F00BF772D /* LocationHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C2DE21E2232FA3E900BF772D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2DE21E4232FA3E900BF772D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHandlerProtocol.swift; sourceTree = "<group>"; };
+		C2DE21EF232FB73F00BF772D /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */,
+				C2DE21EF232FB73F00BF772D /* LocationHandler.swift */,
 			);
 			path = Permission;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 			files = (
 				C2DE21DB232FA35700BF772D /* ViewController.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
+				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
