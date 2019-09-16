@@ -13,6 +13,7 @@
 		C2DE21DE232FA35700BF772D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DC232FA35700BF772D /* Main.storyboard */; };
 		C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DF232FA3E900BF772D /* Assets.xcassets */; };
 		C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */; };
+		C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C2DE21DF232FA3E900BF772D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2DE21E2232FA3E900BF772D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2DE21E4232FA3E900BF772D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHandlerProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +56,6 @@
 				36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */,
 				B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -79,6 +80,7 @@
 		C2DE21D7232FA35700BF772D /* Swabbr */ = {
 			isa = PBXGroup;
 			children = (
+				C2DE21EA232FB43300BF772D /* Permission */,
 				C2DE21D8232FA35700BF772D /* AppDelegate.swift */,
 				C2DE21DA232FA35700BF772D /* ViewController.swift */,
 				C2DE21DC232FA35700BF772D /* Main.storyboard */,
@@ -87,6 +89,14 @@
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
 			);
 			path = Swabbr;
+			sourceTree = "<group>";
+		};
+		C2DE21EA232FB43300BF772D /* Permission */ = {
+			isa = PBXGroup;
+			children = (
+				C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */,
+			);
+			path = Permission;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +198,7 @@
 			files = (
 				C2DE21DB232FA35700BF772D /* ViewController.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
+				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
