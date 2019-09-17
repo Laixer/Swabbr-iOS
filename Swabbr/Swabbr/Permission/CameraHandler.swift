@@ -16,14 +16,23 @@ class CameraHandler : PermissionHandlerProtocol {
     // ask for permission
     private static func askPermission() {
         
-        // ask device to get permission to camera for video
-        AVCaptureDevice.requestAccess(for: .video) { success in
-            if success {
-                hasPermission = true
-            } else {
-                hasPermission = false
+        // check current status of video permission
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .denied, .restricted:
+            return
+        case .authorized:
+            // set permission to true if already authorized
+            hasPermission = true
+            break
+        case .notDetermined:
+            // ask device to get permission to camera for video
+            AVCaptureDevice.requestAccess(for: .video) { success in
+                if success {
+                    hasPermission = true
+                }
             }
         }
+        
     }
     
     
