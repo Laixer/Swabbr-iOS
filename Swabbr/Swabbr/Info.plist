@@ -35,9 +35,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Test</string>
+	<string>To use the app you are required to give permission to use your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Testing</string>
+	<string>To use the app you are required to give permission to use your location.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To use the app you are required to give permission to use your camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To use the app you are required to give permission to use your microphone</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
