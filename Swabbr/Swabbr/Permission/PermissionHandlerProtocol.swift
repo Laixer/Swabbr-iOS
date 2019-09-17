@@ -11,7 +11,7 @@ import UIKit
 protocol PermissionHandlerProtocol {
     
     // keeping track of permission status throughout
-    var hasPermission: Bool {get set}
+    static var hasPermission: Bool {get set}
     
     // creates an error dialog
     static func createErrorDialog(rootView: UIViewController)
