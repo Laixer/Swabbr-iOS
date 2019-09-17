@@ -16,7 +16,7 @@ class LocationHandler : NSObject, PermissionHandlerProtocol {
     
     private let locationManager = CLLocationManager()
     
-    var hasPermission = false
+    static var hasPermission = false
     
     // init
     required override init() {}
@@ -51,16 +51,19 @@ class LocationHandler : NSObject, PermissionHandlerProtocol {
             _self!.locationManager.delegate = _self!
             _self!.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             _self!.locationManager.startUpdatingLocation()
-            _self!.hasPermission = true
+            hasPermission = true
         }
     }
     
     
     // create an error dialog window if error permission error occurs
     static func createErrorDialog(rootView: UIViewController) {
-        let errorAlert = UIAlertController(title: "Permissions", message: "Location is required", preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        rootView.present(errorAlert, animated: true, completion: nil)
+        // handle alert in main thread to prevent "view not on current stack" error
+        DispatchQueue.main.async {
+            let errorAlert = UIAlertController(title: "Permissions", message: "Location is required", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            rootView.present(errorAlert, animated: true, completion: nil)
+        }
     }
     
 }
