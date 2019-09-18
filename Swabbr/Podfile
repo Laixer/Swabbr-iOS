@@ -6,5 +6,6 @@ target 'Swabbr' do
   use_frameworks!
 
   # Pods for Swabbr
+  pod 'SwiftyCam'
 
 end
