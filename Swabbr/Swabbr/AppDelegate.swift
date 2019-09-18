@@ -15,6 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // setup window
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let rootViewController = TimelineViewController(nibName: "TimelineViewController", bundle: nil)
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         return true
     }
 
