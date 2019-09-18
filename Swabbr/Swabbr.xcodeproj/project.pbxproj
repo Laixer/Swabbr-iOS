@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; };
 		C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21D8232FA35700BF772D /* AppDelegate.swift */; };
-		C2DE21DB232FA35700BF772D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21DA232FA35700BF772D /* ViewController.swift */; };
 		C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DF232FA3E900BF772D /* Assets.xcassets */; };
 		C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */; };
 		C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */; };
@@ -31,7 +30,6 @@
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C2DE21D5232FA35700BF772D /* Swabbr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swabbr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DE21D8232FA35700BF772D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C2DE21DA232FA35700BF772D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C2DE21DF232FA3E900BF772D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2DE21E2232FA3E900BF772D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2DE21E4232FA3E900BF772D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				C2DE21F5232FE89400BF772D /* View */,
 				C2DE21EA232FB43300BF772D /* Permission */,
 				C2DE21D8232FA35700BF772D /* AppDelegate.swift */,
-				C2DE21DA232FA35700BF772D /* ViewController.swift */,
 				C2DE21DF232FA3E900BF772D /* Assets.xcassets */,
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
@@ -283,7 +280,6 @@
 			files = (
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
 				C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */,
-				C2DE21DB232FA35700BF772D /* ViewController.swift in Sources */,
 				C2DE21F4232FDC2B00BF772D /* CameraHandler.swift in Sources */,
 				C2DE21F7232FE90700BF772D /* CameraPreviewView.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VideoStreamViewController.swift in Sources */,
