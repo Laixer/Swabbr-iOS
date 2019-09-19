@@ -13,4 +13,6 @@ class TimelineViewController : UIViewController {
     override func viewDidLoad() {
     }
     
+    @IBAction func showProfile(_ sender: UIButton) {
+    }
 }
