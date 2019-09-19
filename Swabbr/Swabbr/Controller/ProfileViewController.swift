@@ -10,10 +10,7 @@ import Foundation
 import UIKit
 
 class ProfileViewController : UIViewController {
-    
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
+
     private let user: User
     
     // set the user to use for profile information

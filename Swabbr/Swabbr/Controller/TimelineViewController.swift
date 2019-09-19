@@ -10,9 +10,8 @@ import UIKit
 
 class TimelineViewController : UIViewController {
     
-    override func viewDidLoad() {
-    }
+    private let user = User(uid: 1, username: "James", profileImage: 32434543654, followersCount: 23)
     
-    @IBAction func showProfile(_ sender: UIButton) {
+    override func viewDidLoad() {
     }
 }

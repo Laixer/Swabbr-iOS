@@ -22,13 +22,6 @@ class VideoStreamViewController : SwiftyCamViewController {
         cameraDelegate = self
     }
     
-    @IBAction func clickedRecordButton(_ sender: UIButton) {
-    }
-    
-    @IBAction func clickedCameraSwitchButton(_ sender: Any) {
-        switchCamera()
-    }
-    
 }
 
 // extension to add delegate of swiftycam to the class
