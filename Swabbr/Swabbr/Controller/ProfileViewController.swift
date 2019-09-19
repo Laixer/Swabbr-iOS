@@ -28,6 +28,8 @@ class ProfileViewController : UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
+        usernameLabel.text = user.username
+        followersLabel.text = String(user.followersCount)
     }
     
 }
