@@ -22,6 +22,7 @@
 		C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AE23325AB90071B828 /* ProfileViewController.swift */; };
 		C2E776B223325B160071B828 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776B123325B160071B828 /* User.swift */; };
 		C2E776B42332696B0071B828 /* TimelineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2E776B32332696B0071B828 /* TimelineViewController.xib */; };
+		C2E776B7233273B50071B828 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2E776B6233273B50071B828 /* ProfileViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C2E776AE23325AB90071B828 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C2E776B123325B160071B828 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C2E776B32332696B0071B828 /* TimelineViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineViewController.xib; sourceTree = "<group>"; };
+		C2E776B6233273B50071B828 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E776B32332696B0071B828 /* TimelineViewController.xib */,
+				C2E776B6233273B50071B828 /* ProfileViewController.xib */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			files = (
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2E776B42332696B0071B828 /* TimelineViewController.xib in Resources */,
+				C2E776B7233273B50071B828 /* ProfileViewController.xib in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
