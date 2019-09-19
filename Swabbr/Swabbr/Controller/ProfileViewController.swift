@@ -16,7 +16,7 @@ class ProfileViewController : UIViewController {
     // set the user to use for profile information
     init(user: User) {
         self.user = user
-        super.init(nibName: "ProfileViewController", bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,8 +25,6 @@ class ProfileViewController : UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
-        usernameLabel.text = user.username
-        followersLabel.text = String(user.followersCount)
     }
     
 }
