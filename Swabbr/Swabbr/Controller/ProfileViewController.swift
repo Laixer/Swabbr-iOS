@@ -13,6 +13,14 @@ class ProfileViewController : UIViewController {
 
     private let user: User
     
+    private let profileImageView = UIImageView()
+    private let usernameLabel = UILabel()
+    private let countVlogsLabel = UILabel()
+    private let countFollowersLabel = UILabel()
+    private let countFollowingLabel = UILabel()
+    
+    private let updateProfileButton = UIButton()
+    
     // set the user to use for profile information
     init(user: User) {
         self.user = user
