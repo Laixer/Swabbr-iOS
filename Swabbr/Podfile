@@ -7,5 +7,6 @@ target 'Swabbr' do
 
   # Pods for Swabbr
   pod 'SwiftyCam'
+  pod 'NextLevel', '0.14.0'
 
 end

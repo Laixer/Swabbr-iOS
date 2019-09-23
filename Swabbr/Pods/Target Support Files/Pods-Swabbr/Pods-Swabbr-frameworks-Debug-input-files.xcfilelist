@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-Swabbr/Pods-Swabbr-frameworks.sh
+${BUILT_PRODUCTS_DIR}/NextLevel/NextLevel.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyCam/SwiftyCam.framework
