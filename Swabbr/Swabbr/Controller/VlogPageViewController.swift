@@ -31,7 +31,7 @@ class VlogPageViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = video.uid
+        title = vlog.id
         view.backgroundColor = UIColor.white
         
         userProfileImageView.contentMode = .scaleAspectFill
