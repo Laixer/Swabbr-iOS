@@ -1,5 +1,5 @@
 //
-//  VideoTimeProgressBar.swift
+//  VlogTimeProgressBar.swift
 //  Swabbr
 //
 //  Created by James Bal on 23-09-19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoTimeProgressBar : UIProgressView {
+class VlogTimeProgressBar : UIProgressView {
     
     /// required time to make this bar fill up, default is 10.0
     private var requiredTimeInSeconds: TimeInterval = 10

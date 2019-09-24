@@ -1,5 +1,5 @@
 //
-//  VideoStreamControlView.swift
+//  VlogStreamControlView.swift
 //  Swabbr
 //
 //  Created by James Bal on 23-09-19.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class VideoStreamControlView : UIView {
+class VlogStreamControlView : UIView {
     
-    private let minimumVideoTimeProgressBar = VideoTimeProgressBar()
+    private let minimumVlogTimeProgressBar = VlogTimeProgressBar()
     private let countdownLabel = CountdownLabel()
     
     public let flipCameraBottomRightButton = UIButton(type: UIButton.ButtonType.infoDark)
@@ -30,7 +30,7 @@ class VideoStreamControlView : UIView {
         recordButton.isEnabled = false
         
         addSubview(countdownLabel)
-        addSubview(minimumVideoTimeProgressBar)
+        addSubview(minimumVlogTimeProgressBar)
         addSubview(flipCameraTopLeftButton)
         addSubview(flipCameraBottomRightButton)
         addSubview(recordButton)
@@ -45,7 +45,7 @@ class VideoStreamControlView : UIView {
     
     /// disable automatic constriants so that we can overwrite with our own constraints
     private func disableAutoresizing() {
-        minimumVideoTimeProgressBar.translatesAutoresizingMaskIntoConstraints = false
+        minimumVlogTimeProgressBar.translatesAutoresizingMaskIntoConstraints = false
         countdownLabel.translatesAutoresizingMaskIntoConstraints = false
         flipCameraTopLeftButton.translatesAutoresizingMaskIntoConstraints = false
         flipCameraBottomRightButton.translatesAutoresizingMaskIntoConstraints = false
@@ -62,11 +62,11 @@ class VideoStreamControlView : UIView {
             countdownLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countdownLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // minimumVideoTimeProgressBar
-            minimumVideoTimeProgressBar.leftAnchor.constraint(equalTo: leftAnchor),
-            minimumVideoTimeProgressBar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            minimumVideoTimeProgressBar.heightAnchor.constraint(equalToConstant: 20),
-            minimumVideoTimeProgressBar.widthAnchor.constraint(equalToConstant: 300),
+            // minimumVlogTimeProgressBar
+            minimumVlogTimeProgressBar.leftAnchor.constraint(equalTo: leftAnchor),
+            minimumVlogTimeProgressBar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            minimumVlogTimeProgressBar.heightAnchor.constraint(equalToConstant: 20),
+            minimumVlogTimeProgressBar.widthAnchor.constraint(equalToConstant: 300),
             
             // flipCameraTopLeftButton
             flipCameraTopLeftButton.leftAnchor.constraint(equalTo: leftAnchor),
