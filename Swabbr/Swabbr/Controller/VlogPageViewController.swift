@@ -91,7 +91,7 @@ class VlogPageViewController : UIViewController {
     }
     
     @objc func clickedProfilePicture() {
-        navigationController?.pushViewController(ProfileViewController(user: video.owner), animated: true)
+        navigationController?.pushViewController(ProfileViewController(user: vlog.owner), animated: true)
     }
     
 }
