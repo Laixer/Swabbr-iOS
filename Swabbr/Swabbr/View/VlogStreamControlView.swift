@@ -76,7 +76,7 @@ class VlogStreamControlView : UIView {
             flipCameraBottomRightButton.rightAnchor.constraint(equalTo: rightAnchor),
             flipCameraBottomRightButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            recordButton.bottomAnchor.constraint(equalTo: minimumVideoTimeProgressBar.topAnchor),
+            recordButton.bottomAnchor.constraint(equalTo: minimumVlogTimeProgressBar.topAnchor),
             recordButton.centerXAnchor.constraint(equalTo: centerXAnchor)
             
         ])
@@ -92,7 +92,7 @@ class VlogStreamControlView : UIView {
     
     /// make the camera functionalities available
     private func showCameraView() {
-        self.minimumVideoTimeProgressBar.start {
+        self.minimumVlogTimeProgressBar.start {
             self.recordButton.isEnabled = true
         }
         countdownLabel.removeFromSuperview()
