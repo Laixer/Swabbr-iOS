@@ -10,12 +10,12 @@ import UIKit
 
 class VideoTimeProgressBar : UIProgressView {
     
-    // required time to make this bar fill up, default is 10.0
+    /// required time to make this bar fill up, default is 10.0
     private var requiredTimeInSeconds: TimeInterval = 10
     
     typealias CompletionHandler = () -> Void
     
-    // initializers for this progress view
+    /// initializers for this progress view
     init() {
         super.init(frame: .zero)
         readyView()
@@ -31,7 +31,7 @@ class VideoTimeProgressBar : UIProgressView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // ready up view with general settings
+    /// ready up view with general settings
     private func readyView() {
         tintColor = UIColor.red
         backgroundColor = UIColor.gray

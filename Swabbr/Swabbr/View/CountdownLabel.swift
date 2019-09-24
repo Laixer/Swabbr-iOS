@@ -11,7 +11,7 @@ import UIKit
 class CountdownLabel: UILabel {
     
     private var timer = Timer()
-    // seconds to countdown from, default is 3
+    /// seconds to countdown from, default is 3
     private var seconds: TimeInterval = 3
     
     typealias CompletionHandler = () -> Void

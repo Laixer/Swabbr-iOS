@@ -22,6 +22,7 @@ class ProfileViewController : UIViewController {
     private let updateProfileButton = UIButton()
     
     // set the user to use for profile information
+    /// set the user to use for profile information
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
