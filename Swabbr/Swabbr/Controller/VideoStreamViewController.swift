@@ -2,7 +2,7 @@
 //  VideoPageViewController.swift
 //  Swabbr
 //
-//  Created by Anonymous on 17-09-19.
+//  Created by James Bal on 17-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 //  This class will handle all Streaming related actions

@@ -2,7 +2,7 @@
 //  Video.swift
 //  Swabbr
 //
-//  Created by Anonymous on 19-09-19.
+//  Created by James Bal on 19-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 

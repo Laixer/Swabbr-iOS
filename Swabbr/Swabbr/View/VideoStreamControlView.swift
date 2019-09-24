@@ -2,7 +2,7 @@
 //  VideoStreamControlView.swift
 //  Swabbr
 //
-//  Created by Anonymous on 23-09-19.
+//  Created by James Bal on 23-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
@@ -23,7 +23,7 @@ class VideoStreamControlView : UIView {
         
         super.init(frame: .zero)
         
-        tintColor = UIColor.black
+        tintColor = UIColor.white
         
         countdownLabel.font = countdownLabel.font.withSize(50)
         
