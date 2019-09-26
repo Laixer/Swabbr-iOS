@@ -13,12 +13,14 @@ import UIKit
 protocol ApiResource {
     associatedtype ModelType: Decodable
     var methodPath: String {get}
+    var queryItems: [URLQueryItem] {get}
 }
 
 extension ApiResource {
     var url: URL {
         var components = URLComponents(string: "https://my-json-server.typicode.com")!
         components.path = "/pnobbe/swabbrdata" + methodPath
+        components.queryItems = queryItems
         return components.url!
     }
 }
@@ -85,4 +87,11 @@ extension ApiRequest: NetworkRequest {
 struct UserResource: ApiResource {
     typealias ModelType = User
     let methodPath = "/users"
+    let queryItems: [URLQueryItem] = []
+}
+
+struct VlogResource: ApiResource {
+    typealias ModelType = Vlog
+    let methodPath = "/vlogs"
+    let queryItems: [URLQueryItem] = []
 }

@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct User: Decodable {
+struct User: Codable {
     
     var id: Int
     var firstName: String
@@ -31,7 +31,7 @@ struct User: Decodable {
     /**
      Converts the value of gender to conform our model.
     */
-    enum Gender: String, Decodable {
+    enum Gender: String, Codable {
         case Male = "M"
         case Female = "F"
     }
@@ -46,7 +46,7 @@ struct User: Decodable {
     }
     
     /**
-     This function makes the data confirm to the model.
+     This function makes the data conform to the model.
      It will try and parse the values to their correct value according to the model.
      - parameter decoder: The decoder built in swift to read the data from.
      - Throws: A decodingerror when the data can't be converted to their respective type.

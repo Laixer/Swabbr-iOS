@@ -8,30 +8,64 @@
 
 import Foundation
 
-struct Vlog {
+class Vlog: Codable {
     
-    var id: Int64
+    var id: Int
     var isPrivate: Bool
-    var duration: Int
+    var duration: String
     var startDate: Date
     var totalLikes: Int
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
-    var owner: User
+    var owner: User?
+    var ownerId: Int
     
-    init(id: Int64, isPrivate: Bool, duration: Int, startDate: Date, totalLikes: Int, totalReactions: Int, totalViews: Int, isLive: Bool, owner: User) {
-        self.id = id
-        self.isPrivate = isPrivate
-        self.duration = duration
-        self.startDate = startDate
-        self.totalLikes = totalLikes
-        self.totalReactions = totalReactions
-        self.totalViews = totalViews
-        self.isLive = isLive
-        self.owner = owner
+    /**
+     Handles possible name convention differences.
+     Put each value in their respected model variant.
+     */
+    enum CodingKeys: String, CodingKey {
+        case id
+        case isPrivate = "private"
+        case duration, startDate, totalLikes, totalReactions, totalViews, isLive, owner
+        case ownerId = "userId"
+        
     }
     
-    // add vlog related methods like "like" and "react"
+    /**
+     This function makes the data conform to the model.
+     It will try and parse the values to their correct value according to the model.
+     - parameter decoder: The decoder built in swift to read the data from.
+     - Throws: A decodingerror when the data can't be converted to their respective type.
+     */
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let idString = try container.decode(String.self, forKey: CodingKeys.id)
+        guard let idInt = Int(idString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.id], debugDescription: "Could not parse json key to Int object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        id = idInt
+        
+        isPrivate = try container.decode(Bool.self, forKey: CodingKeys.isPrivate)
+        duration = try container.decode(String.self, forKey: CodingKeys.duration)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
+        let startDateString = try container.decode(String.self, forKey: CodingKeys.startDate)
+        startDate = dateFormatter.date(from: startDateString)!
+        
+        totalLikes = try container.decode(Int.self, forKey: CodingKeys.totalLikes)
+        totalReactions = try container.decode(Int.self, forKey: CodingKeys.totalReactions)
+        totalViews = try container.decode(Int.self, forKey: CodingKeys.totalViews)
+        isLive = try container.decode(Bool.self, forKey: CodingKeys.isLive)
+        
+        owner = nil
+        ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
+        
+    }
     
 }
