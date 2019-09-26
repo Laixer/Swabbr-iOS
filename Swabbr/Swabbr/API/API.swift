@@ -34,8 +34,8 @@ extension NetworkRequest {
      It handles the network transfer,
      it will make a call to the given url and it will handle the data accordingly and send it out to the callback function.
      The function accepts a URL and a callback function.
-     - parameter url: An URL value representing the url to make the request to
-     - parameter completion: A callback function that takes a ModelType as parameter
+     - parameter url: An URL value representing the url to make the request to.
+     - parameter completion: A callback function that takes a ModelType as parameter.
     */
     fileprivate func load(_ url: URL, withCompletion completion: @escaping (ModelType?) -> Void) {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
@@ -64,8 +64,8 @@ extension ApiRequest: NetworkRequest {
     /**
      It decodes the data from the server to the set modeltype.
      This methode accepts a data value representing the bytes of the data.
-     - parameter data: A data value representing the bytes of the data
-     - Returns: An array of objects according to the given modeltype
+     - parameter data: A data value representing the bytes of the data.
+     - Returns: An array of objects according to the given modeltype.
     */
     func decode(_ data: Data) -> [Resource.ModelType]? {
         let wrapper = try? JSONDecoder().decode([Resource.ModelType].self, from: data)
@@ -73,9 +73,9 @@ extension ApiRequest: NetworkRequest {
     }
     
     /**
-     It will call the load function of the NetworkRequest class
-     This methode accepts a callback function to handle the results accordingly
-     - parameter completion: A callback function
+     It will call the load function of the NetworkRequest class.
+     This methode accepts a callback function to handle the results accordingly.
+     - parameter completion: A callback function.
     */
     func load(withCompletion completion: @escaping ([Resource.ModelType]?) -> Void) {
         load(resource.url, withCompletion: completion)

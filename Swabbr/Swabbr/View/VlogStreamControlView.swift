@@ -43,7 +43,9 @@ class VlogStreamControlView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// disable automatic constriants so that we can overwrite with our own constraints
+    /**
+     To enure that the constraints are working correctly, we disable the creation of defaults and system constraints to override them with our own.
+    */
     private func disableAutoresizing() {
         minimumVlogTimeProgressBar.translatesAutoresizingMaskIntoConstraints = false
         countdownLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +54,10 @@ class VlogStreamControlView : UIView {
         recordButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    /// apply the given constraints
+    /**
+     This function handles all the constraints for all the views.
+     It will apply all the given constraints to the view so it will be displayed accordingly.
+    */
     private func applyConstraints() {
         disableAutoresizing()
         
@@ -82,6 +87,11 @@ class VlogStreamControlView : UIView {
         ])
     }
     
+    /**
+     This function is part of a large chain which will activate each time when a certain action is done.
+     This function is responsible for the countdownLabel to start and handle when it completes.
+     - parameter completionHandler: A callback which will be run when the countdown has been finished and thus the camera is fully functional.
+    */
     /// start the whole chain of actions required to start a livestream
     func startOperateView(completionHandler: @escaping () -> Void) {
         countdownLabel.startCountdown(completionHandler: {
@@ -90,7 +100,11 @@ class VlogStreamControlView : UIView {
         })
     }
     
-    /// make the camera functionalities available
+    /**
+     This function is responsible to start the VlogTimeProgressBar.
+     It will handle accordingly when the progressbar has been recognized as finished.
+     It will also remove the countdownLabel from the screen.
+    */
     private func showCameraView() {
         self.minimumVlogTimeProgressBar.start {
             self.recordButton.isEnabled = true
@@ -98,7 +112,10 @@ class VlogStreamControlView : UIView {
         countdownLabel.removeFromSuperview()
     }
     
-    /// make the whole view clickable except the items which need to be clickable
+    /**
+     This will make it so the view itself is clickthrough but not the elements on it.
+     This is required because of the fact that we are only interested in the items in this view, the view itself should function as a container and not as a seperate item.
+    */
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews as [UIView] {
             if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {

@@ -37,12 +37,22 @@ class FocusIndicatorView: UIView {
 
 extension FocusIndicatorView {
     
+    /**
+     Prepare the animation by setting values to their appropiate values.
+    */
     fileprivate func prepareAnimation() {
         // prepare animation
         self.focusRingRectangle.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         self.focusRingRectangle.alpha = 0
     }
     
+    /**
+     Start with the animation for the indicator view.
+     It consists of 2 seperate animations as dicussed below.
+     When the animation is finished it will call the stopAnimation function.
+     - First animation will handle the alpha of the rectangle.
+     - Second animation will handle the scale of the rectangle.
+    */
     public func startAnimation() {
         self.focusRingRectangle.layer.removeAllAnimations()
         
@@ -60,6 +70,13 @@ extension FocusIndicatorView {
         }
     }
     
+    /**
+     This is responsible to animate back to the default values.
+     It consists of 2 seperate animations as dicussed below.
+     After it is completely finished it will remove this view from the superview
+     - First animation will handle the alpha of the rectangle.
+     - Second animation will handle the scale of the rectangle.
+    */
     public func stopAnimation() {
         self.focusRingRectangle.layer.removeAllAnimations()
         
@@ -77,7 +94,6 @@ extension FocusIndicatorView {
     
 }
 
-/// Rectangle class to handle the cgrect functions
 fileprivate class Rectangle: UIView {
     
     override init(frame: CGRect) {
