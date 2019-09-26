@@ -15,7 +15,6 @@ protocol ApiResource {
     var methodPath: String {get}
 }
 
-/// Sets up the url accordingly
 extension ApiResource {
     var url: URL {
         var components = URLComponents(string: "https://my-json-server.typicode.com")!
@@ -31,6 +30,13 @@ protocol NetworkRequest: AnyObject {
 }
 
 extension NetworkRequest {
+    /**
+     It handles the network transfer,
+     it will make a call to the given url and it will handle the data accordingly and send it out to the callback function.
+     The function accepts a URL and a callback function.
+     - parameter url: An URL value representing the url to make the request to
+     - parameter completion: A callback function that takes a ModelType as parameter
+    */
     fileprivate func load(_ url: URL, withCompletion completion: @escaping (ModelType?) -> Void) {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         let task = session.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
@@ -56,8 +62,8 @@ class ApiRequest<Resource: ApiResource> {
 extension ApiRequest: NetworkRequest {
     
     /**
-     It decodes the data from the server to the set modeltype
-     This methode accepts a data value representing the bytes of the data
+     It decodes the data from the server to the set modeltype.
+     This methode accepts a data value representing the bytes of the data.
      - parameter data: A data value representing the bytes of the data
      - Returns: An array of objects according to the given modeltype
     */
