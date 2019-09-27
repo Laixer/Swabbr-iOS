@@ -14,13 +14,21 @@
 		C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */; };
 		C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21EF232FB73F00BF772D /* LocationHandler.swift */; };
 		C2DE21F4232FDC2B00BF772D /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21F3232FDC2B00BF772D /* CameraHandler.swift */; };
-		C2DE21F7232FE90700BF772D /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21F6232FE90700BF772D /* CameraPreviewView.swift */; };
-		C2DE21FA23311D3F00BF772D /* VideoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21F923311D3F00BF772D /* VideoStreamViewController.swift */; };
+		C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */; };
 		C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21FB23321A6600BF772D /* TimelineViewController.swift */; };
 		C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AA23325A1E0071B828 /* LoginViewController.swift */; };
 		C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AC23325A580071B828 /* RegisterViewController.swift */; };
 		C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AE23325AB90071B828 /* ProfileViewController.swift */; };
 		C2E776B223325B160071B828 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776B123325B160071B828 /* User.swift */; };
+		C2E776C52333A4320071B828 /* Vlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C42333A4320071B828 /* Vlog.swift */; };
+		C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C62333A82F0071B828 /* VlogPageViewController.swift */; };
+		C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */; };
+		C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CA2334C88D0071B828 /* NotificationHandler.swift */; };
+		C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */; };
+		C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CE2338D18A0071B828 /* CountdownLabel.swift */; };
+		C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776D02338D7D50071B828 /* VlogStreamControlView.swift */; };
+		C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776D8233A295A0071B828 /* FocusIndicatorView.swift */; };
+		C2E776DC233A65D10071B828 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776DB233A65D10071B828 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,13 +43,21 @@
 		C2DE21ED232FB57C00BF772D /* PermissionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHandlerProtocol.swift; sourceTree = "<group>"; };
 		C2DE21EF232FB73F00BF772D /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		C2DE21F3232FDC2B00BF772D /* CameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
-		C2DE21F6232FE90700BF772D /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
-		C2DE21F923311D3F00BF772D /* VideoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStreamViewController.swift; sourceTree = "<group>"; };
+		C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogStreamViewController.swift; sourceTree = "<group>"; };
 		C2DE21FB23321A6600BF772D /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		C2E776AA23325A1E0071B828 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C2E776AC23325A580071B828 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C2E776AE23325AB90071B828 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C2E776B123325B160071B828 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C2E776C42333A4320071B828 /* Vlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vlog.swift; sourceTree = "<group>"; };
+		C2E776C62333A82F0071B828 /* VlogPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPageViewController.swift; sourceTree = "<group>"; };
+		C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTableViewCell.swift; sourceTree = "<group>"; };
+		C2E776CA2334C88D0071B828 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTimeProgressBar.swift; sourceTree = "<group>"; };
+		C2E776CE2338D18A0071B828 /* CountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabel.swift; sourceTree = "<group>"; };
+		C2E776D02338D7D50071B828 /* VlogStreamControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogStreamControlView.swift; sourceTree = "<group>"; };
+		C2E776D8233A295A0071B828 /* FocusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusIndicatorView.swift; sourceTree = "<group>"; };
+		C2E776DB233A65D10071B828 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +110,7 @@
 		C2DE21D7232FA35700BF772D /* Swabbr */ = {
 			isa = PBXGroup;
 			children = (
+				C2E776DA233A652B0071B828 /* API */,
 				C2E776B023325AF10071B828 /* Struct */,
 				C2DE21F823311CA200BF772D /* Controller */,
 				C2DE21F5232FE89400BF772D /* View */,
@@ -102,6 +119,7 @@
 				C2DE21DF232FA3E900BF772D /* Assets.xcassets */,
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
+				C2E776CA2334C88D0071B828 /* NotificationHandler.swift */,
 			);
 			path = Swabbr;
 			sourceTree = "<group>";
@@ -119,7 +137,11 @@
 		C2DE21F5232FE89400BF772D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C2DE21F6232FE90700BF772D /* CameraPreviewView.swift */,
+				C2E776BD233382320071B828 /* TableCell */,
+				C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */,
+				C2E776CE2338D18A0071B828 /* CountdownLabel.swift */,
+				C2E776D02338D7D50071B828 /* VlogStreamControlView.swift */,
+				C2E776D8233A295A0071B828 /* FocusIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -128,9 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				C2E776A9233252DA0071B828 /* Authentication */,
-				C2DE21F923311D3F00BF772D /* VideoStreamViewController.swift */,
+				C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */,
 				C2DE21FB23321A6600BF772D /* TimelineViewController.swift */,
 				C2E776AE23325AB90071B828 /* ProfileViewController.swift */,
+				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -148,8 +171,25 @@
 			isa = PBXGroup;
 			children = (
 				C2E776B123325B160071B828 /* User.swift */,
+				C2E776C42333A4320071B828 /* Vlog.swift */,
 			);
 			path = Struct;
+			sourceTree = "<group>";
+		};
+		C2E776BD233382320071B828 /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */,
+			);
+			path = TableCell;
+			sourceTree = "<group>";
+		};
+		C2E776DA233A652B0071B828 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776DB233A65D10071B828 /* API.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,13 +309,21 @@
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
 				C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */,
 				C2DE21F4232FDC2B00BF772D /* CameraHandler.swift in Sources */,
-				C2DE21F7232FE90700BF772D /* CameraPreviewView.swift in Sources */,
-				C2DE21FA23311D3F00BF772D /* VideoStreamViewController.swift in Sources */,
+				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
+				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
+				C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */,
+				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
+				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
+				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
+				C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
+				C2E776DC233A65D10071B828 /* API.swift in Sources */,
+				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
+				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
