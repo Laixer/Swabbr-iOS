@@ -95,3 +95,56 @@ struct VlogResource: ApiResource {
     let methodPath = "/vlogs"
     let queryItems: [URLQueryItem] = []
 }
+
+// MARK: - ServerData
+class ServerData {
+    
+    static var vlogs: [Vlog] = []
+    static var users: [User] = []
+    
+    enum Sort {
+        case Old
+        case New
+    }
+    
+    /**
+     This function handles the API call to retrieve the users.
+     When the request has been completed the result will be send with the callback function.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+     */
+    func getUsers(onComplete completionHandler: @escaping ([User]?) -> Void) {
+        // TODO: caching
+        if ServerData.users.count > 0 {
+            completionHandler(ServerData.users)
+            return
+        }
+        let usersRequest = ApiRequest(resource: UserResource())
+        usersRequest.load{(users: [User]?) in
+            ServerData.users = users!
+            completionHandler(users)
+        }
+    }
+
+    /**
+     This function handles the API call to retrieve the vlogs.
+     When the request has been completed the result will be send with the callback function.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+     */
+    func getVlogs(onComplete completionHandler: @escaping ([Vlog]?) -> Void) {
+        // TODO: caching
+        if ServerData.vlogs.count > 0 {
+            completionHandler(ServerData.vlogs)
+            return
+        }
+        let vlogRequest = ApiRequest(resource: VlogResource())
+        vlogRequest.load{(vlogs: [Vlog]?) in
+            for vlog in vlogs! {
+                if let existingUser = ServerData.users.first(where: {$0.id == vlog.ownerId}){
+                    vlog.owner = existingUser
+                }
+            }
+            ServerData.vlogs = vlogs!
+            completionHandler(vlogs)
+        }
+    }
+}
