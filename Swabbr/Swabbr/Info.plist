@@ -28,6 +28,8 @@
 	<string>To use the app you are required to give permission to use your location.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To use the app you are required to give permission to use your microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Required</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
