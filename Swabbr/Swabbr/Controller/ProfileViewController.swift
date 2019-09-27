@@ -20,8 +20,12 @@ class ProfileViewController : UIViewController {
     private let countFollowingLabel = UILabel()
     
     private let updateProfileButton = UIButton()
-    
-    /// set the user to use for profile information
+
+    /**
+     Initializes with a user value.
+     It will fill up the view with the user information that is stored in the given object.
+     - parameter user: An User object.
+    */
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -33,6 +37,18 @@ class ProfileViewController : UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
+        
+        usernameLabel.text = user.username
+        
+        view.addSubview(usernameLabel)
+        
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+                usernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor)
+        ])
+        
     }
     
 }
