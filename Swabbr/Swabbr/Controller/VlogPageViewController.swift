@@ -240,9 +240,6 @@ class VlogPageViewController : UIViewController {
         if reactionController != nil {
             return
         }
-        
-        print(playerView.view.bounds)
-        print(playerView.view.frame)
 
         reactionController = ReactionViewController(vlogId: vlog.id)
         view.addSubview(reactionController!.view)
