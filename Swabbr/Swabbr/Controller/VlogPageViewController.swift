@@ -18,8 +18,10 @@ class VlogPageViewController : UIViewController {
     private let isLiveLabel = UILabel()
     private let userProfileImageView = UIImageView()
     private let userUsernameLabel = UILabel()
+    private let reactionButton = UIButton()
     
-    let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+    private let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+    private var playerLayer: AVPlayerLayer?
     
     private let vlog: Vlog
     
@@ -45,16 +47,20 @@ class VlogPageViewController : UIViewController {
         
         initElements()
         
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = view.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(playerLayer)
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer!.frame = view.bounds
+        playerLayer!.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(playerLayer!)
         
         // add ui components to current view
         view.addSubview(likesLabel)
         view.addSubview(viewsLabel)
         view.addSubview(userProfileImageView)
         view.addSubview(userUsernameLabel)
+        view.addSubview(reactionButton)
+        if vlog.isLive {
+            view.addSubview(isLiveLabel)
+        }
         
         setConstraints()
         
@@ -72,6 +78,11 @@ class VlogPageViewController : UIViewController {
         userProfileImageView.contentMode = .scaleAspectFill
         userProfileImageView.clipsToBounds = true
         
+        reactionButton.setTitle("React", for: .normal)
+        reactionButton.tintColor = UIColor.white
+        reactionButton.backgroundColor = UIColor.black
+        reactionButton.addTarget(self, action: #selector(clickedReactButton), for: .touchUpInside)
+        
         // set values
         likesLabel.text = String(vlog.totalLikes)
         viewsLabel.text = String(vlog.totalViews)
@@ -83,6 +94,8 @@ class VlogPageViewController : UIViewController {
         } catch {
             print(error)
         }
+        isLiveLabel.text = "Live"
+        isLiveLabel.backgroundColor = UIColor.red
     }
     
     /**
@@ -95,6 +108,8 @@ class VlogPageViewController : UIViewController {
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         userProfileImageView.translatesAutoresizingMaskIntoConstraints = false
         userUsernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        isLiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        reactionButton.translatesAutoresizingMaskIntoConstraints = false
         
         // apply constraints
         NSLayoutConstraint.activate([
@@ -110,14 +125,25 @@ class VlogPageViewController : UIViewController {
             userProfileImageView.widthAnchor.constraint(equalToConstant: 100),
             
             // likesLabel
-            likesLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            likesLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             likesLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
             // viewsLabel
             viewsLabel.topAnchor.constraint(equalTo: likesLabel.bottomAnchor),
             viewsLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
+            // reactionButton
+            reactionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            reactionButton.leftAnchor.constraint(equalTo: likesLabel.rightAnchor, constant: 10),
+            
         ])
+        
+        if vlog.isLive {
+            NSLayoutConstraint.activate([
+                isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                isLiveLabel.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,6 +187,33 @@ class VlogPageViewController : UIViewController {
     */
     @objc func clickedProfilePicture() {
         navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
+    }
+    
+    /**
+     This will handle all actions required to handle the click of the reation button.
+    */
+    @objc func clickedReactButton() {
+        addReactionViewControllerTo()
+    }
+    
+    /**
+     When the react button has been pressed this function will run.
+     The function will prepare the ReactionViewController to be shown in this current viewcontroller.
+     This will only show the data coming from the ReactionViewController, this controller will not be responsible for function calls regarding the reactions.
+    */
+    private func addReactionViewControllerTo() {
+        let controller = ReactionViewController(vlogId: vlog.id)
+        view.addSubview(controller.view)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            controller.view.trailingAnchor.constraint(equalTo:  view.trailingAnchor),
+            controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            controller.view.topAnchor.constraint(equalTo: view.topAnchor),
+            controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        addChild(controller)
+        controller.didMove(toParent: self)
+        
     }
     
 }
