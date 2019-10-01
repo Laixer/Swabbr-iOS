@@ -10,8 +10,8 @@ import UIKit
 
 class ReactionTableViewCell : UITableViewCell {
     
-    private let userUsernameLabel = UILabel()
-    private let dateLabel = UILabel()
+    let userUsernameLabel = UILabel()
+    let dateLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
