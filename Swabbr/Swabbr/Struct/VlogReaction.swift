@@ -58,7 +58,6 @@ class VlogReaction: Codable {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         postDateString = dateFormatter.string(from: postDate)
-        
 
         owner = nil
         ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
