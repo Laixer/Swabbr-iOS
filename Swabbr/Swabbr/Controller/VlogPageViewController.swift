@@ -13,17 +13,20 @@ import AVFoundation
 
 class VlogPageViewController : UIViewController {
     
-    private let likesLabel = UILabel()
-    private let viewsLabel = UILabel()
+    private let likesCountLabel = UILabel()
+    private let viewsCountLabel = UILabel()
+    private let reactionCountLabel = UILabel()
     private let isLiveLabel = UILabel()
     private let userProfileImageView = UIImageView()
     private let userUsernameLabel = UILabel()
     private let reactionButton = UIButton()
     
     private let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
-    private var playerLayer: AVPlayerLayer?
     
     private let vlog: Vlog
+    
+    private let playerView = AVPlayerViewController()
+    private var reactionController: ReactionViewController?
     
     /**
      The initializer which accepts a Vlog as parameter.
@@ -47,14 +50,17 @@ class VlogPageViewController : UIViewController {
         
         initElements()
         
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer!.frame = view.bounds
-        playerLayer!.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(playerLayer!)
+        playerView.player = player
+        playerView.view.frame = view.bounds
+        playerView.showsPlaybackControls = false
+        playerView.videoGravity = .resizeAspectFill
+        
+        view.addSubview(playerView.view)
         
         // add ui components to current view
-        view.addSubview(likesLabel)
-        view.addSubview(viewsLabel)
+        view.addSubview(likesCountLabel)
+        view.addSubview(viewsCountLabel)
+        view.addSubview(reactionCountLabel)
         view.addSubview(userProfileImageView)
         view.addSubview(userUsernameLabel)
         view.addSubview(reactionButton)
@@ -63,11 +69,6 @@ class VlogPageViewController : UIViewController {
         }
         
         setConstraints()
-        
-        // add tap event on imageview
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(clickedProfilePicture))
-        userProfileImageView.isUserInteractionEnabled = true
-        userProfileImageView.addGestureRecognizer(singleTap)
     }
     
     /**
@@ -78,14 +79,28 @@ class VlogPageViewController : UIViewController {
         userProfileImageView.contentMode = .scaleAspectFill
         userProfileImageView.clipsToBounds = true
         
+        // add tap event on imageview
+        let singleProfileTap = UITapGestureRecognizer(target: self, action: #selector(clickedProfilePicture))
+        userProfileImageView.isUserInteractionEnabled = true
+        userProfileImageView.addGestureRecognizer(singleProfileTap)
+        
         reactionButton.setTitle("React", for: .normal)
         reactionButton.tintColor = UIColor.white
         reactionButton.backgroundColor = UIColor.black
         reactionButton.addTarget(self, action: #selector(clickedReactButton), for: .touchUpInside)
         
         // set values
-        likesLabel.text = String(vlog.totalLikes)
-        viewsLabel.text = String(vlog.totalViews)
+        likesCountLabel.text = String(vlog.totalLikes)
+        viewsCountLabel.text = String(vlog.totalViews)
+        reactionCountLabel.text = String(vlog.totalReactions)
+        let singleReactionTap = UITapGestureRecognizer(target: self, action: #selector(clickedReactionLabel))
+        reactionCountLabel.isUserInteractionEnabled = true
+        reactionCountLabel.addGestureRecognizer(singleReactionTap)
+        
+        let singleVideoTap = UITapGestureRecognizer(target: self, action: #selector(clickedVideoToGoBackToFullscreen))
+        playerView.view.isUserInteractionEnabled = true
+        playerView.view.addGestureRecognizer(singleVideoTap)
+        
         userUsernameLabel.text = vlog.owner!.username
         do {
             let url = URL(string: "https://cdn.mos.cms.futurecdn.net/yJaNqkw6JPf2QuXiYobcY3.jpg")
@@ -104,8 +119,9 @@ class VlogPageViewController : UIViewController {
     */
     private func setConstraints() {
         // disable auto constraint to override with given constraints
-        likesLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewsLabel.translatesAutoresizingMaskIntoConstraints = false
+        likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        viewsCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        reactionCountLabel.translatesAutoresizingMaskIntoConstraints = false
         userProfileImageView.translatesAutoresizingMaskIntoConstraints = false
         userUsernameLabel.translatesAutoresizingMaskIntoConstraints = false
         isLiveLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -124,17 +140,21 @@ class VlogPageViewController : UIViewController {
             userProfileImageView.heightAnchor.constraint(equalToConstant: 100),
             userProfileImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            // likesLabel
-            likesLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            likesLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            // likesCountLabel
+            likesCountLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            likesCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
-            // viewsLabel
-            viewsLabel.topAnchor.constraint(equalTo: likesLabel.bottomAnchor),
-            viewsLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            // viewsCountLabel
+            viewsCountLabel.topAnchor.constraint(equalTo: likesCountLabel.bottomAnchor),
+            viewsCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+            // reactionCountLabel
+            reactionCountLabel.bottomAnchor.constraint(equalTo: likesCountLabel.topAnchor),
+            reactionCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
             // reactionButton
             reactionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            reactionButton.leftAnchor.constraint(equalTo: likesLabel.rightAnchor, constant: 10),
+            reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10),
             
         ])
         
@@ -157,7 +177,7 @@ class VlogPageViewController : UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         // remove observer so we dont get duplicates
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        NotificationCenter.default.removeObserver(self)
         player.pause()
         player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
     }
@@ -193,7 +213,21 @@ class VlogPageViewController : UIViewController {
      This will handle all actions required to handle the click of the reation button.
     */
     @objc func clickedReactButton() {
+    }
+    
+    /**
+     Handle all actions required when the reaction label is pressed.
+    */
+    @objc func clickedReactionLabel() {
+        playerView.view.frame = CGRect(x: 0, y: -playerView.view.bounds.midY, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
         addReactionViewControllerTo()
+    }
+    
+    /**
+     Handle all actions required when the vlog is clicked, returns to fullscreen if reactions are visible.
+    */
+    @objc func clickedVideoToGoBackToFullscreen() {
+        removeReactionViewController()
     }
     
     /**
@@ -202,18 +236,41 @@ class VlogPageViewController : UIViewController {
      This will only show the data coming from the ReactionViewController, this controller will not be responsible for function calls regarding the reactions.
     */
     private func addReactionViewControllerTo() {
-        let controller = ReactionViewController(vlogId: vlog.id)
-        view.addSubview(controller.view)
-        controller.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            controller.view.trailingAnchor.constraint(equalTo:  view.trailingAnchor),
-            controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            controller.view.topAnchor.constraint(equalTo: view.topAnchor),
-            controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        addChild(controller)
-        controller.didMove(toParent: self)
+        // prevent possible double press
+        if reactionController != nil {
+            return
+        }
         
+        print(playerView.view.bounds)
+        print(playerView.view.frame)
+
+        reactionController = ReactionViewController(vlogId: vlog.id)
+        view.addSubview(reactionController!.view)
+        reactionController!.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reactionController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            reactionController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            reactionController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: playerView.view.bounds.midY),
+            reactionController!.view.heightAnchor.constraint(equalToConstant: playerView.view.bounds.midY)
+        ])
+        addChild(reactionController!)
+        reactionController!.didMove(toParent: self)
+        
+    }
+    
+    /**
+     Handles the removal of the reaction view controller.
+     It will ensure that the child controller has been released and prevent memory leaks.
+    */
+    private func removeReactionViewController() {
+        if reactionController == nil {
+            return
+        }
+        
+        playerView.view.frame = CGRect(x: 0, y: 0, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
+        reactionController!.view.removeFromSuperview()
+        reactionController!.removeFromParent()
+        reactionController = nil
     }
     
 }
