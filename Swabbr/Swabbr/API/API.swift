@@ -96,11 +96,27 @@ struct VlogResource: ApiResource {
     let queryItems: [URLQueryItem] = []
 }
 
+struct SpecificVlogReactionResource: ApiResource {
+    typealias ModelType = VlogReaction
+    let methodPath = "/reactions"
+    var queryItems: [URLQueryItem] = []
+    
+    /**
+     Ask for a certain vlog by giving the vlog id to search for.
+     It will make the REST API call using the given id as a parameter.
+     - parameter vlogId: An int value which represents an id of the vlog that is requested.
+    */
+    init(vlogId: Int) {
+        queryItems.append(URLQueryItem(name: "vlogId", value: String(vlogId)))
+    }
+}
+
 // MARK: - ServerData
 class ServerData {
     
     static var vlogs: [Vlog] = []
     static var users: [User] = []
+    static var vlogReactions: [[VlogReaction]] = []
     
     enum Sort {
         case Old
@@ -145,6 +161,19 @@ class ServerData {
             }
             ServerData.vlogs = vlogs!
             completionHandler(vlogs)
+        }
+    }
+    
+    func getVlogReactions(_ vlogId: Int, onComplete completionHandler: @escaping ([VlogReaction]?) -> Void) {
+        // TODO: caching
+        let specificVlogRequest = ApiRequest(resource: SpecificVlogReactionResource(vlogId: vlogId))
+        specificVlogRequest.load {(vlogReactions: [VlogReaction]?) in
+            for reactions in vlogReactions! {
+                if let existingUser = ServerData.users.first(where: {$0.id == reactions.ownerId}){
+                    reactions.owner = existingUser
+                }
+            }
+            completionHandler(vlogReactions)
         }
     }
 }
