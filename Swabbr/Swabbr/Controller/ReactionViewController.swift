@@ -53,6 +53,10 @@ class ReactionViewController: UIViewController {
         
     }
     
+    /**
+     This function will find the reactions for the specific vlog.
+     - parameter vlogId: The id of the vlog used to associate the reactions with.
+    */
     private func retrieveReactionsFromVlogWithId(_ vlogId: Int) {
         
         ServerData().getVlogReactions(vlogId, onComplete: { vlogReactions in
