@@ -92,7 +92,6 @@ class VlogStreamControlView : UIView {
      This function is responsible for the countdownLabel to start and handle when it completes.
      - parameter completionHandler: A callback which will be run when the countdown has been finished and thus the camera is fully functional.
     */
-    /// start the whole chain of actions required to start a livestream
     func startOperateView(completionHandler: @escaping () -> Void) {
         countdownLabel.startCountdown(completionHandler: {
             self.showCameraView()
