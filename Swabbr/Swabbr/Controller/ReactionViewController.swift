@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class ReactionViewController: UIViewController {
     
@@ -15,6 +16,9 @@ class ReactionViewController: UIViewController {
     private let tableView = UITableView()
     
     private var reactions: [VlogReaction] = []
+    
+    private var currentVideoRunning: ReactionTableViewCell?
+    private var isScrolling = false
     
     /**
      Initializer of this controller.
@@ -50,6 +54,8 @@ class ReactionViewController: UIViewController {
         ])
         
         retrieveReactionsFromVlogWithId(vlogId)
+        
+        
         
     }
     
@@ -87,6 +93,73 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
         cell.dateLabel.text = reaction.postDateString
         
         return cell
+    }
+    
+    // MARK: UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isScrolling = false
+        finishedScrolling()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        isScrolling = false
+        finishedScrolling()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isScrolling = true
+    }
+    
+    // MARK: Custom
+    /**
+     Handle correctly when the tableview stops with scrolling, may be user stop or tableview deceleration stop.
+     After the scrolling has been finished this function will handle the cells correctly.
+    */
+    private func finishedScrolling() {
+        
+        let visibleCells = tableView.visibleCells
+        let visibleCellsCount = visibleCells.count
+        
+        // if currently scrolling or the tableview is empty just do nothing
+        if isScrolling || visibleCellsCount == 0 {
+            return
+        }
+        
+        if visibleCellsCount == 1 {
+            (visibleCells[0] as! ReactionTableViewCell).player.play()
+            return
+        }
+        
+        for i in 0..<visibleCells.count {
+            var rect = tableView.rectForRow(at: tableView.indexPath(for: visibleCells[i])!)
+            rect = tableView.convert(rect, to: tableView.superview)
+            let intersect = rect.intersection(tableView.frame)
+            let height = intersect.height
+            
+            // play the video of the cell which is atleast 60% on screen
+            if height > 300 * 0.6 {
+                let tempCurrentVideoRunning = (visibleCells[i] as! ReactionTableViewCell)
+                if currentVideoRunning == tempCurrentVideoRunning {
+                    break
+                }
+                if currentVideoRunning != nil {
+                    currentVideoRunning!.player.pause()
+                    currentVideoRunning!.player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+                }
+                tempCurrentVideoRunning.player.play()
+                currentVideoRunning = tempCurrentVideoRunning
+                break
+            }
+        }
+        
     }
     
 }
