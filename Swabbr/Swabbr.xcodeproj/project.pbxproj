@@ -30,6 +30,7 @@
 		C2E776DC233A65D10071B828 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776DB233A65D10071B828 /* API.swift */; };
 		C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E3234217E30071B828 /* ReactionViewController.swift */; };
 		C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E523423B5A0071B828 /* VlogReaction.swift */; };
+		C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E72344B20E0071B828 /* UserFollowRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		C2E776DB233A65D10071B828 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C2E776E3234217E30071B828 /* ReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionViewController.swift; sourceTree = "<group>"; };
 		C2E776E523423B5A0071B828 /* VlogReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReaction.swift; sourceTree = "<group>"; };
+		C2E776E72344B20E0071B828 /* UserFollowRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				C2E776B123325B160071B828 /* User.swift */,
 				C2E776C42333A4320071B828 /* Vlog.swift */,
 				C2E776E523423B5A0071B828 /* VlogReaction.swift */,
+				C2E776E72344B20E0071B828 /* UserFollowRequest.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
+				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
 				C2E776DC233A65D10071B828 /* API.swift in Sources */,
 				C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */,
