@@ -25,6 +25,7 @@ class ReactionTableViewCell : UITableViewCell {
         playerView.view.translatesAutoresizingMaskIntoConstraints = false
         userUsernameLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        likesLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // TODO: set dynamic video url
         playerView.player = player
