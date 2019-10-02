@@ -13,6 +13,7 @@ import AVFoundation
 class ReactionTableViewCell : UITableViewCell {
     
     let userUsernameLabel = UILabel()
+    let likesLabel = UILabel()
     let dateLabel = UILabel()
     let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
     let playerView = AVPlayerViewController()
@@ -32,6 +33,7 @@ class ReactionTableViewCell : UITableViewCell {
         
         // add ui components to view
         contentView.addSubview(playerView.view)
+        contentView.addSubview(likesLabel)
         contentView.addSubview(userUsernameLabel)
         contentView.addSubview(dateLabel)
         
@@ -49,7 +51,11 @@ class ReactionTableViewCell : UITableViewCell {
             
             // dateLabel
             dateLabel.topAnchor.constraint(equalTo: userUsernameLabel.bottomAnchor),
-            dateLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor)
+            dateLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            
+            // likesLabel
+            likesLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor),
+            likesLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor)
             
         ])
         
