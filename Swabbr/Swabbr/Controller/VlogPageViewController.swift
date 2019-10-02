@@ -206,6 +206,9 @@ class VlogPageViewController : UIViewController {
      This will push the current view to the profile of the clicked user.
     */
     @objc func clickedProfilePicture() {
+        NotificationCenter.default.removeObserver(self)
+        player.pause()
+        player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
         navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
     }
     
@@ -240,6 +243,8 @@ class VlogPageViewController : UIViewController {
         if reactionController != nil {
             return
         }
+        
+        player.pause()
 
         reactionController = ReactionViewController(vlogId: vlog.id)
         view.addSubview(reactionController!.view)
@@ -263,6 +268,8 @@ class VlogPageViewController : UIViewController {
         if reactionController == nil {
             return
         }
+        
+        player.play()
         
         playerView.view.frame = CGRect(x: 0, y: 0, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
         reactionController!.view.removeFromSuperview()
