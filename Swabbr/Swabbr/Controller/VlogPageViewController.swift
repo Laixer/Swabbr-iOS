@@ -170,16 +170,11 @@ class VlogPageViewController : UIViewController {
         if player.currentTime() > CMTime(seconds: 0, preferredTimescale: 60) {
             return
         }
-        // add observer so we know when the vlog has finished
-        NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        player.play()
+        playPlayer(true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        // remove observer so we dont get duplicates
-        NotificationCenter.default.removeObserver(self)
-        player.pause()
-        player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+        stopPlayer(true)
     }
     
     /**
@@ -206,9 +201,7 @@ class VlogPageViewController : UIViewController {
      This will push the current view to the profile of the clicked user.
     */
     @objc func clickedProfilePicture() {
-        NotificationCenter.default.removeObserver(self)
-        player.pause()
-        player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+        stopPlayer(true)
         navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
     }
     
@@ -244,7 +237,7 @@ class VlogPageViewController : UIViewController {
             return
         }
         
-        player.pause()
+        stopPlayer(false)
 
         reactionController = ReactionViewController(vlogId: vlog.id)
         view.addSubview(reactionController!.view)
@@ -269,12 +262,40 @@ class VlogPageViewController : UIViewController {
             return
         }
         
-        player.play()
+        playPlayer(false)
         
         playerView.view.frame = CGRect(x: 0, y: 0, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
         reactionController!.view.removeFromSuperview()
         reactionController!.removeFromParent()
         reactionController = nil
+    }
+    
+    /**
+     Run when we want to stop or pause the player.
+     This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
+     - parameter explicit: A boolean which when set to true will hard stop the player, which means the player will be fully stopped and observers abserving the player will be removed.
+    */
+    private func stopPlayer(_ explicit: Bool) {
+        player.pause()
+        
+        if explicit {
+            player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+            // remove observer so we dont get duplicates
+            NotificationCenter.default.removeObserver(self)
+        }
+    }
+    
+    /**
+     Run when we want to start the player.
+     This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
+     - parameter explicit: A boolean which when set to true will imply that the video has never been run before and thusfor set an observer on the player.
+     */
+    private func playPlayer(_ explicit: Bool) {
+        if explicit {
+            // add observer so we know when the vlog has finished
+            NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        }
+        player.play()
     }
     
 }
