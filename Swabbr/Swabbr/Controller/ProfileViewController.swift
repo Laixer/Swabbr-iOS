@@ -45,6 +45,9 @@ class ProfileViewController : UIViewController {
         
     }
     
+    /**
+     Initialize all UI elements that will appear on the screen.
+    */
     private func initElements() {
         
         usernameLabel.text = user.username
@@ -72,6 +75,9 @@ class ProfileViewController : UIViewController {
         
     }
     
+    /**
+     Apply all constraints to show the initialized elements correctly on the screen.
+    */
     private func applyConstraints() {
         
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
