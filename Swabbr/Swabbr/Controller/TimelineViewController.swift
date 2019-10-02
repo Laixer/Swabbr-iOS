@@ -40,7 +40,8 @@ class TimelineViewController : UIPageViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCamera))
         
         let sData = ServerData()
-        sData.getUsers(onComplete: {_ in
+        sData.getUsers(onComplete: {users in
+            (UIApplication.shared.delegate as! AppDelegate).currentUser = users![0]
             sData.getVlogs(onComplete: {vlogs in
                 for vlog in vlogs! {
                     self.vlogViewControllers.append(VlogPageViewController(vlog: vlog))
