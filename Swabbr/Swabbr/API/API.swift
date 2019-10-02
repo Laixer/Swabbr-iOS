@@ -87,7 +87,15 @@ extension ApiRequest: NetworkRequest {
 struct UserResource: ApiResource {
     typealias ModelType = User
     let methodPath = "/users"
-    let queryItems: [URLQueryItem] = []
+    var queryItems: [URLQueryItem] = []
+    
+    init() {
+        
+    }
+    
+    init(userId: Int) {
+        queryItems.append(URLQueryItem(name: "id", value: String(userId)))
+    }
 }
 
 struct VlogResource: ApiResource {
@@ -96,7 +104,7 @@ struct VlogResource: ApiResource {
     let queryItems: [URLQueryItem] = []
 }
 
-struct SpecificVlogReactionResource: ApiResource {
+struct VlogReactionResource: ApiResource {
     typealias ModelType = VlogReaction
     let methodPath = "/reactions"
     var queryItems: [URLQueryItem] = []
@@ -122,28 +130,25 @@ class ServerData {
     
     static var vlogs: [Vlog] = []
     static var users: [User] = []
-    static var vlogReactions: [[VlogReaction]] = []
-    
-    enum Sort {
-        case Old
-        case New
-    }
     
     /**
-     This function handles the API call to retrieve the users.
+     This function handles the API call to retrieve a user.
      When the request has been completed the result will be send with the callback function.
      - parameter completionHandler: The callback function which will be run when the request has been completed.
      */
-    func getUsers(onComplete completionHandler: @escaping ([User]?) -> Void) {
-        // TODO: caching
-        if ServerData.users.count > 0 {
-            completionHandler(ServerData.users)
+    func getSpecificUser(id: Int, onComplete completionHandler: @escaping (User?) -> Void) {
+        if let existingUser = ServerData.users.first(where: {$0.id == id}){
+            completionHandler(existingUser)
             return
         }
-        let usersRequest = ApiRequest(resource: UserResource())
+        let usersRequest = ApiRequest(resource: UserResource(userId: id))
         usersRequest.load{(users: [User]?) in
-            ServerData.users = users!
-            completionHandler(users)
+            if users == nil {
+                completionHandler(nil)
+                return
+            }
+            ServerData.users.append(users![0])
+            completionHandler(users![0])
         }
     }
 
@@ -154,32 +159,60 @@ class ServerData {
      */
     func getVlogs(onComplete completionHandler: @escaping ([Vlog]?) -> Void) {
         // TODO: caching
-        if ServerData.vlogs.count > 0 {
-            completionHandler(ServerData.vlogs)
-            return
-        }
         let vlogRequest = ApiRequest(resource: VlogResource())
         vlogRequest.load{(vlogs: [Vlog]?) in
-            for vlog in vlogs! {
-                if let existingUser = ServerData.users.first(where: {$0.id == vlog.ownerId}){
-                    vlog.owner = existingUser
-                }
+            
+            if vlogs == nil {
+                completionHandler(nil)
             }
-            ServerData.vlogs = vlogs!
-            completionHandler(vlogs)
+            
+            var count = 0
+            
+            for vlog in vlogs! {
+                self.getSpecificUser(id: vlog.ownerId, onComplete: {user in
+                    count+=1
+                    if user == nil {
+                        return
+                    }
+                    vlog.owner = user!
+                    if count == vlogs!.count {
+                        ServerData.vlogs = vlogs!
+                        completionHandler(vlogs)
+                    }
+                })
+            }
         }
     }
     
+    /**
+     This function handles the API call to retrieve the reactions of a vlog.
+     When the request has been completed the result will be send with the callback function.
+     - parameter vlogId: The id of the vlog the reactions need to come from.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+     */
     func getVlogReactions(_ vlogId: Int, onComplete completionHandler: @escaping ([VlogReaction]?) -> Void) {
         // TODO: caching
-        let specificVlogRequest = ApiRequest(resource: SpecificVlogReactionResource(vlogId: vlogId))
+        let specificVlogRequest = ApiRequest(resource: VlogReactionResource(vlogId: vlogId))
         specificVlogRequest.load {(vlogReactions: [VlogReaction]?) in
-            for reactions in vlogReactions! {
-                if let existingUser = ServerData.users.first(where: {$0.id == reactions.ownerId}){
-                    reactions.owner = existingUser
-                }
+            
+            if vlogReactions == nil {
+                completionHandler(nil)
             }
-            completionHandler(vlogReactions)
+            
+            var count = 0
+            
+            for reactions in vlogReactions! {
+                self.getSpecificUser(id: reactions.ownerId, onComplete: {user in
+                    count+=1
+                    if user == nil {
+                        return
+                    }
+                    reactions.owner = user!
+                    if count == vlogReactions!.count {
+                        completionHandler(vlogReactions)
+                    }
+                })
+            }
         }
     }
 }
