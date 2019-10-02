@@ -89,10 +89,10 @@ struct UserResource: ApiResource {
     let methodPath = "/users"
     var queryItems: [URLQueryItem] = []
     
-    init() {
-        
-    }
-    
+    /**
+     Ask for a certain user by giving the user id to search for.
+     - parameter userId: An int value representing an user id.
+    */
     init(userId: Int) {
         queryItems.append(URLQueryItem(name: "id", value: String(userId)))
     }
