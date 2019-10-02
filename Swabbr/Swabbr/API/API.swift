@@ -111,6 +111,12 @@ struct SpecificVlogReactionResource: ApiResource {
     }
 }
 
+struct UserFollowRequestsResource: ApiResource {
+    typealias ModelType = UserFollowRequest
+    let methodPath = "/followRequests"
+    var queryItems: [URLQueryItem] = []
+}
+
 // MARK: - ServerData
 class ServerData {
     
