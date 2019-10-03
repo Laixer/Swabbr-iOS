@@ -23,7 +23,7 @@ class ProfileViewController : UIViewController {
     
     private var isCurrentUser = false
     
-    private var profileVlogOverviewController: ProfileVlogOverviewViewController?
+    private var profileCollectionOverviewController: ProfileCollectionOverviewViewController?
 
     /**
      Initializes with a user value.
@@ -55,9 +55,9 @@ class ProfileViewController : UIViewController {
     private func initElements() {
         
         usernameLabel.text = user.username
-        countVlogsLabel.text = String(user.totalVlogs)
-        countFollowersLabel.text = String(user.totalFollowers)
-        countFollowingLabel.text = String(user.totalFollowing)
+        countVlogsLabel.text = "Vlog total: " + String(user.totalVlogs)
+        countFollowersLabel.text = "Followers: " + String(user.totalFollowers)
+        countFollowingLabel.text = "Following: " + String(user.totalFollowing)
         
         view.addSubview(usernameLabel)
         view.addSubview(countVlogsLabel)
@@ -77,6 +77,14 @@ class ProfileViewController : UIViewController {
             view.addSubview(followButton)
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
+        countFollowersLabel.isUserInteractionEnabled = true
+        countFollowersLabel.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc private func showFollowers() {
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: user.id), animated: true)
     }
     
     /**
@@ -137,35 +145,35 @@ class ProfileViewController : UIViewController {
     */
     private func addProfileVlogOverviewController() {
         
-        if profileVlogOverviewController != nil {
+        if profileCollectionOverviewController != nil {
             return
         }
         
-        profileVlogOverviewController = ProfileVlogOverviewViewController(userId: user.id)
-        view.addSubview(profileVlogOverviewController!.view)
-        profileVlogOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: user.id)
+        view.addSubview(profileCollectionOverviewController!.view)
+        profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            profileVlogOverviewController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            profileVlogOverviewController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            profileVlogOverviewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            profileCollectionOverviewController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            profileCollectionOverviewController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            profileCollectionOverviewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         if isCurrentUser {
             
             NSLayoutConstraint.activate([
-                profileVlogOverviewController!.view.topAnchor.constraint(equalTo: updateProfileButton.bottomAnchor)
+                profileCollectionOverviewController!.view.topAnchor.constraint(equalTo: updateProfileButton.bottomAnchor)
             ])
             
         } else {
             
             NSLayoutConstraint.activate([
-                profileVlogOverviewController!.view.topAnchor.constraint(equalTo: followButton.bottomAnchor)
+                profileCollectionOverviewController!.view.topAnchor.constraint(equalTo: followButton.bottomAnchor)
             ])
             
         }
         
-        addChild(profileVlogOverviewController!)
-        profileVlogOverviewController!.didMove(toParent: self)
+        addChild(profileCollectionOverviewController!)
+        profileCollectionOverviewController!.didMove(toParent: self)
         
     }
     
