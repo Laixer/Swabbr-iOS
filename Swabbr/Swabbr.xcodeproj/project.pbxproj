@@ -31,6 +31,8 @@
 		C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E3234217E30071B828 /* ReactionViewController.swift */; };
 		C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E523423B5A0071B828 /* VlogReaction.swift */; };
 		C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E72344B20E0071B828 /* UserFollowRequest.swift */; };
+		C2E776EC2344E03E0071B828 /* ProfileVlogOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */; };
+		C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		C2E776E3234217E30071B828 /* ReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionViewController.swift; sourceTree = "<group>"; };
 		C2E776E523423B5A0071B828 /* VlogReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReaction.swift; sourceTree = "<group>"; };
 		C2E776E72344B20E0071B828 /* UserFollowRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequest.swift; sourceTree = "<group>"; };
+		C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVlogOverviewViewController.swift; sourceTree = "<group>"; };
+		C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 		C2DE21F5232FE89400BF772D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C2E776ED2344EFD60071B828 /* CollectionCell */,
 				C2E776BD233382320071B828 /* TableCell */,
 				C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */,
 				C2E776CE2338D18A0071B828 /* CountdownLabel.swift */,
@@ -158,6 +163,7 @@
 				C2E776AE23325AB90071B828 /* ProfileViewController.swift */,
 				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
 				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
+				C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -196,6 +202,14 @@
 				C2E776DB233A65D10071B828 /* API.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		C2E776ED2344EFD60071B828 /* CollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */,
+			);
+			path = CollectionCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
+				C2E776EC2344E03E0071B828 /* ProfileVlogOverviewViewController.swift in Sources */,
 				C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */,
 				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
@@ -323,6 +338,7 @@
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */,
+				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
