@@ -55,8 +55,6 @@ class ReactionViewController: UIViewController {
         
         retrieveReactionsFromVlogWithId(vlogId)
         
-        
-        
     }
     
     /**
@@ -91,6 +89,7 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.userUsernameLabel.text = reaction.owner!.username
         cell.dateLabel.text = reaction.postDateString
+        cell.durationLabel.text = reaction.duration
         
         return cell
     }
