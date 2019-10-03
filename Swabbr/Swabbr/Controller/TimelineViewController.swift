@@ -10,7 +10,6 @@ import UIKit
 
 class TimelineViewController : UIPageViewController {
     
-    private var tableView: UITableView!
     internal var vlogViewControllers: [VlogPageViewController] = []
     
     /**
