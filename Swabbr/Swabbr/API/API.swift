@@ -136,6 +136,28 @@ struct UserFollowRequestsResource: ApiResource {
     typealias ModelType = UserFollowRequest
     let methodPath = "/followRequests"
     var queryItems: [URLQueryItem] = []
+    
+    init() {
+        
+    }
+    
+    /**
+     Find the users that the user is currently following.
+     - parameter requesterId: An int value representing the current user id.
+    */
+    init(requesterId: Int) {
+        queryItems.append(URLQueryItem(name: "requesterId", value: String(requesterId)))
+        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.ACCEPTED.rawValue))
+    }
+    
+    /**
+     Find the users that the user is currently followed by.
+     - parameter receiverId: An int value representing the current user id.
+     */
+    init(receiverId: Int) {
+        queryItems.append(URLQueryItem(name: "receiverId", value: String(receiverId)))
+        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.ACCEPTED.rawValue))
+    }
 }
 
 // MARK: ServerData
@@ -177,22 +199,25 @@ class ServerData {
             
             if vlogs == nil {
                 completionHandler(nil)
+                return
             }
             
-            var count = 0
+            let vlogGroup = DispatchGroup()
             
             for vlog in vlogs! {
+                vlogGroup.enter()
                 self.getSpecificUser(id: vlog.ownerId, onComplete: {user in
-                    count+=1
                     if user == nil {
                         return
                     }
                     vlog.owner = user!
-                    if count == vlogs!.count {
-                        ServerData.vlogs = vlogs!
-                        completionHandler(vlogs)
-                    }
+                    vlogGroup.leave()
                 })
+            }
+            
+            vlogGroup.notify(queue: .main) {
+                ServerData.vlogs = vlogs!
+                completionHandler(vlogs)
             }
         }
     }
@@ -224,22 +249,65 @@ class ServerData {
             
             if vlogReactions == nil {
                 completionHandler(nil)
+                return
             }
             
-            var count = 0
+            let reactionGroup = DispatchGroup()
             
             for reactions in vlogReactions! {
+                reactionGroup.enter()
                 self.getSpecificUser(id: reactions.ownerId, onComplete: {user in
-                    count+=1
                     if user == nil {
                         return
                     }
                     reactions.owner = user!
-                    if count == vlogReactions!.count {
-                        completionHandler(vlogReactions)
-                    }
+                    reactionGroup.leave()
                 })
+            }
+            
+            reactionGroup.notify(queue: .main) {
+                completionHandler(vlogReactions)
             }
         }
     }
+    
+    /**
+     Get the followers a certain user has using the user id of that user.
+     When the request has been completed the result will be send with the callback function.
+     - parameter userId: An int value representing the user id.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+    */
+    func getUserFollowers(_ userId: Int, onComplete completionHandler: @escaping ([User]) -> Void) {
+        
+        let getFollowersRequest = ApiRequest(resource: UserFollowRequestsResource(receiverId: userId))
+        getFollowersRequest.load {(followers: [UserFollowRequest]?) in
+            
+            if followers == nil {
+                completionHandler([])
+                return
+            }
+            
+            let followerGroup = DispatchGroup()
+            
+            var users: [User] = []
+            
+            for follower in followers! {
+                followerGroup.enter()
+                self.getSpecificUser(id: follower.requesterId, onComplete: {user in
+                    if user == nil {
+                        return
+                    }
+                    users.append(user!)
+                    followerGroup.leave()
+                })
+            }
+            
+            followerGroup.notify(queue: .main) {
+                completionHandler(users)
+            }
+            
+        }
+        
+    }
+    
 }
