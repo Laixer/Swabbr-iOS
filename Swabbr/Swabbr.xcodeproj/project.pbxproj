@@ -31,8 +31,9 @@
 		C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E3234217E30071B828 /* ReactionViewController.swift */; };
 		C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E523423B5A0071B828 /* VlogReaction.swift */; };
 		C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776E72344B20E0071B828 /* UserFollowRequest.swift */; };
-		C2E776EC2344E03E0071B828 /* ProfileVlogOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */; };
+		C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */; };
 		C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */; };
+		C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,8 +65,9 @@
 		C2E776E3234217E30071B828 /* ReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionViewController.swift; sourceTree = "<group>"; };
 		C2E776E523423B5A0071B828 /* VlogReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReaction.swift; sourceTree = "<group>"; };
 		C2E776E72344B20E0071B828 /* UserFollowRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequest.swift; sourceTree = "<group>"; };
-		C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVlogOverviewViewController.swift; sourceTree = "<group>"; };
+		C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionOverviewViewController.swift; sourceTree = "<group>"; };
 		C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCollectionViewCell.swift; sourceTree = "<group>"; };
+		C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +165,7 @@
 				C2E776AE23325AB90071B828 /* ProfileViewController.swift */,
 				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
 				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
-				C2E776EB2344E03E0071B828 /* ProfileVlogOverviewViewController.swift */,
+				C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */,
+				C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */,
 			);
 			path = CollectionCell;
 			sourceTree = "<group>";
@@ -327,7 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
-				C2E776EC2344E03E0071B828 /* ProfileVlogOverviewViewController.swift in Sources */,
+				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */,
 				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
@@ -347,6 +350,7 @@
 				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
+				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);

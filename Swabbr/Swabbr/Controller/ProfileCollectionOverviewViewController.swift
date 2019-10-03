@@ -9,19 +9,48 @@
 import Foundation
 import UIKit
 
-class ProfileVlogOverviewViewController: UIViewController {
+class ProfileCollectionOverviewViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var userId: Int
     private var vlogs: [Vlog] = []
+    private var users: [User] = []
+    
+    private enum DataType {
+        case Following
+        case Followers
+        case Vlogs
+    }
+    
+    private let type: DataType
     
     /**
-     Initialize the controller with the given user id.
-     The id will be used to make the calls correctly to the REST API.
+     Initialize the view controller this way if we want to get the vlogs thats associated to the given user id.
      - parameter userId: An int value representing an user id.
     */
-    init(userId: Int) {
-        self.userId = userId
+    init(vlogOwnerId: Int) {
+        self.userId = vlogOwnerId
+        type = DataType.Vlogs
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    /**
+     Initialize the view controller this way if we want to get the users that the user with this id is currently following.
+     - parameter userId: An int value representing an user id.
+     */
+    init(followingOwnerId: Int) {
+        self.userId = followingOwnerId
+        type = DataType.Following
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    /**
+     Initialize the view controller this way if we want to get the users who is currently following the user with this id.
+     - parameter userId: An int value representing an user id.
+     */
+    init(followersOwnerId: Int) {
+        self.userId = followersOwnerId
+        type = DataType.Followers
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,7 +68,11 @@ class ProfileVlogOverviewViewController: UIViewController {
         
         view.addSubview(collectionView)
         
-        collectionView.register(VlogCollectionViewCell.self, forCellWithReuseIdentifier: "vlogCell")
+        if type == DataType.Vlogs {
+            collectionView.register(VlogCollectionViewCell.self, forCellWithReuseIdentifier: "vlogCell")
+        } else {
+            collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: "userCell")
+        }
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -51,20 +84,25 @@ class ProfileVlogOverviewViewController: UIViewController {
     }
     
     /**
-     Get the vlogs that is associated with the userId
-     - parameter userId: The id of the user that the vlog needs to be owned by.
+     Get the data that is associated with the userId
+     - parameter userId: The id of the user that the data needs to be owned by.
     */
     private func getVlogsOfThisUserWithId(_ userId: Int) {
         
-        ServerData().getUserSpecificVlogs(userId, onComplete: {vlogs in
-            if vlogs == nil {
-                return
-            }
-            self.vlogs = vlogs!
-            self.collectionView.reloadData()
-            self.collectionView.collectionViewLayout.invalidateLayout()
-            self.collectionView.layoutSubviews()
-        })
+        if type == DataType.Vlogs {
+            ServerData().getUserSpecificVlogs(userId, onComplete: {vlogs in
+                if vlogs == nil {
+                    return
+                }
+                self.vlogs = vlogs!
+                self.collectionView.reloadData()
+            })
+        } else {
+            ServerData().getUserFollowers(userId, onComplete: {followers in
+                self.users = followers
+                self.collectionView.reloadData()
+            })
+        }
         
     }
     
@@ -86,7 +124,7 @@ class ProfileVlogOverviewViewController: UIViewController {
     
 }
 
-extension ProfileVlogOverviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -94,19 +132,30 @@ extension ProfileVlogOverviewViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vlogs.count
+        if type == DataType.Vlogs {
+            return vlogs.count
+        }
+        return users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
-        let vlog = vlogs[indexPath.row]
-        cell.durationLabel.text = vlog.duration
-        return cell
+        var cell: UICollectionViewCell?
+        if type == DataType.Vlogs {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
+            let vlog = vlogs[indexPath.row]
+            (cell! as! VlogCollectionViewCell).durationLabel.text = vlog.duration
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserCollectionViewCell
+            let user = users[indexPath.row]
+            (cell! as! UserCollectionViewCell).usernameLabel.text = user.username
+        }
+        
+        return cell!
     }
     
 }
 
-extension ProfileVlogOverviewViewController: UICollectionViewDelegateFlowLayout {
+extension ProfileCollectionOverviewViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 120, height: 120)
