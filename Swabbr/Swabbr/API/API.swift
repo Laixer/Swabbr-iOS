@@ -197,6 +197,12 @@ class ServerData {
         }
     }
     
+    /**
+     Ask the API to retrieve all vlogs of a certain user.
+     This call will be made with a userId which will be used to identify the owner of the vlog.
+     - parameter userId: An int value which represents the user id.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+    */
     func getUserSpecificVlogs(_ userId: Int, onComplete completionHandler: @escaping ([Vlog]?) -> Void) {
         // TODO: caching
         let specificVlogRequest = ApiRequest(resource: VlogResource(userId: userId))
