@@ -22,6 +22,8 @@ class ProfileViewController : UIViewController {
     private let updateProfileButton = UIButton()
     
     private var isCurrentUser = false
+    
+    private var profileVlogOverviewController: ProfileVlogOverviewViewController?
 
     /**
      Initializes with a user value.
@@ -42,6 +44,8 @@ class ProfileViewController : UIViewController {
         
         initElements()
         applyConstraints()
+        
+        addProfileVlogOverviewController()
         
     }
     
@@ -124,6 +128,44 @@ class ProfileViewController : UIViewController {
             ])
             
         }
+        
+    }
+    
+    /**
+     Add the vlog overview controller to this view.
+     Be sure that memory leaks are not possible and the view is correctly added.
+    */
+    private func addProfileVlogOverviewController() {
+        
+        if profileVlogOverviewController != nil {
+            return
+        }
+        
+        profileVlogOverviewController = ProfileVlogOverviewViewController(userId: user.id)
+        view.addSubview(profileVlogOverviewController!.view)
+        profileVlogOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            profileVlogOverviewController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            profileVlogOverviewController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            profileVlogOverviewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        if isCurrentUser {
+            
+            NSLayoutConstraint.activate([
+                profileVlogOverviewController!.view.topAnchor.constraint(equalTo: updateProfileButton.bottomAnchor)
+            ])
+            
+        } else {
+            
+            NSLayoutConstraint.activate([
+                profileVlogOverviewController!.view.topAnchor.constraint(equalTo: followButton.bottomAnchor)
+            ])
+            
+        }
+        
+        addChild(profileVlogOverviewController!)
+        profileVlogOverviewController!.didMove(toParent: self)
         
     }
     
