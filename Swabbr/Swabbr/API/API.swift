@@ -101,7 +101,20 @@ struct UserResource: ApiResource {
 struct VlogResource: ApiResource {
     typealias ModelType = Vlog
     let methodPath = "/vlogs"
-    let queryItems: [URLQueryItem] = []
+    var queryItems: [URLQueryItem] = []
+    
+    init() {
+        
+    }
+    
+    /**
+     Get all vlogs that comply with the given user id.
+     It will try and fill all vlogs where the owner has the given id.
+     - parameter userId: An int value which represents the user id we need to find the vlogs from.
+    */
+    init(userId: Int) {
+        queryItems.append(URLQueryItem(name: "userId", value: String(userId)))
+    }
 }
 
 struct VlogReactionResource: ApiResource {
@@ -125,7 +138,7 @@ struct UserFollowRequestsResource: ApiResource {
     var queryItems: [URLQueryItem] = []
 }
 
-// MARK: - ServerData
+// MARK: ServerData
 class ServerData {
     
     static var vlogs: [Vlog] = []
@@ -181,6 +194,14 @@ class ServerData {
                     }
                 })
             }
+        }
+    }
+    
+    func getUserSpecificVlogs(_ userId: Int, onComplete completionHandler: @escaping ([Vlog]?) -> Void) {
+        // TODO: caching
+        let specificVlogRequest = ApiRequest(resource: VlogResource(userId: userId))
+        specificVlogRequest.load {(vlogs: [Vlog]?) in
+            completionHandler(vlogs)
         }
     }
     
