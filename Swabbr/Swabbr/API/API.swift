@@ -310,6 +310,12 @@ class ServerData {
         
     }
     
+    /**
+     Get the users who the specific usr is following.
+     When the request has been completed the result will be send with the callback function.
+     - parameter userId: An int value representing the user id.
+     - parameter completionHandler: The callback function which will be run when the request has been completed.
+     */
     func getUserFollowing(_ userId: Int, onComplete completionHandler: @escaping ([User]) -> Void) {
       
         let getFollowingRequest = ApiRequest(resource: UserFollowRequestsResource(requesterId: userId))
