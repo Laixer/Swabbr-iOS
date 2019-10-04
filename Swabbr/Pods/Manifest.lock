@@ -1,20 +1,24 @@
 PODS:
+  - MemoryCache (1.1.0)
   - NextLevel (0.14.0)
   - SwiftyCam (4.0.0)
 
 DEPENDENCIES:
+  - MemoryCache (= 1.1)
   - NextLevel (= 0.14.0)
   - SwiftyCam
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - MemoryCache
     - NextLevel
     - SwiftyCam
 
 SPEC CHECKSUMS:
+  MemoryCache: 145f843f3bc78432693f0670bc643475c9bfdbf0
   NextLevel: 741b8367150591f0fde53d16c386218e3fd64d30
   SwiftyCam: 6e57914771d972fbe508e759dc9d0150a44a93fd
 
-PODFILE CHECKSUM: bc3e879e875453a39c8f13502face8fbb58b9198
+PODFILE CHECKSUM: 466bb34c7c3d54ff8dfc4fb8c4c04cf5ba4a99c9
 
 COCOAPODS: 1.7.5
