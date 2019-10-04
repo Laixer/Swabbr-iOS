@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileCollectionOverviewViewController: UIViewController {
+class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtocol {
     
     private var collectionView: UICollectionView!
     private var userId: Int
@@ -62,11 +62,17 @@ class ProfileCollectionOverviewViewController: UIViewController {
         
         view.backgroundColor = UIColor.white
         
+        initElements()
+        applyConstraints()
+        
+        getDataOfThisUserWithId(userId)
+        
+    }
+    
+    internal func initElements() {
         let layout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.clear
-        
-        view.addSubview(collectionView)
         
         if type == DataType.Vlogs {
             collectionView.register(VlogCollectionViewCell.self, forCellWithReuseIdentifier: "vlogCell")
@@ -77,39 +83,10 @@ class ProfileCollectionOverviewViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        applyConstraints()
-        
-        getVlogsOfThisUserWithId(userId)
-        
+        view.addSubview(collectionView)
     }
     
-    /**
-     Get the data that is associated with the userId
-     - parameter userId: The id of the user that the data needs to be owned by.
-    */
-    private func getVlogsOfThisUserWithId(_ userId: Int) {
-        
-        if type == DataType.Vlogs {
-            ServerData().getUserSpecificVlogs(userId, onComplete: {vlogs in
-                if vlogs == nil {
-                    return
-                }
-                self.vlogs = vlogs!
-                self.collectionView.reloadData()
-            })
-        } else {
-            ServerData().getUserFollowers(userId, onComplete: {followers in
-                self.users = followers
-                self.collectionView.reloadData()
-            })
-        }
-        
-    }
-    
-    /**
-     Apply all constraints to this view.
-    */
-    private func applyConstraints() {
+    internal func applyConstraints() {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -119,6 +96,34 @@ class ProfileCollectionOverviewViewController: UIViewController {
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+    }
+    
+    /**
+     Get the data that is associated with the userId
+     - parameter userId: The id of the user that the data needs to be owned by.
+    */
+    private func getDataOfThisUserWithId(_ userId: Int) {
+        
+        if type == DataType.Vlogs {
+            ServerData().getUserSpecificVlogs(userId, onComplete: {vlogs in
+                if vlogs == nil {
+                    return
+                }
+                self.vlogs = vlogs!
+                self.collectionView.reloadData()
+            })
+        } else if type == DataType.Followers {
+            ServerData().getUserFollowers(userId, onComplete: {followers in
+                self.users = followers
+                self.collectionView.reloadData()
+            })
+        } else {
+            ServerData().getUserFollowing(userId, onComplete: {following in
+                self.users = following
+                self.collectionView.reloadData()
+            })
+        }
         
     }
     

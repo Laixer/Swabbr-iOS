@@ -11,7 +11,7 @@ import UIKit
 import AVKit
 import AVFoundation
 
-class VlogPageViewController : UIViewController {
+class VlogPageViewController : UIViewController, BaseViewProtocol {
     
     private let likesCountLabel = UILabel()
     private let viewsCountLabel = UILabel()
@@ -49,33 +49,10 @@ class VlogPageViewController : UIViewController {
         view.backgroundColor = UIColor.white
         
         initElements()
-        
-        playerView.player = player
-        playerView.view.frame = view.bounds
-        playerView.showsPlaybackControls = false
-        playerView.videoGravity = .resizeAspectFill
-        
-        view.addSubview(playerView.view)
-        
-        // add ui components to current view
-        view.addSubview(likesCountLabel)
-        view.addSubview(viewsCountLabel)
-        view.addSubview(reactionCountLabel)
-        view.addSubview(userProfileImageView)
-        view.addSubview(userUsernameLabel)
-        view.addSubview(reactionButton)
-        if vlog.isLive {
-            view.addSubview(isLiveLabel)
-        }
-        
-        setConstraints()
+        applyConstraints()
     }
     
-    /**
-     Makes sure that all the UI elements on the screen are set up correctly.
-     This means that basic configurations and correct data needs to be set up.
-    */
-    private func initElements() {
+    internal func initElements() {
         userProfileImageView.contentMode = .scaleAspectFill
         userProfileImageView.clipsToBounds = true
         
@@ -111,13 +88,27 @@ class VlogPageViewController : UIViewController {
         }
         isLiveLabel.text = "Live"
         isLiveLabel.backgroundColor = UIColor.red
+        
+        playerView.player = player
+        playerView.view.frame = view.bounds
+        playerView.showsPlaybackControls = false
+        playerView.videoGravity = .resizeAspectFill
+        
+        view.addSubview(playerView.view)
+        
+        // add ui components to current view
+        view.addSubview(likesCountLabel)
+        view.addSubview(viewsCountLabel)
+        view.addSubview(reactionCountLabel)
+        view.addSubview(userProfileImageView)
+        view.addSubview(userUsernameLabel)
+        view.addSubview(reactionButton)
+        if vlog.isLive {
+            view.addSubview(isLiveLabel)
+        }
     }
-    
-    /**
-     Handle the constraints.
-     It is responsible to locate all the UI elements correctly.
-    */
-    private func setConstraints() {
+
+    internal func applyConstraints() {
         // disable auto constraint to override with given constraints
         likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -182,7 +173,7 @@ class VlogPageViewController : UIViewController {
      This function makes sure that we can show the next vlog in the queue to the user.
      - parameter notification: A Notification object.
     */
-    @objc func videoEnd(notification: Notification){
+    @objc private func videoEnd(notification: Notification){
         guard let parent = parent else {
             return
         }
@@ -200,7 +191,7 @@ class VlogPageViewController : UIViewController {
      It will run when we recognize a click on the profile.
      This will push the current view to the profile of the clicked user.
     */
-    @objc func clickedProfilePicture() {
+    @objc private func clickedProfilePicture() {
         stopPlayer(true)
         navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
     }
@@ -208,21 +199,21 @@ class VlogPageViewController : UIViewController {
     /**
      This will handle all actions required to handle the click of the reation button.
     */
-    @objc func clickedReactButton() {
+    @objc private func clickedReactButton() {
     }
     
     /**
      Handle all actions required when the reaction label is pressed.
     */
-    @objc func clickedReactionLabel() {
+    @objc private func clickedReactionLabel() {
         playerView.view.frame = CGRect(x: 0, y: -playerView.view.bounds.midY, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
-        addReactionViewControllerTo()
+        addReactionViewController()
     }
     
     /**
      Handle all actions required when the vlog is clicked, returns to fullscreen if reactions are visible.
     */
-    @objc func clickedVideoToGoBackToFullscreen() {
+    @objc private func clickedVideoToGoBackToFullscreen() {
         removeReactionViewController()
     }
     
@@ -231,7 +222,7 @@ class VlogPageViewController : UIViewController {
      The function will prepare the ReactionViewController to be shown in this current viewcontroller.
      This will only show the data coming from the ReactionViewController, this controller will not be responsible for function calls regarding the reactions.
     */
-    private func addReactionViewControllerTo() {
+    private func addReactionViewController() {
         // prevent possible double press
         if reactionController != nil {
             return

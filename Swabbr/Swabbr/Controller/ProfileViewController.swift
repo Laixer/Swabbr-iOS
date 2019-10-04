@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController : UIViewController {
+class ProfileViewController : UIViewController, BaseViewProtocol {
 
     private let user: User
     
@@ -49,10 +49,7 @@ class ProfileViewController : UIViewController {
         
     }
     
-    /**
-     Initialize all UI elements that will appear on the screen.
-    */
-    private func initElements() {
+    internal func initElements() {
         
         usernameLabel.text = user.username
         countVlogsLabel.text = "Vlog total: " + String(user.totalVlogs)
@@ -77,9 +74,13 @@ class ProfileViewController : UIViewController {
             view.addSubview(followButton)
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
+        let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
         countFollowersLabel.isUserInteractionEnabled = true
-        countFollowersLabel.addGestureRecognizer(tapGesture)
+        countFollowersLabel.addGestureRecognizer(tapFollowersGesture)
+        
+        let tapFollowingGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowing))
+        countFollowingLabel.isUserInteractionEnabled = true
+        countFollowingLabel.addGestureRecognizer(tapFollowingGesture)
         
     }
     
@@ -87,10 +88,11 @@ class ProfileViewController : UIViewController {
         navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: user.id), animated: true)
     }
     
-    /**
-     Apply all constraints to show the initialized elements correctly on the screen.
-    */
-    private func applyConstraints() {
+    @objc private func showFollowing() {
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: user.id), animated: true)
+    }
+
+    internal func applyConstraints() {
         
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         countVlogsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +118,7 @@ class ProfileViewController : UIViewController {
             countFollowersLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
             // countFollowingLabel
-            countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor),
+            countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor, constant: 20),
             countFollowingLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
             
         ])

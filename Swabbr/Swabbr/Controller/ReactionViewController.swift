@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class ReactionViewController: UIViewController {
+class ReactionViewController: UIViewController, BaseViewProtocol {
     
     private let vlogId: Int
     
@@ -38,12 +38,23 @@ class ReactionViewController: UIViewController {
         
         view.backgroundColor = UIColor.white
         
+        initElements()
+        applyConstraints()
+        
+        retrieveReactionsFromVlogWithId(vlogId)
+        
+    }
+    
+    internal func initElements() {
         tableView.register(ReactionTableViewCell.self, forCellReuseIdentifier: "reactionCell")
         
         tableView.delegate = self
         tableView.dataSource = self
         
         view.addSubview(tableView)
+    }
+    
+    internal func applyConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -52,9 +63,6 @@ class ReactionViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        retrieveReactionsFromVlogWithId(vlogId)
-        
     }
     
     /**
