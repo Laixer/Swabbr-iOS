@@ -310,4 +310,37 @@ class ServerData {
         
     }
     
+    func getUserFollowing(_ userId: Int, onComplete completionHandler: @escaping ([User]) -> Void) {
+      
+        let getFollowingRequest = ApiRequest(resource: UserFollowRequestsResource(requesterId: userId))
+        getFollowingRequest.load {(following: [UserFollowRequest]?) in
+            
+            if following == nil {
+                completionHandler([])
+                return
+            }
+            
+            let followingGroup = DispatchGroup()
+            
+            var users: [User] = []
+            
+            for following in following! {
+                followingGroup.enter()
+                self.getSpecificUser(id: following.receiverId, onComplete: {user in
+                    if user == nil {
+                        return
+                    }
+                    users.append(user!)
+                    followingGroup.leave()
+                })
+            }
+            
+            followingGroup.notify(queue: .main) {
+                completionHandler(users)
+            }
+            
+        }
+        
+    }
+    
 }
