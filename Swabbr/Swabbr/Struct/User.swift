@@ -34,6 +34,7 @@ struct User: Codable {
     enum Gender: String, Codable {
         case Male = "M"
         case Female = "F"
+        case Unspecified = "O"
     }
     
     /**
