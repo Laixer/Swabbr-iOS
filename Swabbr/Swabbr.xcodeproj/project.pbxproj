@@ -35,7 +35,29 @@
 		C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */; };
 		C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */; };
 		C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776F22347742A0071B828 /* BaseViewProtocol.swift */; };
+		C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776FA234E24370071B828 /* SwabbrTests.swift */; };
+		C2E77703234E277B0071B828 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77702234E277B0071B828 /* UserTests.swift */; };
+		C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7770E235084DA0071B828 /* SwabbrUITests.swift */; };
+		C2E77719235485C60071B828 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* Preferences.swift */; };
+		C2E7771B235488CD0071B828 /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* Preferences.plist */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C2E776FD234E24370071B828 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2DE21CD232FA35600BF772D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2DE21D4232FA35700BF772D;
+			remoteInfo = Swabbr;
+		};
+		C2E77711235084DA0071B828 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2DE21CD232FA35600BF772D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2DE21D4232FA35700BF772D;
+			remoteInfo = Swabbr;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,6 +92,15 @@
 		C2E776EE2344EFF10071B828 /* VlogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2E776F22347742A0071B828 /* BaseViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewProtocol.swift; sourceTree = "<group>"; };
+		C2E776F8234E24360071B828 /* SwabbrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwabbrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2E776FA234E24370071B828 /* SwabbrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwabbrTests.swift; sourceTree = "<group>"; };
+		C2E776FC234E24370071B828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2E77702234E277B0071B828 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		C2E7770C235084DA0071B828 /* SwabbrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwabbrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2E7770E235084DA0071B828 /* SwabbrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwabbrUITests.swift; sourceTree = "<group>"; };
+		C2E77710235084DA0071B828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2E77718235485C60071B828 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		C2E7771A235488CD0071B828 /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +109,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2E776F5234E24360071B828 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2E77709235084DA0071B828 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				C2DE21D7232FA35700BF772D /* Swabbr */,
+				C2E776F9234E24370071B828 /* SwabbrTests */,
+				C2E7770D235084DA0071B828 /* SwabbrUITests */,
 				C2DE21D6232FA35700BF772D /* Products */,
 				BCB62B408C4F3C09E641793A /* Pods */,
 				B95A32AC7988BBADCCA5561F /* Frameworks */,
@@ -115,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				C2DE21D5232FA35700BF772D /* Swabbr.app */,
+				C2E776F8234E24360071B828 /* SwabbrTests.xctest */,
+				C2E7770C235084DA0071B828 /* SwabbrUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				C2E776DB233A65D10071B828 /* API.swift */,
+				C2E77718235485C60071B828 /* Preferences.swift */,
+				C2E7771A235488CD0071B828 /* Preferences.plist */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -216,6 +267,25 @@
 				C2E776F023462A9F0071B828 /* UserCollectionViewCell.swift */,
 			);
 			path = CollectionCell;
+			sourceTree = "<group>";
+		};
+		C2E776F9234E24370071B828 /* SwabbrTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776FA234E24370071B828 /* SwabbrTests.swift */,
+				C2E776FC234E24370071B828 /* Info.plist */,
+				C2E77702234E277B0071B828 /* UserTests.swift */,
+			);
+			path = SwabbrTests;
+			sourceTree = "<group>";
+		};
+		C2E7770D235084DA0071B828 /* SwabbrUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C2E7770E235084DA0071B828 /* SwabbrUITests.swift */,
+				C2E77710235084DA0071B828 /* Info.plist */,
+			);
+			path = SwabbrUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +310,42 @@
 			productReference = C2DE21D5232FA35700BF772D /* Swabbr.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C2E776F7234E24360071B828 /* SwabbrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2E77701234E24370071B828 /* Build configuration list for PBXNativeTarget "SwabbrTests" */;
+			buildPhases = (
+				C2E776F4234E24360071B828 /* Sources */,
+				C2E776F5234E24360071B828 /* Frameworks */,
+				C2E776F6234E24360071B828 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C2E776FE234E24370071B828 /* PBXTargetDependency */,
+			);
+			name = SwabbrTests;
+			productName = SwabbrTests;
+			productReference = C2E776F8234E24360071B828 /* SwabbrTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C2E7770B235084DA0071B828 /* SwabbrUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2E77713235084DA0071B828 /* Build configuration list for PBXNativeTarget "SwabbrUITests" */;
+			buildPhases = (
+				C2E77708235084DA0071B828 /* Sources */,
+				C2E77709235084DA0071B828 /* Frameworks */,
+				C2E7770A235084DA0071B828 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C2E77712235084DA0071B828 /* PBXTargetDependency */,
+			);
+			name = SwabbrUITests;
+			productName = SwabbrUITests;
+			productReference = C2E7770C235084DA0071B828 /* SwabbrUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,6 +358,14 @@
 				TargetAttributes = {
 					C2DE21D4232FA35700BF772D = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					C2E776F7234E24360071B828 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = C2DE21D4232FA35700BF772D;
+					};
+					C2E7770B235084DA0071B828 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = C2DE21D4232FA35700BF772D;
 					};
 				};
 			};
@@ -269,6 +383,8 @@
 			projectRoot = "";
 			targets = (
 				C2DE21D4232FA35700BF772D /* Swabbr */,
+				C2E776F7234E24360071B828 /* SwabbrTests */,
+				C2E7770B235084DA0071B828 /* SwabbrUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -278,8 +394,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E7771B235488CD0071B828 /* Preferences.plist in Resources */,
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2E776F6234E24360071B828 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2E7770A235084DA0071B828 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,13 +485,44 @@
 				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
+				C2E77719235485C60071B828 /* Preferences.swift in Sources */,
 				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2E776F4234E24360071B828 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2E77703234E277B0071B828 /* UserTests.swift in Sources */,
+				C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2E77708235084DA0071B828 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C2E776FE234E24370071B828 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2DE21D4232FA35700BF772D /* Swabbr */;
+			targetProxy = C2E776FD234E24370071B828 /* PBXContainerItemProxy */;
+		};
+		C2E77712235084DA0071B828 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2DE21D4232FA35700BF772D /* Swabbr */;
+			targetProxy = C2E77711235084DA0071B828 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */ = {
@@ -528,6 +690,84 @@
 			};
 			name = Release;
 		};
+		C2E776FF234E24370071B828 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				INFOPLIST_FILE = SwabbrTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laixer.SwabbrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swabbr.app/Swabbr";
+			};
+			name = Debug;
+		};
+		C2E77700234E24370071B828 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				INFOPLIST_FILE = SwabbrTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laixer.SwabbrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swabbr.app/Swabbr";
+			};
+			name = Release;
+		};
+		C2E77714235084DA0071B828 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				INFOPLIST_FILE = SwabbrUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laixer.SwabbrUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Swabbr;
+			};
+			name = Debug;
+		};
+		C2E77715235084DA0071B828 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				INFOPLIST_FILE = SwabbrUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laixer.SwabbrUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Swabbr;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -545,6 +785,24 @@
 			buildConfigurations = (
 				C2DE21E8232FA3E900BF772D /* Debug */,
 				C2DE21E9232FA3E900BF772D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2E77701234E24370071B828 /* Build configuration list for PBXNativeTarget "SwabbrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2E776FF234E24370071B828 /* Debug */,
+				C2E77700234E24370071B828 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2E77713235084DA0071B828 /* Build configuration list for PBXNativeTarget "SwabbrUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2E77714235084DA0071B828 /* Debug */,
+				C2E77715235084DA0071B828 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
