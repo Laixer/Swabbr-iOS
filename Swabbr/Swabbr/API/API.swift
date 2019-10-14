@@ -18,8 +18,9 @@ protocol ApiResource {
 
 extension ApiResource {
     var url: URL {
-        var components = URLComponents(string: "https://my-json-server.typicode.com")!
-        components.path = "/pnobbe/swabbrdata" + methodPath
+        let preferences = (UIApplication.shared.delegate as? AppDelegate)?.apiPreferences!
+        var components = URLComponents(string: preferences!.api_url)!
+        components.path = preferences!.url_path + methodPath
         components.queryItems = queryItems
         return components.url!
     }

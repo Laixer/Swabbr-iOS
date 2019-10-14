@@ -15,9 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // save currentuser
     var currentUser: User?
+    
+    var apiPreferences: Preferences?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // setup window
+        
+        if(CommandLine.arguments.contains("testing")) {
+            apiPreferences = Preferences.getAPIPreferences(enviroment: "test")
+        } else {
+            apiPreferences = Preferences.getAPIPreferences(enviroment: "release")
+        }
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         let rootViewController = TimelineViewController(nibName: nil, bundle: nil)
         let navigationController = UINavigationController(rootViewController: rootViewController)
