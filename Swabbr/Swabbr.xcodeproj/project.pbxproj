@@ -40,6 +40,7 @@
 		C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7770E235084DA0071B828 /* SwabbrUITests.swift */; };
 		C2E77719235485C60071B828 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* Preferences.swift */; };
 		C2E7771B235488CD0071B828 /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* Preferences.plist */; };
+		C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7771C2354CB640071B828 /* VlogTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		C2E77710235084DA0071B828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E77718235485C60071B828 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C2E7771A235488CD0071B828 /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
+		C2E7771C2354CB640071B828 /* VlogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				C2E776FA234E24370071B828 /* SwabbrTests.swift */,
 				C2E776FC234E24370071B828 /* Info.plist */,
 				C2E77702234E277B0071B828 /* UserTests.swift */,
+				C2E7771C2354CB640071B828 /* VlogTests.swift */,
 			);
 			path = SwabbrTests;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 			files = (
 				C2E77703234E277B0071B828 /* UserTests.swift in Sources */,
 				C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */,
+				C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,7 +668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = laixer.Swabbr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -683,7 +687,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = laixer.Swabbr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
