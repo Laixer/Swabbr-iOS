@@ -41,6 +41,7 @@
 		C2E77719235485C60071B828 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* Preferences.swift */; };
 		C2E7771B235488CD0071B828 /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* Preferences.plist */; };
 		C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7771C2354CB640071B828 /* VlogTests.swift */; };
+		C2E7771F2355B53F0071B828 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		C2E77718235485C60071B828 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C2E7771A235488CD0071B828 /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
 		C2E7771C2354CB640071B828 /* VlogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTests.swift; sourceTree = "<group>"; };
+		C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
 				C2E776CA2334C88D0071B828 /* NotificationHandler.swift */,
+				C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */,
 			);
 			path = Swabbr;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E7771B235488CD0071B828 /* Preferences.plist in Resources */,
+				C2E7771F2355B53F0071B828 /* GoogleService-Info.plist in Resources */,
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
 			);
