@@ -68,11 +68,7 @@ struct User: Codable {
         country = try container.decode(String.self, forKey: CodingKeys.country)
         email = try container.decode(String.self, forKey: CodingKeys.email)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        let birthdateString = try container.decode(String.self, forKey: CodingKeys.birthdate)
-        birthdate = dateFormatter.date(from: birthdateString)!
+        birthdate = DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: try container.decode(String.self, forKey: CodingKeys.birthdate))!
         
         timezone = try container.decode(String.self, forKey: CodingKeys.timezone)
         username = try container.decode(String.self, forKey: CodingKeys.username)

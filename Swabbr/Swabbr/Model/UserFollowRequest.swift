@@ -15,15 +15,14 @@ struct UserFollowRequest: Codable {
     var receiverId: Int
     var status: Status
     var timestamp: Date
-    var timestampString: String
     
     /**
      Converts the value of the status we get to conform our model.
     */
     enum Status: String, Codable {
-        case ACCEPTED = "accepted"
-        case PENDING = "pending"
-        case DECLINED = "declined"
+        case Accepted = "accepted"
+        case Pending = "pending"
+        case Declined = "declined"
     }
     
     /**
@@ -66,15 +65,7 @@ struct UserFollowRequest: Codable {
         
         status = try container.decode(Status.self, forKey: CodingKeys.status)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        let _timestampString = try container.decode(String.self, forKey: CodingKeys.timestamp)
-        timestamp = dateFormatter.date(from: _timestampString)!
-        
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        timestampString = dateFormatter.string(from: timestamp)
+        timestamp = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: CodingKeys.timestamp))!
     }
     
 }

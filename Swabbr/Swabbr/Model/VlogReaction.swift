@@ -16,7 +16,6 @@ class VlogReaction: Codable {
     var ownerId: Int
     var duration: String
     var postDate: Date
-    var postDateString: String
     var vlogId: Int
     
     /**
@@ -49,15 +48,7 @@ class VlogReaction: Codable {
         isPrivate = try container.decode(Bool.self, forKey: CodingKeys.isPrivate)
         duration = try container.decode(String.self, forKey: CodingKeys.duration)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        let _postDateString = try container.decode(String.self, forKey: CodingKeys.postDate)
-        postDate = dateFormatter.date(from: _postDateString)!
-        
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        postDateString = dateFormatter.string(from: postDate)
+        postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: CodingKeys.postDate))!
 
         owner = nil
         ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
