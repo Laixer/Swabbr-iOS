@@ -6,7 +6,6 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
 import XCTest
 @testable import Swabbr
 
