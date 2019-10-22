@@ -148,7 +148,7 @@ struct UserFollowRequestsResource: ApiResource {
     */
     init(requesterId: Int) {
         queryItems.append(URLQueryItem(name: "requesterId", value: String(requesterId)))
-        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.ACCEPTED.rawValue))
+        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.Accepted.rawValue))
     }
     
     /**
@@ -157,7 +157,7 @@ struct UserFollowRequestsResource: ApiResource {
      */
     init(receiverId: Int) {
         queryItems.append(URLQueryItem(name: "receiverId", value: String(receiverId)))
-        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.ACCEPTED.rawValue))
+        queryItems.append(URLQueryItem(name: "status", value: UserFollowRequest.Status.Accepted.rawValue))
     }
 }
 
