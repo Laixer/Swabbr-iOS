@@ -144,8 +144,8 @@ extension AppDelegate {
     
     private func handleNotification(with userInfo: [AnyHashable : Any]) {
         let jsonData = try? JSONSerialization.data(withJSONObject: userInfo["payload"]!, options: [])
-        let notificationObject = try? JSONDecoder().decode(SNotification.self, from: jsonData!)
-        switch (notificationObject?.innerData as! NotificationData).clickAction {
+        let notificationObject = try? JSONDecoder().decode(Payload<SNotification>.self, from: jsonData!)
+        switch notificationObject!.innerData.clickAction {
         case .FollowedProfileLive:
             // timeline with specific vlog
             break
@@ -166,6 +166,7 @@ extension AppDelegate {
             // vlogstreamviewcontroller
             break
         }
+        
     }
     
 }
