@@ -55,7 +55,12 @@ struct User: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decodeToType(Int.self, key: CodingKeys.id)
+        let idString = try container.decode(String.self, forKey: CodingKeys.id)
+        guard let idInt = Int(idString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.id], debugDescription: "Could not parse json key to Int object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        id = idInt
         
         firstName = try container.decode(String.self, forKey: CodingKeys.firstName)
         lastName = try container.decode(String.self, forKey: CodingKeys.lastName)
@@ -73,8 +78,19 @@ struct User: Codable {
         totalFollowers = try container.decode(Int.self, forKey: CodingKeys.totalFollowers)
         totalFollowing = try container.decode(Int.self, forKey: CodingKeys.totalFollowing)
         
-        longitude = try container.decodeToType(Float.self, key: CodingKeys.longitude)
-        latitude = try container.decodeToType(Float.self, key: CodingKeys.latitude)
+        let longitudeString = try container.decode(String.self, forKey: CodingKeys.longitude)
+        guard let longitudeFloat = Float(longitudeString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.longitude], debugDescription: "Could not parse json key to Float object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        longitude = longitudeFloat
+        
+        let latitudeString = try container.decode(String.self, forKey: CodingKeys.latitude)
+        guard let latitudeFloat = Float(latitudeString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.latitude], debugDescription: "Could not parse json key to Float object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        latitude = latitudeFloat
         
     }
     

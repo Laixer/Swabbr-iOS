@@ -38,7 +38,12 @@ class VlogReaction: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decodeToType(Int.self, key: CodingKeys.id)
+        let idString = try container.decode(String.self, forKey: CodingKeys.id)
+        guard let idInt = Int(idString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.id], debugDescription: "Could not parse json key to Int object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        id = idInt
         
         isPrivate = try container.decode(Bool.self, forKey: CodingKeys.isPrivate)
         duration = try container.decode(String.self, forKey: CodingKeys.duration)
@@ -47,8 +52,13 @@ class VlogReaction: Codable {
 
         owner = nil
         ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
-
-        vlogId = try container.decodeToType(Int.self, key: CodingKeys.vlogId)
+        
+        let vlogIdString = try container.decode(String.self, forKey: CodingKeys.vlogId)
+        guard let vlogIdInt = Int(vlogIdString) else {
+            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.vlogId], debugDescription: "Could not parse json key to Int object")
+            throw DecodingError.dataCorrupted(context)
+        }
+        vlogId = vlogIdInt
     }
     
 }

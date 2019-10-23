@@ -96,7 +96,7 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
         let reaction = reactions[indexPath.row]
         
         cell.userUsernameLabel.text = reaction.owner!.username
-        cell.dateLabel.text = ""
+        cell.dateLabel.text = reaction.postDateString
         cell.durationLabel.text = reaction.duration
         
         return cell
