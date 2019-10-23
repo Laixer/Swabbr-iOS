@@ -40,17 +40,12 @@ class NotificationRegistrationService {
     
     func register(
         withTags tags : [String]? = nil,
-        andTemplates templates : Dictionary<String, PushTemplate>? = nil,
         completeWith completion: ((_ result: Bool) -> ())? = nil) {
         
         var deviceInstallation = DeviceInstallation(withInstallationId: installationId, andPushChannel: pushChannel)
         
         if let tags = tags {
             deviceInstallation.tags = tags
-        }
-        
-        if let templates = templates {
-            deviceInstallation.templates = templates
         }
         
         if let deviceInstallationJson = encodeToJson(deviceInstallation) {

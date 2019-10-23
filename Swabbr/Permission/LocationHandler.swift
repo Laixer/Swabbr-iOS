@@ -55,6 +55,11 @@ class LocationHandler : NSObject, PermissionHandlerProtocol {
         }
     }
     
+    // ask current location -> return bool to use in code where called
+    static func getCurrentLocation() -> Bool {
+        askPermission()
+        return hasPermission
+    }
     
     // create an error dialog window if error permission error occurs
     static func createErrorDialog(rootView: UIViewController) {

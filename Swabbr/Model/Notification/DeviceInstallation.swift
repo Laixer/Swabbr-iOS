@@ -14,13 +14,11 @@ struct DeviceInstallation: Codable {
     let pushChannel: String
     let platform = "apns"
     var tags: [String]
-    var templates: Dictionary<String, PushTemplate>
     
     init(withInstallationId installationId: String, andPushChannel pushChannel: String) {
         self.installationId = installationId
         self.pushChannel = pushChannel
         self.tags = [String]()
-        self.templates = Dictionary<String, PushTemplate>()
     }
     
 }

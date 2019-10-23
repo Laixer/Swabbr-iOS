@@ -267,7 +267,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
      - parameter explicit: A boolean which when set to true will hard stop the player, which means the player will be fully stopped and observers abserving the player will be removed.
     */
     private func stopPlayer(_ explicit: Bool) {
-        player.pause()
+//        player.pause()
         
         if explicit {
             player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
@@ -286,7 +286,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             // add observer so we know when the vlog has finished
             NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }
-        player.play()
+//        player.play()
     }
     
 }

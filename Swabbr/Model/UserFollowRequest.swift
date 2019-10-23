@@ -41,27 +41,10 @@ struct UserFollowRequest: Codable {
      */
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let idString = try container.decode(String.self, forKey: CodingKeys.id)
-        guard let idInt = Int(idString) else {
-            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.id], debugDescription: "Could not parse json key to Int object")
-            throw DecodingError.dataCorrupted(context)
-        }
-        id = idInt
-        
-        let requesterIdString = try container.decode(String.self, forKey: CodingKeys.requesterId)
-        guard let requesterIdInt = Int(requesterIdString) else {
-            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.requesterId], debugDescription: "Could not parse json key to Int object")
-            throw DecodingError.dataCorrupted(context)
-        }
-        requesterId = requesterIdInt
-        
-        let receiverIdString = try container.decode(String.self, forKey: CodingKeys.receiverId)
-        guard let receiverIdInt = Int(receiverIdString) else {
-            let context = DecodingError.Context(codingPath: container.codingPath + [CodingKeys.receiverId], debugDescription: "Could not parse json key to Int object")
-            throw DecodingError.dataCorrupted(context)
-        }
-        receiverId = receiverIdInt
+
+        id = try container.decodeToType(Int.self, key: CodingKeys.id)
+        requesterId = try container.decodeToType(Int.self, key: CodingKeys.requesterId)
+        receiverId = try container.decodeToType(Int.self, key: CodingKeys.receiverId)
         
         status = try container.decode(Status.self, forKey: CodingKeys.status)
         

@@ -13,6 +13,5 @@ target 'Swabbr' do
   
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
-  pod 'Firebase/Messaging'
 
 end
