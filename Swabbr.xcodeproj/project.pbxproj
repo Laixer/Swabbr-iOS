@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; };
+		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
+		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
+		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
+		C2B18137235DFD78001D6F0B /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */; };
+		C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */; };
+		C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */; };
+		C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */; };
+		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
+		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
+		C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD32355FB2900EEDF1B /* TokenData.swift */; };
+		C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */; };
+		C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */; };
+		C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */; };
 		C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21D8232FA35700BF772D /* AppDelegate.swift */; };
 		C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DF232FA3E900BF772D /* Assets.xcassets */; };
 		C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */; };
@@ -22,7 +36,6 @@
 		C2E776C52333A4320071B828 /* Vlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C42333A4320071B828 /* Vlog.swift */; };
 		C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C62333A82F0071B828 /* VlogPageViewController.swift */; };
 		C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */; };
-		C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CA2334C88D0071B828 /* NotificationHandler.swift */; };
 		C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */; };
 		C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776CE2338D18A0071B828 /* CountdownLabel.swift */; };
 		C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776D02338D7D50071B828 /* VlogStreamControlView.swift */; };
@@ -38,13 +51,20 @@
 		C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776FA234E24370071B828 /* SwabbrTests.swift */; };
 		C2E77703234E277B0071B828 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77702234E277B0071B828 /* UserTests.swift */; };
 		C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7770E235084DA0071B828 /* SwabbrUITests.swift */; };
-		C2E77719235485C60071B828 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* Preferences.swift */; };
-		C2E7771B235488CD0071B828 /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* Preferences.plist */; };
+		C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* ApiPreferences.swift */; };
+		C2E7771B235488CD0071B828 /* API-Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* API-Preferences.plist */; };
 		C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7771C2354CB640071B828 /* VlogTests.swift */; };
 		C2E7771F2355B53F0071B828 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C2B18135235DFD78001D6F0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2DE21CD232FA35600BF772D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2B1812F235DFD77001D6F0B;
+			remoteInfo = NotificationServiceExtension;
+		};
 		C2E776FD234E24370071B828 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C2DE21CD232FA35600BF772D /* Project object */;
@@ -61,10 +81,43 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C2B1813B235DFD78001D6F0B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C2B18137235DFD78001D6F0B /* NotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
 		6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swabbr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
+		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
+		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B18132235DFD78001D6F0B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C2B18134235DFD78001D6F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2B18141235EEEB1001D6F0B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C2B18143235EEEB1001D6F0B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+DecodeToType.swift"; sourceTree = "<group>"; };
+		C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionTests.swift; sourceTree = "<group>"; };
+		C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestTests.swift; sourceTree = "<group>"; };
+		C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Notification-Hub-Settings.plist"; sourceTree = "<group>"; };
+		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
+		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
+		C2C24CD32355FB2900EEDF1B /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
+		C2C24CD62355FE5A00EEDF1B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtility.swift; sourceTree = "<group>"; };
+		C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swabbr.entitlements; sourceTree = "<group>"; };
+		C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrationService.swift; sourceTree = "<group>"; };
+		C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFormatter+StringHandling.swift"; sourceTree = "<group>"; };
 		C2DE21D5232FA35700BF772D /* Swabbr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swabbr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DE21D8232FA35700BF772D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2DE21DF232FA3E900BF772D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +134,6 @@
 		C2E776C42333A4320071B828 /* Vlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vlog.swift; sourceTree = "<group>"; };
 		C2E776C62333A82F0071B828 /* VlogPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPageViewController.swift; sourceTree = "<group>"; };
 		C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTableViewCell.swift; sourceTree = "<group>"; };
-		C2E776CA2334C88D0071B828 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		C2E776CC2338B96B0071B828 /* VlogTimeProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTimeProgressBar.swift; sourceTree = "<group>"; };
 		C2E776CE2338D18A0071B828 /* CountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabel.swift; sourceTree = "<group>"; };
 		C2E776D02338D7D50071B828 /* VlogStreamControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogStreamControlView.swift; sourceTree = "<group>"; };
@@ -101,13 +153,20 @@
 		C2E7770C235084DA0071B828 /* SwabbrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwabbrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E7770E235084DA0071B828 /* SwabbrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwabbrUITests.swift; sourceTree = "<group>"; };
 		C2E77710235084DA0071B828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C2E77718235485C60071B828 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		C2E7771A235488CD0071B828 /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
+		C2E77718235485C60071B828 /* ApiPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPreferences.swift; sourceTree = "<group>"; };
+		C2E7771A235488CD0071B828 /* API-Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API-Preferences.plist"; sourceTree = "<group>"; };
 		C2E7771C2354CB640071B828 /* VlogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTests.swift; sourceTree = "<group>"; };
 		C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C2B1812D235DFD77001D6F0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2DE21D2232FA35700BF772D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,6 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */,
+				C2B18141235EEEB1001D6F0B /* UserNotifications.framework */,
+				C2B18143235EEEB1001D6F0B /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,12 +211,67 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C2B18131235DFD78001D6F0B /* NotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				C2B18132235DFD78001D6F0B /* NotificationService.swift */,
+				C2B18134235DFD78001D6F0B /* Info.plist */,
+			);
+			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		C2C24CCB2355F1F300EEDF1B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C2E7771A235488CD0071B828 /* API-Preferences.plist */,
+				C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C2C24CCE2355FA5B00EEDF1B /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				C2C24CD7235607DA00EEDF1B /* Utility */,
+				C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */,
+				C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */,
+				C2C24CD32355FB2900EEDF1B /* TokenData.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		C2C24CD7235607DA00EEDF1B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		C2C24CDC235726D000EEDF1B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C2C24CDF2359AFF700EEDF1B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */,
+				C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C2DE21CC232FA35600BF772D = {
 			isa = PBXGroup;
 			children = (
 				C2DE21D7232FA35700BF772D /* Swabbr */,
 				C2E776F9234E24370071B828 /* SwabbrTests */,
 				C2E7770D235084DA0071B828 /* SwabbrUITests */,
+				C2B18131235DFD78001D6F0B /* NotificationServiceExtension */,
 				C2DE21D6232FA35700BF772D /* Products */,
 				BCB62B408C4F3C09E641793A /* Pods */,
 				B95A32AC7988BBADCCA5561F /* Frameworks */,
@@ -168,6 +284,7 @@
 				C2DE21D5232FA35700BF772D /* Swabbr.app */,
 				C2E776F8234E24360071B828 /* SwabbrTests.xctest */,
 				C2E7770C235084DA0071B828 /* SwabbrUITests.xctest */,
+				C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,16 +292,20 @@
 		C2DE21D7232FA35700BF772D /* Swabbr */ = {
 			isa = PBXGroup;
 			children = (
+				C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */,
+				C2C24CD62355FE5A00EEDF1B /* BridgingHeader.h */,
+				C2C24CDC235726D000EEDF1B /* Service */,
 				C2E776DA233A652B0071B828 /* API */,
-				C2E776B023325AF10071B828 /* Struct */,
+				C2E776B023325AF10071B828 /* Model */,
 				C2DE21F823311CA200BF772D /* Controller */,
 				C2DE21F5232FE89400BF772D /* View */,
 				C2DE21EA232FB43300BF772D /* Permission */,
+				C2C24CDF2359AFF700EEDF1B /* Extension */,
+				C2C24CCB2355F1F300EEDF1B /* SupportingFiles */,
 				C2DE21D8232FA35700BF772D /* AppDelegate.swift */,
 				C2DE21DF232FA3E900BF772D /* Assets.xcassets */,
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
-				C2E776CA2334C88D0071B828 /* NotificationHandler.swift */,
 				C2E7771E2355B53E0071B828 /* GoogleService-Info.plist */,
 			);
 			path = Swabbr;
@@ -236,15 +357,17 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		C2E776B023325AF10071B828 /* Struct */ = {
+		C2E776B023325AF10071B828 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C2B18126235DA7A1001D6F0B /* Payload.swift */,
+				C2C24CCE2355FA5B00EEDF1B /* Notification */,
 				C2E776B123325B160071B828 /* User.swift */,
 				C2E776C42333A4320071B828 /* Vlog.swift */,
 				C2E776E523423B5A0071B828 /* VlogReaction.swift */,
 				C2E776E72344B20E0071B828 /* UserFollowRequest.swift */,
 			);
-			path = Struct;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C2E776BD233382320071B828 /* TableCell */ = {
@@ -259,8 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E776DB233A65D10071B828 /* API.swift */,
-				C2E77718235485C60071B828 /* Preferences.swift */,
-				C2E7771A235488CD0071B828 /* Preferences.plist */,
+				C2E77718235485C60071B828 /* ApiPreferences.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -281,6 +403,9 @@
 				C2E776FC234E24370071B828 /* Info.plist */,
 				C2E77702234E277B0071B828 /* UserTests.swift */,
 				C2E7771C2354CB640071B828 /* VlogTests.swift */,
+				C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */,
+				C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */,
+				C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */,
 			);
 			path = SwabbrTests;
 			sourceTree = "<group>";
@@ -297,6 +422,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C2B1812F235DFD77001D6F0B /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2B18138235DFD78001D6F0B /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				C2B1812C235DFD77001D6F0B /* Sources */,
+				C2B1812D235DFD77001D6F0B /* Frameworks */,
+				C2B1812E235DFD77001D6F0B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationServiceExtension;
+			productName = NotificationServiceExtension;
+			productReference = C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C2DE21D4232FA35700BF772D /* Swabbr */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2DE21E7232FA3E900BF772D /* Build configuration list for PBXNativeTarget "Swabbr" */;
@@ -306,10 +448,12 @@
 				C2DE21D2232FA35700BF772D /* Frameworks */,
 				C2DE21D3232FA35700BF772D /* Resources */,
 				0809C493178F0710F7C895BD /* [CP] Embed Pods Frameworks */,
+				C2B1813B235DFD78001D6F0B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C2B18136235DFD78001D6F0B /* PBXTargetDependency */,
 			);
 			name = Swabbr;
 			productName = Swabbr;
@@ -362,8 +506,19 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Laixer;
 				TargetAttributes = {
+					C2B1812F235DFD77001D6F0B = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					C2DE21D4232FA35700BF772D = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					C2E776F7234E24360071B828 = {
 						CreatedOnToolsVersion = 10.1;
@@ -391,17 +546,26 @@
 				C2DE21D4232FA35700BF772D /* Swabbr */,
 				C2E776F7234E24360071B828 /* SwabbrTests */,
 				C2E7770B235084DA0071B828 /* SwabbrUITests */,
+				C2B1812F235DFD77001D6F0B /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C2B1812E235DFD77001D6F0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2DE21D3232FA35700BF772D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2E7771B235488CD0071B828 /* Preferences.plist in Resources */,
+				C2E7771B235488CD0071B828 /* API-Preferences.plist in Resources */,
 				C2E7771F2355B53F0071B828 /* GoogleService-Info.plist in Resources */,
+				C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */,
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
 			);
@@ -466,6 +630,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C2B1812C235DFD77001D6F0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2DE21D1232FA35700BF772D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -478,21 +650,28 @@
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
 				C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
+				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
+				C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */,
 				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
-				C2E776CB2334C88D0071B828 /* NotificationHandler.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
+				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
+				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
 				C2E776DC233A65D10071B828 /* API.swift in Sources */,
 				C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */,
 				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
+				C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
-				C2E77719235485C60071B828 /* Preferences.swift in Sources */,
+				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
+				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
+				C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */,
+				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
@@ -503,7 +682,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */,
 				C2E77703234E277B0071B828 /* UserTests.swift in Sources */,
+				C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */,
+				C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */,
 				C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */,
 				C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */,
 			);
@@ -520,6 +702,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C2B18136235DFD78001D6F0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2B1812F235DFD77001D6F0B /* NotificationServiceExtension */;
+			targetProxy = C2B18135235DFD78001D6F0B /* PBXContainerItemProxy */;
+		};
 		C2E776FE234E24370071B828 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C2DE21D4232FA35700BF772D /* Swabbr */;
@@ -544,6 +731,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C2B18139235DFD78001D6F0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XACC24T3B7;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C2B1813A235DFD78001D6F0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XACC24T3B7;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C2DE21E5232FA3E900BF772D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -664,9 +891,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				CODE_SIGN_ENTITLEMENTS = Swabbr/Swabbr.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = XACC24T3B7;
 				INFOPLIST_FILE = Swabbr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -674,6 +905,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Swabbr Development";
+				SWIFT_OBJC_BRIDGING_HEADER = Swabbr/BridgingHeader.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -683,9 +916,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				CODE_SIGN_ENTITLEMENTS = Swabbr/Swabbr.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Swabbr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -693,6 +930,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.laixer.swabbr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = Swabbr/BridgingHeader.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -700,10 +939,12 @@
 		};
 		C2E776FF234E24370071B828 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				DEVELOPMENT_TEAM = XACC24T3B7;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -723,7 +964,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				DEVELOPMENT_TEAM = XACC24T3B7;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -742,7 +984,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				DEVELOPMENT_TEAM = XACC24T3B7;
 				INFOPLIST_FILE = SwabbrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -761,7 +1003,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T7A6NGHUF6;
+				DEVELOPMENT_TEAM = XACC24T3B7;
 				INFOPLIST_FILE = SwabbrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -779,6 +1021,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C2B18138235DFD78001D6F0B /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2B18139235DFD78001D6F0B /* Debug */,
+				C2B1813A235DFD78001D6F0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		C2DE21D0232FA35600BF772D /* Build configuration list for PBXProject "Swabbr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -786,7 +1037,7 @@
 				C2DE21E6232FA3E900BF772D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C2DE21E7232FA3E900BF772D /* Build configuration list for PBXNativeTarget "Swabbr" */ = {
 			isa = XCConfigurationList;
@@ -795,7 +1046,7 @@
 				C2DE21E9232FA3E900BF772D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C2E77701234E24370071B828 /* Build configuration list for PBXNativeTarget "SwabbrTests" */ = {
 			isa = XCConfigurationList;
@@ -804,7 +1055,7 @@
 				C2E77700234E24370071B828 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C2E77713235084DA0071B828 /* Build configuration list for PBXNativeTarget "SwabbrUITests" */ = {
 			isa = XCConfigurationList;
@@ -813,7 +1064,7 @@
 				C2E77715235084DA0071B828 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

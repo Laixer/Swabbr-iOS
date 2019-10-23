@@ -1,15 +1,15 @@
 //
-//  VlogTests.swift
+//  VlogReactionTests.swift
 //  SwabbrTests
 //
-//  Created by James Bal on 14-10-19.
+//  Created by James Bal on 22-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
 import XCTest
 @testable import Swabbr
 
-class VlogTests: XCTestCase {
+class VlogReactionTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -18,13 +18,13 @@ class VlogTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testJSONToVlog() {
-        let jsonString = "[{\"id\": \"0\", \"private\": true, \"userId\": 0, \"duration\": \"00:20\", \"startDate\": \"2019-02-02 13:45\", \"totalLikes\": 10, \"totalReactions\": 12, \"totalViews\": 10, \"isLive\": true}]"
+    
+    func testJSONToVlogReaction() {
+        let jsonString = "{\"id\": \"0\", \"isPrivate\": true, \"ownerId\": 2, \"duration\": \"00:20\", \"postDate\": \"2019-01-20 12:43\", \"vlogId\": \"2\"}"
         let jsonData = jsonString.data(using: .utf8)
         let decoder = JSONDecoder()
-        let vlogs = try? decoder.decode([Vlog].self, from: jsonData!)
-        XCTAssertNotNil(vlogs![0], "The json string does not conform the vlog model")
+        let vlogReaction = try? decoder.decode(VlogReaction.self, from: jsonData!)
+        XCTAssertNotNil(vlogReaction, "The json string does not conform the VlogReaction model")
     }
 
 }
