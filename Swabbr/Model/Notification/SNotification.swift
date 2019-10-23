@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SNotification: PayloadProtocol {
+struct SNotification {
 
     let title: String
     let message: String
@@ -31,7 +31,7 @@ struct SNotification: PayloadProtocol {
 
 }
 
-extension SNotification:  {
+extension SNotification: PayloadProtocol {
     init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
