@@ -8,17 +8,7 @@
 
 import Foundation
 
-class SNotification: Payload {
-    
-    override func dataHandling(_ container: KeyedDecodingContainer<Payload.CodingKeys>) throws {
-        let tempDict = try container.decode(Dictionary<String, String>.self, forKey: CodingKeys.innerData)
-        let jsonData = try JSONSerialization.data(withJSONObject: tempDict, options: [])
-        innerData = try JSONDecoder().decode(NotificationData.self, from: jsonData)
-    }
-
-}
-
-struct NotificationData: Decodable {
+struct SNotification: PayloadProtocol {
 
     let title: String
     let message: String
@@ -38,9 +28,12 @@ struct NotificationData: Decodable {
         case title, message
         case clickAction = "click_action"
     }
-    
+
+}
+
+extension SNotification:  {
     init(from decoder: Decoder) throws {
-     
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         title = try container.decode(String.self, forKey: CodingKeys.title)
@@ -48,5 +41,8 @@ struct NotificationData: Decodable {
         clickAction = try container.decode(ClickAction.self, forKey: CodingKeys.clickAction)
         
     }
-
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
 }
