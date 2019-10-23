@@ -8,14 +8,14 @@
 
 import Foundation
 
-class Payload: PayloadProtocol {
-    
+class Payload<T: PayloadProtocol>: PayloadProtocol {
+
     let _protocol: String
     let _protocolVersion: Int
     private let dataType: DataType
     let dataTypeVersion: Int
-    var innerData: Any?
-    private var contentType: ContentType?
+    let innerData: T
+    private var contentType: ContentType
     var timestamp: String?
     var userAgent: String?
     
@@ -48,13 +48,11 @@ class Payload: PayloadProtocol {
         dataType = try container.decode(DataType.self, forKey: CodingKeys.dataType)
         dataTypeVersion = try container.decode(Int.self, forKey: CodingKeys.dataTypeVersion)
         
-        innerData = nil
+        innerData = try container.decode(T.self, forKey: CodingKeys.innerData)
         
         contentType = try container.decode(ContentType.self, forKey: CodingKeys.contentType)
         timestamp = try container.decode(String.self, forKey: CodingKeys.timestamp)
         userAgent = try container.decode(String.self, forKey: CodingKeys.userAgent)
-        
-        try dataHandling(container)
         
     }
     
@@ -70,19 +68,10 @@ class Payload: PayloadProtocol {
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
         try container.encode(userAgent, forKey: CodingKeys.userAgent)
         
-        // TODO: add innerData
+//        try container.encode(innerData!, forKey: CodingKeys.innerData)
 
     }
     
-    internal func dataHandling(_ container: KeyedDecodingContainer<Payload.CodingKeys>) throws {}
-    
 }
 
-protocol PayloadProtocol: Codable {
-    /**
-     Handle the retrieved data correctly according to the needs of the data.
-     - parameter container: A decoders storage object which holds all the coupled values.
-     - Throws: Throws an when it is not able to decode a certain value in the codingkeys list.
-    */
-    func dataHandling(_ container: KeyedDecodingContainer<Payload.CodingKeys>) throws
-}
+protocol PayloadProtocol: Codable {}
