@@ -20,7 +20,7 @@ class VlogReactionTests: XCTestCase {
     }
     
     func testJSONToVlogReaction() {
-        let jsonString = "{\"id\": \"0\", \"isPrivate\": true, \"ownerId\": 2, \"duration\": \"00:20\", \"postDate\": \"2019-01-20 12:43\", \"vlogId\": \"2\"}"
+        let jsonString = "{\"id\": \"0\", \"private\": true, \"userId\": 2, \"duration\": \"00:20\", \"postDate\": \"2019-01-20 12:43\", \"vlogId\": \"2\"}"
         let jsonData = jsonString.data(using: .utf8)
         let decoder = JSONDecoder()
         let vlogReaction = try? decoder.decode(VlogReaction.self, from: jsonData!)
