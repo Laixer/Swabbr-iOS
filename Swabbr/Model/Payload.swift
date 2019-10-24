@@ -43,16 +43,16 @@ class Payload<T: Codable>: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        _protocol = try container.decode(String.self, forKey: CodingKeys._protocol)
-        _protocolVersion = try container.decode(Int.self, forKey: CodingKeys._protocolVersion)
-        dataType = try container.decode(DataType.self, forKey: CodingKeys.dataType)
-        dataTypeVersion = try container.decode(Int.self, forKey: CodingKeys.dataTypeVersion)
+        _protocol = try container.decode(String.self, forKey: ._protocol)
+        _protocolVersion = try container.decode(Int.self, forKey: ._protocolVersion)
+        dataType = try container.decode(DataType.self, forKey: .dataType)
+        dataTypeVersion = try container.decode(Int.self, forKey: .dataTypeVersion)
         
-        innerData = try container.decode(T.self, forKey: CodingKeys.innerData)
+        innerData = try container.decode(T.self, forKey: .innerData)
         
-        contentType = try container.decode(ContentType.self, forKey: CodingKeys.contentType)
-        timestamp = try container.decode(String.self, forKey: CodingKeys.timestamp)
-        userAgent = try container.decode(String.self, forKey: CodingKeys.userAgent)
+        contentType = try container.decode(ContentType.self, forKey: .contentType)
+        timestamp = try container.decode(String.self, forKey: .timestamp)
+        userAgent = try container.decode(String.self, forKey: .userAgent)
         
     }
     
@@ -60,15 +60,15 @@ class Payload<T: Codable>: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(_protocol, forKey: CodingKeys._protocol)
-        try container.encode(_protocolVersion, forKey: CodingKeys._protocolVersion)
-        try container.encode(dataType, forKey: CodingKeys.dataType)
-        try container.encode(dataTypeVersion, forKey: CodingKeys.dataTypeVersion)
-        try container.encode(contentType, forKey: CodingKeys.contentType)
-        try container.encode(timestamp, forKey: CodingKeys.timestamp)
-        try container.encode(userAgent, forKey: CodingKeys.userAgent)
+        try container.encode(_protocol, forKey: ._protocol)
+        try container.encode(_protocolVersion, forKey: ._protocolVersion)
+        try container.encode(dataType, forKey: .dataType)
+        try container.encode(dataTypeVersion, forKey: .dataTypeVersion)
+        try container.encode(contentType, forKey: .contentType)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(userAgent, forKey: .userAgent)
         
-        try container.encode(innerData, forKey: CodingKeys.innerData)
+        try container.encode(innerData, forKey: .innerData)
 
     }
     

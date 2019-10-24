@@ -37,9 +37,9 @@ extension SNotification: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        title = try container.decode(String.self, forKey: CodingKeys.title)
-        message = try container.decode(String.self, forKey: CodingKeys.message)
-        clickAction = try container.decode(ClickAction.self, forKey: CodingKeys.clickAction)
+        title = try container.decode(String.self, forKey: .title)
+        message = try container.decode(String.self, forKey: .message)
+        clickAction = try container.decode(ClickAction.self, forKey: .clickAction)
         
     }
     
