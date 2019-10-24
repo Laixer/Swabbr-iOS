@@ -939,11 +939,12 @@
 		};
 		C2E776FF234E24370071B828 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XACC24T3B7;
-				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly";
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -964,7 +965,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XACC24T3B7;
-				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly";
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
