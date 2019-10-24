@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct User {
     
     var id: Int
     var firstName: String
@@ -45,37 +45,59 @@ struct User: Codable {
         case id, firstName, lastName, gender, country, email, birthdate, timezone, profileImageUrl, interests, totalVlogs, totalFollowers, totalFollowing, longitude, latitude
         case username = "nickname"
     }
-    
-    /**
-     This function makes the data conform to the model.
-     It will try and parse the values to their correct value according to the model.
-     - parameter decoder: The decoder built in swift to read the data from.
-     - Throws: A decodingerror when the data can't be converted to their respective type.
-    */
+}
+
+// MARK: Codable
+extension User: Codable {
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        id = try container.decodeToType(Int.self, key: CodingKeys.id)
-        
-        firstName = try container.decode(String.self, forKey: CodingKeys.firstName)
-        lastName = try container.decode(String.self, forKey: CodingKeys.lastName)
-        gender = try container.decode(Gender.self, forKey: CodingKeys.gender)
-        country = try container.decode(String.self, forKey: CodingKeys.country)
-        email = try container.decode(String.self, forKey: CodingKeys.email)
-        
-        birthdate = DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: try container.decode(String.self, forKey: CodingKeys.birthdate))!
-        
-        timezone = try container.decode(String.self, forKey: CodingKeys.timezone)
-        username = try container.decode(String.self, forKey: CodingKeys.username)
-        profileImageUrl = try container.decode(String.self, forKey: CodingKeys.profileImageUrl)
-        interests = try container.decode([String].self, forKey: CodingKeys.interests)
-        totalVlogs = try container.decode(Int.self, forKey: CodingKeys.totalVlogs)
-        totalFollowers = try container.decode(Int.self, forKey: CodingKeys.totalFollowers)
-        totalFollowing = try container.decode(Int.self, forKey: CodingKeys.totalFollowing)
-        
+
+        id = try container.decodeToType(Int.self, key: .id)
+
+        firstName = try container.decode(String.self, forKey: .firstName)
+        lastName = try container.decode(String.self, forKey: .lastName)
+        gender = try container.decode(Gender.self, forKey: .gender)
+        country = try container.decode(String.self, forKey: .country)
+        email = try container.decode(String.self, forKey: .email)
+
+        birthdate = DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: try container.decode(String.self, forKey: .birthdate))!
+
+        timezone = try container.decode(String.self, forKey: .timezone)
+        username = try container.decode(String.self, forKey: .username)
+        profileImageUrl = try container.decode(String.self, forKey: .profileImageUrl)
+        interests = try container.decode([String].self, forKey: .interests)
+        totalVlogs = try container.decode(Int.self, forKey: .totalVlogs)
+        totalFollowers = try container.decode(Int.self, forKey: .totalFollowers)
+        totalFollowing = try container.decode(Int.self, forKey: .totalFollowing)
+
         longitude = try container.decodeToType(Float.self, key: CodingKeys.longitude)
         latitude = try container.decodeToType(Float.self, key: CodingKeys.latitude)
-        
+
     }
     
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(firstName, forKey: .firstName)
+        try container.encode(lastName, forKey: .lastName)
+        try container.encode(gender, forKey: .gender)
+        try container.encode(country, forKey: .country)
+        try container.encode(email, forKey: .email)
+        
+        try container.encode(birthdate, forKey: .birthdate)
+        try container.encode(timezone, forKey: .timezone)
+        try container.encode(username, forKey: .username)
+        try container.encode(profileImageUrl, forKey: .profileImageUrl)
+        try container.encode(interests, forKey: .interests)
+        try container.encode(totalVlogs, forKey: .totalVlogs)
+        try container.encode(totalFollowers, forKey: .totalFollowers)
+        try container.encode(totalFollowing, forKey: .totalFollowing)
+        try container.encode(longitude, forKey: .longitude)
+        try container.encode(latitude, forKey: .latitude)
+        
+    }
+
 }
