@@ -33,12 +33,6 @@ struct UserFollowRequest: Codable {
         case id, requesterId, receiverId, status, timestamp
     }
     
-    /**
-     This function makes the data conform to the model.
-     It will try and parse the values to their correct value according to the model.
-     - parameter decoder: The decoder built in swift to read the data from.
-     - Throws: A decodingerror when the data can't be converted to their respective type.
-     */
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
