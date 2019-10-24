@@ -38,17 +38,17 @@ class VlogReaction: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decodeToType(Int.self, key: CodingKeys.id)
+        id = try container.decodeToType(Int.self, key: .id)
         
-        isPrivate = try container.decode(Bool.self, forKey: CodingKeys.isPrivate)
-        duration = try container.decode(String.self, forKey: CodingKeys.duration)
+        isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
+        duration = try container.decode(String.self, forKey: .duration)
         
-        postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: CodingKeys.postDate))!
+        postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .postDate))!
 
         owner = nil
-        ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
+        ownerId = try container.decode(Int.self, forKey: .ownerId)
 
-        vlogId = try container.decodeToType(Int.self, key: CodingKeys.vlogId)
+        vlogId = try container.decodeToType(Int.self, key: .vlogId)
     }
     
     func encode(to encoder: Encoder) throws {
