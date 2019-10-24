@@ -31,7 +31,8 @@ struct SNotification {
 
 }
 
-extension SNotification: PayloadProtocol {
+// MARK: Codable
+extension SNotification: Codable {
     init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
