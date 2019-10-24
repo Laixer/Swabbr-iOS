@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; };
+		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -15,7 +15,7 @@
 		C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */; };
 		C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */; };
 		C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */; };
-		C2B1816323605889001D6F0B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2B1816223605888001D6F0B /* GoogleService-Info.plist */; };
+		C2B18165236194B6001D6F0B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2B18164236194B6001D6F0B /* GoogleService-Info.plist */; };
 		C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */; };
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
@@ -96,7 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
+		52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
 		6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swabbr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+DecodeToType.swift"; sourceTree = "<group>"; };
 		C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionTests.swift; sourceTree = "<group>"; };
 		C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestTests.swift; sourceTree = "<group>"; };
-		C2B1816223605888001D6F0B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C2B18164236194B6001D6F0B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Notification-Hub-Settings.plist"; sourceTree = "<group>"; };
 		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
@@ -205,8 +205,8 @@
 		BCB62B408C4F3C09E641793A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */,
 				B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */,
+				52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 				C2DE21DF232FA3E900BF772D /* Assets.xcassets */,
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
-				C2B1816223605888001D6F0B /* GoogleService-Info.plist */,
+				C2B18164236194B6001D6F0B /* GoogleService-Info.plist */,
 			);
 			path = Swabbr;
 			sourceTree = "<group>";
@@ -565,9 +565,9 @@
 			files = (
 				C2E7771B235488CD0071B828 /* API-Preferences.plist in Resources */,
 				C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */,
+				C2B18165236194B6001D6F0B /* GoogleService-Info.plist in Resources */,
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
-				C2B1816323605889001D6F0B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,7 +889,7 @@
 		};
 		C2DE21E8232FA3E900BF772D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */;
+			baseConfigurationReference = 52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -939,7 +939,6 @@
 		};
 		C2E776FF234E24370071B828 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36A596814D29CAF810272C84 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

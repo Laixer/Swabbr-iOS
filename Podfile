@@ -6,10 +6,9 @@ target 'Swabbr' do
   use_frameworks!
 
   # Pods for Swabbr
-  pod 'SwiftyCam'
   pod 'NextLevel', '0.14.0'
-  pod 'Cache'
-  pod 'Imaginary'
+  pod 'Cache', '5.2.0'
+  pod 'Imaginary', '4.2.0'
   
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
