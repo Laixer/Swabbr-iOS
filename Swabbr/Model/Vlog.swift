@@ -42,20 +42,23 @@ class Vlog: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        id = try container.decodeToType(Int.self, key: CodingKeys.id)
+        id = try container.decodeToType(Int.self, key: .id)
         
-        isPrivate = try container.decode(Bool.self, forKey: CodingKeys.isPrivate)
-        duration = try container.decode(String.self, forKey: CodingKeys.duration)
+        isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
+        duration = try container.decode(String.self, forKey: .duration)
 
-        startDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: CodingKeys.startDate))!
+        startDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .startDate))!
         
-        totalLikes = try container.decode(Int.self, forKey: CodingKeys.totalLikes)
-        totalReactions = try container.decode(Int.self, forKey: CodingKeys.totalReactions)
-        totalViews = try container.decode(Int.self, forKey: CodingKeys.totalViews)
-        isLive = try container.decode(Bool.self, forKey: CodingKeys.isLive)
+        totalLikes = try container.decode(Int.self, forKey: .totalLikes)
+        totalReactions = try container.decode(Int.self, forKey: .totalReactions)
+        totalViews = try container.decode(Int.self, forKey: .totalViews)
+        isLive = try container.decode(Bool.self, forKey: .isLive)
         
         owner = nil
-        ownerId = try container.decode(Int.self, forKey: CodingKeys.ownerId)
+        ownerId = try container.decode(Int.self, forKey: .ownerId)
+        
+    }
+    
     func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
