@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import Firebase
 
 @UIApplicationMain
@@ -60,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
         
         // setup window
         window = UIWindow(frame: UIScreen.main.bounds)
