@@ -51,4 +51,17 @@ class VlogReaction: Codable {
         vlogId = try container.decodeToType(Int.self, key: CodingKeys.vlogId)
     }
     
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(String(id), forKey: .id)
+        try container.encode(isPrivate, forKey: .isPrivate)
+        try container.encode(ownerId, forKey: .ownerId)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(postDate, forKey: .postDate)
+        try container.encode(String(vlogId), forKey: .vlogId)
+        
+    }
+    
 }
