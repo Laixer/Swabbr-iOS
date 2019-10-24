@@ -23,6 +23,7 @@ class UserTests: XCTestCase {
         encoder = JSONEncoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
         
     }
@@ -56,7 +57,7 @@ class UserTests: XCTestCase {
         
         let expectedDateString = "2014-06-02T00:00:00.000Z"
 
-        XCTAssert(user!.birthdate.iso8601() == expectedDateString, "The user birthdate: \(user!.birthdate.iso8601()) is not the same as: \(expectedDateString)")
+        XCTAssertEqual(user!.birthdate.iso8601(), expectedDateString, "The user birthdate: \(user!.birthdate.iso8601()) is not the same as: \(expectedDateString)")
     }
     
     func testUserToJSON() {
