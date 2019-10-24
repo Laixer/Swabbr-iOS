@@ -10,7 +10,6 @@
 
 import Foundation
 import UIKit
-import SwiftyCam
 import NextLevel
 import CoreMedia
 import AVFoundation
