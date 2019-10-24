@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Payload<T: PayloadProtocol>: PayloadProtocol {
+class Payload<T: Codable>: Codable {
 
     let _protocol: String
     let _protocolVersion: Int
@@ -68,10 +68,8 @@ class Payload<T: PayloadProtocol>: PayloadProtocol {
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
         try container.encode(userAgent, forKey: CodingKeys.userAgent)
         
-//        try container.encode(innerData!, forKey: CodingKeys.innerData)
+        try container.encode(innerData, forKey: CodingKeys.innerData)
 
     }
     
 }
-
-protocol PayloadProtocol: Codable {}
