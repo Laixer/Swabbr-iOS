@@ -71,8 +71,8 @@ extension User: Codable {
         totalFollowers = try container.decode(Int.self, forKey: .totalFollowers)
         totalFollowing = try container.decode(Int.self, forKey: .totalFollowing)
 
-        longitude = try container.decodeToType(Float.self, key: CodingKeys.longitude)
-        latitude = try container.decodeToType(Float.self, key: CodingKeys.latitude)
+        longitude = try container.decodeToType(Float.self, key: .longitude)
+        latitude = try container.decodeToType(Float.self, key: .latitude)
 
     }
     
@@ -80,13 +80,12 @@ extension User: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(id, forKey: .id)
+        try container.encode(String(id), forKey: .id)
         try container.encode(firstName, forKey: .firstName)
         try container.encode(lastName, forKey: .lastName)
         try container.encode(gender, forKey: .gender)
         try container.encode(country, forKey: .country)
         try container.encode(email, forKey: .email)
-        
         try container.encode(birthdate, forKey: .birthdate)
         try container.encode(timezone, forKey: .timezone)
         try container.encode(username, forKey: .username)
@@ -95,8 +94,8 @@ extension User: Codable {
         try container.encode(totalVlogs, forKey: .totalVlogs)
         try container.encode(totalFollowers, forKey: .totalFollowers)
         try container.encode(totalFollowing, forKey: .totalFollowing)
-        try container.encode(longitude, forKey: .longitude)
-        try container.encode(latitude, forKey: .latitude)
+        try container.encode(String(longitude), forKey: .longitude)
+        try container.encode(String(latitude), forKey: .latitude)
         
     }
 
