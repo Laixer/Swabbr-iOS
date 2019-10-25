@@ -23,7 +23,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     
     private let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
     
-    private let vlog: Vlog
+    let vlog: Vlog
     
     private let playerView = AVPlayerViewController()
     private var reactionController: ReactionViewController?
@@ -178,13 +178,14 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             return
         }
         
-        if parent.isKind(of: TimelineViewController.self){
-            let pageViewController = parent as? TimelineViewController
-            pageViewController!.setViewControllers([pageViewController!.pageViewController(pageViewController!, viewControllerAfter: self)!], direction: .forward, animated: true, completion: nil)
-        } else {
-            // TODO: handle error correctly
-            print("error")
+        if !parent.isKind(of: UIPageViewController.self){
+            return
         }
+
+        let parentPageViewController = (parent as! UIPageViewController).parent as? TimelineViewController
+        parentPageViewController!.pageViewController.setViewControllers(
+        [parentPageViewController!.pageViewController(parentPageViewController!.pageViewController, viewControllerAfter: self)!],
+        direction: .forward, animated: true, completion: nil)
     }
     
     /**
