@@ -49,9 +49,9 @@ struct UserFollowRequest: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(id, forKey: .id)
-        try container.encode(requesterId, forKey: .requesterId)
-        try container.encode(receiverId, forKey: .receiverId)
+        try container.encode(String(id), forKey: .id)
+        try container.encode(String(requesterId), forKey: .requesterId)
+        try container.encode(String(receiverId), forKey: .receiverId)
         try container.encode(status, forKey: .status)
         try container.encode(timestamp, forKey: .timestamp)
         
