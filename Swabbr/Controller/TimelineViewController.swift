@@ -8,24 +8,10 @@
 
 import UIKit
 
-class TimelineViewController : UIPageViewController {
+class TimelineViewController : UIViewController {
     
-    internal var vlogViewControllers: [VlogPageViewController] = []
-    
-    /**
-     We use this function to override the default values to make it compatible with our needs.
-     The UIPageVIewController uses pageCurl as the default transitionStyle, we override this to the scroll type.
-     - parameter style: A TransitionStyle value.
-     - parameter navigationOrientation: A NavigationOrientation value.
-     - parameter options: A dictionary in the following format <OptionsKey : Any>.
-    */
-    override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var pageViewController: UIPageViewController!
+    private var vlogs: [Vlog] = []
     
     override func viewDidLoad() {
         
@@ -33,8 +19,16 @@ class TimelineViewController : UIPageViewController {
         
         title = "Timeline"
         
-        dataSource = self
-        delegate = self
+        let pvc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        
+        pvc.dataSource = self
+        
+        self.addChild(pvc)
+        self.view.addSubview(pvc.view)
+        
+        pvc.view.frame = view.frame
+        
+        pvc.didMove(toParent: self)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCamera))
         
@@ -44,9 +38,11 @@ class TimelineViewController : UIPageViewController {
         })
         sData.getVlogs(onComplete: {vlogs in
             for vlog in vlogs! {
-                self.vlogViewControllers.append(VlogPageViewController(vlog: vlog))
+                self.vlogs.append(vlog)
             }
-            self.setViewControllers([self.vlogViewControllers.first!], direction: .forward, animated: true, completion: nil)
+            let vlogController = VlogPageViewController(vlog: self.vlogs[0])
+            pvc.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)
+            self.pageViewController = pvc
         })
         
     }
@@ -56,45 +52,47 @@ class TimelineViewController : UIPageViewController {
     }
 }
 
-extension TimelineViewController : UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+extension TimelineViewController : UIPageViewControllerDataSource {
     
     // MARK: UIPageViewControllerDataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = vlogViewControllers.firstIndex(of: viewController as! VlogPageViewController) else {
+        let vlog = (viewController as! VlogPageViewController).vlog
+        guard let cIndex = vlogs.firstIndex(of: vlog) else {
             return nil
         }
         
-        let previousIndex = viewControllerIndex - 1
+        let previousIndex = cIndex - 1
         
         guard previousIndex >= 0 else {
-            return vlogViewControllers.last
+            return VlogPageViewController(vlog: vlogs.last!)
         }
         
-        guard vlogViewControllers.count > previousIndex else {
+        guard vlogs.count > previousIndex else {
             return nil
         }
         
-        return vlogViewControllers[previousIndex]
+        return VlogPageViewController(vlog: vlogs[previousIndex])
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = vlogViewControllers.firstIndex(of: viewController as! VlogPageViewController) else {
+        let vlog = (viewController as! VlogPageViewController).vlog
+        guard let cIndex = vlogs.firstIndex(of: vlog) else {
             return nil
         }
         
-        let nextIndex = viewControllerIndex + 1
-        let vlogViewControllersCount = vlogViewControllers.count
+        let nextIndex = cIndex + 1
+        let vlogCount = vlogs.count
         
-        guard vlogViewControllersCount != nextIndex else {
-            return vlogViewControllers.first
+        guard vlogCount != nextIndex else {
+            return VlogPageViewController(vlog: vlogs.first!)
         }
         
-        guard vlogViewControllersCount > nextIndex else {
+        guard vlogCount > nextIndex else {
             return nil
         }
         
-        return vlogViewControllers[nextIndex]
+        return VlogPageViewController(vlog: vlogs[nextIndex])
     }
     
     
