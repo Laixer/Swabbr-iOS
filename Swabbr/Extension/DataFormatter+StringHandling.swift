@@ -31,11 +31,10 @@ extension DateFormatter {
      - Returns: A string representation of the given date in the correct format and time according to timezone.
     */
     func displayDateAsString(date: Date, localeId: String = Locale.current.identifier, timeZoneMock: TimeZone = TimeZone.current) -> String {
+        timeZone = timeZoneMock
         locale = Locale(identifier: localeId)
         dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd HH:mm", options: 0, locale: locale)
-        timeZone = timeZoneMock
-        let offset = timeZone.daylightSavingTimeOffset()
-        return self.string(from: date + offset)
+        return self.string(from: date)
     }
     
 }
