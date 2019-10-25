@@ -49,7 +49,6 @@ class VlogTests: XCTestCase {
     func testVlogToJSON() {
         let vlog = try? decoder.decode(Vlog.self, from: jsonData!)
         let originalJsonDict = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
-        
 
         let vlogToJsonData = try? encoder.encode(vlog)
         let vlogToJsonDict = try? JSONSerialization.jsonObject(with: vlogToJsonData!, options: []) as! [String: AnyHashable]
