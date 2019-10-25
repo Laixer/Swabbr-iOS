@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Vlog: Codable {
+class Vlog: NSObject, Codable {
     
     var id: Int
     var isPrivate: Bool
