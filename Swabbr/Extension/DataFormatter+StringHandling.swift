@@ -23,4 +23,18 @@ extension DateFormatter {
         return self.date(from: value)
     }
     
+    /**
+     This will convert the given date to a readable date, this date has a format according to the
+     users locale settings.
+     - parameter date: A date value which will be converted.
+     - Returns: A string representation of the given date in the correct format and time according to timezone.
+    */
+    func displayDateAsString(date: Date, localeId: String = Locale.current.identifier, timeZoneMock: TimeZone = TimeZone.current) -> String {
+        locale = Locale(identifier: localeId)
+        dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd HH:mm", options: 0, locale: locale)
+        timeZone = timeZoneMock
+        let offset = timeZone.daylightSavingTimeOffset()
+        return self.string(from: date + offset)
+    }
+    
 }
