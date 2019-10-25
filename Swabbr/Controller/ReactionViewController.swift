@@ -11,6 +11,8 @@ import AVKit
 
 class ReactionViewController: UIViewController, BaseViewProtocol {
     
+    private let dateFormatter = DateFormatter()
+    
     private let vlogId: Int
     
     private let tableView = UITableView()
@@ -96,7 +98,7 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
         let reaction = reactions[indexPath.row]
         
         cell.userUsernameLabel.text = reaction.owner!.username
-        cell.dateLabel.text = ""
+        cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.postDate)
         cell.durationLabel.text = reaction.duration
         
         return cell
