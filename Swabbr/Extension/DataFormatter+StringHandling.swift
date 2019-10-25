@@ -12,13 +12,14 @@ extension DateFormatter {
     
     /**
      This function is almost the same as the date(from: "stringdate") function but this will set the
-     timezone if it is required for a particular value.
+     timezone correctly and ensure that the date is UTC.
      - parameter format: A string value which represents the value of the incoming date string.
      - parameter value: A string value which represents the actual date string.
      - Returns: A nullable date.
     */
     func stringToBaseDate(format: String, value: String) -> Date? {
         self.dateFormat = format
+        self.locale = Locale(identifier: "en_US_POSIX")
         self.timeZone = TimeZone(abbreviation: "UTC")
         return self.date(from: value)
     }
