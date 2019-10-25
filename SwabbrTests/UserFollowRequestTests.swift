@@ -22,13 +22,16 @@ class UserFollowRequestTests: XCTestCase {
         decoder = JSONDecoder()
         encoder = JSONEncoder()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        jsonString = nil
+        jsonData = nil
+        decoder = nil
+        encoder = nil
     }
 
     func testJSONToUserFollowRequest() {
