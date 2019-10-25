@@ -10,9 +10,21 @@ import XCTest
 @testable import Swabbr
 
 class UserFollowRequestTests: XCTestCase {
+    
+    var jsonString: String!
+    var jsonData: Data!
+    var decoder: JSONDecoder!
+    var encoder: JSONEncoder!
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        jsonString = "{\"id\": \"0\", \"requesterId\": \"1\", \"receiverId\": \"2\", \"status\": \"accepted\", \"timestamp\": \"2019-01-20 12:43\"}"
+        jsonData = jsonString.data(using: .utf8)
+        decoder = JSONDecoder()
+        encoder = JSONEncoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
     }
 
     override func tearDown() {
@@ -20,12 +32,19 @@ class UserFollowRequestTests: XCTestCase {
     }
 
     func testJSONToUserFollowRequest() {
-        let jsonString = "{\"id\": \"0\", \"requesterId\": \"1\", \"receiverId\": \"2\", \"status\": \"accepted\", \"timestamp\": \"2019-01-20 12:43\"}"
-        let jsonData = jsonString.data(using: .utf8)
-        let decoder = JSONDecoder()
         let userFollowRequest = try? decoder.decode(UserFollowRequest.self, from: jsonData!)
         XCTAssertNotNil(userFollowRequest, "The json string does not conform the UserFollowRequest model")
         XCTAssert(userFollowRequest!.status == UserFollowRequest.Status.Accepted, "The current status is not as expected")
+    }
+    
+    func testUserFollowRequestToJSON() {
+        let userFollowRequest = try? decoder.decode(UserFollowRequest.self, from: jsonData!)
+        let originalJsonDict = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
+        
+        let userFollowRequestToJsonData = try? encoder.encode(userFollowRequest)
+        let userFollowRequestToJsonDict = try? JSONSerialization.jsonObject(with: userFollowRequestToJsonData!, options: []) as! [String: AnyHashable]
+        
+        XCTAssertEqual(originalJsonDict, userFollowRequestToJsonDict, "The original json is not equal to the user follow request generated json: Original: \(originalJsonDict) | Generated: \(userFollowRequestToJsonDict)")
     }
 
 }
