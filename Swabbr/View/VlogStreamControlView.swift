@@ -10,7 +10,7 @@ import UIKit
 
 class VlogStreamControlView : UIView {
     
-    private let minimumVlogTimeProgressBar = VlogTimeProgressBar()
+    private var minimumVlogTimeProgressBar: VlogTimeProgressBar?
     private let countdownLabel = CountdownLabel()
     
     public let flipCameraBottomRightButton = UIButton(type: UIButton.ButtonType.infoDark)
@@ -19,21 +19,29 @@ class VlogStreamControlView : UIView {
     
     public let cameraFiltersButton = UIButton(type: UIButton.ButtonType.infoDark)
     
-    init() {
+    private var isStreaming = false
+    
+    init(isStreaming: Bool) {
         
         super.init(frame: .zero)
         
         tintColor = UIColor.white
+        
+        self.isStreaming = isStreaming
         
         countdownLabel.font = countdownLabel.font.withSize(50)
         
         recordButton.isEnabled = false
         
         addSubview(countdownLabel)
-        addSubview(minimumVlogTimeProgressBar)
         addSubview(flipCameraTopLeftButton)
         addSubview(flipCameraBottomRightButton)
         addSubview(recordButton)
+        
+        if isStreaming {
+            minimumVlogTimeProgressBar = VlogTimeProgressBar()
+            addSubview(minimumVlogTimeProgressBar!)
+        }
         
         applyConstraints()
         
@@ -47,11 +55,13 @@ class VlogStreamControlView : UIView {
      To enure that the constraints are working correctly, we disable the creation of defaults and system constraints to override them with our own.
     */
     private func disableAutoresizing() {
-        minimumVlogTimeProgressBar.translatesAutoresizingMaskIntoConstraints = false
         countdownLabel.translatesAutoresizingMaskIntoConstraints = false
         flipCameraTopLeftButton.translatesAutoresizingMaskIntoConstraints = false
         flipCameraBottomRightButton.translatesAutoresizingMaskIntoConstraints = false
         recordButton.translatesAutoresizingMaskIntoConstraints = false
+        if isStreaming {
+            minimumVlogTimeProgressBar!.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     /**
@@ -67,12 +77,6 @@ class VlogStreamControlView : UIView {
             countdownLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countdownLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // minimumVlogTimeProgressBar
-            minimumVlogTimeProgressBar.leftAnchor.constraint(equalTo: leftAnchor),
-            minimumVlogTimeProgressBar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            minimumVlogTimeProgressBar.heightAnchor.constraint(equalToConstant: 20),
-            minimumVlogTimeProgressBar.widthAnchor.constraint(equalToConstant: 300),
-            
             // flipCameraTopLeftButton
             flipCameraTopLeftButton.leftAnchor.constraint(equalTo: leftAnchor),
             flipCameraTopLeftButton.topAnchor.constraint(equalTo: topAnchor),
@@ -81,10 +85,22 @@ class VlogStreamControlView : UIView {
             flipCameraBottomRightButton.rightAnchor.constraint(equalTo: rightAnchor),
             flipCameraBottomRightButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            recordButton.bottomAnchor.constraint(equalTo: minimumVlogTimeProgressBar.topAnchor),
+            recordButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             recordButton.centerXAnchor.constraint(equalTo: centerXAnchor)
             
         ])
+        
+        if isStreaming {
+            
+            NSLayoutConstraint.activate([
+                // minimumVlogTimeProgressBar
+                minimumVlogTimeProgressBar!.leftAnchor.constraint(equalTo: leftAnchor),
+                minimumVlogTimeProgressBar!.bottomAnchor.constraint(equalTo: bottomAnchor),
+                minimumVlogTimeProgressBar!.heightAnchor.constraint(equalToConstant: 20),
+                minimumVlogTimeProgressBar!.widthAnchor.constraint(equalToConstant: 300),
+            ])
+            
+        }
     }
     
     /**
@@ -105,7 +121,11 @@ class VlogStreamControlView : UIView {
      It will also remove the countdownLabel from the screen.
     */
     private func showCameraView() {
-        self.minimumVlogTimeProgressBar.start {
+        if isStreaming {
+            self.minimumVlogTimeProgressBar!.start {
+                self.recordButton.isEnabled = true
+            }
+        } else {
             self.recordButton.isEnabled = true
         }
         countdownLabel.removeFromSuperview()
