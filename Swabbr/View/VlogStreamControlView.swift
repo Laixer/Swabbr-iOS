@@ -17,8 +17,6 @@ class VlogStreamControlView : UIView {
     public let flipCameraTopLeftButton = UIButton(type: UIButton.ButtonType.infoDark)
     public let recordButton = UIButton(type: UIButton.ButtonType.infoDark)
     
-    public let cameraFiltersButton = UIButton(type: UIButton.ButtonType.infoDark)
-    
     private var isStreaming = false
     
     init(isStreaming: Bool) {
