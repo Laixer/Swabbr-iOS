@@ -11,6 +11,8 @@ import Foundation
 
 struct User {
     
+    static var current: User?
+    
     var id: Int
     var firstName: String
     var lastName: String
