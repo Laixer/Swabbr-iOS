@@ -123,25 +123,25 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             
             // userUsernameLabel
             userUsernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            userUsernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            userUsernameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             
             // userProfileImageView
             userProfileImageView.topAnchor.constraint(equalTo: userUsernameLabel.bottomAnchor),
-            userProfileImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            userProfileImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             userProfileImageView.heightAnchor.constraint(equalToConstant: 100),
             userProfileImageView.widthAnchor.constraint(equalToConstant: 100),
             
             // likesCountLabel
             likesCountLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            likesCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            likesCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             
             // viewsCountLabel
             viewsCountLabel.topAnchor.constraint(equalTo: likesCountLabel.bottomAnchor),
-            viewsCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            viewsCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             
             // reactionCountLabel
             reactionCountLabel.bottomAnchor.constraint(equalTo: likesCountLabel.topAnchor),
-            reactionCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            reactionCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             
             // reactionButton
             reactionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -152,7 +152,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         if vlog.isLive {
             NSLayoutConstraint.activate([
                 isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                isLiveLabel.rightAnchor.constraint(equalTo: view.rightAnchor)
+                isLiveLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
             ])
         }
     }
