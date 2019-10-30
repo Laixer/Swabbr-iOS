@@ -27,16 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // save currentuser
     var currentUser: User?
     
-    var apiPreferences: ApiPreferences?
-    
     var registrationService : NotificationRegistrationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if(CommandLine.arguments.contains("testing")) {
-            apiPreferences = ApiPreferences.getAPIPreferences(enviroment: .Test)
-        } else {
-            apiPreferences = ApiPreferences.getAPIPreferences()
+            ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .Test)
         }
         
         // MARK: UNUserNotificationCenterDelegate
