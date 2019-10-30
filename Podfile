@@ -10,6 +10,8 @@ target 'Swabbr' do
   pod 'Cache', '5.2.0'
   pod 'Imaginary', '4.2.0'
   
+  pod 'MobileVLCKit'
+  
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
