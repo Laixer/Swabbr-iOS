@@ -9,6 +9,7 @@
 import Foundation
 
 struct ApiPreferences: Decodable {
+    static var shared: ApiPreferences = getAPIPreferences(enviroment: .Release)
     var api_url: String
     var url_path: String
 }
@@ -22,7 +23,7 @@ extension ApiPreferences {
     
     /**
      Get the appropriate api data from the supporting plist file.
-     - parameter enviroment: A enviroment value.
+     - parameter enviroment: An enviroment value.
      - Returns: A preference containing an api url and url path.
     */
     static func getAPIPreferences(enviroment: Enviroment = .Release) -> ApiPreferences {
