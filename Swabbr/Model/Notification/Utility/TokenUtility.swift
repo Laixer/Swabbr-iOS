@@ -66,7 +66,7 @@ struct TokenUtility {
     private static func urlEncodedString(withString stringToConvert : String) -> String {
         var encodedString = ""
         let sourceUtf8 = (stringToConvert as NSString).utf8String
-        let length = strlen(sourceUtf8)
+        let length = strlen(sourceUtf8!)
         
         let charArray: [Character] = [ ".", "-", "_", "~", "a", "z", "A", "Z", "0", "9"]
         let asUInt8Array = String(charArray).utf8.map{ Int8($0) }
