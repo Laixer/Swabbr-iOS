@@ -24,9 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK: UIApplicationDelegate
     var window: UIWindow?
     
-    // save currentuser
-    var currentUser: User?
-    
     var registrationService : NotificationRegistrationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
