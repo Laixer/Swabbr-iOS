@@ -18,9 +18,9 @@ protocol ApiResource {
 
 extension ApiResource {
     var url: URL {
-        let preferences = (UIApplication.shared.delegate as? AppDelegate)?.apiPreferences!
-        var components = URLComponents(string: preferences!.api_url)!
-        components.path = preferences!.url_path + methodPath
+        let preferences = ApiPreferences.shared
+        var components = URLComponents(string: preferences.api_url)!
+        components.path = preferences.url_path + methodPath
         components.queryItems = queryItems
         return components.url!
     }
