@@ -23,17 +23,17 @@ class DateTests: XCTestCase {
 
     func testDisplayOfDate() {
         let testDate = dateFormatter.stringToBaseDate(format: "yyyy/MM/dd HH:mm", value: "2002/12/23 12:32")
-        var localeDate = dateFormatter.displayDateAsString(date: testDate!, localeId: "nl_NL", timeZoneMock: TimeZone.init(abbreviation: "CEST")!)
-        var dateExpected = "23-12-2002 13:32"
+        var localeDate = dateFormatter.displayDateAsString(date: testDate!, localeId: "nl_NL", timeZoneId: "Europe/Amsterdam")
+        var dateExpected = (TimeZone.init(identifier: "Europe/Amsterdam")!.isDaylightSavingTime()) ? "23-12-2002 14:32" : "23-12-2002 13:32"
 
         XCTAssertEqual(localeDate, dateExpected, "The date: \(localeDate) is not the same as expected: \(dateExpected)")
         
-        localeDate = DateFormatter().displayDateAsString(date: testDate!, localeId: "ja_JP", timeZoneMock: TimeZone.init(abbreviation: "JST")!)
+        localeDate = DateFormatter().displayDateAsString(date: testDate!, localeId: "ja_JP", timeZoneId: "Asia/Tokyo")
         dateExpected = "2002/12/23 21:32"
         XCTAssertEqual(localeDate, dateExpected, "The date: \(localeDate) is not the same as expected: \(dateExpected)")
         
-        localeDate = DateFormatter().displayDateAsString(date: testDate!, localeId: "en_US", timeZoneMock: TimeZone.init(abbreviation: "PST")!)
-        dateExpected = (TimeZone.init(abbreviation: "PST")!.isDaylightSavingTime()) ? "12/23/2002, 04:32" : "12/23/2002, 05:32"
+        localeDate = DateFormatter().displayDateAsString(date: testDate!, localeId: "en_US", timeZoneId: "America/Los_Angeles")
+        dateExpected = (TimeZone.init(identifier: "America/Los_Angeles")!.isDaylightSavingTime()) ? "12/23/2002, 05:32" : "12/23/2002, 04:32"
         XCTAssertEqual(localeDate, dateExpected, "The date: \(localeDate) is not the same as expected: \(dateExpected)")
     }
 

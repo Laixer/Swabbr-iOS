@@ -30,11 +30,18 @@ extension DateFormatter {
      - parameter date: A date value which will be converted.
      - Returns: A string representation of the given date in the correct format and time according to timezone.
     */
-    func displayDateAsString(date: Date, localeId: String = Locale.current.identifier, timeZoneMock: TimeZone = TimeZone.current) -> String {
-        timeZone = timeZoneMock
-        locale = Locale(identifier: localeId)
-        dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd HH:mm", options: 0, locale: locale)
-        return self.string(from: date)
+    func displayDateAsString(date: Date, localeId: String = Locale.current.identifier, timeZoneId: String = TimeZone.current.identifier) -> String {
+        self.timeZone = TimeZone.init(identifier: timeZoneId)
+        self.locale = Locale(identifier: localeId)
+        self.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd HH:mm", options: 0, locale: locale)
+        var daylightTimeSeconds: TimeInterval {
+            if self.timeZone.isDaylightSavingTime() {
+                return self.timeZone.daylightSavingTimeOffset()
+            }
+            return 0
+        }
+        return self.string(from: date + daylightTimeSeconds)
+        
     }
     
 }
