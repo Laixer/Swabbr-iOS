@@ -131,13 +131,13 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             userProfileImageView.heightAnchor.constraint(equalToConstant: 100),
             userProfileImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            // likesCountLabel
-            likesCountLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            likesCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            
             // viewsCountLabel
-            viewsCountLabel.topAnchor.constraint(equalTo: likesCountLabel.bottomAnchor),
+            viewsCountLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             viewsCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            
+            // likesCountLabel
+            likesCountLabel.bottomAnchor.constraint(equalTo: viewsCountLabel.topAnchor),
+            likesCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             
             // reactionCountLabel
             reactionCountLabel.bottomAnchor.constraint(equalTo: likesCountLabel.topAnchor),
