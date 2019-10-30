@@ -40,6 +40,7 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
     }
     
     override func viewDidLoad() {
+        
         view.backgroundColor = UIColor.white
         
         initElements()
@@ -61,7 +62,7 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
         view.addSubview(countFollowersLabel)
         view.addSubview(countFollowingLabel)
         
-        if (UIApplication.shared.delegate as! AppDelegate).currentUser!.id == user.id {
+        if User.current!.id == user.id {
             isCurrentUser = true
             updateProfileButton.setTitle("Update", for: .normal)
             updateProfileButton.tintColor = UIColor.white
