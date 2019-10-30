@@ -7,6 +7,7 @@
 //
 
 #import <CommonCrypto/CommonHMAC.h>
+#import "MobileVLCKit/MobileVLCKit.h"
 
 #ifndef BridgingHeader_h
 #define BridgingHeader_h
