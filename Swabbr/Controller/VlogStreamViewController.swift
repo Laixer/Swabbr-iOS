@@ -17,7 +17,7 @@ import Photos
 
 class VlogStreamViewController : UIViewController, BaseViewProtocol {
     
-    private let nextLevel = NextLevel()
+    private let nextLevel = NextLevel.shared
     
     private var previewView: UIView?
     
