@@ -34,7 +34,7 @@ class TimelineViewController : UIViewController {
         
         let sData = ServerData()
         sData.getSpecificUser(id: 0, onComplete: { user in
-            (UIApplication.shared.delegate as! AppDelegate).currentUser = user!
+            User.current = user!
         })
         sData.getVlogs(onComplete: {vlogs in
             for vlog in vlogs! {
