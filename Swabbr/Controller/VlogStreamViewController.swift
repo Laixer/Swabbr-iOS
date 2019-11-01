@@ -8,53 +8,117 @@
 //  This class will handle all Streaming related actions
 //
 
-import Foundation
 import UIKit
-import NextLevel
 import CoreMedia
 import AVFoundation
 import Photos
+import HaishinKit
+import VideoToolbox
+import NextLevel
 
 class VlogStreamViewController : UIViewController, BaseViewProtocol {
     
-    private let nextLevel = NextLevel.shared
     
-    private var previewView: UIView?
+    private var previewView: GLHKView!
     
-    private let controlView: VlogStreamControlView!
+    private let controlView = VlogStreamControlView(isStreaming: true)
     
     fileprivate var beginZoomScale: Float = 1.0
     fileprivate var focusView = FocusIndicatorView(frame: .zero)
     
-    let isStreaming: Bool!
+    private let maxRetry = 5
+    private var retryCount = 0
     
-    init(isStreaming: Bool) {
-        self.controlView = VlogStreamControlView(isStreaming: isStreaming)
-        self.isStreaming = isStreaming
-        super.init(nibName: nil, bundle: nil)
-    }
+    private var currentPosition: AVCaptureDevice.Position = .back
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    let rtmpConnection = RTMPConnection()
+    var rtmpStream: RTMPStream!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = true
+        
+        rtmpStream = RTMPStream(connection: rtmpConnection)
+        
+        rtmpStream.captureSettings = [
+            .sessionPreset: AVCaptureSession.Preset.hd1920x1080,
+            .continuousAutofocus: true,
+            .continuousExposure: true,
+            .fps: 30
+        ]
+        
+        rtmpStream.videoSettings = [
+            .width: 720,
+            .height: 1280,
+            .bitrate: 1000 * 1024,
+            .maxKeyFrameIntervalDuration: 0.0,
+            .profileLevel: kVTProfileLevel_H264_Baseline_AutoLevel
+        ]
+        
+        rtmpStream.audioSettings = [
+            .bitrate: 32 * 1024,
+            .sampleRate: 44_100
+        ]
+        
+        rtmpStream.recorderSettings = [
+            AVMediaType.audio: [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 0,
+                AVNumberOfChannelsKey: 0,
+                AVEncoderBitRateKey: 128000,
+            ],
+            AVMediaType.video: [
+                AVVideoCodecKey: AVVideoCodecType.h264,
+                AVVideoHeightKey: 0,
+                AVVideoWidthKey: 0,
+            ],
+        ]
+        
+        rtmpConnection.addEventListener(.rtmpStatus, selector: #selector(rtmpStatusHandler), observer: self)
+        rtmpConnection.addEventListener(.ioError, selector: #selector(ioErrorHandler), observer: self)
+        
         initElements()
         applyConstraints()
         
-        nextLevel.videoDelegate = self
-        nextLevel.audioConfiguration.bitRate = 44000
-        
         controlView.startOperateView {
-            self.nextLevel.record()
+            self.rtmpConnection.connect(self.streamUrl, arguments: nil)
         }
-        
+
         controlView.recordButton.addTarget(self, action: #selector(recordButtonClicked), for: .touchUpInside)
         controlView.flipCameraTopLeftButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
         controlView.flipCameraBottomRightButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
         
+    }
+    
+    @objc func rtmpStatusHandler(_ notification: Notification) {
+        let e = Event.from(notification)
+        guard let data: ASObject = e.data as? ASObject, let code: String = data["code"] as? String else {
+            return
+        }
+        switch code {
+        case RTMPConnection.Code.connectSuccess.rawValue:
+            retryCount = 0
+            rtmpStream.publish("default")
+            break
+        case RTMPConnection.Code.connectFailed.rawValue, RTMPConnection.Code.connectClosed.rawValue:
+            guard retryCount < maxRetry else {
+                return
+            }
+            
+            Thread.sleep(forTimeInterval: pow(2.0, Double(retryCount)))
+            rtmpConnection.connect(streamUrl, arguments: nil)
+            retryCount += 1
+            break
+        default:
+            break
+        }
+    }
+    
+    @objc func ioErrorHandler(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.rtmpConnection.connect(self.streamUrl, arguments: nil)
+        }
     }
     
     internal func initElements() {
@@ -67,17 +131,12 @@ class VlogStreamViewController : UIViewController, BaseViewProtocol {
         tapGesture.delegate = self
         
         let screenBounds = UIScreen.main.bounds
-        self.previewView = UIView(frame: screenBounds)
-        if let previewView = self.previewView {
-            previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            previewView.backgroundColor = UIColor.black
-            previewView.addGestureRecognizer(pinchGesture)
-            previewView.addGestureRecognizer(tapGesture)
-            self.nextLevel.previewLayer.frame = previewView.bounds
-            previewView.layer.addSublayer(self.nextLevel.previewLayer)
-            self.view.addSubview(previewView)
-        }
-        
+        previewView = GLHKView(frame: screenBounds)
+        previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        previewView.addGestureRecognizer(pinchGesture)
+        previewView.addGestureRecognizer(tapGesture)
+        previewView.videoGravity = .resizeAspectFill
+        view.addSubview(previewView)
         view.addSubview(controlView)
     }
     
@@ -95,33 +154,29 @@ class VlogStreamViewController : UIViewController, BaseViewProtocol {
     }
     
     @objc func recordButtonClicked() {
-        endCapture()
-        nextLevel.session?.removeAllClips()
+        stopStream()
     }
     
     @objc func switchButtonClicked() {
-        nextLevel.flipCaptureDevicePosition()
+        let position: AVCaptureDevice.Position = currentPosition == .back ? .front : .back
+        rtmpStream.attachCamera(DeviceUtil.device(withPosition: position)) { error in
+            print(error)
+        }
+        currentPosition = position
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if NextLevel.authorizationStatus(forMediaType: AVMediaType.video) == .authorized &&
             NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
-            do {
-                try self.nextLevel.start()
-            } catch {
-                print("NextLevel, failed to start camera session")
-            }
+            prepareStream()
         } else {
             NextLevel.requestAuthorization(forMediaType: AVMediaType.video) { (mediaType, status) in
                 print("NextLevel, authorization updated for media \(mediaType) status \(status)")
                 if NextLevel.authorizationStatus(forMediaType: AVMediaType.video) == .authorized &&
                     NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
-                    do {
-                        try self.nextLevel.start()
-                    } catch {
-                        print("NextLevel, failed to start camera session")
-                    }
+                    self.prepareStream()
                 } else if status == .notAuthorized {
                     // gracefully handle when audio/video is not authorized
                     print("NextLevel doesn't have authorization for audio or video")
@@ -131,11 +186,7 @@ class VlogStreamViewController : UIViewController, BaseViewProtocol {
                 print("NextLevel, authorization updated for media \(mediaType) status \(status)")
                 if NextLevel.authorizationStatus(forMediaType: AVMediaType.video) == .authorized &&
                     NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
-                    do {
-                        try self.nextLevel.start()
-                    } catch {
-                        print("NextLevel, failed to start camera session")
-                    }
+                    self.prepareStream()
                 } else if status == .notAuthorized {
                     // gracefully handle when audio/video is not authorized
                     print("NextLevel doesn't have authorization for audio or video")
@@ -144,9 +195,38 @@ class VlogStreamViewController : UIViewController, BaseViewProtocol {
         }
     }
     
+    private func prepareStream() {
+        
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setPreferredSampleRate(44_100)
+            
+            if #available(iOS 10.0, *) {
+                try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
+            } else {
+                session.perform(NSSelectorFromString("setCategory:withOptions:error:"), with: AVAudioSession.Category.playAndRecord, with:  [AVAudioSession.CategoryOptions.allowBluetooth])
+            }
+            try session.setActive(true)
+        } catch {
+        }
+        
+        rtmpStream.attachAudio(AVCaptureDevice.default(for: .audio)) { error in
+            print("Error with audio")
+        }
+        rtmpStream.attachCamera(DeviceUtil.device(withPosition: currentPosition)) { error in
+            print("Error with camera")
+        }
+        
+        self.previewView.attachStream(self.rtmpStream)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        nextLevel.stop()
+    }
+    
+    private func stopStream() {
+        rtmpStream.close()
+        rtmpStream.dispose()
     }
     
 }
@@ -156,7 +236,7 @@ extension VlogStreamViewController : UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer.isKind(of: UIPinchGestureRecognizer.self) {
-            beginZoomScale = nextLevel.videoZoomFactor
+            beginZoomScale = Float(rtmpStream.zoomFactor)
         }
         return true
     }
@@ -167,7 +247,7 @@ extension VlogStreamViewController : UIGestureRecognizerDelegate {
     */
     @objc fileprivate func handlePinchGesture(_ pinch: UIPinchGestureRecognizer) {
         beginZoomScale = beginZoomScale * Float(pinch.scale)
-        nextLevel.videoZoomFactor = beginZoomScale
+        rtmpStream.setZoomFactor(CGFloat(beginZoomScale))
     }
     
     /**
@@ -187,158 +267,22 @@ extension VlogStreamViewController : UIGestureRecognizerDelegate {
         previewView?.addSubview(focusView)
         focusView.startAnimation()
         
-        let adjustedPoint = nextLevel.previewLayer.captureDevicePointConverted(fromLayerPoint: tapPoint)
-        nextLevel.focusExposeAndAdjustWhiteBalance(atAdjustedPoint: adjustedPoint)
-        
-    }
-    
-}
-
-extension VlogStreamViewController : NextLevelVideoDelegate {
-    func nextLevel(_ nextLevel: NextLevel, didUpdateVideoZoomFactor videoZoomFactor: Float) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, willProcessRawVideoSampleBuffer sampleBuffer: CMSampleBuffer, onQueue queue: DispatchQueue) {
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, renderToCustomContextWithImageBuffer imageBuffer: CVPixelBuffer, onQueue queue: DispatchQueue) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, willProcessFrame frame: AnyObject, pixelBuffer: CVPixelBuffer, timestamp: TimeInterval, onQueue queue: DispatchQueue) {
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didSetupVideoInSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didSetupAudioInSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didStartClipInSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didCompleteClip clip: NextLevelClip, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didAppendVideoSampleBuffer sampleBuffer: CMSampleBuffer, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didSkipVideoSampleBuffer sampleBuffer: CMSampleBuffer, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didAppendVideoPixelBuffer pixelBuffer: CVPixelBuffer, timestamp: TimeInterval, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didSkipVideoPixelBuffer pixelBuffer: CVPixelBuffer, timestamp: TimeInterval, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didAppendAudioSampleBuffer sampleBuffer: CMSampleBuffer, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didSkipAudioSampleBuffer sampleBuffer: CMSampleBuffer, inSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didCompleteSession session: NextLevelSession) {
-        
-    }
-    
-    func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String : Any]?) {
-        
-    }
-}
-
-extension VlogStreamViewController {
-    
-    internal func endCapture() {
-        if let session = nextLevel.session {
-            
-            if session.clips.count > 1 {
-                session.mergeClips(usingPreset: AVAssetExportPresetHighestQuality, completionHandler: { (url: URL?, error: Error?) in
-                    if let url = url {
-                        self.saveVideo(withURL: url)
-                    } else if let _ = error {
-                        print("failed to merge clips at the end of capture \(String(describing: error))")
-                    }
-                })
-            } else if let lastClipUrl = session.lastClipUrl {
-                self.saveVideo(withURL: lastClipUrl)
-            } else if session.currentClipHasStarted {
-                session.endClip(completionHandler: { (clip, error) in
-                    if error == nil {
-                        self.saveVideo(withURL: (clip?.url)!)
-                    } else {
-                        print("Error saving video: \(error?.localizedDescription ?? "")")
-                    }
-                })
-            } else {
-                // prompt that the video has been saved
-                let alertController = UIAlertController(title: "Video Failed", message: "Not enough video captured!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
+        if let captureDevice = DeviceUtil.device(withPosition: currentPosition) {
+            do {
+                try captureDevice.lockForConfiguration()
+                
+                captureDevice.focusPointOfInterest = tapPoint
+                captureDevice.focusMode = .autoFocus
+                captureDevice.exposurePointOfInterest = tapPoint
+                captureDevice.exposureMode = .continuousAutoExposure
+                captureDevice.unlockForConfiguration()
+            } catch {
+                
             }
-            
         }
-    }
-    
-    internal func albumAssetCollection(withTitle title: String) -> PHAssetCollection? {
-        let predicate = NSPredicate(format: "localizedTitle = %@", title)
-        let options = PHFetchOptions()
-        options.predicate = predicate
-        let result = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
-        if result.count > 0 {
-            return result.firstObject
-        }
-        return nil
-    }
-    
-    internal func saveVideo(withURL url: URL) {
-        let NextLevelAlbumTitle = "NextLevel"
         
-        PHPhotoLibrary.shared().performChanges({
-            let albumAssetCollection = self.albumAssetCollection(withTitle: NextLevelAlbumTitle)
-            if albumAssetCollection == nil {
-                let changeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: NextLevelAlbumTitle)
-                let _ = changeRequest.placeholderForCreatedAssetCollection
-            }}, completionHandler: { (success1: Bool, error1: Error?) in
-                if let albumAssetCollection = self.albumAssetCollection(withTitle: NextLevelAlbumTitle) {
-                    PHPhotoLibrary.shared().performChanges({
-                        if let assetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url) {
-                            let assetCollectionChangeRequest = PHAssetCollectionChangeRequest(for: albumAssetCollection)
-                            let enumeration: NSArray = [assetChangeRequest.placeholderForCreatedAsset!]
-                            assetCollectionChangeRequest?.addAssets(enumeration)
-                        }
-                    }, completionHandler: { (success2: Bool, error2: Error?) in
-                        if success2 == true {
-                            // prompt that the video has been saved
-                            let alertController = UIAlertController(title: "Video Saved!", message: "Saved to the camera roll.", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                                DispatchQueue.main.async {
-                                    
-                                }
-                            }
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                        } else {
-                            // prompt that the video has been saved
-                            let alertController = UIAlertController(title: "Oops!", message: "Something failed!", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                        }
-                    })
-                }
-        })
+        rtmpStream.setPointOfInterest(tapPoint, exposure: tapPoint)
+        
     }
+    
 }
