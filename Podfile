@@ -12,6 +12,8 @@ target 'Swabbr' do
   
   pod 'MobileVLCKit'
   
+  pod 'HaishinKit'
+  
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
