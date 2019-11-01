@@ -92,8 +92,8 @@ class VlogStreamControlView : UIView {
             
             NSLayoutConstraint.activate([
                 // minimumVlogTimeProgressBar
-                minimumVlogTimeProgressBar!.leftAnchor.constraint(equalTo: leftAnchor),
-                minimumVlogTimeProgressBar!.bottomAnchor.constraint(equalTo: bottomAnchor),
+                minimumVlogTimeProgressBar!.centerXAnchor.constraint(equalTo: centerXAnchor),
+                minimumVlogTimeProgressBar!.bottomAnchor.constraint(equalTo: recordButton.topAnchor),
                 minimumVlogTimeProgressBar!.heightAnchor.constraint(equalToConstant: 20),
                 minimumVlogTimeProgressBar!.widthAnchor.constraint(equalToConstant: 300),
             ])
