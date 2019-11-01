@@ -13,6 +13,8 @@ import AVFoundation
 
 class VlogPageViewController : UIViewController, BaseViewProtocol {
     
+    private var player: VLCMediaPlayer?
+    
     private let likesCountLabel = UILabel()
     private let viewsCountLabel = UILabel()
     private let reactionCountLabel = UILabel()
@@ -21,11 +23,10 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     private let userUsernameLabel = UILabel()
     private let reactionButton = UIButton()
     
-    private let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+    private let playerView = UIView()
     
     let vlog: Vlog
     
-    private let playerView = AVPlayerViewController()
     private var reactionController: ReactionViewController?
     
     /**
@@ -35,6 +36,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     */
     init(vlog: Vlog) {
         self.vlog = vlog
+        self.player = VLCMediaPlayer()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -75,8 +77,8 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         reactionCountLabel.addGestureRecognizer(singleReactionTap)
         
         let singleVideoTap = UITapGestureRecognizer(target: self, action: #selector(clickedVideoToGoBackToFullscreen))
-        playerView.view.isUserInteractionEnabled = true
-        playerView.view.addGestureRecognizer(singleVideoTap)
+        playerView.isUserInteractionEnabled = true
+        playerView.addGestureRecognizer(singleVideoTap)
         
         userUsernameLabel.text = vlog.owner!.username
         do {
@@ -89,12 +91,9 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         isLiveLabel.text = "Live"
         isLiveLabel.backgroundColor = UIColor.red
         
-        playerView.player = player
-        playerView.view.frame = view.bounds
-        playerView.showsPlaybackControls = false
-        playerView.videoGravity = .resizeAspectFill
+        playerView.frame = view.bounds
         
-        view.addSubview(playerView.view)
+        view.addSubview(playerView)
         
         // add ui components to current view
         view.addSubview(likesCountLabel)
@@ -158,22 +157,20 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if player.currentTime() > CMTime(seconds: 0, preferredTimescale: 60) {
-            return
-        }
-        playPlayer(true)
+        playPlayer()
+//        NotificationCenter.default.post(name: .VlogAppeared, object: nil, userInfo: ["vlog_id": vlog.id])
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        stopPlayer(true)
+        stopPlayer()
+        player = nil
     }
     
     /**
      Get run when the vlog has finished playing.
      This function makes sure that we can show the next vlog in the queue to the user.
-     - parameter notification: A Notification object.
     */
-    @objc private func videoEnd(notification: Notification){
+    private func videoEnd(){
         guard let parent = parent else {
             return
         }
@@ -193,7 +190,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
      This will push the current view to the profile of the clicked user.
     */
     @objc private func clickedProfilePicture() {
-        stopPlayer(true)
+        stopPlayer()
         navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
     }
     
@@ -201,13 +198,14 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
      This will handle all actions required to handle the click of the reation button.
     */
     @objc private func clickedReactButton() {
+        present(VlogStreamViewController(), animated: true, completion: nil)
     }
     
     /**
      Handle all actions required when the reaction label is pressed.
     */
     @objc private func clickedReactionLabel() {
-        playerView.view.frame = CGRect(x: 0, y: -playerView.view.bounds.midY, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
+        playerView.frame = CGRect(x: 0, y: -playerView.bounds.minY, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
         addReactionViewController()
     }
     
@@ -229,7 +227,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             return
         }
         
-        stopPlayer(false)
+        stopPlayer()
 
         reactionController = ReactionViewController(vlogId: vlog.id)
         view.addSubview(reactionController!.view)
@@ -237,8 +235,8 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         NSLayoutConstraint.activate([
             reactionController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
             reactionController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            reactionController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: playerView.view.bounds.midY),
-            reactionController!.view.heightAnchor.constraint(equalToConstant: playerView.view.bounds.midY)
+            reactionController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: playerView.bounds.midY),
+            reactionController!.view.heightAnchor.constraint(equalToConstant: playerView.bounds.midY)
         ])
         addChild(reactionController!)
         reactionController!.didMove(toParent: self)
@@ -254,9 +252,9 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             return
         }
         
-        playPlayer(false)
+        playPlayer()
         
-        playerView.view.frame = CGRect(x: 0, y: 0, width: playerView.view.bounds.maxX, height: playerView.view.bounds.maxY)
+        playerView.frame = CGRect(x: 0, y: 0, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
         reactionController!.view.removeFromSuperview()
         reactionController!.removeFromParent()
         reactionController = nil
@@ -265,29 +263,40 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     /**
      Run when we want to stop or pause the player.
      This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
-     - parameter explicit: A boolean which when set to true will hard stop the player, which means the player will be fully stopped and observers abserving the player will be removed.
     */
-    private func stopPlayer(_ explicit: Bool) {
-        player.pause()
-        
-        if explicit {
-            player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
-            // remove observer so we dont get duplicates
-            NotificationCenter.default.removeObserver(self)
-        }
+    private func stopPlayer() {
+        player!.pause()
     }
     
     /**
      Run when we want to start the player.
      This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
-     - parameter explicit: A boolean which when set to true will imply that the video has never been run before and thusfor set an observer on the player.
      */
-    private func playPlayer(_ explicit: Bool) {
-        if explicit {
-            // add observer so we know when the vlog has finished
-            NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        }
-        player.play()
+    private func playPlayer() {
+        
+        let media = VLCMedia(url: url!)
+        
+        player!.media = media
+        player!.drawable = playerView
+        player!.delegate = self
+        player!.play()
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+            if self.player!.videoSize.height > 0 {
+                let currentVideoScaleToScreen = Float(UIScreen.main.bounds.height) / Float(self.player!.videoSize.height)
+                self.player!.scaleFactor = currentVideoScaleToScreen * Float(UIScreen.main.scale)
+                timer.invalidate()
+            }
+        })
     }
     
+}
+
+// MARK: VLCMediaPlayerDelegate
+extension VlogPageViewController: VLCMediaPlayerDelegate {
+    func mediaPlayerStateChanged(_ aNotification: Notification!) {
+        if player!.state == VLCMediaPlayerState.ended {
+            videoEnd()
+        }
+    }
 }
