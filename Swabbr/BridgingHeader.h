@@ -7,7 +7,7 @@
 //
 
 #import <CommonCrypto/CommonHMAC.h>
-#import "MobileVLCKit/MobileVLCKit.h"
+#import <WowzaGoCoderSDK/WowzaGoCoderSDK.h>
 
 #ifndef BridgingHeader_h
 #define BridgingHeader_h
