@@ -7,23 +7,18 @@
 //
 //  This class will handle all Streaming related actions
 //
-import HaishinKit
+//import HaishinKit
 import VideoToolbox
 import CoreMedia
 import AVFoundation
 
-class VlogStreamViewController: VlogMakerBaseViewController {
+class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatusCallback, WOWZVideoSink, WOWZAudioSink {
     
-    private let streamUrl: String!
     
-    private let maxRetry = 5
-    private var retryCount = 0
+    var goCoder: WowzaGoCoder?
+    let goCoderConfig = WowzaConfig()
     
-    private let rtmpConnection = RTMPConnection()
-    private var rtmpStream: RTMPStream!
-    
-    init(streamUrl: String) {
-        self.streamUrl = streamUrl
+    init() {
         super.init(isStreaming: true)
     }
     
@@ -32,116 +27,74 @@ class VlogStreamViewController: VlogMakerBaseViewController {
     }
     
     override func viewDidLoad() {
-        
-        rtmpStream = RTMPStream(connection: rtmpConnection)
-        
-        rtmpStream.captureSettings = [
-            .sessionPreset: AVCaptureSession.Preset.hd1920x1080,
-            .continuousAutofocus: true,
-            .continuousExposure: true,
-            .fps: 30
-        ]
-        
-        rtmpStream.videoSettings = [
-            .width: 720,
-            .height: 1280,
-            .bitrate: 1000 * 1024,
-            .maxKeyFrameIntervalDuration: 0.0,
-            .profileLevel: kVTProfileLevel_H264_Baseline_AutoLevel
-        ]
-        
-        rtmpStream.audioSettings = [
-            .bitrate: 32 * 1024,
-            .sampleRate: 44_100
-        ]
-        
-        rtmpStream.recorderSettings = [
-            AVMediaType.audio: [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 0,
-                AVNumberOfChannelsKey: 0,
-                AVEncoderBitRateKey: 128000,
-            ],
-            AVMediaType.video: [
-                AVVideoCodecKey: AVVideoCodecType.h264,
-                AVVideoHeightKey: 0,
-                AVVideoWidthKey: 0,
-            ],
-        ]
-        
-        rtmpConnection.addEventListener(.rtmpStatus, selector: #selector(rtmpStatusHandler), observer: self)
-        rtmpConnection.addEventListener(.ioError, selector: #selector(ioErrorHandler), observer: self)
-        
         controlView.startOperateView {
-            self.rtmpConnection.connect(self.streamUrl, arguments: nil)
+            self.goCoder?.startStreaming(self)
         }
     }
     
     override func prepareForVlog() {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setPreferredSampleRate(44_100)
-            
-            if #available(iOS 10.0, *) {
-                try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
-            } else {
-                session.perform(NSSelectorFromString("setCategory:withOptions:error:"), with: AVAudioSession.Category.playAndRecord, with:  [AVAudioSession.CategoryOptions.allowBluetooth])
-            }
-            try session.setActive(true)
-        } catch {
-        }
         
-        rtmpStream.attachAudio(AVCaptureDevice.default(for: .audio)) { error in
-            print("Error with audio")
-        }
-        rtmpStream.attachCamera(DeviceUtil.device(withPosition: currentPosition)) { error in
-            print("Error with camera")
-        }
         
-        (previewView as! GLHKView).attachStream(self.rtmpStream)
-    }
-    
-    @objc func rtmpStatusHandler(_ notification: Notification) {
-        let e = Event.from(notification)
-        guard let data: ASObject = e.data as? ASObject, let code: String = data["code"] as? String else {
+        goCoderConfig.load(.preset1280x720)
+        goCoderConfig.broadcastScaleMode = .aspectFit
+        goCoderConfig.videoWidth = 1280
+        goCoderConfig.videoHeight = 720
+        
+        if let goCoderLicensingError = WowzaGoCoder.registerLicenseKey(sdkAppLicenseKey) {
+            print("error license")
             return
         }
-        switch code {
-        case RTMPConnection.Code.connectSuccess.rawValue:
-            retryCount = 0
-            rtmpStream.publish("default")
-            break
-        case RTMPConnection.Code.connectFailed.rawValue, RTMPConnection.Code.connectClosed.rawValue:
-            guard retryCount < maxRetry else {
-                return
-            }
+        
+        if let goCoder = WowzaGoCoder.sharedInstance() {
+            self.goCoder = goCoder
             
-            Thread.sleep(forTimeInterval: pow(2.0, Double(retryCount)))
-            rtmpConnection.connect(streamUrl, arguments: nil)
-            retryCount += 1
-            break
+            self.goCoder?.register(self as WOWZAudioSink)
+            self.goCoder?.register(self as WOWZVideoSink)
+            self.goCoder?.config = self.goCoderConfig
+            
+            self.goCoder?.cameraView = self.previewView
+            self.goCoder?.cameraPreview?.start()
+        }
+        
+        goCoder?.cameraPreview?.previewLayer!.videoGravity = .resizeAspectFill
+
+    }
+    
+    override func viewDidLayoutSubviews() {
+        goCoder?.cameraPreview?.previewLayer!.frame = view.bounds
+    }
+    
+    func videoFrameWasCaptured(_ imageBuffer: CVImageBuffer, framePresentationTime: CMTime, frameDuration: CMTime) {
+        
+    }
+    
+    func onWOWZStatus(_ status: WOWZBroadcastStatus!) {
+        switch(status.state) {
+        case .idle:
+            print("idle")
+        case .broadcasting:
+            print("broadcast")
         default:
             break
         }
     }
     
-    @objc func ioErrorHandler(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.rtmpConnection.connect(self.streamUrl, arguments: nil)
-        }
+    func onWOWZError(_ status: WOWZBroadcastStatus!) {
+        print("error \(status)")
     }
     
     override func recordButtonClicked() {
-        rtmpStream.close()
-        rtmpStream.dispose()
+        goCoder?.endStreaming(self)
     }
     
     override func switchButtonClicked() {
-        let position: AVCaptureDevice.Position = currentPosition == .back ? .front : .back
-        rtmpStream.attachCamera(DeviceUtil.device(withPosition: position)) { error in
-            print(error)
+        if let otherCamera = goCoder?.cameraPreview?.otherCamera() {
+            if !otherCamera.supportsWidth(goCoderConfig.videoWidth) {
+                goCoderConfig.load(otherCamera.supportedPresetConfigs.last!.toPreset())
+                goCoder?.config = goCoderConfig
+            }
+            
+            goCoder?.cameraPreview?.switchCamera()
         }
-        currentPosition = position
     }
-    
 }
