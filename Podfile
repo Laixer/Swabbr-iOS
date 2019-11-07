@@ -9,11 +9,7 @@ target 'Swabbr' do
   pod 'NextLevel', '0.14.0'
   pod 'Cache', '5.2.0'
   pod 'Imaginary', '4.2.0'
-  
-  pod 'MobileVLCKit'
-  
-  pod 'HaishinKit'
-  
+
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
