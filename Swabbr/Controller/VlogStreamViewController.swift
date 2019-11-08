@@ -36,9 +36,8 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
         
         
         goCoderConfig.load(.preset1280x720)
+        goCoderConfig.broadcastVideoOrientation = .alwaysPortrait
         goCoderConfig.broadcastScaleMode = .aspectFit
-        goCoderConfig.videoWidth = 1280
-        goCoderConfig.videoHeight = 720
         
         if let goCoderLicensingError = WowzaGoCoder.registerLicenseKey(sdkAppLicenseKey) {
             print("error license")
@@ -53,10 +52,9 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
             self.goCoder?.config = self.goCoderConfig
             
             self.goCoder?.cameraView = self.previewView
+            self.goCoder?.cameraPreview?.previewGravity = .resizeAspectFill
             self.goCoder?.cameraPreview?.start()
         }
-        
-        goCoder?.cameraPreview?.previewLayer!.videoGravity = .resizeAspectFill
 
     }
     
