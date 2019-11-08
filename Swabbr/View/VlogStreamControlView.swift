@@ -109,7 +109,9 @@ class VlogStreamControlView : UIView {
     func startOperateView(completionHandler: @escaping () -> Void) {
         countdownLabel.startCountdown(completionHandler: {
             self.showCameraView()
-            completionHandler()
+            DispatchQueue.global(qos: .background).async {
+                completionHandler()
+            }
         })
     }
     
