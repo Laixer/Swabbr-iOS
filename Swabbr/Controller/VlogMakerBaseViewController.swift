@@ -9,7 +9,6 @@
 import NextLevel
 import AVFoundation
 import UIKit
-import HaishinKit
 
 class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
     
@@ -92,15 +91,13 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
         tapGesture.delegate = self
         
         let screenBounds = UIScreen.main.bounds
-        previewView = (isStreaming) ? GLHKView(frame: screenBounds) : UIView(frame: screenBounds)
+        previewView = UIView(frame: screenBounds)
         previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         previewView.addGestureRecognizer(pinchGesture)
         previewView.addGestureRecognizer(tapGesture)
         if !isStreaming {
             NextLevel.shared.previewLayer.frame = previewView.bounds
             previewView.layer.addSublayer(NextLevel.shared.previewLayer)
-        } else {
-            (previewView as! GLHKView).videoGravity = .resizeAspectFill
         }
         view.addSubview(previewView)
         view.addSubview(controlView)
