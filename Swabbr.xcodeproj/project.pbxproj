@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
+		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
+		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -16,6 +19,7 @@
 		C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */; };
 		C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */; };
 		C2B18165236194B6001D6F0B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2B18164236194B6001D6F0B /* GoogleService-Info.plist */; };
+		C2B181672362EE5D001D6F0B /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B181662362EE5D001D6F0B /* DateTests.swift */; };
 		C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */; };
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
@@ -82,6 +86,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C29FA3FE2374516700C22F67 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2B1813B235DFD78001D6F0B /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,9 +111,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
 		6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swabbr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
+		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
+		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
+		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +127,7 @@
 		C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionTests.swift; sourceTree = "<group>"; };
 		C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestTests.swift; sourceTree = "<group>"; };
 		C2B18164236194B6001D6F0B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C2B181662362EE5D001D6F0B /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 		C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Notification-Hub-Settings.plist"; sourceTree = "<group>"; };
 		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
@@ -157,6 +175,7 @@
 		C2E77718235485C60071B828 /* ApiPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPreferences.swift; sourceTree = "<group>"; };
 		C2E7771A235488CD0071B828 /* API-Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API-Preferences.plist"; sourceTree = "<group>"; };
 		C2E7771C2354CB640071B828 /* VlogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTests.swift; sourceTree = "<group>"; };
+		DF3EFE5099EC25DA14218454 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,7 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */,
-				52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */,
+				DF3EFE5099EC25DA14218454 /* Pods-Swabbr.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -344,6 +363,9 @@
 				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
 				C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */,
 				C2E776F22347742A0071B828 /* BaseViewProtocol.swift */,
+				C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */,
+				C2128D352370744F00E56BAC /* VlogReactionViewController.swift */,
+				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -406,6 +428,7 @@
 				C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */,
 				C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */,
 				C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */,
+				C2B181662362EE5D001D6F0B /* DateTests.swift */,
 			);
 			path = SwabbrTests;
 			sourceTree = "<group>";
@@ -652,6 +675,7 @@
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
 				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
+				C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */,
 				C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */,
 				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
@@ -660,6 +684,7 @@
 				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
+				C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */,
 				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
 				C2E776DC233A65D10071B828 /* API.swift in Sources */,
@@ -673,6 +698,7 @@
 				C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */,
 				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
+				C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 			);
@@ -685,6 +711,7 @@
 				C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */,
 				C2E77703234E277B0071B828 /* UserTests.swift in Sources */,
 				C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */,
+				C2B181672362EE5D001D6F0B /* DateTests.swift in Sources */,
 				C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */,
 				C2E776FB234E24370071B828 /* SwabbrTests.swift in Sources */,
 				C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */,
@@ -889,7 +916,7 @@
 		};
 		C2DE21E8232FA3E900BF772D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */;
+			baseConfigurationReference = DF3EFE5099EC25DA14218454 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -898,6 +925,11 @@
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = XACC24T3B7;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Swabbr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -923,6 +955,11 @@
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Swabbr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -939,7 +976,6 @@
 		};
 		C2E776FF234E24370071B828 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52F6296FF7A9781835CA5126 /* Pods-Swabbr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
