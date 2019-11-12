@@ -10,6 +10,8 @@
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
 		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
+		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
+		C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
@@ -115,6 +117,8 @@
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
 		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
+		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
+		C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */,
 				4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +219,7 @@
 		B95A32AC7988BBADCCA5561F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */,
 				6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */,
 				C2B18141235EEEB1001D6F0B /* UserNotifications.framework */,
 				C2B18143235EEEB1001D6F0B /* UserNotificationsUI.framework */,
@@ -287,6 +293,7 @@
 		C2DE21CC232FA35600BF772D = {
 			isa = PBXGroup;
 			children = (
+				C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */,
 				C2DE21D7232FA35700BF772D /* Swabbr */,
 				C2E776F9234E24370071B828 /* SwabbrTests */,
 				C2E7770D235084DA0071B828 /* SwabbrUITests */,
@@ -472,6 +479,7 @@
 				C2DE21D3232FA35700BF772D /* Resources */,
 				0809C493178F0710F7C895BD /* [CP] Embed Pods Frameworks */,
 				C2B1813B235DFD78001D6F0B /* Embed App Extensions */,
+				C29FA3FE2374516700C22F67 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
