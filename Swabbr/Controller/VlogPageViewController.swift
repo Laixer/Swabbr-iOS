@@ -13,7 +13,7 @@ import AVFoundation
 
 class VlogPageViewController : UIViewController, BaseViewProtocol {
     
-    private var player: VLCMediaPlayer?
+    private var player: AVPlayer?
     
     private let likesCountLabel = UILabel()
     private let viewsCountLabel = UILabel()
@@ -25,9 +25,12 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     
     private let playerView = UIView()
     
-    let vlog: Vlog
+    private let containerView = UIView()
+    
+    let vlog: Vlog!
     
     private var reactionController: ReactionViewController?
+    private let scrollView = UIScrollView()
     
     /**
      The initializer which accepts a Vlog as parameter.
@@ -36,7 +39,6 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     */
     init(vlog: Vlog) {
         self.vlog = vlog
-        self.player = VLCMediaPlayer()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,6 +51,13 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         
         title = String(vlog.id)
         view.backgroundColor = UIColor.white
+        
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.alwaysBounceVertical = false
+        scrollView.alwaysBounceHorizontal = false
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height * 2)
         
         initElements()
         applyConstraints()
@@ -77,8 +86,8 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         reactionCountLabel.addGestureRecognizer(singleReactionTap)
         
         let singleVideoTap = UITapGestureRecognizer(target: self, action: #selector(clickedVideoToGoBackToFullscreen))
-        playerView.isUserInteractionEnabled = true
-        playerView.addGestureRecognizer(singleVideoTap)
+        containerView.isUserInteractionEnabled = true
+        containerView.addGestureRecognizer(singleVideoTap)
         
         userUsernameLabel.text = vlog.owner!.username
         do {
@@ -91,20 +100,28 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         isLiveLabel.text = "Live"
         isLiveLabel.backgroundColor = UIColor.red
         
-        playerView.frame = view.bounds
+        scrollView.frame = view.bounds
+        containerView.frame = view.bounds
         
-        view.addSubview(playerView)
+        view.addSubview(scrollView)
+        containerView.addSubview(playerView)
         
         // add ui components to current view
-        view.addSubview(likesCountLabel)
-        view.addSubview(viewsCountLabel)
-        view.addSubview(reactionCountLabel)
-        view.addSubview(userProfileImageView)
-        view.addSubview(userUsernameLabel)
-        view.addSubview(reactionButton)
+        containerView.addSubview(likesCountLabel)
+        containerView.addSubview(viewsCountLabel)
+        containerView.addSubview(reactionCountLabel)
+        containerView.addSubview(userProfileImageView)
+        containerView.addSubview(userUsernameLabel)
+        containerView.addSubview(reactionButton)
         if vlog.isLive {
-            view.addSubview(isLiveLabel)
+            containerView.addSubview(isLiveLabel)
         }
+        scrollView.addSubview(containerView)
+        reactionController = ReactionViewController(vlogId: vlog.id)
+        reactionController!.view.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height)
+        scrollView.addSubview(reactionController!.view)
+        addChild(reactionController!)
+        reactionController!.didMove(toParent: self)
     }
 
     internal func applyConstraints() {
@@ -121,29 +138,29 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         NSLayoutConstraint.activate([
             
             // userUsernameLabel
-            userUsernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            userUsernameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            userUsernameLabel.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor),
+            userUsernameLabel.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor),
             
             // userProfileImageView
             userProfileImageView.topAnchor.constraint(equalTo: userUsernameLabel.bottomAnchor),
-            userProfileImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            userProfileImageView.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor),
             userProfileImageView.heightAnchor.constraint(equalToConstant: 100),
             userProfileImageView.widthAnchor.constraint(equalToConstant: 100),
             
             // viewsCountLabel
-            viewsCountLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            viewsCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            viewsCountLabel.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
+            viewsCountLabel.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor),
             
             // likesCountLabel
             likesCountLabel.bottomAnchor.constraint(equalTo: viewsCountLabel.topAnchor),
-            likesCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            likesCountLabel.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor),
             
             // reactionCountLabel
             reactionCountLabel.bottomAnchor.constraint(equalTo: likesCountLabel.topAnchor),
-            reactionCountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            reactionCountLabel.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor),
             
             // reactionButton
-            reactionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            reactionButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
             reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10),
             
         ])
@@ -156,21 +173,20 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         playPlayer()
-//        NotificationCenter.default.post(name: .VlogAppeared, object: nil, userInfo: ["vlog_id": vlog.id])
+        scrollView.isScrollEnabled = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         stopPlayer()
-        player = nil
     }
     
     /**
      Get run when the vlog has finished playing.
      This function makes sure that we can show the next vlog in the queue to the user.
     */
-    private func videoEnd(){
+    @objc private func videoEnd(){
         guard let parent = parent else {
             return
         }
@@ -195,25 +211,26 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     }
     
     /**
-     This will handle all actions required to handle the click of the reation button.
+     This will handle all actions required to handle the click of the reaction button.
     */
     @objc private func clickedReactButton() {
-        present(VlogStreamViewController(), animated: true, completion: nil)
+        present(VlogReactionViewController(vlog: vlog), animated: true, completion: nil)
     }
     
     /**
      Handle all actions required when the reaction label is pressed.
     */
     @objc private func clickedReactionLabel() {
-        playerView.frame = CGRect(x: 0, y: -playerView.bounds.minY, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
-        addReactionViewController()
+        scrollView.isScrollEnabled = true
+        scrollView.setContentOffset(CGPoint(x: 0, y: 400), animated: true)
     }
     
     /**
      Handle all actions required when the vlog is clicked, returns to fullscreen if reactions are visible.
     */
     @objc private func clickedVideoToGoBackToFullscreen() {
-        removeReactionViewController()
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        scrollView.isScrollEnabled = false
     }
     
     /**
@@ -266,6 +283,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     */
     private func stopPlayer() {
         player!.pause()
+        NotificationCenter.default.removeObserver(self)
     }
     
     /**
@@ -274,29 +292,14 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
      */
     private func playPlayer() {
         
-        let media = VLCMedia(url: url!)
+        player = AVPlayer(url: url!)
         
         player!.media = media
         player!.drawable = playerView
         player!.delegate = self
         player!.play()
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-            if self.player!.videoSize.height > 0 {
-                let currentVideoScaleToScreen = Float(UIScreen.main.bounds.height) / Float(self.player!.videoSize.height)
-                self.player!.scaleFactor = currentVideoScaleToScreen * Float(UIScreen.main.scale)
-                timer.invalidate()
-            }
-        })
+        NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
-}
-
-// MARK: VLCMediaPlayerDelegate
-extension VlogPageViewController: VLCMediaPlayerDelegate {
-    func mediaPlayerStateChanged(_ aNotification: Notification!) {
-        if player!.state == VLCMediaPlayerState.ended {
-            videoEnd()
-        }
-    }
 }
