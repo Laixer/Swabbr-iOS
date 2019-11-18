@@ -43,6 +43,11 @@ extension INetwork {
         return wrapper
     }
     
+    /**
+     This will handle the url accordingly.
+     - parameter queryItems: This represents the possible parameters that will be given to an url, default is nil.
+     - Returns: An URLComponents object.
+    */
     internal func urlComponents(queryItems: [URLQueryItem]? = nil) -> URLComponents {
         var components = URLComponents(string: ApiPreferences.shared.api_url)!
         components.path = ApiPreferences.shared.url_path + endPoint
