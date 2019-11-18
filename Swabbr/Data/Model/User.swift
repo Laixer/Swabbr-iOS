@@ -31,21 +31,31 @@ struct User {
     var latitude: Float
     
     /**
-     Converts the value of gender to conform our model.
-    */
-    enum Gender: String, Codable {
-        case Male = "M"
-        case Female = "F"
-        case Unspecified = "O"
-    }
-    
-    /**
      Handles possible name convention differences.
      Put each value in their respected model variant.
     */
     enum CodingKeys: String, CodingKey {
         case id, firstName, lastName, gender, country, email, birthdate, timezone, profileImageUrl, interests, totalVlogs, totalFollowers, totalFollowing, longitude, latitude
         case username = "nickname"
+    }
+    
+    func mapToBusiness() -> UserModel {
+        return UserModel(id: id,
+                         firstName: firstName,
+                         lastName: lastName,
+                         gender: gender,
+                         country: country,
+                         email: email,
+                         birthdate: birthdate,
+                         timezone: timezone,
+                         username: username,
+                         profileImageUrl: profileImageUrl,
+                         interests: interests,
+                         totalVlogs: totalVlogs,
+                         totalFollowers: totalFollowers,
+                         totalFollowing: totalFollowing,
+                         longitude: longitude,
+                         latitude: latitude)
     }
 }
 
@@ -101,4 +111,10 @@ extension User: Codable {
         
     }
 
+}
+
+public enum Gender: String, Codable {
+    case Male = "M"
+    case Female = "F"
+    case Unspecified = "O"
 }

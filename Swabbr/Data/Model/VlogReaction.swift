@@ -12,22 +12,11 @@ class VlogReaction: Codable {
     
     var id: Int
     var isPrivate: Bool
-    var owner: User?
     var ownerId: Int
     var duration: String
     var postDate: Date
     var vlogId: Int
     
-    /**
-     Handles possible name convention differences.
-     Put each value in their respected model variant.
-     */
-    enum CodingKeys: String, CodingKey {
-        case id
-        case isPrivate = "private"
-        case owner, duration, postDate, vlogId
-        case ownerId = "userId"
-    }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -39,7 +28,6 @@ class VlogReaction: Codable {
         
         postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .postDate))!
 
-        owner = nil
         ownerId = try container.decode(Int.self, forKey: .ownerId)
 
         vlogId = try container.decodeToType(Int.self, key: .vlogId)
@@ -58,4 +46,11 @@ class VlogReaction: Codable {
         
     }
     
+}
+
+public enum CodingKeys: String, CodingKey {
+    case id
+    case isPrivate = "private"
+    case owner, duration, postDate, vlogId
+    case ownerId = "userId"
 }

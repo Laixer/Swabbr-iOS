@@ -246,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				C29FA42B237EA80900C22F67 /* Datasource */,
+				C29FA420237DAF2100C22F67 /* Model */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -256,6 +257,16 @@
 				C29FA404237D54F900C22F67 /* IRepository.swift */,
 			);
 			path = Business;
+			sourceTree = "<group>";
+		};
+		C29FA420237DAF2100C22F67 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776E523423B5A0071B828 /* VlogReaction.swift */,
+				C2E776C42333A4320071B828 /* Vlog.swift */,
+				C2E776B123325B160071B828 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C29FA426237DC8B000C22F67 /* Network */ = {
@@ -432,9 +443,6 @@
 			children = (
 				C2B18126235DA7A1001D6F0B /* Payload.swift */,
 				C2C24CCE2355FA5B00EEDF1B /* Notification */,
-				C2E776B123325B160071B828 /* User.swift */,
-				C2E776C42333A4320071B828 /* Vlog.swift */,
-				C2E776E523423B5A0071B828 /* VlogReaction.swift */,
 				C2E776E72344B20E0071B828 /* UserFollowRequest.swift */,
 			);
 			path = Model;
