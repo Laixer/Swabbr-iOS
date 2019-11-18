@@ -14,6 +14,7 @@
 		C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
 		C29FA405237D54F900C22F67 /* IRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA404237D54F900C22F67 /* IRepository.swift */; };
+		C29FA42A237EA74800C22F67 /* IDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA429237EA74800C22F67 /* IDataSource.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -122,6 +123,7 @@
 		C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
 		C29FA404237D54F900C22F67 /* IRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRepository.swift; sourceTree = "<group>"; };
+		C29FA429237EA74800C22F67 /* IDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDataSource.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,12 +240,28 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C2128D3C237413FB00E56BAC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C29FA42B237EA80900C22F67 /* Datasource */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		C29FA3EE237415FF00C22F67 /* Business */ = {
 			isa = PBXGroup;
 			children = (
 				C29FA404237D54F900C22F67 /* IRepository.swift */,
 			);
 			path = Business;
+			sourceTree = "<group>";
+		};
+		C29FA42B237EA80900C22F67 /* Datasource */ = {
+			isa = PBXGroup;
+			children = (
+				C29FA429237EA74800C22F67 /* IDataSource.swift */,
+			);
+			path = Datasource;
 			sourceTree = "<group>";
 		};
 		C2B18131235DFD78001D6F0B /* NotificationServiceExtension */ = {
@@ -329,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				C29FA3EE237415FF00C22F67 /* Business */,
+				C2128D3C237413FB00E56BAC /* Data */,
 				C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */,
 				C2C24CD62355FE5A00EEDF1B /* BridgingHeader.h */,
 				C2C24CDC235726D000EEDF1B /* Service */,
@@ -691,6 +710,7 @@
 				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
 				C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */,
+				C29FA42A237EA74800C22F67 /* IDataSource.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
 				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
