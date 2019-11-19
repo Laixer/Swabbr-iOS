@@ -6,8 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class VlogUserDataRetriever: IRepository {
-    typealias Model = VlogUserModel
+class VlogUserDataRetriever {
     
     static let shared = VlogUserDataRetriever()
     
@@ -28,7 +27,6 @@ class VlogUserDataRetriever: IRepository {
             vlogUserGroup.notify(queue: .main) {
                 completionHandler(vlogUserModels)
             }
-            
         })
     }
     

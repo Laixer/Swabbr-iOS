@@ -8,8 +8,7 @@
 
 import Foundation
 
-class VlogDataRetriever: IRepository {
-    typealias Model = VlogModel
+class VlogDataRetriever {
     
     static let shared = VlogDataRetriever()
     

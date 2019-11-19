@@ -8,9 +8,7 @@
 
 import Foundation
 
-class UserDataRetriever: IRepository {
-    
-    typealias Model = UserModel
+class UserDataRetriever {
     
     static let shared = UserDataRetriever()
     
