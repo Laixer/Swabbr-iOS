@@ -29,6 +29,7 @@
 		C29FA434237EE5D200C22F67 /* VlogUserDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA433237EE5D200C22F67 /* VlogUserDataRetriever.swift */; };
 		C29FA436237EE62000C22F67 /* VlogUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA435237EE62000C22F67 /* VlogUserModel.swift */; };
 		C29FA43A237EED7B00C22F67 /* VlogUserRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA439237EED7B00C22F67 /* VlogUserRepositoryModel.swift */; };
+		C29FA43E2382AAE800C22F67 /* VlogReactionNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA43D2382AAE800C22F67 /* VlogReactionNetwork.swift */; };
 		C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA43F2382AE4E00C22F67 /* VlogReactionModel.swift */; };
 		C29FA4442382D60600C22F67 /* VlogReactionDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4432382D60600C22F67 /* VlogReactionDataRetriever.swift */; };
 		C29FA4462382DBA700C22F67 /* UserVlogReactionsDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4452382DBA700C22F67 /* UserVlogReactionsDataRetriever.swift */; };
@@ -156,6 +157,7 @@
 		C29FA433237EE5D200C22F67 /* VlogUserDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserDataRetriever.swift; sourceTree = "<group>"; };
 		C29FA435237EE62000C22F67 /* VlogUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserModel.swift; sourceTree = "<group>"; };
 		C29FA439237EED7B00C22F67 /* VlogUserRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserRepositoryModel.swift; sourceTree = "<group>"; };
+		C29FA43D2382AAE800C22F67 /* VlogReactionNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionNetwork.swift; sourceTree = "<group>"; };
 		C29FA43F2382AE4E00C22F67 /* VlogReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionModel.swift; sourceTree = "<group>"; };
 		C29FA4432382D60600C22F67 /* VlogReactionDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionDataRetriever.swift; sourceTree = "<group>"; };
 		C29FA4452382DBA700C22F67 /* UserVlogReactionsDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVlogReactionsDataRetriever.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				C29FA42C237EA83C00C22F67 /* UserNetwork.swift */,
 				C29FA42E237EBA5600C22F67 /* NetworkProtocol.swift */,
 				C29FA430237ED0EC00C22F67 /* VlogNetwork.swift */,
+				C29FA43D2382AAE800C22F67 /* VlogReactionNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -863,6 +866,7 @@
 				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C29FA42D237EA83C00C22F67 /* UserNetwork.swift in Sources */,
 				C29FA405237D54F900C22F67 /* RepositoryProtocol.swift in Sources */,
+				C29FA43E2382AAE800C22F67 /* VlogReactionNetwork.swift in Sources */,
 				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
 				C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
