@@ -11,7 +11,7 @@ import UIKit
 import AVKit
 import AVFoundation
 
-class VlogPageViewController : UIViewController, BaseViewProtocol {
+class VlogPageViewController : UIViewController {
     
     private var player: AVPlayer?
     
@@ -27,18 +27,22 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     
     private let containerView = UIView()
     
-    let vlog: Vlog!
-    
     private var reactionController: ReactionViewController?
     private let scrollView = UIScrollView()
+    
+    let viewModel = VlogPageViewViewModel()
+    
+    init(vlogPageViewViewModel: VlogPageViewViewModel) {
+        super.init(nibName: nil, bundle: nil)
+    }
     
     /**
      The initializer which accepts a Vlog as parameter.
      It will setup the view using the data contained in the Vlog.
-     - parameter vlog: A vlog object.
-    */
-    init(vlog: Vlog) {
-        self.vlog = vlog
+     - parameter vlog: A VlogUserRepositoryModel object.
+     */
+    init(vlog: VlogUserRepositoryModel) {
+        viewModel.vlog = vlog
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,8 +53,67 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = String(vlog.id)
         view.backgroundColor = UIColor.white
+        
+        initElements()
+        applyConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playPlayer()
+        scrollView.isScrollEnabled = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        stopPlayer()
+    }
+    
+    /**
+     Handles the removal of the reaction view controller.
+     It will ensure that the child controller has been released and prevent memory leaks.
+    */
+    private func removeReactionViewController() {
+        guard let reactionController = reactionController else {
+            return
+        }
+        
+        playPlayer()
+        
+        playerView.frame = CGRect(x: 0, y: 0, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
+        reactionController.view.removeFromSuperview()
+        reactionController.removeFromParent()
+    }
+    
+    /**
+     Run when we want to stop or pause the player.
+     This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
+    */
+    private func stopPlayer() {
+        player!.pause()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    /**
+     Run when we want to start the player.
+     This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
+     */
+    private func playPlayer() {
+        player = AVPlayer(url: URL(string: viewModel.vlog.vlogUrl)!)
+        
+        let playerLayer = AVPlayerLayer(player: player!)
+        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.frame = view.bounds
+        playerView.layer.addSublayer(playerLayer)
+        player!.play()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+}
+
+//  MARK: BaseViewProtocol
+extension VlogPageViewController: BaseViewProtocol {
+    internal func initElements() {
         
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -59,11 +122,6 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         scrollView.alwaysBounceHorizontal = false
         scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height * 2)
         
-        initElements()
-        applyConstraints()
-    }
-    
-    internal func initElements() {
         userProfileImageView.contentMode = .scaleAspectFill
         userProfileImageView.clipsToBounds = true
         
@@ -78,9 +136,9 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         reactionButton.addTarget(self, action: #selector(clickedReactButton), for: .touchUpInside)
         
         // set values
-        likesCountLabel.text = String(vlog.totalLikes)
-        viewsCountLabel.text = String(vlog.totalViews)
-        reactionCountLabel.text = String(vlog.totalReactions)
+        likesCountLabel.text = String(viewModel.vlog.vlogTotalLikes)
+        viewsCountLabel.text = String(viewModel.vlog.vlogTotalViews)
+        reactionCountLabel.text = String(viewModel.vlog.vlogTotalReactions)
         let singleReactionTap = UITapGestureRecognizer(target: self, action: #selector(clickedReactionLabel))
         reactionCountLabel.isUserInteractionEnabled = true
         reactionCountLabel.addGestureRecognizer(singleReactionTap)
@@ -89,7 +147,7 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         containerView.isUserInteractionEnabled = true
         containerView.addGestureRecognizer(singleVideoTap)
         
-        userUsernameLabel.text = vlog.owner!.username
+        userUsernameLabel.text = viewModel.vlog.userUsername
         do {
             let url = URL(string: "https://cdn.mos.cms.futurecdn.net/yJaNqkw6JPf2QuXiYobcY3.jpg")
             let data = try Data(contentsOf: url!)
@@ -113,17 +171,17 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
         containerView.addSubview(userProfileImageView)
         containerView.addSubview(userUsernameLabel)
         containerView.addSubview(reactionButton)
-        if vlog.isLive {
+        if viewModel.vlog.vlogIsLive {
             containerView.addSubview(isLiveLabel)
         }
         scrollView.addSubview(containerView)
-        reactionController = ReactionViewController(vlogId: vlog.id)
+        reactionController = ReactionViewController(vlogId: viewModel.vlog.vlogId)
         reactionController!.view.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height)
         scrollView.addSubview(reactionController!.view)
         addChild(reactionController!)
         reactionController!.didMove(toParent: self)
     }
-
+    
     internal func applyConstraints() {
         // disable auto constraint to override with given constraints
         likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -163,63 +221,58 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
             reactionButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
             reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10),
             
-        ])
+            ])
         
-        if vlog.isLive {
+        if viewModel.vlog.vlogIsLive {
             NSLayoutConstraint.activate([
                 isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 isLiveLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
             ])
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        playPlayer()
-        scrollView.isScrollEnabled = false
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        stopPlayer()
-    }
+}
+
+// MARK: Events
+extension VlogPageViewController {
     
     /**
      Get run when the vlog has finished playing.
      This function makes sure that we can show the next vlog in the queue to the user.
-    */
+     */
     @objc private func videoEnd(){
         guard let parent = parent else {
             return
         }
         
-        if !parent.isKind(of: UIPageViewController.self){
+        guard !parent.isKind(of: UIPageViewController.self) else {
             return
         }
-
+        
         let parentPageViewController = (parent as! UIPageViewController).parent as? TimelineViewController
         parentPageViewController!.pageViewController.setViewControllers(
-        [parentPageViewController!.pageViewController(parentPageViewController!.pageViewController, viewControllerAfter: self)!],
-        direction: .forward, animated: true, completion: nil)
+            [parentPageViewController!.pageViewController(parentPageViewController!.pageViewController, viewControllerAfter: self)!],
+            direction: .forward, animated: true, completion: nil)
     }
     
     /**
      It will run when we recognize a click on the profile.
      This will push the current view to the profile of the clicked user.
-    */
+     */
     @objc private func clickedProfilePicture() {
         stopPlayer()
-        navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
+        //navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
     }
     
     /**
      This will handle all actions required to handle the click of the reaction button.
-    */
+     */
     @objc private func clickedReactButton() {
-        present(VlogReactionViewController(vlog: vlog), animated: true, completion: nil)
+        //present(VlogReactionViewController(vlog: vlog), animated: true, completion: nil)
     }
     
     /**
      Handle all actions required when the reaction label is pressed.
-    */
+     */
     @objc private func clickedReactionLabel() {
         scrollView.isScrollEnabled = true
         scrollView.setContentOffset(CGPoint(x: 0, y: 400), animated: true)
@@ -227,79 +280,9 @@ class VlogPageViewController : UIViewController, BaseViewProtocol {
     
     /**
      Handle all actions required when the vlog is clicked, returns to fullscreen if reactions are visible.
-    */
+     */
     @objc private func clickedVideoToGoBackToFullscreen() {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         scrollView.isScrollEnabled = false
     }
-    
-    /**
-     When the react button has been pressed this function will run.
-     The function will prepare the ReactionViewController to be shown in this current viewcontroller.
-     This will only show the data coming from the ReactionViewController, this controller will not be responsible for function calls regarding the reactions.
-    */
-    private func addReactionViewController() {
-        // prevent possible double press
-        if reactionController != nil {
-            return
-        }
-        
-        stopPlayer()
-
-        reactionController = ReactionViewController(vlogId: vlog.id)
-        view.addSubview(reactionController!.view)
-        reactionController!.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            reactionController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            reactionController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            reactionController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: playerView.bounds.midY),
-            reactionController!.view.heightAnchor.constraint(equalToConstant: playerView.bounds.midY)
-        ])
-        addChild(reactionController!)
-        reactionController!.didMove(toParent: self)
-        
-    }
-    
-    /**
-     Handles the removal of the reaction view controller.
-     It will ensure that the child controller has been released and prevent memory leaks.
-    */
-    private func removeReactionViewController() {
-        if reactionController == nil {
-            return
-        }
-        
-        playPlayer()
-        
-        playerView.frame = CGRect(x: 0, y: 0, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
-        reactionController!.view.removeFromSuperview()
-        reactionController!.removeFromParent()
-        reactionController = nil
-    }
-    
-    /**
-     Run when we want to stop or pause the player.
-     This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
-    */
-    private func stopPlayer() {
-        player!.pause()
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    /**
-     Run when we want to start the player.
-     This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
-     */
-    private func playPlayer() {
-        
-        player = AVPlayer(url: url!)
-        
-        player!.media = media
-        player!.drawable = playerView
-        player!.delegate = self
-        player!.play()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
-    
 }

@@ -309,6 +309,7 @@
 		C29FA401237D545500C22F67 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C29FA432237ED85F00C22F67 /* Controller */,
 				C29FA417237DAE0500C22F67 /* Model */,
 				C29FA416237DADFA00C22F67 /* ViewModel */,
 			);
@@ -397,6 +398,17 @@
 				C29FA426237DC8B000C22F67 /* Network */,
 			);
 			path = Datasource;
+			sourceTree = "<group>";
+		};
+		C29FA432237ED85F00C22F67 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776F22347742A0071B828 /* BaseViewProtocol.swift */,
+				C2DE21FB23321A6600BF772D /* TimelineViewController.swift */,
+				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
+				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		C2B18131235DFD78001D6F0B /* NotificationServiceExtension */ = {
@@ -530,12 +542,8 @@
 			children = (
 				C2E776A9233252DA0071B828 /* Authentication */,
 				C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */,
-				C2DE21FB23321A6600BF772D /* TimelineViewController.swift */,
 				C2E776AE23325AB90071B828 /* ProfileViewController.swift */,
-				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
-				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
 				C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */,
-				C2E776F22347742A0071B828 /* BaseViewProtocol.swift */,
 				C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */,
 				C2128D352370744F00E56BAC /* VlogReactionViewController.swift */,
 				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,

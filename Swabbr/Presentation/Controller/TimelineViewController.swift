@@ -11,9 +11,12 @@ import UIKit
 class TimelineViewController : UIViewController {
     
     weak var pageViewController: UIPageViewController!
-    private var vlogs: [Vlog] = []
+    
+    private let viewModel = TimelineViewViewModel()
     
     override func viewDidLoad() {
+        
+        navigationController?.navigationBar.isHidden = true
         
         view.backgroundColor = UIColor.white
         
@@ -30,70 +33,64 @@ class TimelineViewController : UIViewController {
         
         pvc.didMove(toParent: self)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCamera))
+        self.pageViewController = pvc
         
-        let sData = ServerData()
-        sData.getSpecificUser(id: 0, onComplete: { user in
-            User.current = user!
-        })
-        sData.getVlogs(onComplete: {vlogs in
-            for vlog in vlogs! {
-                self.vlogs.append(vlog)
-            }
-            let vlogController = VlogPageViewController(vlog: self.vlogs[0])
-            pvc.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)
-            self.pageViewController = pvc
-        })
+        viewModel.delegate = self
+        viewModel.getVlogs()
         
-    }
-    
-    @objc func showCamera() {
-        show(VlogStreamViewController(), sender: nil)
     }
 }
 
+// MARK: UIPageViewControllerDataSource
 extension TimelineViewController : UIPageViewControllerDataSource {
     
-    // MARK: UIPageViewControllerDataSource
-    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vlog = (viewController as! VlogPageViewController).vlog
-        guard let cIndex = vlogs.firstIndex(of: vlog) else {
+        let vlog = (viewController as! VlogPageViewController).viewModel.vlog
+        
+        guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
         
         let previousIndex = cIndex - 1
         
         guard previousIndex >= 0 else {
-            return VlogPageViewController(vlog: vlogs.last!)
+            return VlogPageViewController(vlog: self.viewModel.vlogs.last!)
         }
         
-        guard vlogs.count > previousIndex else {
+        guard self.viewModel.vlogs.count > previousIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlog: vlogs[previousIndex])
+        return VlogPageViewController(vlog: self.viewModel.vlogs[previousIndex])
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vlog = (viewController as! VlogPageViewController).vlog
-        guard let cIndex = vlogs.firstIndex(of: vlog) else {
+        let vlog = (viewController as! VlogPageViewController).viewModel.vlog
+        
+        guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
         
         let nextIndex = cIndex + 1
-        let vlogCount = vlogs.count
+        let vlogCount = self.viewModel.vlogs.count
         
         guard vlogCount != nextIndex else {
-            return VlogPageViewController(vlog: vlogs.first!)
+            return VlogPageViewController(vlog: self.viewModel.vlogs.first!)
         }
         
         guard vlogCount > nextIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlog: vlogs[nextIndex])
+        return VlogPageViewController(vlog: self.viewModel.vlogs[nextIndex])
     }
     
-    
+}
+
+// MARK: TimelineViewViewModelDelegate
+extension TimelineViewController : TimelineViewViewModelDelegate {
+    func didRetrieveVlogs(_ sender: TimelineViewViewModel) {
+        let vlogController = VlogPageViewController(vlog: sender.vlogs[0])
+        pageViewController.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)
+    }
 }
