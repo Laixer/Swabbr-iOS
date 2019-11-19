@@ -6,14 +6,20 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
 struct VlogRepositoryModel {
     
-    var vlogName: String
+    var id: Int
+    var duration: String
+    var totalLikes: String
+    var totalReactions: String
+    var totalViews: String
     
     init(vlogModel: VlogModel) {
-        vlogName = vlogModel.duration
+        id = vlogModel.id
+        duration = vlogModel.duration
+        totalLikes = String(vlogModel.totalLikes)
+        totalReactions = String(vlogModel.totalReactions)
+        totalViews = String(vlogModel.totalViews)
     }
     
 }

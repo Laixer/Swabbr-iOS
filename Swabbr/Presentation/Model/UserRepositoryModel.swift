@@ -6,16 +6,21 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
-// useritem
 struct UserRepositoryModel {
     
-    var fullname: String
+    var firstName: String
+    var lastName: String
+    var totalVlogs: String
+    var totalFollowers: String
+    var totalFollowing: String
     var interests: [String]
     
     init(userModel: UserModel) {
-        fullname = userModel.firstName + " " + userModel.lastName
+        firstName = userModel.firstName
+        lastName = userModel.lastName
+        totalVlogs = String(userModel.totalVlogs)
+        totalFollowers = String(userModel.totalFollowers)
+        totalFollowing = String(userModel.totalFollowing)
         interests = userModel.interests
     }
     
