@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VlogReaction: Codable {
+struct VlogReaction {
     
     var id: Int
     var isPrivate: Bool
@@ -17,8 +17,21 @@ class VlogReaction: Codable {
     var postDate: Date
     var vlogId: Int
     
+    func mapToBusiness() -> VlogReactionModel {
+        return VlogReactionModel(id: id,
+                                 isPrivate: isPrivate,
+                                 ownerId: ownerId,
+                                 duration: duration,
+                                 postDate: postDate,
+                                 vlogId: vlogId)
+    }
+    
+}
 
-    required init(from decoder: Decoder) throws {
+extension VlogReaction: Codable {
+    
+
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decodeToType(Int.self, key: .id)
