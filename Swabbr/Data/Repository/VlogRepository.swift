@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VlogRepository: IRepository {
+class VlogRepository: RepositoryProtocol {
     typealias Model = VlogModel
     
     static let shared = VlogRepository()

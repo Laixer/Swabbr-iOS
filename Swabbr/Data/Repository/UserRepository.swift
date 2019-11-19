@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserRepository: IRepository {
+class UserRepository: RepositoryProtocol {
     typealias Model = UserModel
     
     static let shared = UserRepository()
