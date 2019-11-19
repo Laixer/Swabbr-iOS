@@ -13,6 +13,7 @@
 		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
 		C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
+		C29FA403237D549A00C22F67 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA402237D549A00C22F67 /* ProfileViewViewModel.swift */; };
 		C29FA405237D54F900C22F67 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA404237D54F900C22F67 /* RepositoryProtocol.swift */; };
 		C29FA407237D552000C22F67 /* UserDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA406237D552000C22F67 /* UserDataRetriever.swift */; };
 		C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA40A237D57C000C22F67 /* UserRepository.swift */; };
@@ -145,6 +146,7 @@
 		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
 		C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
+		C29FA402237D549A00C22F67 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
 		C29FA404237D54F900C22F67 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		C29FA406237D552000C22F67 /* UserDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRetriever.swift; sourceTree = "<group>"; };
 		C29FA40A237D57C000C22F67 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		C29FA416237DADFA00C22F67 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C29FA402237D549A00C22F67 /* ProfileViewViewModel.swift */,
 				C29FA418237DAE4500C22F67 /* TimelineViewViewModel.swift */,
 				C29FA4412382D30B00C22F67 /* VlogPageViewViewModel.swift */,
 			);
@@ -890,6 +893,7 @@
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
+				C29FA403237D549A00C22F67 /* ProfileViewViewModel.swift in Sources */,
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
 				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
 				C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */,
