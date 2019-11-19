@@ -29,6 +29,8 @@
 		C29FA434237EE5D200C22F67 /* VlogUserDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA433237EE5D200C22F67 /* VlogUserDataRetriever.swift */; };
 		C29FA436237EE62000C22F67 /* VlogUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA435237EE62000C22F67 /* VlogUserModel.swift */; };
 		C29FA43A237EED7B00C22F67 /* VlogUserRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA439237EED7B00C22F67 /* VlogUserRepositoryModel.swift */; };
+		C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA43F2382AE4E00C22F67 /* VlogReactionModel.swift */; };
+		C29FA4482382DBE300C22F67 /* UserVlogReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4472382DBE300C22F67 /* UserVlogReactionModel.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -152,6 +154,8 @@
 		C29FA433237EE5D200C22F67 /* VlogUserDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserDataRetriever.swift; sourceTree = "<group>"; };
 		C29FA435237EE62000C22F67 /* VlogUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserModel.swift; sourceTree = "<group>"; };
 		C29FA439237EED7B00C22F67 /* VlogUserRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogUserRepositoryModel.swift; sourceTree = "<group>"; };
+		C29FA43F2382AE4E00C22F67 /* VlogReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionModel.swift; sourceTree = "<group>"; };
+		C29FA4472382DBE300C22F67 /* UserVlogReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVlogReactionModel.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +326,8 @@
 				C29FA412237D77B100C22F67 /* UserModel.swift */,
 				C29FA41E237DAECE00C22F67 /* VlogModel.swift */,
 				C29FA435237EE62000C22F67 /* VlogUserModel.swift */,
+				C29FA43F2382AE4E00C22F67 /* VlogReactionModel.swift */,
+				C29FA4472382DBE300C22F67 /* UserVlogReactionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -844,6 +850,7 @@
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
 				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
+				C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */,
 				C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */,
 				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C29FA42D237EA83C00C22F67 /* UserNetwork.swift in Sources */,
@@ -852,6 +859,7 @@
 				C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
+				C29FA4482382DBE300C22F67 /* UserVlogReactionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
