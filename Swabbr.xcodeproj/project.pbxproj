@@ -38,6 +38,7 @@
 		C29FA45623855F8C00C22F67 /* UserFollowRequestNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */; };
 		C29FA4582385784300C22F67 /* UserFollowRequestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4572385784300C22F67 /* UserFollowRequestRepository.swift */; };
 		C29FA45A2385791D00C22F67 /* UserFollowRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */; };
+		C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */; };
 		C29FA4602385995300C22F67 /* UserFollowRequestDataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45F2385995300C22F67 /* UserFollowRequestDataRetriever.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
@@ -171,6 +172,7 @@
 		C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestNetwork.swift; sourceTree = "<group>"; };
 		C29FA4572385784300C22F67 /* UserFollowRequestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestRepository.swift; sourceTree = "<group>"; };
 		C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestModel.swift; sourceTree = "<group>"; };
+		C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UserId.swift"; sourceTree = "<group>"; };
 		C29FA45F2385995300C22F67 /* UserFollowRequestDataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestDataRetriever.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 			children = (
 				C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */,
 				C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */,
+				C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C29FA4422382D30B00C22F67 /* VlogPageViewControllerService.swift in Sources */,
 				C29FA431237ED0EC00C22F67 /* VlogNetwork.swift in Sources */,
+				C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
 				C29FA45A2385791D00C22F67 /* UserFollowRequestModel.swift in Sources */,
 				C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */,
