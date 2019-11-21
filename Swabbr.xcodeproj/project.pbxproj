@@ -357,6 +357,7 @@
 		C29FA420237DAF2100C22F67 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C2E776E72344B20E0071B828 /* UserFollowRequest.swift */,
 				C2E776E523423B5A0071B828 /* VlogReaction.swift */,
 				C2E776C42333A4320071B828 /* Vlog.swift */,
 				C2E776B123325B160071B828 /* User.swift */,
@@ -559,7 +560,6 @@
 			children = (
 				C2B18126235DA7A1001D6F0B /* Payload.swift */,
 				C2C24CCE2355FA5B00EEDF1B /* Notification */,
-				C2E776E72344B20E0071B828 /* UserFollowRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
