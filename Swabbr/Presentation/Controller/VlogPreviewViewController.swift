@@ -21,6 +21,10 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
     var isPlaying = false
     
     // testing purposes
+    init() {
+        player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+        super.init(nibName: nil, bundle: nil)
+    }
     
     init(url: URL) {
         player = AVPlayer(url: url)

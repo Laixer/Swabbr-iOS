@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        if UserDefaults.standard.getUserId() == nil {
+            UserDefaults.standard.setUserId(value: 1)
+        }
+        
         if(CommandLine.arguments.contains("testing")) {
             ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .Test)
         }

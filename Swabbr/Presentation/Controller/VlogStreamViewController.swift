@@ -14,6 +14,7 @@ import AVFoundation
 
 class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatusCallback, WOWZVideoSink, WOWZAudioSink {
     
+    let sdkAppLicenseKey = "GOSK-1F47-010C-632D-5825-C587"
     
     var goCoder: WowzaGoCoder?
     let goCoderConfig = WowzaConfig()
@@ -34,6 +35,11 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     
     override func prepareForVlog() {
         
+        goCoderConfig.hostAddress = "300628.entrypoint.cloud.wowza.com"
+        goCoderConfig.applicationName = "app-00d3"
+        goCoderConfig.streamName = "51fac356"
+        goCoderConfig.username = "client46848"
+        goCoderConfig.password = "6f19a7b9"
         
         goCoderConfig.load(.preset1280x720)
         goCoderConfig.broadcastVideoOrientation = .alwaysPortrait
@@ -91,8 +97,8 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
                 goCoderConfig.load(otherCamera.supportedPresetConfigs.last!.toPreset())
                 goCoder?.config = goCoderConfig
             }
-            
             goCoder?.cameraPreview?.switchCamera()
+            // currentPosition
         }
     }
 }
