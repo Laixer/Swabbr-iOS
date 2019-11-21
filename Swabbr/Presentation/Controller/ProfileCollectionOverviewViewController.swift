@@ -13,9 +13,6 @@ import UIKit
 class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtocol {
     
     private var collectionView: UICollectionView!
-    private var userId: Int
-    private var vlogs: [Vlog] = []
-    private var users: [User] = []
     
     private enum DataType {
         case Following
@@ -25,14 +22,17 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     
     private let type: DataType
     
+    private let viewModel = ProfileCollectionOverviewControllerService()
+    
     /**
      Initialize the view controller this way if we want to get the vlogs thats associated to the given user id.
      - parameter userId: An int value representing an user id.
     */
     init(vlogOwnerId: Int) {
-        self.userId = vlogOwnerId
         type = DataType.Vlogs
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getVlogs(userId: vlogOwnerId)
     }
     
     /**
@@ -40,7 +40,6 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      - parameter userId: An int value representing an user id.
      */
     init(followingOwnerId: Int) {
-        self.userId = followingOwnerId
         type = DataType.Following
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,9 +49,10 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      - parameter userId: An int value representing an user id.
      */
     init(followersOwnerId: Int) {
-        self.userId = followersOwnerId
         type = DataType.Followers
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getFollowers(userId: followersOwnerId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,8 +65,6 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
         
         initElements()
         applyConstraints()
-        
-        getDataOfThisUserWithId(userId)
         
     }
     
@@ -100,34 +98,13 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
         
     }
     
-    /**
-     Get the data that is associated with the userId
-     - parameter userId: The id of the user that the data needs to be owned by.
-    */
-    private func getDataOfThisUserWithId(_ userId: Int) {
-        
-        if type == DataType.Vlogs {
-            ServerData().getUserSpecificVlogs(userId, onComplete: {vlogs in
-                if vlogs == nil {
-                    return
-                }
-                self.vlogs = vlogs!
-                self.collectionView.reloadData()
-            })
-        } else if type == DataType.Followers {
-            ServerData().getUserFollowers(userId, onComplete: {followers in
-                self.users = followers
-                self.collectionView.reloadData()
-            })
-        } else {
-            ServerData().getUserFollowing(userId, onComplete: {following in
-                self.users = following
-                self.collectionView.reloadData()
-            })
-        }
-        
+}
+
+// MARK: ProfileCollectionOverviewControllerServiceDelegate
+extension ProfileCollectionOverviewViewController: ProfileCollectionOverviewControllerServiceDelegate {
+    func didRetrieveItems(_ sender: ProfileCollectionOverviewControllerService) {
+        collectionView.reloadData()
     }
-    
 }
 
 extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -139,20 +116,20 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if type == DataType.Vlogs {
-            return vlogs.count
+            return viewModel.vlogs.count
         }
-        return users.count
+        return viewModel.users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell?
         if type == DataType.Vlogs {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
-            let vlog = vlogs[indexPath.row]
+            let vlog = viewModel.vlogs[indexPath.row]
             (cell! as! VlogCollectionViewCell).durationLabel.text = vlog.duration
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserCollectionViewCell
-            let user = users[indexPath.row]
+            let user = viewModel.users[indexPath.row]
             (cell! as! UserCollectionViewCell).usernameLabel.text = user.username
         }
         

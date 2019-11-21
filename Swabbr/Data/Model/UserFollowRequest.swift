@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserFollowRequest: Codable {
+struct UserFollowRequest {
     
     var id: Int
     var requesterId: Int
@@ -16,14 +16,17 @@ struct UserFollowRequest: Codable {
     var status: Status
     var timestamp: Date
     
-    /**
-     Converts the value of the status we get to conform our model.
-    */
-    enum Status: String, Codable {
-        case Accepted = "accepted"
-        case Pending = "pending"
-        case Declined = "declined"
+    func mapToBusiness() -> UserFollowRequestModel {
+        return UserFollowRequestModel(id: id,
+                                      requesterId: requesterId,
+                                      receiverId: receiverId,
+                                      status: status,
+                                      timestamp: timestamp)
     }
+    
+}
+
+extension UserFollowRequest: Codable {
     
     /**
      Handles possible name convention differences.
@@ -35,7 +38,7 @@ struct UserFollowRequest: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         id = try container.decodeToType(Int.self, key: .id)
         requesterId = try container.decodeToType(Int.self, key: .requesterId)
         receiverId = try container.decodeToType(Int.self, key: .receiverId)
@@ -56,5 +59,10 @@ struct UserFollowRequest: Codable {
         try container.encode(timestamp, forKey: .timestamp)
         
     }
-    
+}
+
+public enum Status: String, Codable {
+    case Accepted = "accepted"
+    case Pending = "pending"
+    case Declined = "declined"
 }

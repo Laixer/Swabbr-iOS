@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Vlog: NSObject, Codable {
+struct Vlog {
     
     var id: Int
     var isPrivate: Bool
@@ -18,8 +18,23 @@ class Vlog: NSObject, Codable {
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
-    var owner: User?
     var ownerId: Int
+    
+    func mapToBusiness() -> VlogModel {
+        return VlogModel(id: id,
+                         isPrivate: isPrivate,
+                         duration: duration,
+                         startDate: startDate,
+                         totalLikes: totalLikes,
+                         totalReactions: totalReactions,
+                         totalViews: totalViews,
+                         isLive: isLive,
+                         ownerId: ownerId)
+    }
+    
+}
+
+extension Vlog: Codable {
     
     /**
      Handles possible name convention differences.
@@ -32,15 +47,15 @@ class Vlog: NSObject, Codable {
         case ownerId = "userId"
         
     }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         id = try container.decodeToType(Int.self, key: .id)
         
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
         duration = try container.decode(String.self, forKey: .duration)
-
+        
         startDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .startDate))!
         
         totalLikes = try container.decode(Int.self, forKey: .totalLikes)
@@ -48,7 +63,6 @@ class Vlog: NSObject, Codable {
         totalViews = try container.decode(Int.self, forKey: .totalViews)
         isLive = try container.decode(Bool.self, forKey: .isLive)
         
-        owner = nil
         ownerId = try container.decode(Int.self, forKey: .ownerId)
         
     }

@@ -9,18 +9,16 @@
 import UIKit
 import AVKit
 
-class ReactionViewController: UIViewController, BaseViewProtocol {
+class ReactionViewController: UIViewController {
     
     private let dateFormatter = DateFormatter()
     
-    private let vlogId: Int
-    
     private let tableView = UITableView()
-    
-    private var reactions: [VlogReaction] = []
     
     private var currentVideoRunning: ReactionTableViewCell?
     private var isScrolling = false
+    
+    private let viewModel = ReactionViewControllerService()
     
     /**
      Initializer of this controller.
@@ -28,8 +26,9 @@ class ReactionViewController: UIViewController, BaseViewProtocol {
      - parameter vlogId: An int value which will be required to get the correct vlog.
     */
     init(vlogId: Int) {
-        self.vlogId = vlogId
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getReactions(vlogId: vlogId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,10 +42,12 @@ class ReactionViewController: UIViewController, BaseViewProtocol {
         initElements()
         applyConstraints()
         
-        retrieveReactionsFromVlogWithId(vlogId)
-        
     }
     
+}
+
+// MARK: BaseViewProtocol
+extension ReactionViewController: BaseViewProtocol {
     internal func initElements() {
         tableView.register(ReactionTableViewCell.self, forCellReuseIdentifier: "reactionCell")
         
@@ -66,40 +67,30 @@ class ReactionViewController: UIViewController, BaseViewProtocol {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    /**
-     This function will find the reactions for the specific vlog.
-     - parameter vlogId: The id of the vlog used to associate the reactions with.
-    */
-    private func retrieveReactionsFromVlogWithId(_ vlogId: Int) {
-        
-        ServerData().getVlogReactions(vlogId, onComplete: { vlogReactions in
-            if vlogReactions == nil {
-                return
-            }
-            self.reactions = vlogReactions!
-            self.tableView.reloadData()
-            
-        })
-        
-    }
-    
 }
 
+// MARK: VlogPageViewControllerServiceDelegate
+extension ReactionViewController: ReactionViewControllerServiceDelegate {
+    func didRetrieveReactions(_ sender: ReactionViewControllerService) {
+        tableView.reloadData()
+    }
+}
+
+// MARK: UITableViewDelegate, UITableViewDataSource
 extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
     
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reactions.count
+        return viewModel.reactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath) as! ReactionTableViewCell
-        let reaction = reactions[indexPath.row]
+        let reaction = viewModel.reactions[indexPath.row]
         
-        cell.userUsernameLabel.text = reaction.owner!.username
-        cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.postDate)
-        cell.durationLabel.text = reaction.duration
+        cell.userUsernameLabel.text = reaction.userUsername
+        cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.reactionDate)
+        cell.durationLabel.text = reaction.reactionDuration
         
         return cell
     }
@@ -155,16 +146,16 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
             
             // play the video of the cell which is atleast 60% on screen
             if height > 300 * 0.6 {
-                let tempCurrentVideoRunning = (visibleCells[i] as! ReactionTableViewCell)
-                if currentVideoRunning == tempCurrentVideoRunning {
-                    break
-                }
-                if currentVideoRunning != nil {
-                    currentVideoRunning!.player.pause()
-                    currentVideoRunning!.player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
-                }
-                tempCurrentVideoRunning.player.play()
-                currentVideoRunning = tempCurrentVideoRunning
+//                let tempCurrentVideoRunning = (visibleCells[i] as! ReactionTableViewCell)
+//                if currentVideoRunning == tempCurrentVideoRunning {
+//                    break
+//                }
+//                if currentVideoRunning != nil {
+//                    currentVideoRunning!.player.pause()
+//                    currentVideoRunning!.player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+//                }
+//                tempCurrentVideoRunning.player.play()
+//                currentVideoRunning = tempCurrentVideoRunning
                 break
             }
         }

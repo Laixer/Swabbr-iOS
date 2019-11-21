@@ -8,15 +8,27 @@
 
 import Foundation
 
-class VlogReaction: Codable {
+struct VlogReaction {
     
     var id: Int
     var isPrivate: Bool
-    var owner: User?
     var ownerId: Int
     var duration: String
     var postDate: Date
     var vlogId: Int
+    
+    func mapToBusiness() -> VlogReactionModel {
+        return VlogReactionModel(id: id,
+                                 isPrivate: isPrivate,
+                                 ownerId: ownerId,
+                                 duration: duration,
+                                 postDate: postDate,
+                                 vlogId: vlogId)
+    }
+    
+}
+
+extension VlogReaction: Codable {
     
     /**
      Handles possible name convention differences.
@@ -29,7 +41,7 @@ class VlogReaction: Codable {
         case ownerId = "userId"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decodeToType(Int.self, key: .id)
@@ -39,7 +51,6 @@ class VlogReaction: Codable {
         
         postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .postDate))!
 
-        owner = nil
         ownerId = try container.decode(Int.self, forKey: .ownerId)
 
         vlogId = try container.decodeToType(Int.self, key: .vlogId)
