@@ -66,4 +66,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
-Swabbr/.DS_Store
+.DS_Store
+Swabbr/SupportingFiles/Notification-Hub-Settings.plist
+Swabbr/SupportingFiles/API-Preferences.plist
+Swabbr/SupportingFiles/GoogleService-Info.plist
