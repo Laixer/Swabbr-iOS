@@ -18,7 +18,7 @@ class VlogRepository: RepositoryProtocol {
     func get(refresh: Bool, completionHandler: @escaping ([VlogModel]?) -> Void) {
         network.get(completionHandler: { (vlogs) -> Void in
             completionHandler(
-                vlogs!.map({ (vlog) -> Model in
+                vlogs?.map({ (vlog) -> Model in
                     vlog.mapToBusiness()
                 })
             )

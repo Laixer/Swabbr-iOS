@@ -19,7 +19,7 @@ class VlogReactionRepository: RepositoryMultipleProtocol {
     func get(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]?) -> Void) {
         network.get(completionHandler: { (vlogReactions) -> Void in
             completionHandler(
-                vlogReactions!.map({ (vlogReaction) -> Model in
+                vlogReactions?.map({ (vlogReaction) -> Model in
                     vlogReaction.mapToBusiness()
                 })
             )

@@ -18,7 +18,7 @@ class UserRepository: RepositoryProtocol {
     func get(refresh: Bool, completionHandler: @escaping ([UserModel]?) -> Void) {
         network.get(completionHandler: { (users) -> Void in
             completionHandler(
-                users!.map({ (user) -> Model in
+                users?.map({ (user) -> Model in
                     user.mapToBusiness()
                 })
             )
