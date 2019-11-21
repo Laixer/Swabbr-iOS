@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController : UIViewController, BaseViewProtocol {
-
-    private let user: User
+class ProfileViewController : UIViewController {
     
     private let profileImageView = UIImageView()
     private let usernameLabel = UILabel()
@@ -24,15 +22,18 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
     private var isCurrentUser = false
     
     private var profileCollectionOverviewController: ProfileCollectionOverviewViewController?
+    
+    let viewModel = ProfileViewControllerService()
 
     /**
      Initializes with a user value.
      It will fill up the view with the user information that is stored in the given object.
      - parameter user: An User object.
     */
-    init(user: User) {
-        self.user = user
+    init(userId: Int) {
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getUser(userId: userId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,100 +47,14 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
         initElements()
         applyConstraints()
         
-        addProfileVlogOverviewController()
-        
-    }
-    
-    internal func initElements() {
-        
-        usernameLabel.text = user.username
-        countVlogsLabel.text = "Vlog total: " + String(user.totalVlogs)
-        countFollowersLabel.text = "Followers: " + String(user.totalFollowers)
-        countFollowingLabel.text = "Following: " + String(user.totalFollowing)
-        
-        view.addSubview(usernameLabel)
-        view.addSubview(countVlogsLabel)
-        view.addSubview(countFollowersLabel)
-        view.addSubview(countFollowingLabel)
-        
-        if User.current!.id == user.id {
-            isCurrentUser = true
-            updateProfileButton.setTitle("Update", for: .normal)
-            updateProfileButton.tintColor = UIColor.white
-            updateProfileButton.backgroundColor = UIColor.black
-            view.addSubview(updateProfileButton)
-        } else {
-            followButton.setTitle("Follow", for: .normal)
-            followButton.tintColor = UIColor.white
-            followButton.backgroundColor = UIColor.black
-            view.addSubview(followButton)
-        }
-        
-        let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
-        countFollowersLabel.isUserInteractionEnabled = true
-        countFollowersLabel.addGestureRecognizer(tapFollowersGesture)
-        
-        let tapFollowingGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowing))
-        countFollowingLabel.isUserInteractionEnabled = true
-        countFollowingLabel.addGestureRecognizer(tapFollowingGesture)
-        
     }
     
     @objc private func showFollowers() {
-        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: user.id), animated: true)
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: viewModel.user.id), animated: true)
     }
     
     @objc private func showFollowing() {
-        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: user.id), animated: true)
-    }
-
-    internal func applyConstraints() {
-        
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        countVlogsLabel.translatesAutoresizingMaskIntoConstraints = false
-        countFollowersLabel.translatesAutoresizingMaskIntoConstraints = false
-        countFollowingLabel.translatesAutoresizingMaskIntoConstraints = false
-        if isCurrentUser {
-            updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
-        } else {
-            followButton.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        NSLayoutConstraint.activate([
-            // usernameLabel
-            usernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            
-            //countVlogsLabel
-            countVlogsLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor),
-            countVlogsLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            
-            // countFollowersLabel
-            countFollowersLabel.topAnchor.constraint(equalTo: countVlogsLabel.bottomAnchor),
-            countFollowersLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            
-            // countFollowingLabel
-            countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor, constant: 20),
-            countFollowingLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            
-        ])
-        
-        if isCurrentUser {
-            
-            NSLayoutConstraint.activate([
-                updateProfileButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
-                updateProfileButton.leftAnchor.constraint(equalTo: view.leftAnchor)
-            ])
-            
-        } else {
-            
-            NSLayoutConstraint.activate([
-                followButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
-                followButton.leftAnchor.constraint(equalTo: view.leftAnchor)
-            ])
-            
-        }
-        
+//        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: user.id), animated: true)
     }
     
     /**
@@ -152,7 +67,7 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
             return
         }
         
-        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: user.id)
+        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: viewModel.user.id)
         view.addSubview(profileCollectionOverviewController!.view)
         profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -180,4 +95,90 @@ class ProfileViewController : UIViewController, BaseViewProtocol {
         
     }
     
+}
+
+// MARK: ProfileViewControllerServiceDelegate
+extension ProfileViewController: ProfileViewControllerServiceDelegate {
+    func didRetrieveUser(_ sender: ProfileViewControllerService) {
+        usernameLabel.text = sender.user.username
+        countVlogsLabel.text = String.init(format: "Vlog total: %d", sender.user.totalVlogs)
+        countFollowersLabel.text = String.init(format: "Followers: %d", sender.user.totalFollowers)
+        countFollowingLabel.text = String.init(format: "Following: %d", sender.user.totalFollowing)
+        if UserDefaults.standard.getUserId() == sender.user.id {
+            isCurrentUser = true
+            view.addSubview(updateProfileButton)
+            updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                updateProfileButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
+                updateProfileButton.leftAnchor.constraint(equalTo: view.leftAnchor)
+            ])
+        } else {
+            view.addSubview(followButton)
+            followButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                followButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
+                followButton.leftAnchor.constraint(equalTo: view.leftAnchor)
+            ])
+        }
+        sender.getVlogs()
+    }
+    
+    func didRetrieveVlogs(_ sender: ProfileViewControllerService) {
+        addProfileVlogOverviewController()
+    }
+}
+
+// MARK: BaseViewProtocol
+extension ProfileViewController: BaseViewProtocol {
+    internal func initElements() {
+        
+        view.addSubview(usernameLabel)
+        view.addSubview(countVlogsLabel)
+        view.addSubview(countFollowersLabel)
+        view.addSubview(countFollowingLabel)
+        
+        updateProfileButton.setTitle("Update", for: .normal)
+        updateProfileButton.tintColor = UIColor.white
+        updateProfileButton.backgroundColor = UIColor.black
+        
+        followButton.setTitle("Follow", for: .normal)
+        followButton.tintColor = UIColor.white
+        followButton.backgroundColor = UIColor.black
+        
+        let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
+        countFollowersLabel.isUserInteractionEnabled = true
+        countFollowersLabel.addGestureRecognizer(tapFollowersGesture)
+        
+        let tapFollowingGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowing))
+        countFollowingLabel.isUserInteractionEnabled = true
+        countFollowingLabel.addGestureRecognizer(tapFollowingGesture)
+    }
+    
+    internal func applyConstraints() {
+        
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        countVlogsLabel.translatesAutoresizingMaskIntoConstraints = false
+        countFollowersLabel.translatesAutoresizingMaskIntoConstraints = false
+        countFollowingLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            // usernameLabel
+            usernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+            //countVlogsLabel
+            countVlogsLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor),
+            countVlogsLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+            // countFollowersLabel
+            countFollowersLabel.topAnchor.constraint(equalTo: countVlogsLabel.bottomAnchor),
+            countFollowersLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+            // countFollowingLabel
+            countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor, constant: 20),
+            countFollowingLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+            
+        ])
+        
+    }
 }
