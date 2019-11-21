@@ -10,9 +10,9 @@ class ProfileCollectionOverviewControllerService {
     
     weak var delegate: ProfileCollectionOverviewControllerServiceDelegate?
     
-    let vlogDataRetriever = VlogDataRetriever.shared
-    let userDataRetriever = UserDataRetriever.shared
-    let userFollowRequestDataRetriever = UserFollowRequestDataRetriever.shared
+    let vlogUseCase = VlogUseCase.shared
+    let userUseCase = UserUseCase.shared
+    let userFollowRequestUseCase = UserFollowRequestUseCase.shared
     
     var vlogs: [VlogItem]! = [] {
         didSet {
@@ -31,7 +31,7 @@ class ProfileCollectionOverviewControllerService {
      - parameter userId: An user id.
     */
     func getVlogs(userId: Int) {
-        vlogDataRetriever.get(id: userId, refresh: true, multiple: { (vlogModels) in
+        vlogUseCase.get(id: userId, refresh: true, multiple: { (vlogModels) in
             self.vlogs = vlogModels?.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
@@ -45,11 +45,11 @@ class ProfileCollectionOverviewControllerService {
     func getFollowers(userId: Int) {
         // get followers
         let dispatchGroup = DispatchGroup()
-        userFollowRequestDataRetriever.get(id: userId, refresh: false, multiple: { (userFollowRequestModels) in
+        userFollowRequestUseCase.get(id: userId, refresh: false, multiple: { (userFollowRequestModels) in
             var followers: [UserItem] = []
             for userFollowRequestModel in userFollowRequestModels! {
                 dispatchGroup.enter()
-                self.userDataRetriever.get(id: userFollowRequestModel.receiverId, refresh: false, completionHandler: { (userModel) in
+                self.userUseCase.get(id: userFollowRequestModel.receiverId, refresh: false, completionHandler: { (userModel) in
                     followers.append(UserItem.mapToPresentation(model: userModel!))
                     dispatchGroup.leave()
                 })

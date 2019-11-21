@@ -10,8 +10,8 @@ class VlogPageViewControllerService {
     
     weak var delegate: VlogPageViewControllerServiceDelegate?
     
-    let vlogDataRetriever = VlogDataRetriever.shared
-    let userDataRetriever = UserDataRetriever.shared
+    let vlogUseCase = VlogUseCase.shared
+    let userUseCase = UserUseCase.shared
     
     var vlog: VlogUserItem! {
         didSet {
@@ -24,8 +24,8 @@ class VlogPageViewControllerService {
      - parameter vlogId: A vlog id
     */
     func getVlog(vlogId: Int) {
-        vlogDataRetriever.get(id: vlogId, refresh: false, completionHandler: { (vlogModel) -> Void in
-            self.userDataRetriever.get(id: vlogModel!.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
+        vlogUseCase.get(id: vlogId, refresh: false, completionHandler: { (vlogModel) -> Void in
+            self.userUseCase.get(id: vlogModel!.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
                 self.vlog = VlogUserItem(vlogModel: vlogModel!, userModel: userModel!)
             })
         })

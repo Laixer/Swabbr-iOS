@@ -1,15 +1,15 @@
 //
-//  VlogReactionDataRetriever.swift
+//  VlogReactionUseCase.swift
 //  Swabbr
 //
 //  Created by James Bal on 18-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class VlogReactionDataRetriever: RepositoryMultipleProtocol {
+class VlogReactionUseCase: RepositoryMultipleProtocol {
     typealias Model = VlogReactionModel
     
-    static let shared = VlogReactionDataRetriever()
+    static let shared = VlogReactionUseCase()
     
     private let repository = VlogReactionRepository.shared
     

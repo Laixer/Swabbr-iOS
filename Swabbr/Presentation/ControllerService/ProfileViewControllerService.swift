@@ -10,8 +10,8 @@ class ProfileViewControllerService {
     
     weak var delegate: ProfileViewControllerServiceDelegate?
     
-    let userDataRetriever = UserDataRetriever.shared
-    let vlogDataRetriever = VlogDataRetriever.shared
+    let userUseCase = UserUseCase.shared
+    let vlogUseCase = VlogUseCase.shared
     
     var user: UserItem! {
         didSet {
@@ -29,7 +29,7 @@ class ProfileViewControllerService {
      - parameter userId: A user id.
     */
     func getUser(userId: Int) {
-        userDataRetriever.get(id: userId, refresh: false) { (userModel) in
+        userUseCase.get(id: userId, refresh: false) { (userModel) in
             self.user = UserItem.mapToPresentation(model: userModel!)
         }
     }
@@ -38,7 +38,7 @@ class ProfileViewControllerService {
      Get vlogs from a specific user. Runs a callback when ready.
     */
     func getVlogs() {
-        vlogDataRetriever.get(id: user.id, refresh: false, multiple: { (vlogModels) -> Void in
+        vlogUseCase.get(id: user.id, refresh: false, multiple: { (vlogModels) -> Void in
             self.vlogs = vlogModels?.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })

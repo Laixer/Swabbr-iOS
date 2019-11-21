@@ -1,15 +1,15 @@
 //
-//  VlogDataRetriever.swift
+//  VlogUseCase.swift
 //  Swabbr
 //
 //  Created by James Bal on 14-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class VlogDataRetriever: RepositoryMultipleProtocol {
+class VlogUseCase: RepositoryMultipleProtocol {
     typealias Model = VlogModel
     
-    static let shared = VlogDataRetriever()
+    static let shared = VlogUseCase()
     
     private let repository = VlogRepository.shared
     

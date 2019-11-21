@@ -1,15 +1,15 @@
 //
-//  UserDataRetriever.swift
+//  UserUseCase.swift
 //  Swabbr
 //
 //  Created by James Bal on 14-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserDataRetriever: RepositoryProtocol {
+class UserUseCase: RepositoryProtocol {
     typealias Model = UserModel
     
-    static let shared = UserDataRetriever()
+    static let shared = UserUseCase()
     
     private let repository = UserRepository.shared
     

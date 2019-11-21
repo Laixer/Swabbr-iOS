@@ -10,8 +10,8 @@ class TimelineViewControllerService {
     
     weak var delegate: TimelineViewControllerServiceDelegate?
     
-    let vlogDataRetriever = VlogDataRetriever.shared
-    let userDataRetriever = UserDataRetriever.shared
+    let vlogUseCase = VlogUseCase.shared
+    let userUseCase = UserUseCase.shared
     
     var vlogs: [VlogUserItem]! = [] {
         didSet {
@@ -20,15 +20,15 @@ class TimelineViewControllerService {
     }
     
     /**
-     Retrieves vlogs from our VlogDataRetriever. Has a callback on completion for async processing.
+     Retrieves vlogs from our VlogUseCase. Has a callback on completion for async processing.
      */
     func getVlogs() {
-        vlogDataRetriever.get(refresh: true, completionHandler: { (vlogModels) -> Void in
+        vlogUseCase.get(refresh: true, completionHandler: { (vlogModels) -> Void in
             let vlogUserGroup = DispatchGroup()
             var vlogUserItems: [VlogUserItem] = []
             for vlogModel in vlogModels! {
                 vlogUserGroup.enter()
-                self.userDataRetriever.get(id: vlogModel.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
+                self.userUseCase.get(id: vlogModel.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
                     vlogUserItems.append(VlogUserItem(vlogModel: vlogModel, userModel: userModel!))
                     vlogUserGroup.leave()
                 })

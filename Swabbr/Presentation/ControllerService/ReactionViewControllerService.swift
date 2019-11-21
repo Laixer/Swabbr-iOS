@@ -10,8 +10,8 @@ class ReactionViewControllerService {
     
     weak var delegate: ReactionViewControllerServiceDelegate?
     
-    let vlogReactionDataRetriever = VlogReactionDataRetriever.shared
-    let userDataRetriever = UserDataRetriever.shared
+    let vlogReactionUseCase = VlogReactionUseCase.shared
+    let userUseCase = UserUseCase.shared
 
     var reactions: [UserVlogReactionItem]! = [] {
         didSet {
@@ -25,11 +25,11 @@ class ReactionViewControllerService {
     */
     func getReactions(vlogId: Int) {
         let dispatchGroup = DispatchGroup()
-        vlogReactionDataRetriever.get(id: vlogId, refresh: false, multiple: { (vlogReactionModels) -> Void in
+        vlogReactionUseCase.get(id: vlogId, refresh: false, multiple: { (vlogReactionModels) -> Void in
             var userVlogReactionRepositoryModels: [UserVlogReactionItem] = []
             for vlogReactionModel in vlogReactionModels! {
                 dispatchGroup.enter()
-                self.userDataRetriever.get(id: vlogReactionModel.ownerId, refresh: false, completionHandler: { (userModel) in
+                self.userUseCase.get(id: vlogReactionModel.ownerId, refresh: false, completionHandler: { (userModel) in
                     userVlogReactionRepositoryModels.append(UserVlogReactionItem.mapToPresentation(userModel: userModel!, vlogReactionModel: vlogReactionModel))
                     dispatchGroup.leave()
                 })
