@@ -30,6 +30,16 @@ struct VlogReaction {
 
 extension VlogReaction: Codable {
     
+    /**
+     Handles possible name convention differences.
+     Put each value in their respected model variant.
+     */
+    enum CodingKeys: String, CodingKey {
+        case id
+        case isPrivate = "private"
+        case owner, duration, postDate, vlogId
+        case ownerId = "userId"
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -59,11 +69,4 @@ extension VlogReaction: Codable {
         
     }
     
-}
-
-public enum CodingKeys: String, CodingKey {
-    case id
-    case isPrivate = "private"
-    case owner, duration, postDate, vlogId
-    case ownerId = "userId"
 }
