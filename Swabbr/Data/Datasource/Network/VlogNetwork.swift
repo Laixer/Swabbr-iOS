@@ -5,7 +5,7 @@
 //  Created by James Bal on 15-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-class VlogNetwork: NetworkProtocol {
+class VlogNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     typealias Entity = Vlog
     
     static let shared = VlogNetwork()
@@ -22,6 +22,13 @@ class VlogNetwork: NetworkProtocol {
         let queryItems = [URLQueryItem(name: "id", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (vlogs) in
             completionHandler((vlogs != nil) ? vlogs![0] : nil)
+        }
+    }
+    
+    func get(id: Int, multiple completionHandler: @escaping ([Vlog]?) -> Void) {
+        let queryItems = [URLQueryItem(name: "userId", value: String(id))]
+        load(buildUrl(queryItems: queryItems)) { (vlogs) in
+            completionHandler(vlogs)
         }
     }
 }

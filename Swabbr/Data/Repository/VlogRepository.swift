@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VlogRepository: RepositoryProtocol {
+class VlogRepository: RepositoryMultipleProtocol {
     typealias Model = VlogModel
     
     static let shared = VlogRepository()
@@ -28,6 +28,16 @@ class VlogRepository: RepositoryProtocol {
     func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
         network.get(id: id, completionHandler: { (vlog) -> Void in
             completionHandler(vlog?.mapToBusiness())
+        })
+    }
+    
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogModel]?) -> Void) {
+        network.get(id: id, multiple: { (vlogs) -> Void in
+            completionHandler(
+                vlogs?.map({ (vlog) -> Model in
+                    vlog.mapToBusiness()
+                })
+            )
         })
     }
 }
