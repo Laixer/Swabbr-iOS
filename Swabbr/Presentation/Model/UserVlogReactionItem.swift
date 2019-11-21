@@ -1,12 +1,12 @@
 //
-//  VlogReactionsRepositoryModel.swift
+//  UserVlogReactionItem.swift
 //  Swabbr
 //
 //  Created by James Bal on 18-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-struct UserVlogReactionRepositoryModel {
+struct UserVlogReactionItem {
     
     var userUsername: String
     var reactionDate: Date
@@ -20,8 +20,8 @@ struct UserVlogReactionRepositoryModel {
     
 }
 
-extension UserVlogReactionRepositoryModel {
-    static func mapToPresentation(userModel: UserModel, vlogReactionModel: VlogReactionModel) -> UserVlogReactionRepositoryModel {
-        return UserVlogReactionRepositoryModel(userModel: userModel, vlogReactionModel: vlogReactionModel)
+extension UserVlogReactionItem {
+    static func mapToPresentation(userModel: UserModel, vlogReactionModel: VlogReactionModel) -> UserVlogReactionItem {
+        return UserVlogReactionItem(userModel: userModel, vlogReactionModel: vlogReactionModel)
     }
 }
