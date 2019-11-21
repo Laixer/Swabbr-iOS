@@ -6,9 +6,8 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
-class VlogDataRetriever {
+class VlogDataRetriever: RepositoryMultipleProtocol {
+    typealias Model = VlogModel
     
     static let shared = VlogDataRetriever()
     
@@ -20,5 +19,9 @@ class VlogDataRetriever {
     
     func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
+    }
+    
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogModel]?) -> Void) {
+        repository.get(id: id, refresh: refresh, multiple: completionHandler)
     }
 }

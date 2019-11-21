@@ -6,9 +6,8 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
-class UserDataRetriever {
+class UserDataRetriever: RepositoryProtocol {
+    typealias Model = UserModel
     
     static let shared = UserDataRetriever()
     
