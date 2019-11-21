@@ -13,14 +13,12 @@ class ReactionViewController: UIViewController {
     
     private let dateFormatter = DateFormatter()
     
-    private let vlogId: Int
-    
     private let tableView = UITableView()
     
     private var currentVideoRunning: ReactionTableViewCell?
     private var isScrolling = false
     
-    private var vlogPageViewViewModel = VlogPageViewViewModel()
+    private let viewModel = ReactionViewControllerService()
     
     /**
      Initializer of this controller.
@@ -28,8 +26,9 @@ class ReactionViewController: UIViewController {
      - parameter vlogId: An int value which will be required to get the correct vlog.
     */
     init(vlogId: Int) {
-        self.vlogId = vlogId
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getReactions(vlogId: vlogId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,9 +38,6 @@ class ReactionViewController: UIViewController {
     override func viewDidLoad() {
         
         view.backgroundColor = UIColor.white
-        
-        vlogPageViewViewModel.delegate = self
-        vlogPageViewViewModel.getReactions(vlogId: vlogId)
         
         initElements()
         applyConstraints()
@@ -73,9 +69,9 @@ extension ReactionViewController: BaseViewProtocol {
     }
 }
 
-// MARK: VlogPageViewViewModelDelegate
-extension ReactionViewController: VlogPageViewViewModelDelegate {
-    func didRetrieveReactions(_ sender: VlogPageViewViewModel) {
+// MARK: VlogPageViewControllerServiceDelegate
+extension ReactionViewController: ReactionViewControllerServiceDelegate {
+    func didRetrieveReactions(_ sender: ReactionViewControllerService) {
         tableView.reloadData()
     }
 }
@@ -85,12 +81,12 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
     
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vlogPageViewViewModel.reactions.count
+        return viewModel.reactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath) as! ReactionTableViewCell
-        let reaction = vlogPageViewViewModel.reactions[indexPath.row]
+        let reaction = viewModel.reactions[indexPath.row]
         
         cell.userUsernameLabel.text = reaction.userUsername
         cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.reactionDate)

@@ -13,7 +13,7 @@ import AVFoundation
 
 class VlogPageViewController : UIViewController {
     
-    private var player: AVPlayer?
+    private let player = AVPlayer(playerItem: nil)
     
     private let likesCountLabel = UILabel()
     private let viewsCountLabel = UILabel()
@@ -30,20 +30,20 @@ class VlogPageViewController : UIViewController {
     private var reactionController: ReactionViewController?
     private let scrollView = UIScrollView()
     
-    let viewModel = VlogPageViewViewModel()
+    private let viewModel = VlogPageViewControllerService()
     
-    init(vlogPageViewViewModel: VlogPageViewViewModel) {
-        super.init(nibName: nil, bundle: nil)
-    }
+    let vlogId: Int!
     
     /**
      The initializer which accepts a Vlog as parameter.
      It will setup the view using the data contained in the Vlog.
-     - parameter vlog: A VlogUserRepositoryModel object.
+     - parameter vlog: A VlogUserItem object.
      */
-    init(vlog: VlogUserRepositoryModel) {
-        viewModel.vlog = vlog
+    init(vlogId: Int) {
+        self.vlogId = vlogId
         super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+        viewModel.getVlog(vlogId: vlogId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,28 +60,15 @@ class VlogPageViewController : UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        playPlayer()
         scrollView.isScrollEnabled = false
+        if viewModel.vlog != nil {
+            playPlayer()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
         stopPlayer()
-    }
-    
-    /**
-     Handles the removal of the reaction view controller.
-     It will ensure that the child controller has been released and prevent memory leaks.
-    */
-    private func removeReactionViewController() {
-        guard let reactionController = reactionController else {
-            return
-        }
-        
-        playPlayer()
-        
-        playerView.frame = CGRect(x: 0, y: 0, width: playerView.bounds.maxX, height: playerView.bounds.maxY)
-        reactionController.view.removeFromSuperview()
-        reactionController.removeFromParent()
     }
     
     /**
@@ -89,7 +76,7 @@ class VlogPageViewController : UIViewController {
      This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
     */
     private func stopPlayer() {
-        player!.pause()
+        player.pause()
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -98,17 +85,42 @@ class VlogPageViewController : UIViewController {
      This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
      */
     private func playPlayer() {
-        player = AVPlayer(url: URL(string: viewModel.vlog.vlogUrl)!)
+        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: viewModel.vlog.vlogUrl)!))
         
-        let playerLayer = AVPlayerLayer(player: player!)
+        let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
         playerLayer.frame = view.bounds
         playerView.layer.addSublayer(playerLayer)
-        player!.play()
+        player.play()
         
         NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
+}
+
+// MARK: VlogPageViewControllerServiceDelegate
+extension VlogPageViewController: VlogPageViewControllerServiceDelegate {
+    func didRetrieveVlog(_ sender: VlogPageViewControllerService) {
+        likesCountLabel.text = String(sender.vlog.vlogTotalLikes)
+        viewsCountLabel.text = String(sender.vlog.vlogTotalViews)
+        reactionCountLabel.text = String(sender.vlog.vlogTotalReactions)
+        userUsernameLabel.text = sender.vlog.userUsername
+        do {
+            let url = URL(string: "https://cdn.mos.cms.futurecdn.net/yJaNqkw6JPf2QuXiYobcY3.jpg")
+            let data = try Data(contentsOf: url!)
+            userProfileImageView.image = UIImage(data: data)
+        } catch {
+            print(error)
+        }
+        if sender.vlog.vlogIsLive {
+            containerView.addSubview(isLiveLabel)
+            NSLayoutConstraint.activate([
+                isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                isLiveLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+            ])
+        }
+        playPlayer()
+    }
 }
 
 //  MARK: BaseViewProtocol
@@ -135,10 +147,6 @@ extension VlogPageViewController: BaseViewProtocol {
         reactionButton.backgroundColor = UIColor.black
         reactionButton.addTarget(self, action: #selector(clickedReactButton), for: .touchUpInside)
         
-        // set values
-        likesCountLabel.text = String(viewModel.vlog.vlogTotalLikes)
-        viewsCountLabel.text = String(viewModel.vlog.vlogTotalViews)
-        reactionCountLabel.text = String(viewModel.vlog.vlogTotalReactions)
         let singleReactionTap = UITapGestureRecognizer(target: self, action: #selector(clickedReactionLabel))
         reactionCountLabel.isUserInteractionEnabled = true
         reactionCountLabel.addGestureRecognizer(singleReactionTap)
@@ -147,14 +155,6 @@ extension VlogPageViewController: BaseViewProtocol {
         containerView.isUserInteractionEnabled = true
         containerView.addGestureRecognizer(singleVideoTap)
         
-        userUsernameLabel.text = viewModel.vlog.userUsername
-        do {
-            let url = URL(string: "https://cdn.mos.cms.futurecdn.net/yJaNqkw6JPf2QuXiYobcY3.jpg")
-            let data = try Data(contentsOf: url!)
-            userProfileImageView.image = UIImage(data: data)
-        } catch {
-            print(error)
-        }
         isLiveLabel.text = "Live"
         isLiveLabel.backgroundColor = UIColor.red
         
@@ -171,11 +171,9 @@ extension VlogPageViewController: BaseViewProtocol {
         containerView.addSubview(userProfileImageView)
         containerView.addSubview(userUsernameLabel)
         containerView.addSubview(reactionButton)
-        if viewModel.vlog.vlogIsLive {
-            containerView.addSubview(isLiveLabel)
-        }
+        
         scrollView.addSubview(containerView)
-        reactionController = ReactionViewController(vlogId: viewModel.vlog.vlogId)
+        reactionController = ReactionViewController(vlogId: vlogId)
         reactionController!.view.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height)
         scrollView.addSubview(reactionController!.view)
         addChild(reactionController!)
@@ -221,14 +219,7 @@ extension VlogPageViewController: BaseViewProtocol {
             reactionButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
             reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10),
             
-            ])
-        
-        if viewModel.vlog.vlogIsLive {
-            NSLayoutConstraint.activate([
-                isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                isLiveLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-            ])
-        }
+        ])
     }
 }
 
@@ -244,7 +235,7 @@ extension VlogPageViewController {
             return
         }
         
-        guard !parent.isKind(of: UIPageViewController.self) else {
+        guard parent.isKind(of: UIPageViewController.self) else {
             return
         }
         
@@ -260,7 +251,7 @@ extension VlogPageViewController {
      */
     @objc private func clickedProfilePicture() {
         stopPlayer()
-        //navigationController?.pushViewController(ProfileViewController(user: vlog.owner!), animated: true)
+        navigationController?.pushViewController(ProfileViewController(userId: viewModel.vlog.userId), animated: true)
     }
     
     /**

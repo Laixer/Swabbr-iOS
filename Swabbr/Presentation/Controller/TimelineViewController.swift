@@ -12,7 +12,7 @@ class TimelineViewController : UIViewController {
     
     weak var pageViewController: UIPageViewController!
     
-    private let viewModel = TimelineViewViewModel()
+    private let viewModel = TimelineViewControllerService()
     
     override func viewDidLoad() {
         
@@ -45,8 +45,10 @@ class TimelineViewController : UIViewController {
 extension TimelineViewController : UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vlog = (viewController as! VlogPageViewController).viewModel.vlog
-        
+        let vlogId = (viewController as! VlogPageViewController).vlogId!
+        let vlog = self.viewModel.vlogs.first(where: { (vlogUserItem) -> Bool in
+            vlogUserItem.vlogId == vlogId
+        })
         guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
@@ -54,19 +56,21 @@ extension TimelineViewController : UIPageViewControllerDataSource {
         let previousIndex = cIndex - 1
         
         guard previousIndex >= 0 else {
-            return VlogPageViewController(vlog: self.viewModel.vlogs.last!)
+            return VlogPageViewController(vlogId: self.viewModel.vlogs.last!.vlogId)
         }
         
         guard self.viewModel.vlogs.count > previousIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlog: self.viewModel.vlogs[previousIndex])
+        return VlogPageViewController(vlogId: self.viewModel.vlogs[previousIndex].vlogId)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vlog = (viewController as! VlogPageViewController).viewModel.vlog
-        
+        let vlogId = (viewController as! VlogPageViewController).vlogId!
+        let vlog = self.viewModel.vlogs.first(where: { (vlogUserItem) -> Bool in
+            vlogUserItem.vlogId == vlogId
+        })
         guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
@@ -75,22 +79,22 @@ extension TimelineViewController : UIPageViewControllerDataSource {
         let vlogCount = self.viewModel.vlogs.count
         
         guard vlogCount != nextIndex else {
-            return VlogPageViewController(vlog: self.viewModel.vlogs.first!)
+            return VlogPageViewController(vlogId: self.viewModel.vlogs.first!.vlogId)
         }
         
         guard vlogCount > nextIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlog: self.viewModel.vlogs[nextIndex])
+        return VlogPageViewController(vlogId: self.viewModel.vlogs[nextIndex].vlogId)
     }
     
 }
 
-// MARK: TimelineViewViewModelDelegate
-extension TimelineViewController : TimelineViewViewModelDelegate {
-    func didRetrieveVlogs(_ sender: TimelineViewViewModel) {
-        let vlogController = VlogPageViewController(vlog: sender.vlogs[0])
+// MARK: TimelineViewControllerServiceDelegate
+extension TimelineViewController : TimelineViewControllerServiceDelegate {
+    func didRetrieveVlogs(_ sender: TimelineViewControllerService) {
+        let vlogController = VlogPageViewController(vlogId: sender.vlogs[0].vlogId)
         pageViewController.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)
     }
 }
