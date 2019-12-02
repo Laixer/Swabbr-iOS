@@ -10,10 +10,10 @@ class VlogPageViewControllerService {
     
     weak var delegate: VlogPageViewControllerServiceDelegate?
     
-    let vlogUseCase = VlogUseCase.shared
-    let userUseCase = UserUseCase.shared
+    private let vlogUseCase = VlogUseCase.shared
+    private let userUseCase = UserUseCase.shared
     
-    var vlog: VlogUserItem! {
+    public private(set) var vlog: VlogUserItem! {
         didSet {
             delegate?.didRetrieveVlog(self)
         }

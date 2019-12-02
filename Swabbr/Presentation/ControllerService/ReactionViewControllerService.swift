@@ -10,10 +10,10 @@ class ReactionViewControllerService {
     
     weak var delegate: ReactionViewControllerServiceDelegate?
     
-    let vlogReactionUseCase = VlogReactionUseCase.shared
-    let userUseCase = UserUseCase.shared
+    private let vlogReactionUseCase = VlogReactionUseCase.shared
+    private let userUseCase = UserUseCase.shared
 
-    var reactions: [UserVlogReactionItem]! = [] {
+    public private(set) var reactions: [UserVlogReactionItem]! = [] {
         didSet {
             delegate?.didRetrieveReactions(self)
         }
