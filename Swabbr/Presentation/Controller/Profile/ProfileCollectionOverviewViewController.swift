@@ -6,6 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 // TODO: refactor
+// swiftlint:disable force_cast
 
 import Foundation
 import UIKit
@@ -15,9 +16,9 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     private var collectionView: UICollectionView!
     
     private enum DataType {
-        case Following
-        case Followers
-        case Vlogs
+        case following
+        case followers
+        case vlogs
     }
     
     private let type: DataType
@@ -29,7 +30,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      - parameter userId: An int value representing an user id.
     */
     init(vlogOwnerId: Int) {
-        type = DataType.Vlogs
+        type = DataType.vlogs
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
         viewModel.getVlogs(userId: vlogOwnerId)
@@ -40,7 +41,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      - parameter userId: An int value representing an user id.
      */
     init(followingOwnerId: Int) {
-        type = DataType.Following
+        type = DataType.following
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,7 +50,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      - parameter userId: An int value representing an user id.
      */
     init(followersOwnerId: Int) {
-        type = DataType.Followers
+        type = DataType.followers
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
         viewModel.getFollowers(userId: followersOwnerId)
@@ -73,7 +74,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.clear
         
-        if type == DataType.Vlogs {
+        if type == DataType.vlogs {
             collectionView.register(VlogCollectionViewCell.self, forCellWithReuseIdentifier: "vlogCell")
         } else {
             collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: "userCell")
@@ -115,7 +116,7 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if type == DataType.Vlogs {
+        if type == DataType.vlogs {
             return viewModel.vlogs.count
         }
         return viewModel.users.count
@@ -123,7 +124,7 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell?
-        if type == DataType.Vlogs {
+        if type == DataType.vlogs {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
             let vlog = viewModel.vlogs[indexPath.row]
             (cell! as! VlogCollectionViewCell).durationLabel.text = vlog.duration

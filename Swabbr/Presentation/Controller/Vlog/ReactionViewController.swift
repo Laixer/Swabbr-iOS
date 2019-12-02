@@ -5,6 +5,7 @@
 //  Created by James Bal on 30-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+// swiftlint:disable force_cast
 
 import UIKit
 import AVKit
@@ -138,15 +139,15 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        for i in 0..<visibleCells.count {
-            var rect = tableView.rectForRow(at: tableView.indexPath(for: visibleCells[i])!)
+        for index in 0..<visibleCells.count {
+            var rect = tableView.rectForRow(at: tableView.indexPath(for: visibleCells[index])!)
             rect = tableView.convert(rect, to: tableView.superview)
             let intersect = rect.intersection(tableView.frame)
             let height = intersect.height
             
             // play the video of the cell which is atleast 60% on screen
             if height > 300 * 0.6 {
-//                let tempCurrentVideoRunning = (visibleCells[i] as! ReactionTableViewCell)
+//                let tempCurrentVideoRunning = (visibleCells[index] as! ReactionTableViewCell)
 //                if currentVideoRunning == tempCurrentVideoRunning {
 //                    break
 //                }

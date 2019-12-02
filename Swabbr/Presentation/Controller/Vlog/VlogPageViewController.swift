@@ -6,6 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 //  This handles all things related the vlog page
+//  swiftlint:disable force_cast
 
 import UIKit
 import AVKit
@@ -122,8 +123,6 @@ extension VlogPageViewController: VlogPageViewControllerServiceDelegate {
         playPlayer()
     }
 }
-
-//  MARK: BaseViewProtocol
 extension VlogPageViewController: BaseViewProtocol {
     internal func initElements() {
         
@@ -217,7 +216,7 @@ extension VlogPageViewController: BaseViewProtocol {
             
             // reactionButton
             reactionButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
-            reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10),
+            reactionButton.leftAnchor.constraint(equalTo: likesCountLabel.rightAnchor, constant: 10)
             
         ])
     }
@@ -230,7 +229,7 @@ extension VlogPageViewController {
      Get run when the vlog has finished playing.
      This function makes sure that we can show the next vlog in the queue to the user.
      */
-    @objc private func videoEnd(){
+    @objc private func videoEnd() {
         guard let parent = parent else {
             return
         }

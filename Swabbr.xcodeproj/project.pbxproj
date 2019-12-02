@@ -50,7 +50,6 @@
 		C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */; };
 		C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */; };
 		C2B181672362EE5D001D6F0B /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B181662362EE5D001D6F0B /* DateTests.swift */; };
-		C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */; };
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
 		C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD32355FB2900EEDF1B /* TokenData.swift */; };
@@ -86,7 +85,6 @@
 		C2E77703234E277B0071B828 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77702234E277B0071B828 /* UserTests.swift */; };
 		C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7770E235084DA0071B828 /* SwabbrUITests.swift */; };
 		C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* ApiPreferences.swift */; };
-		C2E7771B235488CD0071B828 /* API-Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2E7771A235488CD0071B828 /* API-Preferences.plist */; };
 		C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7771C2354CB640071B828 /* VlogTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -176,7 +174,6 @@
 		C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestModel.swift; sourceTree = "<group>"; };
 		C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UserId.swift"; sourceTree = "<group>"; };
 		C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestUseCase.swift; sourceTree = "<group>"; };
-		C29FA4622386B26100C22F67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,7 +185,6 @@
 		C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionTests.swift; sourceTree = "<group>"; };
 		C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestTests.swift; sourceTree = "<group>"; };
 		C2B181662362EE5D001D6F0B /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
-		C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Notification-Hub-Settings.plist"; sourceTree = "<group>"; };
 		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
 		C2C24CD32355FB2900EEDF1B /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
@@ -232,7 +228,6 @@
 		C2E7770E235084DA0071B828 /* SwabbrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwabbrUITests.swift; sourceTree = "<group>"; };
 		C2E77710235084DA0071B828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E77718235485C60071B828 /* ApiPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPreferences.swift; sourceTree = "<group>"; };
-		C2E7771A235488CD0071B828 /* API-Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API-Preferences.plist"; sourceTree = "<group>"; };
 		C2E7771C2354CB640071B828 /* VlogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogTests.swift; sourceTree = "<group>"; };
 		DF3EFE5099EC25DA14218454 /* Pods-Swabbr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.debug.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -415,19 +410,35 @@
 		C29FA432237ED85F00C22F67 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C2E776F22347742A0071B828 /* BaseViewProtocol.swift */,
+				C2DE21FB23321A6600BF772D /* TimelineViewController.swift */,
 				C2E776A9233252DA0071B828 /* Authentication */,
+				C29FA46E2386CDE600C22F67 /* Vlog */,
+				C29FA46D2386CDDA00C22F67 /* Profile */,
 				C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */,
 				C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */,
 				C2128D352370744F00E56BAC /* VlogReactionViewController.swift */,
 				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,
-				C2E776F22347742A0071B828 /* BaseViewProtocol.swift */,
-				C2DE21FB23321A6600BF772D /* TimelineViewController.swift */,
-				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
-				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C29FA46D2386CDDA00C22F67 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
 				C2E776AE23325AB90071B828 /* ProfileViewController.swift */,
 				C2E776EB2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift */,
 			);
-			path = Controller;
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C29FA46E2386CDE600C22F67 /* Vlog */ = {
+			isa = PBXGroup;
+			children = (
+				C2E776C62333A82F0071B828 /* VlogPageViewController.swift */,
+				C2E776E3234217E30071B828 /* ReactionViewController.swift */,
+			);
+			path = Vlog;
 			sourceTree = "<group>";
 		};
 		C2B18131235DFD78001D6F0B /* NotificationServiceExtension */ = {
@@ -437,16 +448,6 @@
 				C2B18134235DFD78001D6F0B /* Info.plist */,
 			);
 			path = NotificationServiceExtension;
-			sourceTree = "<group>";
-		};
-		C2C24CCB2355F1F300EEDF1B /* SupportingFiles */ = {
-			isa = PBXGroup;
-			children = (
-				C2E7771A235488CD0071B828 /* API-Preferences.plist */,
-				C2C24CCC2355F24300EEDF1B /* Notification-Hub-Settings.plist */,
-				C29FA4622386B26100C22F67 /* GoogleService-Info.plist */,
-			);
-			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		C2C24CCE2355FA5B00EEDF1B /* Notification */ = {
@@ -523,7 +524,6 @@
 				C2128D3C237413FB00E56BAC /* Data */,
 				C2C24CDC235726D000EEDF1B /* Service */,
 				C2C24CDF2359AFF700EEDF1B /* Extension */,
-				C2C24CCB2355F1F300EEDF1B /* SupportingFiles */,
 				C2DE21DF232FA3E900BF772D /* Assets.xcassets */,
 				C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */,
 				C2DE21E4232FA3E900BF772D /* Info.plist */,
@@ -643,6 +643,7 @@
 				0809C493178F0710F7C895BD /* [CP] Embed Pods Frameworks */,
 				C2B1813B235DFD78001D6F0B /* Embed App Extensions */,
 				C29FA3FE2374516700C22F67 /* Embed Frameworks */,
+				C29FA46F239511A400C22F67 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -658,6 +659,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E77701234E24370071B828 /* Build configuration list for PBXNativeTarget "SwabbrTests" */;
 			buildPhases = (
+				E13EA7DC5C7CB1539BB59195 /* [CP] Check Pods Manifest.lock */,
 				C2E776F4234E24360071B828 /* Sources */,
 				C2E776F5234E24360071B828 /* Frameworks */,
 				C2E776F6234E24360071B828 /* Resources */,
@@ -757,8 +759,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2E7771B235488CD0071B828 /* API-Preferences.plist in Resources */,
-				C2C24CCD2355F24300EEDF1B /* Notification-Hub-Settings.plist in Resources */,
 				C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */,
 				C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */,
 			);
@@ -796,6 +796,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swabbr/Pods-Swabbr-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C29FA46F239511A400C22F67 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		E13EA7DC5C7CB1539BB59195 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwabbrTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F4B57BAD6428EC67BB501EB6 /* [CP] Check Pods Manifest.lock */ = {

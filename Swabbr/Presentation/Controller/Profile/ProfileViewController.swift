@@ -102,8 +102,8 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
     func didRetrieveUser(_ sender: ProfileViewControllerService) {
         usernameLabel.text = sender.user.username
         countVlogsLabel.text = String.init(format: "Vlog total: %d", sender.user.totalVlogs)
-        countFollowersLabel.text = String.init(format: "Followers: %d", sender.user.totalFollowers)
-        countFollowingLabel.text = String.init(format: "Following: %d", sender.user.totalFollowing)
+        countFollowersLabel.text = String.init(format: "followers: %d", sender.user.totalFollowers)
+        countFollowingLabel.text = String.init(format: "following: %d", sender.user.totalFollowing)
         if UserDefaults.standard.getUserId() == sender.user.id {
             isCurrentUser = true
             view.addSubview(updateProfileButton)
