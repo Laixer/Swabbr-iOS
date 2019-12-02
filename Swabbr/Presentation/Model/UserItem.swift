@@ -14,6 +14,7 @@ struct UserItem {
     var totalFollowers: Int
     var totalFollowing: Int
     var interests: [String]
+    var profileImageUrl: String
     
     init(userModel: UserModel) {
         id = userModel.id
@@ -22,6 +23,7 @@ struct UserItem {
         totalFollowers = userModel.totalFollowers
         totalFollowing = userModel.totalFollowing
         interests = userModel.interests
+        profileImageUrl = userModel.profileImageUrl
     }
     
 }
