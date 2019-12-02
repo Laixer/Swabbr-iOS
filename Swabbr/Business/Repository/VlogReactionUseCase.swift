@@ -13,7 +13,7 @@ class VlogReactionUseCase: RepositoryMultipleProtocol {
     
     private let repository = VlogReactionRepository.shared
     
-    func get(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
         repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     
@@ -21,7 +21,7 @@ class VlogReactionUseCase: RepositoryMultipleProtocol {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogReactionModel]?) -> Void) {
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogReactionModel]) -> Void) {
         repository.get(id: id, refresh: refresh, multiple: completionHandler)
     }
     

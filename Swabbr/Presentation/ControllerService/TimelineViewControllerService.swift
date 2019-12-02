@@ -26,7 +26,7 @@ class TimelineViewControllerService {
         vlogUseCase.get(refresh: true, completionHandler: { (vlogModels) -> Void in
             let vlogUserGroup = DispatchGroup()
             var vlogUserItems: [VlogUserItem] = []
-            for vlogModel in vlogModels! {
+            for vlogModel in vlogModels {
                 vlogUserGroup.enter()
                 self.userUseCase.get(id: vlogModel.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
                     vlogUserItems.append(VlogUserItem(vlogModel: vlogModel, userModel: userModel!))

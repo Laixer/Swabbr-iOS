@@ -7,13 +7,14 @@
 //
 
 class UserFollowRequestUseCase: RepositoryMultipleProtocol {
+    
     typealias Model = UserFollowRequestModel
     
     static let shared = UserFollowRequestUseCase()
     
     private let repository = UserFollowRequestRepository.shared
     
-    func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     
@@ -21,7 +22,7 @@ class UserFollowRequestUseCase: RepositoryMultipleProtocol {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]?) -> Void) {
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         repository.get(id: id, refresh: refresh, multiple: completionHandler)
     }
 }

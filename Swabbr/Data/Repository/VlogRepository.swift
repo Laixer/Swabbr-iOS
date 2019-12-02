@@ -15,10 +15,10 @@ class VlogRepository: RepositoryMultipleProtocol {
     
     private let network = VlogNetwork.shared
     
-    func get(refresh: Bool, completionHandler: @escaping ([VlogModel]?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         network.get(completionHandler: { (vlogs) -> Void in
             completionHandler(
-                vlogs?.map({ (vlog) -> Model in
+                vlogs.map({ (vlog) -> Model in
                     vlog.mapToBusiness()
                 })
             )
@@ -31,10 +31,10 @@ class VlogRepository: RepositoryMultipleProtocol {
         })
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogModel]?) -> Void) {
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogModel]) -> Void) {
         network.get(id: id, multiple: { (vlogs) -> Void in
             completionHandler(
-                vlogs?.map({ (vlog) -> Model in
+                vlogs.map({ (vlog) -> Model in
                     vlog.mapToBusiness()
                 })
             )

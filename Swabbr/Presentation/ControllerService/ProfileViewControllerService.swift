@@ -40,7 +40,7 @@ class ProfileViewControllerService {
     */
     func getVlogs() {
         vlogUseCase.get(id: user.id, refresh: false, multiple: { (vlogModels) -> Void in
-            self.vlogs = vlogModels?.compactMap({ (vlogModel) -> VlogItem in
+            self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
         })

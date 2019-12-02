@@ -13,20 +13,20 @@ class UserFollowRequestRepository: RepositoryMultipleProtocol {
     
     private let network = UserFollowRequestNetwork.shared
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]?) -> Void) {
+    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         network.get(id: id, multiple: { (userFollowRequests) in
             completionHandler(
-                userFollowRequests?.map({ (userFollowRequest) -> Model in
+                userFollowRequests.map({ (userFollowRequest) -> Model in
                     userFollowRequest.mapToBusiness()
                 })
             )
         })
     }
     
-    func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         network.get(completionHandler: { (userFollowRequests) -> Void in
             completionHandler(
-                userFollowRequests?.map({ (userFollowRequest) -> Model in
+                userFollowRequests.map({ (userFollowRequest) -> Model in
                     userFollowRequest.mapToBusiness()
                 })
             )

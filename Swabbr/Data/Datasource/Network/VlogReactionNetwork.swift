@@ -15,7 +15,7 @@ class VlogReactionNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     var endPoint: String = "/reactions"
     
-    func get(completionHandler: @escaping ([VlogReaction]?) -> Void) {
+    func get(completionHandler: @escaping ([VlogReaction]) -> Void) {
         load(buildUrl()) { (vlogReactions) in
             completionHandler(vlogReactions)
         }
@@ -24,11 +24,11 @@ class VlogReactionNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     func get(id: Int, completionHandler: @escaping (VlogReaction?) -> Void) {
         let queryItems = [URLQueryItem(name: "vlogId", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
-            completionHandler((vlogReactions != nil) ? vlogReactions![0] : nil)
+            completionHandler((!vlogReactions.isEmpty) ? vlogReactions[0] : nil)
         }
     }
     
-    func get(id: Int, multiple completionHandler: @escaping ([VlogReaction]?) -> Void) {
+    func get(id: Int, multiple completionHandler: @escaping ([VlogReaction]) -> Void) {
         let queryItems = [URLQueryItem(name: "vlogId", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
             completionHandler(vlogReactions)

@@ -27,7 +27,7 @@ class ReactionViewControllerService {
         let dispatchGroup = DispatchGroup()
         vlogReactionUseCase.get(id: vlogId, refresh: false, multiple: { (vlogReactionModels) -> Void in
             var userVlogReactionRepositoryModels: [UserVlogReactionItem] = []
-            for vlogReactionModel in vlogReactionModels! {
+            for vlogReactionModel in vlogReactionModels {
                 dispatchGroup.enter()
                 self.userUseCase.get(id: vlogReactionModel.ownerId, refresh: false, completionHandler: { (userModel) in
                     userVlogReactionRepositoryModels.append(UserVlogReactionItem.mapToPresentation(userModel: userModel!, vlogReactionModel: vlogReactionModel))

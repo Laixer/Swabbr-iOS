@@ -13,7 +13,7 @@ class UserUseCase: RepositoryProtocol {
     
     private let repository = UserRepository.shared
     
-    func get(refresh: Bool, completionHandler: @escaping ([UserModel]?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
         repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     

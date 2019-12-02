@@ -13,7 +13,7 @@ class UserNetwork: NetworkProtocol {
     
     var endPoint: String = "/users"
 
-    func get(completionHandler: @escaping ([User]?) -> Void) {
+    func get(completionHandler: @escaping ([User]) -> Void) {
         load(buildUrl()) { (users) in
             completionHandler(users)
         }
@@ -22,7 +22,7 @@ class UserNetwork: NetworkProtocol {
     func get(id: Int, completionHandler: @escaping (User?) -> Void) {
         let queryItems = [URLQueryItem(name: "id", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (users) in
-            completionHandler((users != nil) ? users![0] : nil)
+            completionHandler((!users.isEmpty) ? users[0] : nil)
         }
     }
 }

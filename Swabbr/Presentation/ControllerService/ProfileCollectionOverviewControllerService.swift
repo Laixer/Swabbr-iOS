@@ -32,7 +32,7 @@ class ProfileCollectionOverviewControllerService {
     */
     func getVlogs(userId: Int) {
         vlogUseCase.get(id: userId, refresh: true, multiple: { (vlogModels) in
-            self.vlogs = vlogModels?.compactMap({ (vlogModel) -> VlogItem in
+            self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
         })
@@ -47,7 +47,7 @@ class ProfileCollectionOverviewControllerService {
         let dispatchGroup = DispatchGroup()
         userFollowRequestUseCase.get(id: userId, refresh: false, multiple: { (userFollowRequestModels) in
             var followers: [UserItem] = []
-            for userFollowRequestModel in userFollowRequestModels! {
+            for userFollowRequestModel in userFollowRequestModels {
                 dispatchGroup.enter()
                 self.userUseCase.get(id: userFollowRequestModel.receiverId, refresh: false, completionHandler: { (userModel) in
                     followers.append(UserItem.mapToPresentation(model: userModel!))

@@ -18,11 +18,11 @@ extension NetworkProtocol {
      - parameter url: An URL value representing the url to make the request to.
      - parameter completion: A callback function that takes a ModelType as parameter.
      */
-    internal func load(_ url: URL, withCompletion completion: @escaping ([Entity]?) -> Void) {
+    internal func load(_ url: URL, withCompletion completion: @escaping ([Entity]) -> Void) {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         let task = session.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
             guard let data = data else {
-                completion(nil)
+                completion([])
                 return
             }
             completion(self.decode(data))
@@ -36,9 +36,12 @@ extension NetworkProtocol {
      - parameter data: A data value representing the bytes of the data.
      - Returns: An array of objects according to the given modeltype.
      */
-    private func decode(_ data: Data) -> [Entity]? {
+    private func decode(_ data: Data) -> [Entity] {
         let wrapper = try? JSONDecoder().decode([Entity].self, from: data)
-        return wrapper
+        if wrapper == nil {
+            return []
+        }
+        return wrapper!
     }
     
     /**
