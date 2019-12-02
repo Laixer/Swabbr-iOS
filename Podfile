@@ -9,8 +9,17 @@ target 'Swabbr' do
   pod 'NextLevel', '0.14.0'
   pod 'Cache', '5.2.0'
   pod 'Imaginary', '4.2.0'
+  
+  pod 'SwiftLint', '0.35.0'
 
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
 end
+
+target 'SwabbrTests' do
+  
+  pod 'NextLevel', '0.14.0'
+  
+end
+  
