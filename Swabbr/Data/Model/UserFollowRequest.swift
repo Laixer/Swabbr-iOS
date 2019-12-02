@@ -62,7 +62,7 @@ extension UserFollowRequest: Codable {
 }
 
 public enum Status: String, Codable {
-    case Accepted = "accepted"
-    case Pending = "pending"
-    case Declined = "declined"
+    case accepted = "accepted"
+    case pending = "pending"
+    case declined = "declined"
 }

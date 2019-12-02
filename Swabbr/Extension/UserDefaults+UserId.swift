@@ -20,6 +20,6 @@ extension UserDefaults {
     
 }
 
-fileprivate enum UserDefaultsKeys: String {
+private enum UserDefaultsKeys: String {
     case userId
 }

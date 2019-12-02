@@ -15,13 +15,13 @@ struct SNotification {
     let clickAction: ClickAction
 
     enum ClickAction: String, Decodable {
-        case FollowedProfileLive = "followed_profile_live"
-        case InactiveUserMotivate = "inactive_user_motivate"
-        case InactiveUnwatchedVlogs = "inactive_unwatched_vlogs"
-        case InactiveVlogRecordRequest = "inactive_vlog_record_request"
-        case VlogGainedLikes = "vlog_gained_likes"
-        case VlogNewReaction = "vlog_new_reaction"
-        case VlogRecordRequest = "vlog_record_request"
+        case followedProfileLive = "followed_profile_live"
+        case inactiveUserMotivate = "inactive_user_motivate"
+        case inactiveUnwatchedVlogs = "inactive_unwatched_vlogs"
+        case inactiveVlogRecordRequest = "inactive_vlog_record_request"
+        case vlogGainedLikes = "vlog_gained_likes"
+        case vlogNewReaction = "vlog_new_reaction"
+        case vlogRecordRequest = "vlog_record_request"
     }
     
     enum CodingKeys: String, CodingKey {

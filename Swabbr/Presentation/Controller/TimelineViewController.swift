@@ -5,6 +5,8 @@
 //  Created by James Bal on 18-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+//  TODO: display error when vlog unavailable
+//  swiftlint:disable force_cast
 
 import UIKit
 

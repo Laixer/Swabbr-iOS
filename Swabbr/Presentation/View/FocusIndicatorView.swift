@@ -105,12 +105,12 @@ fileprivate class Rectangle: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        let h = rect.height
-        let w = rect.width
+        let height = rect.height
+        let width = rect.width
         
         let color:UIColor = UIColor.white
         
-        let drect = CGRect(x: rect.minX,y: rect.minY,width: w,height: h)
+        let drect = CGRect(x: rect.minX, y: rect.minY, width: width, height: height)
         let bpath:UIBezierPath = UIBezierPath(rect: drect)
         
         color.set()

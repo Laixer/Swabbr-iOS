@@ -112,7 +112,7 @@ extension User: Codable {
 }
 
 public enum Gender: String, Codable {
-    case Male = "M"
-    case Female = "F"
-    case Unspecified = "O"
+    case male = "M"
+    case female = "F"
+    case unspecified = "O"
 }

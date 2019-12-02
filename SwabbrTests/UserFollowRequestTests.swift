@@ -37,7 +37,7 @@ class UserFollowRequestTests: XCTestCase {
     func testJSONToUserFollowRequest() {
         let userFollowRequest = try? decoder.decode(UserFollowRequest.self, from: jsonData!)
         XCTAssertNotNil(userFollowRequest, "The json string does not conform the UserFollowRequest model")
-        XCTAssert(userFollowRequest!.status == UserFollowRequest.Status.Accepted, "The current status is not as expected")
+        XCTAssert(userFollowRequest!.status == Status.accepted, "The current status is not as expected")
     }
     
     func testUserFollowRequestToJSON() {

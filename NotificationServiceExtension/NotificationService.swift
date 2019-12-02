@@ -5,6 +5,7 @@
 //  Created by James Bal on 21-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+//  swiftlint:disable force_cast
 
 import UserNotifications
 
@@ -18,9 +19,6 @@ class NotificationService: UNNotificationServiceExtension {
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
         guard let payload = bestAttemptContent!.userInfo["payload"] as? [String: Any] else {return}
-        
-        print((payload["data"] as! [String: String])["title"]!)
-        print(payload["data"] as! [String: String])
         
         bestAttemptContent?.title = (payload["data"] as! [String: String])["title"]!
         bestAttemptContent?.body = (payload["data"] as! [String: String])["message"]!

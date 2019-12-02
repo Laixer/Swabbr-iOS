@@ -34,7 +34,7 @@ class NotificationTests: XCTestCase {
     
     func testTheNotificationData() {
         let notification = try? decoder.decode(Payload<SNotification>.self, from: jsonData!)
-        XCTAssertEqual(notification!.innerData.clickAction, SNotification.ClickAction.VlogRecordRequest, "The notification click action: \(notification!.innerData.clickAction), is not the same as expected: \(SNotification.ClickAction.VlogRecordRequest)")
+        XCTAssertEqual(notification!.innerData.clickAction, SNotification.ClickAction.vlogRecordRequest, "The notification click action: \(notification!.innerData.clickAction), is not the same as expected: \(SNotification.ClickAction.vlogRecordRequest)")
     }
 
 }

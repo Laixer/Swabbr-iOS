@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         if(CommandLine.arguments.contains("testing")) {
-            ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .Test)
+            ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .test)
         }
         
         // MARK: UNUserNotificationCenterDelegate
@@ -144,23 +144,23 @@ extension AppDelegate {
         let jsonData = try? JSONSerialization.data(withJSONObject: userInfo["payload"]!, options: [])
         let notificationObject = try? JSONDecoder().decode(Payload<SNotification>.self, from: jsonData!)
         switch notificationObject!.innerData.clickAction {
-        case .FollowedProfileLive:
+        case .followedProfileLive:
             // timeline with specific vlog
             break
-        case .InactiveUserMotivate:
+        case .inactiveUserMotivate:
             // timelineviewcontroller
             break
-        case .InactiveUnwatchedVlogs:
+        case .inactiveUnwatchedVlogs:
             // followers list
             break
-        case .InactiveVlogRecordRequest:
+        case .inactiveVlogRecordRequest:
             // timelineviewcontroller
             break
-        case .VlogGainedLikes:
+        case .vlogGainedLikes:
             break
-        case .VlogNewReaction:
+        case .vlogNewReaction:
             break
-        case .VlogRecordRequest:
+        case .vlogRecordRequest:
             // vlogstreamviewcontroller
             break
         }

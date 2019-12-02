@@ -49,7 +49,7 @@ class VlogReactionViewController: VlogMakerBaseViewController {
     }
 
     override func prepareForVlog() {
-        try! nextLevel.start()
+        try? nextLevel.start()
     }
 
     override func recordButtonClicked() {

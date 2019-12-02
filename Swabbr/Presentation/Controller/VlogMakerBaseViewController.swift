@@ -161,9 +161,8 @@ extension VlogMakerBaseViewController : UIGestureRecognizerDelegate {
                     print(error)
                 }
             } else {
-                NextLevel.shared.videoZoomFactor = NextLevel.shared.videoZoomFactor * Float(pinch.scale)
+                NextLevel.shared.videoZoomFactor *= Float(pinch.scale)
             }
-            break
         default:
             break
         }

@@ -5,6 +5,7 @@
 //  Created by James Bal on 08-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+//  swiftlint:disable identifier_name
 
 import UIKit
 
@@ -72,7 +73,8 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
         slider.addTarget(self, action: #selector(handlePlayheadSlideTouchEnd), for: .touchUpOutside)
         slider.addTarget(self, action: #selector(handlePlayheadSlideValueChanged), for: .valueChanged)
         
-        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1,preferredTimescale: 1), queue: DispatchQueue.main, using: { [unowned self] time -> Void in
+        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1,preferredTimescale: 1), queue: DispatchQueue.main, using: {
+            [unowned self] time -> Void in
             if self.player.currentItem?.status == .readyToPlay {
                 let time: Float64 = CMTimeGetSeconds(self.player.currentTime())
                 self.slider.value = Float(time)
