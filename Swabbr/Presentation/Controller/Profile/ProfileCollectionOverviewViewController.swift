@@ -23,7 +23,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     
     private let type: DataType
     
-    private let viewModel = ProfileCollectionOverviewControllerService()
+    private let controllerService = ProfileCollectionOverviewControllerService()
     
     /**
      Initialize the view controller this way if we want to get the vlogs thats associated to the given user id.
@@ -32,8 +32,8 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(vlogOwnerId: Int) {
         type = DataType.vlogs
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-        viewModel.getVlogs(userId: vlogOwnerId)
+        controllerService.delegate = self
+        controllerService.getVlogs(userId: vlogOwnerId)
     }
     
     /**
@@ -52,8 +52,8 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(followersOwnerId: Int) {
         type = DataType.followers
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-        viewModel.getFollowers(userId: followersOwnerId)
+        controllerService.delegate = self
+        controllerService.getFollowers(userId: followersOwnerId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -117,20 +117,20 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if type == DataType.vlogs {
-            return viewModel.vlogs.count
+            return controllerService.vlogs.count
         }
-        return viewModel.users.count
+        return controllerService.users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell?
         if type == DataType.vlogs {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
-            let vlog = viewModel.vlogs[indexPath.row]
+            let vlog = controllerService.vlogs[indexPath.row]
             (cell! as! VlogCollectionViewCell).durationLabel.text = vlog.duration
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserCollectionViewCell
-            let user = viewModel.users[indexPath.row]
+            let user = controllerService.users[indexPath.row]
             (cell! as! UserCollectionViewCell).usernameLabel.text = user.username
         }
         

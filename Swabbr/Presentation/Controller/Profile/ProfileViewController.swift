@@ -23,7 +23,7 @@ class ProfileViewController : UIViewController {
     
     private var profileCollectionOverviewController: ProfileCollectionOverviewViewController?
     
-    let viewModel = ProfileViewControllerService()
+    let controllerService = ProfileViewControllerService()
 
     /**
      Initializes with a user value.
@@ -32,8 +32,8 @@ class ProfileViewController : UIViewController {
     */
     init(userId: Int) {
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-        viewModel.getUser(userId: userId)
+        controllerService.delegate = self
+        controllerService.getUser(userId: userId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +50,7 @@ class ProfileViewController : UIViewController {
     }
     
     @objc private func showFollowers() {
-        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: viewModel.user.id), animated: true)
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: controllerService.user.id), animated: true)
     }
     
     @objc private func showFollowing() {
@@ -67,7 +67,7 @@ class ProfileViewController : UIViewController {
             return
         }
         
-        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: viewModel.user.id)
+        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: controllerService.user.id)
         view.addSubview(profileCollectionOverviewController!.view)
         profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

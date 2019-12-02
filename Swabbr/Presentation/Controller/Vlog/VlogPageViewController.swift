@@ -31,7 +31,7 @@ class VlogPageViewController : UIViewController {
     private var reactionController: ReactionViewController?
     private let scrollView = UIScrollView()
     
-    private let viewModel = VlogPageViewControllerService()
+    private let controllerService = VlogPageViewControllerService()
     
     let vlogId: Int!
     
@@ -43,8 +43,8 @@ class VlogPageViewController : UIViewController {
     init(vlogId: Int) {
         self.vlogId = vlogId
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-        viewModel.getVlog(vlogId: vlogId)
+        controllerService.delegate = self
+        controllerService.getVlog(vlogId: vlogId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +62,7 @@ class VlogPageViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         scrollView.isScrollEnabled = false
-        if viewModel.vlog != nil {
+        if controllerService.vlog != nil {
             playPlayer()
         }
     }
@@ -86,7 +86,7 @@ class VlogPageViewController : UIViewController {
      This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
      */
     private func playPlayer() {
-        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: viewModel.vlog.vlogUrl)!))
+        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: controllerService.vlog.vlogUrl)!))
         
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
@@ -250,7 +250,7 @@ extension VlogPageViewController {
      */
     @objc private func clickedProfilePicture() {
         stopPlayer()
-        navigationController?.pushViewController(ProfileViewController(userId: viewModel.vlog.userId), animated: true)
+        navigationController?.pushViewController(ProfileViewController(userId: controllerService.vlog.userId), animated: true)
     }
     
     /**

@@ -14,7 +14,7 @@ class TimelineViewController : UIViewController {
     
     weak var pageViewController: UIPageViewController!
     
-    private let viewModel = TimelineViewControllerService()
+    private let controllerService = TimelineViewControllerService()
     
     override func viewDidLoad() {
         
@@ -37,8 +37,8 @@ class TimelineViewController : UIViewController {
         
         self.pageViewController = pvc
         
-        viewModel.delegate = self
-        viewModel.getVlogs()
+        controllerService.delegate = self
+        controllerService.getVlogs()
         
     }
 }
@@ -48,47 +48,47 @@ extension TimelineViewController : UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let vlogId = (viewController as! VlogPageViewController).vlogId!
-        let vlog = self.viewModel.vlogs.first(where: { (vlogUserItem) -> Bool in
+        let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
             vlogUserItem.vlogId == vlogId
         })
-        guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
+        guard let cIndex = self.controllerService.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
         
         let previousIndex = cIndex - 1
         
         guard previousIndex >= 0 else {
-            return VlogPageViewController(vlogId: self.viewModel.vlogs.last!.vlogId)
+            return VlogPageViewController(vlogId: self.controllerService.vlogs.last!.vlogId)
         }
         
-        guard self.viewModel.vlogs.count > previousIndex else {
+        guard self.controllerService.vlogs.count > previousIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlogId: self.viewModel.vlogs[previousIndex].vlogId)
+        return VlogPageViewController(vlogId: self.controllerService.vlogs[previousIndex].vlogId)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let vlogId = (viewController as! VlogPageViewController).vlogId!
-        let vlog = self.viewModel.vlogs.first(where: { (vlogUserItem) -> Bool in
+        let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
             vlogUserItem.vlogId == vlogId
         })
-        guard let cIndex = self.viewModel.vlogs.firstIndex(of: vlog!) else {
+        guard let cIndex = self.controllerService.vlogs.firstIndex(of: vlog!) else {
             return nil
         }
         
         let nextIndex = cIndex + 1
-        let vlogCount = self.viewModel.vlogs.count
+        let vlogCount = self.controllerService.vlogs.count
         
         guard vlogCount != nextIndex else {
-            return VlogPageViewController(vlogId: self.viewModel.vlogs.first!.vlogId)
+            return VlogPageViewController(vlogId: self.controllerService.vlogs.first!.vlogId)
         }
         
         guard vlogCount > nextIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlogId: self.viewModel.vlogs[nextIndex].vlogId)
+        return VlogPageViewController(vlogId: self.controllerService.vlogs[nextIndex].vlogId)
     }
     
 }

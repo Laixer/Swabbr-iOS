@@ -19,7 +19,7 @@ class ReactionViewController: UIViewController {
     private var currentVideoRunning: ReactionTableViewCell?
     private var isScrolling = false
     
-    private let viewModel = ReactionViewControllerService()
+    private let controllerService = ReactionViewControllerService()
     
     /**
      Initializer of this controller.
@@ -28,8 +28,8 @@ class ReactionViewController: UIViewController {
     */
     init(vlogId: Int) {
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-        viewModel.getReactions(vlogId: vlogId)
+        controllerService.delegate = self
+        controllerService.getReactions(vlogId: vlogId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,12 +82,12 @@ extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
     
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.reactions.count
+        return controllerService.reactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath) as! ReactionTableViewCell
-        let reaction = viewModel.reactions[indexPath.row]
+        let reaction = controllerService.reactions[indexPath.row]
         
         cell.userUsernameLabel.text = reaction.userUsername
         cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.reactionDate)
