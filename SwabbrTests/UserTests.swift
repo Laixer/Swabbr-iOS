@@ -36,7 +36,7 @@ class UserTests: XCTestCase {
         
     }
 
-    func testJSONToUser() {
+    func testJSONToUserEntity() {
         let jsonData = jsonString.data(using: .utf8)
         let user = try? decoder.decode(User.self, from: jsonData!)
         XCTAssertNotNil(user, "The json string does not conform the user model")
