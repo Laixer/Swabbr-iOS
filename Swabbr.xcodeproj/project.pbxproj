@@ -46,6 +46,10 @@
 		C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */; };
 		C29FA47823952E5700C22F67 /* DataSourceMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */; };
 		C29FA47A23952E7700C22F67 /* DataSourceSearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */; };
+		C29FA48123956AF800C22F67 /* UserCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA48023956AF800C22F67 /* UserCacheHandler.swift */; };
+		C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */; };
+		C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */; };
+		C2AEAB772397B2F7006B19A4 /* VlogReactionCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB762397B2F7006B19A4 /* VlogReactionCacheHandler.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -186,6 +190,10 @@
 		C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchTermProtocol.swift; sourceTree = "<group>"; };
 		C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceMultipleProtocol.swift; sourceTree = "<group>"; };
 		C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSearchTermProtocol.swift; sourceTree = "<group>"; };
+		C29FA48023956AF800C22F67 /* UserCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCacheHandler.swift; sourceTree = "<group>"; };
+		C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataSourceProtocol.swift; sourceTree = "<group>"; };
+		C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCacheHandler.swift; sourceTree = "<group>"; };
+		C2AEAB762397B2F7006B19A4 /* VlogReactionCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionCacheHandler.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -421,6 +429,7 @@
 				C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */,
 				C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */,
 				C29FA426237DC8B000C22F67 /* Network */,
+				C29FA47F23956AC800C22F67 /* Cache */,
 			);
 			path = Datasource;
 			sourceTree = "<group>";
@@ -467,6 +476,17 @@
 				C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */,
 			);
 			path = RepositoryProtocol;
+			sourceTree = "<group>";
+		};
+		C29FA47F23956AC800C22F67 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				C29FA48023956AF800C22F67 /* UserCacheHandler.swift */,
+				C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */,
+				C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */,
+				C2AEAB762397B2F7006B19A4 /* VlogReactionCacheHandler.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		C2B18131235DFD78001D6F0B /* NotificationServiceExtension */ = {
@@ -918,6 +938,8 @@
 				C29FA42A237EA74800C22F67 /* DataSourceProtocol.swift in Sources */,
 				C29FA43A237EED7B00C22F67 /* VlogUserItem.swift in Sources */,
 				C29FA452238547AF00C22F67 /* ReactionViewControllerService.swift in Sources */,
+				C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */,
+				C2AEAB772397B2F7006B19A4 /* VlogReactionCacheHandler.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
 				C29FA413237D77B100C22F67 /* UserModel.swift in Sources */,
 				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
@@ -925,6 +947,7 @@
 				C29FA431237ED0EC00C22F67 /* VlogNetwork.swift in Sources */,
 				C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */,
 				C29FA47823952E5700C22F67 /* DataSourceMultipleProtocol.swift in Sources */,
+				C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
 				C29FA45A2385791D00C22F67 /* UserFollowRequestModel.swift in Sources */,
 				C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */,
@@ -943,6 +966,7 @@
 				C29FA4442382D60600C22F67 /* VlogReactionUseCase.swift in Sources */,
 				C29FA40D237D64BC00C22F67 /* UserItem.swift in Sources */,
 				C29FA41D237DAEA900C22F67 /* VlogUseCase.swift in Sources */,
+				C29FA48123956AF800C22F67 /* UserCacheHandler.swift in Sources */,
 				C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */,
 				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
