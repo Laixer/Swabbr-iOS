@@ -43,7 +43,6 @@ class ProfileCollectionOverviewControllerService {
      - parameter userId: An user id.
     */
     func getFollowers(userId: Int) {
-        // get followers
         let dispatchGroup = DispatchGroup()
         userFollowRequestUseCase.get(id: userId, refresh: false, multiple: { (userFollowRequestModels) in
             var followers: [UserItem] = []
