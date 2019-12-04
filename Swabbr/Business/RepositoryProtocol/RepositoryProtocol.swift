@@ -14,7 +14,7 @@ protocol RepositoryProtocol {
      - parameter refresh: A boolean which indicates if it should look in the cache first.
      - parameter completionHandler: A callback returning a list of models or nil.
     */
-    func get(refresh: Bool, completionHandler: @escaping ([Model]?) -> Void)
+    func get(refresh: Bool, completionHandler: @escaping ([Model]) -> Void)
     
     /**
      Get a specifc model by a certain id.
@@ -23,14 +23,4 @@ protocol RepositoryProtocol {
      - parameter completionHandler: A callback returning the model or nil.
      */
     func get(id: Int, refresh: Bool, completionHandler: @escaping (Model?) -> Void)
-}
-
-protocol RepositoryMultipleProtocol: RepositoryProtocol {
-    /**
-     Get specific models by a certain id.
-     - parameter id: An int value of an specific id.
-     - parameter refresh: A boolean when false look in the cache first.
-     - parameter completionHandler: A callback returning a list of models or nil.
-     */
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([Model]?) -> Void)
 }
