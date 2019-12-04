@@ -45,6 +45,7 @@
 		C29FA47423952D7800C22F67 /* RepositoryMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47323952D7800C22F67 /* RepositoryMultipleProtocol.swift */; };
 		C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */; };
 		C29FA47823952E5700C22F67 /* DataSourceMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */; };
+		C29FA47A23952E7700C22F67 /* DataSourceSearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -184,6 +185,7 @@
 		C29FA47323952D7800C22F67 /* RepositoryMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryMultipleProtocol.swift; sourceTree = "<group>"; };
 		C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchTermProtocol.swift; sourceTree = "<group>"; };
 		C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceMultipleProtocol.swift; sourceTree = "<group>"; };
+		C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSearchTermProtocol.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0B87A9BD04D372E677D0CA /* libPods-SwabbrTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +273,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE0B87A9BD04D372E677D0CA /* libPods-SwabbrTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +419,7 @@
 			children = (
 				C29FA429237EA74800C22F67 /* DataSourceProtocol.swift */,
 				C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */,
+				C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */,
 				C29FA426237DC8B000C22F67 /* Network */,
 			);
 			path = Datasource;
@@ -903,6 +906,7 @@
 				C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
 				C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */,
+				C29FA47A23952E7700C22F67 /* DataSourceSearchTermProtocol.swift in Sources */,
 				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C29FA45423855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift in Sources */,
 				C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */,
