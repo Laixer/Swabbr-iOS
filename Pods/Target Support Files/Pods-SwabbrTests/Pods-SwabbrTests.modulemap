@@ -1,0 +1,6 @@
+module Pods_SwabbrTests {
+  umbrella header "Pods-SwabbrTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

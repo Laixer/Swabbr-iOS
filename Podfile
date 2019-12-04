@@ -7,8 +7,7 @@ target 'Swabbr' do
 
   # Pods for Swabbr
   pod 'NextLevel', '0.14.0'
-  pod 'Cache', '5.2.0'
-  pod 'Imaginary', '4.2.0'
+  pod 'CodableCache', :git => 'https://github.com/asowers1/CodableCache.git', :tag => '0.2.3'
   
   pod 'SwiftLint', '0.35.0'
 

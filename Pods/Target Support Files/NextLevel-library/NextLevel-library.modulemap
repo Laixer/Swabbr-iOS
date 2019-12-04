@@ -1,0 +1,6 @@
+module NextLevel {
+  umbrella header "NextLevel-library-umbrella.h"
+
+  export *
+  module * { export * }
+}
