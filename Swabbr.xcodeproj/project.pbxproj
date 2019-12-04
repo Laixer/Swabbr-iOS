@@ -46,6 +46,8 @@
 		C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */; };
 		C29FA47823952E5700C22F67 /* DataSourceMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */; };
 		C29FA47A23952E7700C22F67 /* DataSourceSearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */; };
+		C29FA47C23952F7000C22F67 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47B23952F7000C22F67 /* SearchViewController.swift */; };
+		C29FA47E23953E2B00C22F67 /* SearchViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */; };
 		C29FA48123956AF800C22F67 /* UserCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA48023956AF800C22F67 /* UserCacheHandler.swift */; };
 		C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */; };
 		C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */; };
@@ -190,6 +192,8 @@
 		C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchTermProtocol.swift; sourceTree = "<group>"; };
 		C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceMultipleProtocol.swift; sourceTree = "<group>"; };
 		C29FA47923952E7700C22F67 /* DataSourceSearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSearchTermProtocol.swift; sourceTree = "<group>"; };
+		C29FA47B23952F7000C22F67 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerService.swift; sourceTree = "<group>"; };
 		C29FA48023956AF800C22F67 /* UserCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCacheHandler.swift; sourceTree = "<group>"; };
 		C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataSourceProtocol.swift; sourceTree = "<group>"; };
 		C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCacheHandler.swift; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 				C29FA4412382D30B00C22F67 /* VlogPageViewControllerService.swift */,
 				C29FA451238547AF00C22F67 /* ReactionViewControllerService.swift */,
 				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
+				C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */,
 			);
 			path = ControllerService;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */,
 				C2128D352370744F00E56BAC /* VlogReactionViewController.swift */,
 				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,
+				C29FA47B23952F7000C22F67 /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -922,6 +928,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29FA47E23953E2B00C22F67 /* SearchViewControllerService.swift in Sources */,
 				C29FA4602385995300C22F67 /* UserFollowRequestUseCase.swift in Sources */,
 				C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
@@ -961,6 +968,7 @@
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
 				C29FA423237DAF3C00C22F67 /* VlogRepository.swift in Sources */,
+				C29FA47C23952F7000C22F67 /* SearchViewController.swift in Sources */,
 				C29FA42F237EBA5600C22F67 /* NetworkProtocol.swift in Sources */,
 				C29FA41F237DAECE00C22F67 /* VlogModel.swift in Sources */,
 				C29FA4442382D60600C22F67 /* VlogReactionUseCase.swift in Sources */,
