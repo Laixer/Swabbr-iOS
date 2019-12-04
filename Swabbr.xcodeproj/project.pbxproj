@@ -43,6 +43,7 @@
 		C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */; };
 		C29FA4602385995300C22F67 /* UserFollowRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */; };
 		C29FA47423952D7800C22F67 /* RepositoryMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47323952D7800C22F67 /* RepositoryMultipleProtocol.swift */; };
+		C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */; };
 		C29FA47823952E5700C22F67 /* DataSourceMultipleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
@@ -88,6 +89,7 @@
 		C2E7770F235084DA0071B828 /* SwabbrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7770E235084DA0071B828 /* SwabbrUITests.swift */; };
 		C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E77718235485C60071B828 /* ApiPreferences.swift */; };
 		C2E7771D2354CB640071B828 /* VlogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E7771C2354CB640071B828 /* VlogTests.swift */; };
+		EE0B87A9BD04D372E677D0CA /* libPods-SwabbrTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4C0F170A61D82FA8482CB0 /* libPods-SwabbrTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +142,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		40CB85A1EDE046ADC217B037 /* Pods-SwabbrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwabbrTests.release.xcconfig"; path = "Target Support Files/Pods-SwabbrTests/Pods-SwabbrTests.release.xcconfig"; sourceTree = "<group>"; };
+		5753E69F9CA05D1F495EED9E /* Pods-SwabbrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwabbrTests.debug.xcconfig"; path = "Target Support Files/Pods-SwabbrTests/Pods-SwabbrTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5E4C0F170A61D82FA8482CB0 /* libPods-SwabbrTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwabbrTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swabbr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 		C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UserId.swift"; sourceTree = "<group>"; };
 		C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestUseCase.swift; sourceTree = "<group>"; };
 		C29FA47323952D7800C22F67 /* RepositoryMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryMultipleProtocol.swift; sourceTree = "<group>"; };
+		C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchTermProtocol.swift; sourceTree = "<group>"; };
 		C29FA47723952E5700C22F67 /* DataSourceMultipleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceMultipleProtocol.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
@@ -264,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0B87A9BD04D372E677D0CA /* libPods-SwabbrTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +284,7 @@
 				6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */,
 				C2B18141235EEEB1001D6F0B /* UserNotifications.framework */,
 				C2B18143235EEEB1001D6F0B /* UserNotificationsUI.framework */,
+				5E4C0F170A61D82FA8482CB0 /* libPods-SwabbrTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -286,6 +294,8 @@
 			children = (
 				B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */,
 				DF3EFE5099EC25DA14218454 /* Pods-Swabbr.debug.xcconfig */,
+				5753E69F9CA05D1F495EED9E /* Pods-SwabbrTests.debug.xcconfig */,
+				40CB85A1EDE046ADC217B037 /* Pods-SwabbrTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -451,6 +461,7 @@
 			children = (
 				C29FA404237D54F900C22F67 /* RepositoryProtocol.swift */,
 				C29FA47323952D7800C22F67 /* RepositoryMultipleProtocol.swift */,
+				C29FA47523952DDF00C22F67 /* RepositorySearchTermProtocol.swift */,
 			);
 			path = RepositoryProtocol;
 			sourceTree = "<group>";
@@ -891,6 +902,7 @@
 				C29FA4602385995300C22F67 /* UserFollowRequestUseCase.swift in Sources */,
 				C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
+				C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */,
 				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C29FA45423855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift in Sources */,
 				C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */,
@@ -1229,11 +1241,15 @@
 		};
 		C2E776FF234E24370071B828 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5753E69F9CA05D1F495EED9E /* Pods-SwabbrTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XACC24T3B7;
-				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"$(SRCROOT)/Pods/Firebase/CoreOnly/Sources",
+				);
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1250,11 +1266,15 @@
 		};
 		C2E77700234E24370071B828 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40CB85A1EDE046ADC217B037 /* Pods-SwabbrTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XACC24T3B7;
-				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/CoreOnly";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"$(SRCROOT)/Pods/Firebase/CoreOnly/Sources",
+				);
 				INFOPLIST_FILE = SwabbrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
