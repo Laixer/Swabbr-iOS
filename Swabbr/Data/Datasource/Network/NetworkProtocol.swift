@@ -38,7 +38,7 @@ extension NetworkProtocol {
      */
     private func decode(_ data: Data) -> [Entity]? {
         let wrapper = try? JSONDecoder().decode([Entity].self, from: data)
-        return wrapper!
+        return wrapper
     }
     
     /**
