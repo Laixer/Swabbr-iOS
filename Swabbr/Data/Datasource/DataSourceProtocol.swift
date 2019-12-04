@@ -13,20 +13,11 @@ protocol DataSourceProtocol {
     Get all entities.
     - parameter completionHandler: A callback returning a list of entities or nil.
     */
-    func get(completionHandler: @escaping ([Entity]) -> Void)
+    func get(completionHandler: @escaping ([Entity]?) -> Void)
     /**
      Get a specifc entity by a certain id.
      - parameter id: An int value of an specific id.
      - parameter completionHandler: A callback returning the entity or nil.
      */
     func get(id: Int, completionHandler: @escaping (Entity?) -> Void)
-}
-
-protocol DataSourceMultipleProtocol: DataSourceProtocol {
-    /**
-     Get specific entities by a certain id.
-     - parameter id: An int value of an specific id.
-     - parameter completionHandler: A callback returning a list of entities or nil.
-     */
-    func get(id: Int, multiple completionHandler: @escaping ([Entity]?) -> Void)
 }
