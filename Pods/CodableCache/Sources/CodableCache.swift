@@ -50,12 +50,10 @@ extension CodableCache {
     
     public func get() -> T? {
         guard let data = self.memoryCache.object(forKey: self.key.hashValue as AnyObject) as? Data else {
-            print("cant change to data \(self.key)")
             return self.persistentCache.get(self.key)
         }
         
         guard let decoded = try? decoder.decode(T.self, from: data) else {
-            print("cant decode")
             return nil
         }
         
