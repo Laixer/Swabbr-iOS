@@ -14,7 +14,7 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     var endPoint: String = "/followRequests"
     
-    func get(completionHandler: @escaping ([UserFollowRequest]) -> Void) {
+    func get(completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
         load(buildUrl()) { (userFollowRequests) in
             completionHandler(userFollowRequests)
         }
@@ -23,11 +23,11 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     func get(id: Int, completionHandler: @escaping (UserFollowRequest?) -> Void) {
         let queryItems = [URLQueryItem(name: "id", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
-            completionHandler((!userFollowRequests.isEmpty) ? userFollowRequests[0] : nil)
+            completionHandler((userFollowRequests != nil) ? userFollowRequests![0] : nil)
         }
     }
     
-    func get(id: Int, multiple completionHandler: @escaping ([UserFollowRequest]) -> Void) {
+    func get(id: Int, multiple completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
         let queryItems = [URLQueryItem(name: "requesterId", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
             completionHandler(userFollowRequests)
