@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserRepository: RepositoryProtocol {
+class UserRepository: RepositorySearchTermProtocol {
     typealias Model = UserModel
     
     static let shared = UserRepository()
@@ -59,4 +59,19 @@ class UserRepository: RepositoryProtocol {
             }
         }
     }
+    
+    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+        network.get(term: term, completionHandler: { (users) -> Void in
+            guard let users = users else {
+                completionHandler([])
+                return
+            }
+            completionHandler(
+                users.map({ (user) -> Model in
+                    user.mapToBusiness()
+                })
+            )
+        })
+    }
+    
 }

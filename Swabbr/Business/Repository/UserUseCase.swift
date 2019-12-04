@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserUseCase: RepositoryProtocol {
+class UserUseCase: RepositorySearchTermProtocol {
     typealias Model = UserModel
     
     static let shared = UserUseCase()
@@ -19,6 +19,10 @@ class UserUseCase: RepositoryProtocol {
     
     func get(id: Int, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
+    }
+    
+    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+        repository.get(term: term, refresh: refresh, completionHandler: completionHandler)
     }
     
 }

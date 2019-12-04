@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserNetwork: NetworkProtocol {
+class UserNetwork: NetworkProtocol, DataSourceSearchTermProtocol {
     typealias Entity = User
     
     static let shared = UserNetwork()
@@ -27,5 +27,10 @@ class UserNetwork: NetworkProtocol {
             UserCacheHandler.shared.set(object: user)
             completionHandler(user)
         }
+    }
+    
+    func get(term: String, completionHandler: @escaping ([User]?) -> Void) {
+        // TODO: search for the user
+        completionHandler([])
     }
 }
