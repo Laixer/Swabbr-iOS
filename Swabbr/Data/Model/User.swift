@@ -7,8 +7,6 @@
 //
 //  Base class of an user
 
-import Foundation
-
 struct User {
     
     var id: Int
@@ -17,7 +15,7 @@ struct User {
     var gender: Gender
     var country: String
     var email: String
-    var birthdate: Date
+    var birthdate: String
     var timezone: String
     var username: String
     var profileImageUrl: String
@@ -44,7 +42,7 @@ struct User {
                          gender: gender,
                          country: country,
                          email: email,
-                         birthdate: birthdate,
+                         birthdate: DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: birthdate)!,
                          timezone: timezone,
                          username: username,
                          profileImageUrl: profileImageUrl,
@@ -71,7 +69,7 @@ extension User: Codable {
         country = try container.decode(String.self, forKey: .country)
         email = try container.decode(String.self, forKey: .email)
 
-        birthdate = DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: try container.decode(String.self, forKey: .birthdate))!
+        birthdate = try container.decode(String.self, forKey: .birthdate)
 
         timezone = try container.decode(String.self, forKey: .timezone)
         username = try container.decode(String.self, forKey: .username)

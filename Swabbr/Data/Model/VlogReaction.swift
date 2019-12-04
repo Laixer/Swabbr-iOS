@@ -14,7 +14,7 @@ struct VlogReaction {
     var isPrivate: Bool
     var ownerId: Int
     var duration: String
-    var postDate: Date
+    var postDate: String
     var vlogId: Int
     
     func mapToBusiness() -> VlogReactionModel {
@@ -22,7 +22,7 @@ struct VlogReaction {
                                  isPrivate: isPrivate,
                                  ownerId: ownerId,
                                  duration: duration,
-                                 postDate: postDate,
+                                 postDate: DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: postDate)!,
                                  vlogId: vlogId)
     }
     
@@ -49,7 +49,7 @@ extension VlogReaction: Codable {
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
         duration = try container.decode(String.self, forKey: .duration)
         
-        postDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .postDate))!
+        postDate = try container.decode(String.self, forKey: .postDate)
 
         ownerId = try container.decode(Int.self, forKey: .ownerId)
 

@@ -13,7 +13,7 @@ struct Vlog {
     var id: Int
     var isPrivate: Bool
     var duration: String
-    var startDate: Date
+    var startDate: String
     var totalLikes: Int
     var totalReactions: Int
     var totalViews: Int
@@ -24,7 +24,7 @@ struct Vlog {
         return VlogModel(id: id,
                          isPrivate: isPrivate,
                          duration: duration,
-                         startDate: startDate,
+                         startDate: DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: startDate)!,
                          totalLikes: totalLikes,
                          totalReactions: totalReactions,
                          totalViews: totalViews,
@@ -56,7 +56,7 @@ extension Vlog: Codable {
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
         duration = try container.decode(String.self, forKey: .duration)
         
-        startDate = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .startDate))!
+        startDate = try container.decode(String.self, forKey: .startDate)
         
         totalLikes = try container.decode(Int.self, forKey: .totalLikes)
         totalReactions = try container.decode(Int.self, forKey: .totalReactions)
