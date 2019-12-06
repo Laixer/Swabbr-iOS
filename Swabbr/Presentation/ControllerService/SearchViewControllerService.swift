@@ -10,8 +10,8 @@ class SearchViewControllerService {
     
     weak var delegate: SearchViewControllerServiceDelegate?
     
-    private let userUseCase = UserUseCase.shared
-    private let vlogUseCase = VlogUseCase.shared
+    private let userUseCase = UserUseCase()
+    private let vlogUseCase = VlogUseCase()
     
     public private(set) var vlogs: [VlogItem]! = [] {
         didSet {
@@ -19,26 +19,26 @@ class SearchViewControllerService {
         }
     }
     
-    func findUsersVlogs(term: String) {
-        let dispatchGroup = DispatchGroup()
-        userUseCase.get(term: term, refresh: true, completionHandler: {(userModels) -> Void in
-            var innerVlogs: [VlogItem] = []
-            
-            for userModel in userModels {
-                dispatchGroup.enter()
-                self.vlogUseCase.get(id: userModel.id, refresh: false, multiple: {(vlogModels) -> Void in
-                    innerVlogs += vlogModels.compactMap({ (vlogModel) -> VlogItem in
-                        VlogItem.mapToPresentation(vlogModel: vlogModel)
-                    })
-                    dispatchGroup.leave()
-                })
-            }
-            
-            dispatchGroup.notify(queue: .main, execute: {
-                self.vlogs = innerVlogs
-            })
-        })
-    }
+//    func findUsersVlogs(term: String) {
+//        let dispatchGroup = DispatchGroup()
+//        userUseCase.get(term: term, refresh: true, completionHandler: {(userModels) -> Void in
+//            var innerVlogs: [VlogItem] = []
+//            
+//            for userModel in userModels {
+//                dispatchGroup.enter()
+//                self.vlogUseCase.get(id: userModel.id, refresh: false, multiple: {(vlogModels) -> Void in
+//                    innerVlogs += vlogModels.compactMap({ (vlogModel) -> VlogItem in
+//                        VlogItem.mapToPresentation(vlogModel: vlogModel)
+//                    })
+//                    dispatchGroup.leave()
+//                })
+//            }
+//            
+//            dispatchGroup.notify(queue: .main, execute: {
+//                self.vlogs = innerVlogs
+//            })
+//        })
+//    }
     
     func getVlogs() {
         vlogUseCase.get(refresh: true, completionHandler: {(vlogModels) -> Void in

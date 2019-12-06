@@ -10,8 +10,8 @@ class ProfileViewControllerService {
     
     weak var delegate: ProfileViewControllerServiceDelegate?
     
-    private let userUseCase = UserUseCase.shared
-    private let vlogUseCase = VlogUseCase.shared
+    private let userUseCase = UserUseCase()
+    private let vlogUseCase = VlogUseCase()
     
     public private(set) var user: UserItem! {
         didSet {

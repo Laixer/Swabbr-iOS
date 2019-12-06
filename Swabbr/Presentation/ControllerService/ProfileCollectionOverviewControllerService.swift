@@ -10,9 +10,9 @@ class ProfileCollectionOverviewControllerService {
     
     weak var delegate: ProfileCollectionOverviewControllerServiceDelegate?
     
-    private let vlogUseCase = VlogUseCase.shared
-    private let userUseCase = UserUseCase.shared
     private let userFollowRequestUseCase = UserFollowRequestUseCase.shared
+    private let vlogUseCase = VlogUseCase()
+    private let userUseCase = UserUseCase()
     
     public private(set) var vlogs: [VlogItem]! = [] {
         didSet {

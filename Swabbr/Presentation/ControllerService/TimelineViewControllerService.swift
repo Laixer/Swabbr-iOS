@@ -10,8 +10,8 @@ class TimelineViewControllerService {
     
     weak var delegate: TimelineViewControllerServiceDelegate?
     
-    private let vlogUseCase = VlogUseCase.shared
-    private let userUseCase = UserUseCase.shared
+    private let vlogUseCase = VlogUseCase()
+    private let userUseCase = UserUseCase()
     
     public private(set) var vlogs: [VlogUserItem]! = [] {
         didSet {
