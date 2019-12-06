@@ -8,12 +8,6 @@
 
 protocol DataSourceProtocol {
     associatedtype Entity: Decodable
-    
-    /**
-    Get all entities.
-    - parameter completionHandler: A callback returning a list of entities or nil.
-    */
-    func get(completionHandler: @escaping ([Entity]?) -> Void)
     /**
      Get a specifc entity by a certain id.
      - parameter id: An int value of an specific id.
