@@ -11,7 +11,7 @@ class UserNetwork: NetworkProtocol, DataSourceSearchTermProtocol {
     
     static let shared = UserNetwork()
     
-    var endPoint: String = "/users"
+    var endPoint: String = "users"
 
     func get(completionHandler: @escaping ([User]?) -> Void) {
         load(buildUrl()) { (users) in

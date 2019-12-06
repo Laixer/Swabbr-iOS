@@ -13,7 +13,7 @@ class VlogReactionNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     static let shared = VlogReactionNetwork()
     
-    var endPoint: String = "/reactions"
+    var endPoint: String = "reactions"
     
     func get(completionHandler: @escaping ([VlogReaction]?) -> Void) {
         load(buildUrl()) { (vlogReactions) in

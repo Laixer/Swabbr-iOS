@@ -10,7 +10,7 @@ class VlogNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     static let shared = VlogNetwork()
     
-    var endPoint: String = "/vlogs"
+    var endPoint: String = "vlogs"
     
     func get(completionHandler: @escaping ([Vlog]?) -> Void) {
         load(buildUrl()) { (vlogs) in

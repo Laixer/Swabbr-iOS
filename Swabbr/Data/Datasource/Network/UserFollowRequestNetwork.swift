@@ -12,7 +12,7 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     static let shared = UserFollowRequestNetwork()
     
-    var endPoint: String = "/followRequests"
+    var endPoint: String = "followRequests"
     
     func get(completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
         load(buildUrl()) { (userFollowRequests) in

@@ -48,7 +48,7 @@ extension NetworkProtocol {
     */
     internal func buildUrl(queryItems: [URLQueryItem]? = nil) -> URL {
         var components = URLComponents(string: ApiPreferences.shared.api_url)!
-        components.path = ApiPreferences.shared.url_path + endPoint
+        components.path = ApiPreferences.shared.url_path + "/" + endPoint
         components.queryItems = queryItems
         return components.url!
     }
