@@ -272,6 +272,9 @@ extension VlogPageViewController {
      Handle all actions required when the vlog is clicked, returns to fullscreen if reactions are visible.
      */
     @objc private func clickedVideoToGoBackToFullscreen() {
+        guard scrollView.contentOffset.y > 0 else {
+            return
+        }
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         scrollView.isScrollEnabled = false
     }
