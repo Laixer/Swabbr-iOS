@@ -6,23 +6,19 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserUseCase: RepositorySearchTermProtocol {
-    typealias Model = UserModel
+class UserUseCase {
     
-    static let shared = UserUseCase()
+    private let repository: RepositoryFactory<UserModel>
     
-    private let repository = UserRepository.shared
-    
-    func get(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
-        repository.get(refresh: refresh, completionHandler: completionHandler)
+    init(_ repository: RepositoryFactory<UserModel> = RepositoryFactory(UserRepository())) {
+        self.repository = repository
     }
-    
+
+    func get(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+        repository.getAll(refresh: refresh, completionHandler: completionHandler)
+    }
+
     func get(id: Int, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
-    
-    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
-        repository.get(term: term, refresh: refresh, completionHandler: completionHandler)
-    }
-    
 }

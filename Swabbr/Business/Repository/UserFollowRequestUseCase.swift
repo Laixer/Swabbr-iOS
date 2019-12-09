@@ -6,23 +6,23 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserFollowRequestUseCase: RepositoryMultipleProtocol {
+class UserFollowRequestUseCase {
     
-    typealias Model = UserFollowRequestModel
+    private let repository: RepositoryFactory<UserFollowRequestModel>
     
-    static let shared = UserFollowRequestUseCase()
-    
-    private let repository = UserFollowRequestRepository.shared
+    init(_ repository: RepositoryFactory<UserFollowRequestModel> = RepositoryFactory(UserFollowRequestRepository())) {
+        self.repository = repository
+    }
     
     func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        repository.get(refresh: refresh, completionHandler: completionHandler)
+        repository.getAll(refresh: refresh, completionHandler: completionHandler)
     }
     
     func get(id: Int, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        repository.get(id: id, refresh: refresh, multiple: completionHandler)
+    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+        repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
 }

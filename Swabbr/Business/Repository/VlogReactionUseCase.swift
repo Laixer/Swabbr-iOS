@@ -6,23 +6,24 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class VlogReactionUseCase: RepositoryMultipleProtocol {
-    typealias Model = VlogReactionModel
+class VlogReactionUseCase {
     
-    static let shared = VlogReactionUseCase()
+    private let repository: RepositoryFactory<VlogReactionModel>
     
-    private let repository = VlogReactionRepository.shared
+    init(_ repository: RepositoryFactory<VlogReactionModel> = RepositoryFactory(VlogReactionRepository())) {
+        self.repository = repository
+    }
     
     func get(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
-        repository.get(refresh: refresh, completionHandler: completionHandler)
+        repository.getAll(refresh: refresh, completionHandler: completionHandler)
     }
     
     func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogReactionModel]) -> Void) {
-        repository.get(id: id, refresh: refresh, multiple: completionHandler)
+    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+        repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
     
