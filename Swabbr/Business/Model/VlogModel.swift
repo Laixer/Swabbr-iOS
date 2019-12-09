@@ -10,7 +10,7 @@ import Foundation
 
 struct VlogModel {
     
-    var id: Int
+    var id: String
     var isPrivate: Bool
     var duration: String
     var startDate: Date
@@ -18,6 +18,6 @@ struct VlogModel {
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
-    var ownerId: Int
+    var ownerId: String
     
 }

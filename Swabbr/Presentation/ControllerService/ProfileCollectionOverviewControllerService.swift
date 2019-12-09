@@ -30,7 +30,7 @@ class ProfileCollectionOverviewControllerService {
      Get vlogs of a certain user. Runs a callback when ready.
      - parameter userId: An user id.
     */
-    func getVlogs(userId: Int) {
+    func getVlogs(userId: String) {
         vlogUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (vlogModels) in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
@@ -42,7 +42,7 @@ class ProfileCollectionOverviewControllerService {
      Get followers of a certain user. Runs a callback when ready.
      - parameter userId: An user id.
     */
-    func getFollowers(userId: Int) {
+    func getFollowers(userId: String) {
         userFollowRequestUseCase.get(refresh: false, completionHandler: { (userModels) in
             self.users = userModels.compactMap({ (userModel) -> UserItem in
                 UserItem.mapToPresentation(model: userModel)

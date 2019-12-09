@@ -23,7 +23,7 @@ class ReactionViewControllerService {
      Get reactions of certain vlog. Runs a callback when ready.
      - parameter vlogId: A vlog id.
     */
-    func getReactions(vlogId: Int) {
+    func getReactions(vlogId: String) {
         let dispatchGroup = DispatchGroup()
         vlogReactionUseCase.getSingleMultiple(id: vlogId, refresh: false, completionHandler: { (vlogReactionModels) -> Void in
             var userVlogReactionRepositoryModels: [UserVlogReactionItem] = []

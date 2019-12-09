@@ -9,8 +9,8 @@
 struct RepositoryFactory<Model>: RepositoryProtocol, RepositorySingleMultipleProtocol, RepositoryAllProtocol {
     
     private var _getAll: ((Bool, (@escaping ([Model]) -> Void)) -> Void)?
-    private var _getSingleMultiple: ((Int, Bool, (@escaping ([Model]) -> Void)) -> Void)?
-    private var _get: ((Int, Bool, (@escaping (Model?) -> Void)) -> Void)?
+    private var _getSingleMultiple: ((String, Bool, (@escaping ([Model]) -> Void)) -> Void)?
+    private var _get: ((String, Bool, (@escaping (Model?) -> Void)) -> Void)?
     
     init<Repository: RepositoryProtocol>(_ repository: Repository) where Repository.Model == Model {
         _get = repository.get
@@ -36,11 +36,11 @@ struct RepositoryFactory<Model>: RepositoryProtocol, RepositorySingleMultiplePro
         _getAll?(refresh, completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (Model?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (Model?) -> Void) {
         _get?(id, refresh, completionHandler)
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([Model]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([Model]) -> Void) {
         _getSingleMultiple?(id, refresh, completionHandler)
     }
 }

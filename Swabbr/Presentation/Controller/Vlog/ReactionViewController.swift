@@ -24,9 +24,9 @@ class ReactionViewController: UIViewController {
     /**
      Initializer of this controller.
      It will set the vlogId value of this class to later make a REST API call to get the data.
-     - parameter vlogId: An int value which will be required to get the correct vlog.
+     - parameter vlogId: An string value which will be required to get the correct vlog.
     */
-    init(vlogId: Int) {
+    init(vlogId: String) {
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self
         controllerService.getReactions(vlogId: vlogId)

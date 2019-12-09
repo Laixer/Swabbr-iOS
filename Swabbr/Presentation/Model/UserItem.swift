@@ -8,7 +8,7 @@
 
 struct UserItem {
     
-    var id: Int
+    var id: String
     var username: String
     var totalVlogs: Int
     var totalFollowers: Int

@@ -15,5 +15,5 @@ protocol RepositoryProtocol {
      - parameter refresh: A boolean when false look in the cache first.
      - parameter completionHandler: A callback returning the model or nil.
      */
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (Model?) -> Void)
+    func get(id: String, refresh: Bool, completionHandler: @escaping (Model?) -> Void)
 }

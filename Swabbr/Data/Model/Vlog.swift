@@ -10,7 +10,7 @@ import Foundation
 
 struct Vlog {
     
-    var id: Int
+    var id: String
     var isPrivate: Bool
     var duration: String
     var startDate: String
@@ -18,7 +18,7 @@ struct Vlog {
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
-    var ownerId: Int
+    var ownerId: String
     
     func mapToBusiness() -> VlogModel {
         return VlogModel(id: id,
@@ -51,7 +51,7 @@ extension Vlog: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decodeToType(Int.self, key: .id)
+        id = try container.decode(String.self, forKey: .id)
         
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
         duration = try container.decode(String.self, forKey: .duration)
@@ -62,8 +62,7 @@ extension Vlog: Codable {
         totalReactions = try container.decode(Int.self, forKey: .totalReactions)
         totalViews = try container.decode(Int.self, forKey: .totalViews)
         isLive = try container.decode(Bool.self, forKey: .isLive)
-        
-        ownerId = try container.decode(Int.self, forKey: .ownerId)
+        ownerId = try container.decode(String.self, forKey: .ownerId)
         
     }
     
@@ -71,7 +70,7 @@ extension Vlog: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(String(id), forKey: .id)
+        try container.encode(id, forKey: .id)
         try container.encode(isPrivate, forKey: .isPrivate)
         try container.encode(ownerId, forKey: .ownerId)
         try container.encode(duration, forKey: .duration)

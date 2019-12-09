@@ -10,7 +10,7 @@ import Foundation
 
 struct UserFollowRequest {
     
-    var id: Int
+    var id: String
     var requesterId: Int
     var receiverId: Int
     var status: Status
@@ -39,7 +39,7 @@ extension UserFollowRequest: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decodeToType(Int.self, key: .id)
+        id = try container.decode(String.self, forKey: .id)
         requesterId = try container.decodeToType(Int.self, key: .requesterId)
         receiverId = try container.decodeToType(Int.self, key: .receiverId)
         
@@ -52,7 +52,7 @@ extension UserFollowRequest: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(String(id), forKey: .id)
+        try container.encode(id, forKey: .id)
         try container.encode(String(requesterId), forKey: .requesterId)
         try container.encode(String(receiverId), forKey: .receiverId)
         try container.encode(status, forKey: .status)

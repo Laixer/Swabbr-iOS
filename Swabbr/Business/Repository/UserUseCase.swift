@@ -18,7 +18,7 @@ class UserUseCase {
         repository.getAll(refresh: refresh, completionHandler: completionHandler)
     }
 
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
 }

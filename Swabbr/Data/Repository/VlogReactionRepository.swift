@@ -48,7 +48,7 @@ class VlogReactionRepository: RepositorySingleMultipleProtocol, RepositoryAllPro
         }
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (vlogReaction) -> Void in
                 completionHandler(vlogReaction?.mapToBusiness())
@@ -64,7 +64,7 @@ class VlogReactionRepository: RepositorySingleMultipleProtocol, RepositoryAllPro
         }
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
         network.getSingleMultiple(id: id, completionHandler: { (vlogReactions) -> Void in
             guard let vlogReactions = vlogReactions else {
                 completionHandler([])

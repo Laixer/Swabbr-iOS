@@ -30,7 +30,7 @@ class ProfileViewController : UIViewController {
      It will fill up the view with the user information that is stored in the given object.
      - parameter user: An User object.
     */
-    init(userId: Int) {
+    init(userId: String) {
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self
         controllerService.getUser(userId: userId)

@@ -13,5 +13,5 @@ protocol RepositorySingleMultipleProtocol: RepositoryProtocol {
      - parameter refresh: A boolean when false look in the cache first.
      - parameter completionHandler: A callback returning a list of models or nil.
      */
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([Model]) -> Void)
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([Model]) -> Void)
 }

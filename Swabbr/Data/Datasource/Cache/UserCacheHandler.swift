@@ -25,7 +25,7 @@ class UserCacheHandler: CacheDataSourceProtocol {
         completionHandler(try cache.get())
     }
     
-    func get(id: Int, completionHandler: @escaping (User?) -> Void) {
+    func get(id: String, completionHandler: @escaping (User?) -> Void) {
         guard let users = cache.get() else {
             completionHandler(nil)
             return

@@ -20,15 +20,15 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceSingleMultipleProtoco
         }
     }
     
-    func get(id: Int, completionHandler: @escaping (UserFollowRequest?) -> Void) {
-        let queryItems = [URLQueryItem(name: "id", value: String(id))]
+    func get(id: String, completionHandler: @escaping (UserFollowRequest?) -> Void) {
+        let queryItems = [URLQueryItem(name: "id", value: id)]
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
             completionHandler((userFollowRequests != nil) ? userFollowRequests![0] : nil)
         }
     }
     
-    func getSingleMultiple(id: Int, completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
-        let queryItems = [URLQueryItem(name: "userId", value: String(id))]
+    func getSingleMultiple(id: String, completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
+        let queryItems = [URLQueryItem(name: "userId", value: id)]
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
             completionHandler(userFollowRequests)
         }

@@ -8,7 +8,7 @@
 
 struct UserFollowRequestModel {
     
-    var id: Int
+    var id: String
     var requesterId: Int
     var receiverId: Int
     var status: Status

@@ -10,7 +10,7 @@ import Foundation
 
 struct UserModel {
     
-    var id: Int
+    var id: String
     var firstName: String
     var lastName: String
     var gender: Gender

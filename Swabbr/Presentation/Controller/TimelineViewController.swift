@@ -47,7 +47,7 @@ class TimelineViewController : UIViewController {
 extension TimelineViewController : UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vlogId = (viewController as! VlogPageViewController).vlogId!
+        let vlogId = (viewController as! VlogPageViewController).vlogId
         let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
             vlogUserItem.vlogId == vlogId
         })
@@ -69,7 +69,7 @@ extension TimelineViewController : UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vlogId = (viewController as! VlogPageViewController).vlogId!
+        let vlogId = (viewController as! VlogPageViewController).vlogId
         let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
             vlogUserItem.vlogId == vlogId
         })

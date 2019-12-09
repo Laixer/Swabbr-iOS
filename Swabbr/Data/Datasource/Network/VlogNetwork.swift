@@ -19,14 +19,14 @@ class VlogNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSource
         }
     }
     
-    func get(id: Int, completionHandler: @escaping (Vlog?) -> Void) {
-        let queryItems = [URLQueryItem(name: "id", value: String(id))]
+    func get(id: String, completionHandler: @escaping (Vlog?) -> Void) {
+        let queryItems = [URLQueryItem(name: "id", value: id)]
         load(buildUrl(queryItems: queryItems)) { (vlogs) in
             completionHandler((vlogs != nil) ? vlogs![0] : nil)
         }
     }
     
-    func getSingleMultiple(id: Int, completionHandler: @escaping ([Vlog]?) -> Void) {
+    func getSingleMultiple(id: String, completionHandler: @escaping ([Vlog]?) -> Void) {
         let queryItems = [URLQueryItem(name: "userId", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (vlogs) in
             completionHandler(vlogs)

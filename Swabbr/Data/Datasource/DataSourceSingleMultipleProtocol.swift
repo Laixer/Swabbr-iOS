@@ -12,5 +12,5 @@ protocol DataSourceSingleMultipleProtocol: DataSourceProtocol {
      - parameter id: An int value of an specific id.
      - parameter completionHandler: A callback returning a list of entities or nil.
      */
-    func getSingleMultiple(id: Int, completionHandler: @escaping ([Entity]?) -> Void)
+    func getSingleMultiple(id: String, completionHandler: @escaping ([Entity]?) -> Void)
 }

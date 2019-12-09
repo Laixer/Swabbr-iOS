@@ -33,14 +33,14 @@ class VlogPageViewController : UIViewController {
     
     private let controllerService = VlogPageViewControllerService()
     
-    let vlogId: Int!
+    let vlogId: String
     
     /**
      The initializer which accepts a Vlog as parameter.
      It will setup the view using the data contained in the Vlog.
-     - parameter vlog: A VlogUserItem object.
+     - parameter vlog: A string value representing the id of a vlog.
      */
-    init(vlogId: Int) {
+    init(vlogId: String) {
         self.vlogId = vlogId
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self

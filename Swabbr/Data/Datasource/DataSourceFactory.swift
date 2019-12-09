@@ -9,8 +9,8 @@
 struct DataSourceFactory<Entity: Decodable>: DataSourceProtocol, DataSourceAllProtocol, DataSourceSingleMultipleProtocol {
     
     private var _getAll: ((@escaping ([Entity]?) -> Void) -> Void)?
-    private var _getSingleMultiple: ((Int, (@escaping ([Entity]?) -> Void)) -> Void)?
-    private var _get: ((Int, (@escaping (Entity?) -> Void)) -> Void)?
+    private var _getSingleMultiple: ((String, (@escaping ([Entity]?) -> Void)) -> Void)?
+    private var _get: ((String, (@escaping (Entity?) -> Void)) -> Void)?
     
     init<DataSource: DataSourceProtocol>(_ dataSource: DataSource) where DataSource.Entity == Entity {
         _get = dataSource.get
@@ -36,11 +36,11 @@ struct DataSourceFactory<Entity: Decodable>: DataSourceProtocol, DataSourceAllPr
         _getAll?(completionHandler)
     }
     
-    func getSingleMultiple(id: Int, completionHandler: @escaping ([Entity]?) -> Void) {
+    func getSingleMultiple(id: String, completionHandler: @escaping ([Entity]?) -> Void) {
         _getSingleMultiple?(id, completionHandler)
     }
     
-    func get(id: Int, completionHandler: @escaping (Entity?) -> Void) {
+    func get(id: String, completionHandler: @escaping (Entity?) -> Void) {
         _get?(id, completionHandler)
     }
 }

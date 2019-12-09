@@ -18,8 +18,8 @@ class UserNetwork: NetworkProtocol, DataSourceAllProtocol, DataSourceSearchTermP
         }
     }
     
-    func get(id: Int, completionHandler: @escaping (User?) -> Void) {
-        let queryItems = [URLQueryItem(name: "id", value: String(id))]
+    func get(id: String, completionHandler: @escaping (User?) -> Void) {
+        let queryItems = [URLQueryItem(name: "id", value: id)]
         load(buildUrl(queryItems: queryItems)) { (users) in
             let user = (users != nil) ? users![0] : nil
             UserCacheHandler.shared.set(object: user)

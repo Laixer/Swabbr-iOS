@@ -29,7 +29,7 @@ class ProfileViewControllerService {
      Get certain user. Runs a callback when ready.
      - parameter userId: A user id.
     */
-    func getUser(userId: Int) {
+    func getUser(userId: String) {
         userUseCase.get(id: userId, refresh: false) { (userModel) in
             self.user = UserItem.mapToPresentation(model: userModel!)
         }
@@ -37,8 +37,9 @@ class ProfileViewControllerService {
     
     /**
      Get vlogs from a specific user. Runs a callback when ready.
+     - parameter userId: A user id.
     */
-    func getVlogs(userId: Int) {
+    func getVlogs(userId: String) {
         vlogUseCase.getSingleMultiple(id: userId, refresh: false, completionHandler: { (vlogModels) -> Void in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)

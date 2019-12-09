@@ -48,7 +48,7 @@ class VlogRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
         }
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (vlog) -> Void in
                 completionHandler(vlog?.mapToBusiness())
@@ -64,7 +64,7 @@ class VlogRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
         }
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         network.getSingleMultiple(id: id, completionHandler: { (vlogs) -> Void in
             guard let vlogs = vlogs else {
                 completionHandler([])

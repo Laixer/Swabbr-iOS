@@ -47,7 +47,7 @@ class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
         }
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (user) -> Void in
                 completionHandler(user?.mapToBusiness())

@@ -10,12 +10,12 @@ import Foundation
 
 extension UserDefaults {
     
-    func setUserId(value: Int) {
+    func setUserId(value: String) {
         set(value, forKey: UserDefaultsKeys.userId.rawValue)
     }
     
-    func getUserId() -> Int {
-        return integer(forKey: UserDefaultsKeys.userId.rawValue)
+    func getUserId() -> String {
+        return UserDefaultsKeys.userId.rawValue
     }
     
 }

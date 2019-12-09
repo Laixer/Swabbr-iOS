@@ -13,5 +13,5 @@ protocol DataSourceProtocol {
      - parameter id: An int value of an specific id.
      - parameter completionHandler: A callback returning the entity or nil.
      */
-    func get(id: Int, completionHandler: @escaping (Entity?) -> Void)
+    func get(id: String, completionHandler: @escaping (Entity?) -> Void)
 }

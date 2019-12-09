@@ -9,7 +9,7 @@
 
 struct User {
     
-    var id: Int
+    var id: String
     var firstName: String
     var lastName: String
     var gender: Gender
@@ -61,8 +61,7 @@ extension User: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        id = try container.decodeToType(Int.self, key: .id)
-
+        id = try container.decode(String.self, forKey: .id)
         firstName = try container.decode(String.self, forKey: .firstName)
         lastName = try container.decode(String.self, forKey: .lastName)
         gender = try container.decode(Gender.self, forKey: .gender)
@@ -88,7 +87,7 @@ extension User: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(String(id), forKey: .id)
+        try container.encode(id, forKey: .id)
         try container.encode(firstName, forKey: .firstName)
         try container.encode(lastName, forKey: .lastName)
         try container.encode(gender, forKey: .gender)

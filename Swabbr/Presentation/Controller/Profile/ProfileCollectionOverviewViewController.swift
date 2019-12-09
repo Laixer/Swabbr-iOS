@@ -29,7 +29,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      Initialize the view controller this way if we want to get the vlogs thats associated to the given user id.
      - parameter userId: An int value representing an user id.
     */
-    init(vlogOwnerId: Int) {
+    init(vlogOwnerId: String) {
         type = DataType.vlogs
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self
@@ -40,7 +40,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      Initialize the view controller this way if we want to get the users that the user with this id is currently following.
      - parameter userId: An int value representing an user id.
      */
-    init(followingOwnerId: Int) {
+    init(followingOwnerId: String) {
         type = DataType.following
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +49,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      Initialize the view controller this way if we want to get the users who is currently following the user with this id.
      - parameter userId: An int value representing an user id.
      */
-    init(followersOwnerId: Int) {
+    init(followersOwnerId: String) {
         type = DataType.followers
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self

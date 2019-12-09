@@ -8,7 +8,7 @@
 
 struct VlogItem {
     
-    var id: Int
+    var id: String
     var duration: String
     var totalLikes: Int
     var totalReactions: Int

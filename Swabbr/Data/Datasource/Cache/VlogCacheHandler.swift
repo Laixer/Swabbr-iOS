@@ -25,7 +25,7 @@ class VlogCacheHandler: CacheDataSourceProtocol {
         completionHandler(try cache.get())
     }
     
-    func get(id: Int, completionHandler: @escaping (Vlog?) -> Void) {
+    func get(id: String, completionHandler: @escaping (Vlog?) -> Void) {
         guard let vlogs = cache.get() else {
             completionHandler(nil)
             return

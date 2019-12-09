@@ -18,11 +18,11 @@ class VlogReactionUseCase {
         repository.getAll(refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
         repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     

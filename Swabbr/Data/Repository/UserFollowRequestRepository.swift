@@ -15,7 +15,7 @@ class UserFollowRequestRepository: RepositorySingleMultipleProtocol, RepositoryA
         self.network = network
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         network.getSingleMultiple(id: id, completionHandler: { (userFollowRequests) in
             guard let userFollowRequests = userFollowRequests else {
                 completionHandler([])
@@ -39,7 +39,7 @@ class UserFollowRequestRepository: RepositorySingleMultipleProtocol, RepositoryA
         })
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void) {
         network.get(id: id, completionHandler: { (userFollowRequest) -> Void in
             completionHandler(userFollowRequest?.mapToBusiness())
         })

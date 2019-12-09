@@ -18,11 +18,11 @@ class UserFollowRequestUseCase {
         repository.getAll(refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: Int, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void) {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
         repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
 }

@@ -21,15 +21,15 @@ class VlogReactionNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, Da
         }
     }
     
-    func get(id: Int, completionHandler: @escaping (VlogReaction?) -> Void) {
-        let queryItems = [URLQueryItem(name: "vlogId", value: String(id))]
+    func get(id: String, completionHandler: @escaping (VlogReaction?) -> Void) {
+        let queryItems = [URLQueryItem(name: "vlogId", value: id)]
         load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
             completionHandler((vlogReactions != nil) ? vlogReactions![0] : nil)
         }
     }
     
-    func getSingleMultiple(id: Int, completionHandler: @escaping ([VlogReaction]?) -> Void) {
-        let queryItems = [URLQueryItem(name: "vlogId", value: String(id))]
+    func getSingleMultiple(id: String, completionHandler: @escaping ([VlogReaction]?) -> Void) {
+        let queryItems = [URLQueryItem(name: "vlogId", value: id)]
         load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
             completionHandler(vlogReactions)
         }

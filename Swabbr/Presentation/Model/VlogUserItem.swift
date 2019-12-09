@@ -8,13 +8,13 @@
 
 struct VlogUserItem: Equatable {
     
-    var vlogId: Int
+    var vlogId: String
     var vlogTotalLikes: Int
     var vlogTotalReactions: Int
     var vlogTotalViews: Int
     var vlogIsLive: Bool
     var vlogUrl: String
-    var userId: Int
+    var userId: String
     var userUsername: String
     var userProfileImageUrl: String
     

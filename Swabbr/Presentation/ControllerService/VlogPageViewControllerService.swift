@@ -23,7 +23,7 @@ class VlogPageViewControllerService {
      Getting a specific vlog. Will run a callback on completion.
      - parameter vlogId: A vlog id
     */
-    func getVlog(vlogId: Int) {
+    func getVlog(vlogId: String) {
         vlogUseCase.get(id: vlogId, refresh: false, completionHandler: { (vlogModel) -> Void in
             self.userUseCase.get(id: vlogModel!.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
                 self.vlog = VlogUserItem(vlogModel: vlogModel!, userModel: userModel!)

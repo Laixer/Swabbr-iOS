@@ -8,11 +8,11 @@
 
 struct VlogReactionModel {
     
-    var id: Int
+    var id: String
     var isPrivate: Bool
-    var ownerId: Int
+    var ownerId: String
     var duration: String
     var postDate: Date
-    var vlogId: Int
+    var vlogId: String
     
 }
