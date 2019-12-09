@@ -38,8 +38,8 @@ class ProfileViewControllerService {
     /**
      Get vlogs from a specific user. Runs a callback when ready.
     */
-    func getVlogs() {
-        vlogUseCase.getSingleMultiple(id: user.id, refresh: false, completionHandler: { (vlogModels) -> Void in
+    func getVlogs(userId: Int) {
+        vlogUseCase.getSingleMultiple(id: userId, refresh: false, completionHandler: { (vlogModels) -> Void in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })

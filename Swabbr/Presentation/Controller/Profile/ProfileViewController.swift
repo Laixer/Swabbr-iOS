@@ -34,6 +34,7 @@ class ProfileViewController : UIViewController {
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self
         controllerService.getUser(userId: userId)
+        controllerService.getVlogs(userId: userId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,7 +121,6 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
                 followButton.leftAnchor.constraint(equalTo: view.leftAnchor)
             ])
         }
-        sender.getVlogs()
     }
     
     func didRetrieveVlogs(_ sender: ProfileViewControllerService) {
