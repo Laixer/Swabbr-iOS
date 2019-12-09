@@ -12,7 +12,8 @@ class ProfileCollectionOverviewControllerService {
     
     private let vlogUseCase = VlogUseCase()
     private let userUseCase = UserUseCase()
-    private let userFollowRequestUseCase = UserFollowerUseCase()
+    private let userFollowerUseCase = UserFollowerUseCase()
+    private let userFollowingUseCase = UserFollowingUseCase()
     
     public private(set) var vlogs: [VlogItem]! = [] {
         didSet {
@@ -43,15 +44,19 @@ class ProfileCollectionOverviewControllerService {
      - parameter userId: An user id.
     */
     func getFollowers(userId: String) {
-        userFollowRequestUseCase.get(refresh: false, completionHandler: { (userModels) in
+        userFollowerUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (userModels) in
             self.users = userModels.compactMap({ (userModel) -> UserItem in
                 UserItem.mapToPresentation(model: userModel)
             })
         })
     }
     
-    func getFollowing(userId: Int) {
-        // get following
+    func getFollowing(userId: String) {
+        userFollowingUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (userModels) in
+            self.users = userModels.compactMap({ (userModel) -> UserItem in
+                UserItem.mapToPresentation(model: userModel)
+            })
+        })
     }
     
 }

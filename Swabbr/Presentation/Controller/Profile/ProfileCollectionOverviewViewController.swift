@@ -43,6 +43,8 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(followingOwnerId: String) {
         type = DataType.following
         super.init(nibName: nil, bundle: nil)
+        controllerService.delegate = self
+        controllerService.getFollowing(userId: followingOwnerId)
     }
     
     /**
