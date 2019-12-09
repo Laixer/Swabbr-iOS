@@ -55,6 +55,7 @@
 		C2AEAB95239A8649006B19A4 /* RepositoryAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB94239A8649006B19A4 /* RepositoryAllProtocol.swift */; };
 		C2AEAB97239A9267006B19A4 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB96239A9267006B19A4 /* RepositoryFactory.swift */; };
 		C2AEAB99239A9315006B19A4 /* DataSourceAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB98239A9315006B19A4 /* DataSourceAllProtocol.swift */; };
+		C2AEAB9B239A93E4006B19A4 /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -204,6 +205,7 @@
 		C2AEAB94239A8649006B19A4 /* RepositoryAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAllProtocol.swift; sourceTree = "<group>"; };
 		C2AEAB96239A9267006B19A4 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		C2AEAB98239A9315006B19A4 /* DataSourceAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceAllProtocol.swift; sourceTree = "<group>"; };
+		C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -436,6 +438,7 @@
 		C29FA42B237EA80900C22F67 /* Datasource */ = {
 			isa = PBXGroup;
 			children = (
+				C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */,
 				C29FA429237EA74800C22F67 /* DataSourceProtocol.swift */,
 				C2AEAB98239A9315006B19A4 /* DataSourceAllProtocol.swift */,
 				C29FA47723952E5700C22F67 /* DataSourceSingleMultipleProtocol.swift */,
@@ -1000,6 +1003,7 @@
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
 				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
 				C29FA4582385784300C22F67 /* UserFollowRequestRepository.swift in Sources */,
+				C2AEAB9B239A93E4006B19A4 /* DataSourceFactory.swift in Sources */,
 				C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */,
 				C29FA45623855F8C00C22F67 /* UserFollowRequestNetwork.swift in Sources */,
 				C29FA47423952D7800C22F67 /* RepositorySingleMultipleProtocol.swift in Sources */,
