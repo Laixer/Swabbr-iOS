@@ -52,10 +52,16 @@
 		C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */; };
 		C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */; };
 		C2AEAB772397B2F7006B19A4 /* VlogReactionCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB762397B2F7006B19A4 /* VlogReactionCacheHandler.swift */; };
+		C2AEAB8B23991CFC006B19A4 /* UserFollowersNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB8A23991CFC006B19A4 /* UserFollowersNetwork.swift */; };
+		C2AEAB8F23993A16006B19A4 /* UserFollowerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB8E23993A16006B19A4 /* UserFollowerUseCase.swift */; };
+		C2AEAB9123993AAE006B19A4 /* UserFollowerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9023993AAE006B19A4 /* UserFollowerRepository.swift */; };
+		C2AEAB932399491C006B19A4 /* UserFollowingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB922399491C006B19A4 /* UserFollowingRepository.swift */; };
 		C2AEAB95239A8649006B19A4 /* RepositoryAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB94239A8649006B19A4 /* RepositoryAllProtocol.swift */; };
 		C2AEAB97239A9267006B19A4 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB96239A9267006B19A4 /* RepositoryFactory.swift */; };
 		C2AEAB99239A9315006B19A4 /* DataSourceAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB98239A9315006B19A4 /* DataSourceAllProtocol.swift */; };
 		C2AEAB9B239A93E4006B19A4 /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */; };
+		C2AEAB9D239E5A72006B19A4 /* UserFollowingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9C239E5A72006B19A4 /* UserFollowingUseCase.swift */; };
+		C2AEAB9F239E5BC5006B19A4 /* UserFollowingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9E239E5BC5006B19A4 /* UserFollowingNetwork.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
 		C2B1812B235DBFF1001D6F0B /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */; };
 		C2B18133235DFD78001D6F0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18132235DFD78001D6F0B /* NotificationService.swift */; };
@@ -202,10 +208,16 @@
 		C29FA4822395709000C22F67 /* CacheDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataSourceProtocol.swift; sourceTree = "<group>"; };
 		C2AEAB742397B298006B19A4 /* VlogCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogCacheHandler.swift; sourceTree = "<group>"; };
 		C2AEAB762397B2F7006B19A4 /* VlogReactionCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionCacheHandler.swift; sourceTree = "<group>"; };
+		C2AEAB8A23991CFC006B19A4 /* UserFollowersNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowersNetwork.swift; sourceTree = "<group>"; };
+		C2AEAB8E23993A16006B19A4 /* UserFollowerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowerUseCase.swift; sourceTree = "<group>"; };
+		C2AEAB9023993AAE006B19A4 /* UserFollowerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowerRepository.swift; sourceTree = "<group>"; };
+		C2AEAB922399491C006B19A4 /* UserFollowingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowingRepository.swift; sourceTree = "<group>"; };
 		C2AEAB94239A8649006B19A4 /* RepositoryAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAllProtocol.swift; sourceTree = "<group>"; };
 		C2AEAB96239A9267006B19A4 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		C2AEAB98239A9315006B19A4 /* DataSourceAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceAllProtocol.swift; sourceTree = "<group>"; };
 		C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
+		C2AEAB9C239E5A72006B19A4 /* UserFollowingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowingUseCase.swift; sourceTree = "<group>"; };
+		C2AEAB9E239E5BC5006B19A4 /* UserFollowingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowingNetwork.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		C2B1812A235DBFF1001D6F0B /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		C2B18130235DFD77001D6F0B /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,6 +397,8 @@
 				C29FA41C237DAEA900C22F67 /* VlogUseCase.swift */,
 				C29FA4432382D60600C22F67 /* VlogReactionUseCase.swift */,
 				C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */,
+				C2AEAB8E23993A16006B19A4 /* UserFollowerUseCase.swift */,
+				C2AEAB9C239E5A72006B19A4 /* UserFollowingUseCase.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -418,6 +432,8 @@
 				C29FA422237DAF3C00C22F67 /* VlogRepository.swift */,
 				C29FA43B2382AA8C00C22F67 /* VlogReactionRepository.swift */,
 				C29FA4572385784300C22F67 /* UserFollowRequestRepository.swift */,
+				C2AEAB9023993AAE006B19A4 /* UserFollowerRepository.swift */,
+				C2AEAB922399491C006B19A4 /* UserFollowingRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -431,6 +447,8 @@
 				C29FA430237ED0EC00C22F67 /* VlogNetwork.swift */,
 				C29FA43D2382AAE800C22F67 /* VlogReactionNetwork.swift */,
 				C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */,
+				C2AEAB8A23991CFC006B19A4 /* UserFollowersNetwork.swift */,
+				C2AEAB9E239E5BC5006B19A4 /* UserFollowingNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -964,11 +982,13 @@
 				C29FA413237D77B100C22F67 /* UserModel.swift in Sources */,
 				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C29FA4422382D30B00C22F67 /* VlogPageViewControllerService.swift in Sources */,
+				C2AEAB9D239E5A72006B19A4 /* UserFollowingUseCase.swift in Sources */,
 				C29FA431237ED0EC00C22F67 /* VlogNetwork.swift in Sources */,
 				C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */,
 				C29FA47823952E5700C22F67 /* DataSourceSingleMultipleProtocol.swift in Sources */,
 				C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */,
 				C2E776E4234217E30071B828 /* ReactionViewController.swift in Sources */,
+				C2AEAB8B23991CFC006B19A4 /* UserFollowersNetwork.swift in Sources */,
 				C29FA45A2385791D00C22F67 /* UserFollowRequestModel.swift in Sources */,
 				C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */,
 				C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */,
@@ -999,7 +1019,9 @@
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
+				C2AEAB9123993AAE006B19A4 /* UserFollowerRepository.swift in Sources */,
 				C29FA403237D549A00C22F67 /* ProfileViewControllerService.swift in Sources */,
+				C2AEAB932399491C006B19A4 /* UserFollowingRepository.swift in Sources */,
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
 				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
 				C29FA4582385784300C22F67 /* UserFollowRequestRepository.swift in Sources */,
@@ -1017,7 +1039,9 @@
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 				C29FA44A2382DD5200C22F67 /* UserVlogReactionItem.swift in Sources */,
+				C2AEAB8F23993A16006B19A4 /* UserFollowerUseCase.swift in Sources */,
 				C29FA419237DAE4500C22F67 /* TimelineViewControllerService.swift in Sources */,
+				C2AEAB9F239E5BC5006B19A4 /* UserFollowingNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
