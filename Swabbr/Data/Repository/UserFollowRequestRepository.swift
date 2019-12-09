@@ -6,15 +6,21 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserFollowRequestRepository: RepositoryMultipleProtocol {
+class UserFollowRequestRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
     typealias Model = UserFollowRequestModel
     
-    static let shared = UserFollowRequestRepository()
+    private let network: DataSourceFactory<UserFollowRequest>
     
-    private let network = UserFollowRequestNetwork.shared
+    init(network: DataSourceFactory<UserFollowRequest> = DataSourceFactory(UserFollowRequestNetwork.shared)) {
+        self.network = network
+    }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        network.get(id: id, multiple: { (userFollowRequests) in
+    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+        network.getSingleMultiple(id: id, completionHandler: { (userFollowRequests) in
+            guard let userFollowRequests = userFollowRequests else {
+                completionHandler([])
+                return
+            }
             completionHandler(
                 userFollowRequests.map({ (userFollowRequest) -> Model in
                     userFollowRequest.mapToBusiness()
@@ -23,10 +29,10 @@ class UserFollowRequestRepository: RepositoryMultipleProtocol {
         })
     }
     
-    func get(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        network.get(completionHandler: { (userFollowRequests) -> Void in
+    func getAll(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+        network.getAll(completionHandler: { (userFollowRequests) -> Void in
             completionHandler(
-                userFollowRequests.map({ (userFollowRequest) -> Model in
+                userFollowRequests!.map({ (userFollowRequest) -> Model in
                     userFollowRequest.mapToBusiness()
                 })
             )

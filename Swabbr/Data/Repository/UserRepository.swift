@@ -1,5 +1,5 @@
 //
-//  Repository.swift
+//  UserRepository.swift
 //  Swabbr
 //
 //  Created by James Bal on 14-11-19.
@@ -8,17 +8,20 @@
 
 import Foundation
 
-class UserRepository: RepositorySearchTermProtocol {
+class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
     typealias Model = UserModel
     
-    static let shared = UserRepository()
+    private let network: DataSourceFactory<User>
+    private let cache: DataSourceFactory<User>
     
-    private let network = UserNetwork.shared
-    private let cache = UserCacheHandler.shared
+    init(network: DataSourceFactory<User> = DataSourceFactory(UserNetwork.shared), cache: DataSourceFactory<User> = DataSourceFactory(UserCacheHandler.shared)) {
+        self.network = network
+        self.cache = cache
+    }
     
-    func get(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+    func getAll(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
         if refresh {
-            network.get(completionHandler: { (users) -> Void in
+            network.getAll(completionHandler: { (users) -> Void in
                 guard let users = users else {
                     completionHandler([])
                     return
@@ -30,9 +33,9 @@ class UserRepository: RepositorySearchTermProtocol {
                 )
             })
         } else {
-            cache.get { (users) in
+            cache.getAll { (users) in
                 guard let users = users else {
-                    self.get(refresh: !refresh, completionHandler: completionHandler)
+                    self.getAll(refresh: !refresh, completionHandler: completionHandler)
                     return
                 }
                 completionHandler(
@@ -60,18 +63,18 @@ class UserRepository: RepositorySearchTermProtocol {
         }
     }
     
-    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
-        network.get(term: term, completionHandler: { (users) -> Void in
-            guard let users = users else {
-                completionHandler([])
-                return
-            }
-            completionHandler(
-                users.map({ (user) -> Model in
-                    user.mapToBusiness()
-                })
-            )
-        })
-    }
+//    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+//        network.get(term: term, completionHandler: { (users) -> Void in
+//            guard let users = users else {
+//                completionHandler([])
+//                return
+//            }
+//            completionHandler(
+//                users.map({ (user) -> Model in
+//                    user.mapToBusiness()
+//                })
+//            )
+//        })
+//    }
     
 }

@@ -8,17 +8,21 @@
 
 import Foundation
 
-class VlogRepository: RepositoryMultipleProtocol {
+class VlogRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+    
     typealias Model = VlogModel
     
-    static let shared = VlogRepository()
+    private let network: DataSourceFactory<Vlog>
+    private let cache: DataSourceFactory<Vlog>
     
-    private let network = VlogNetwork.shared
-    private let cache = VlogCacheHandler.shared
+    init(network: DataSourceFactory<Vlog> = DataSourceFactory(VlogNetwork.shared), cache: DataSourceFactory<Vlog> = DataSourceFactory(VlogCacheHandler.shared)) {
+        self.network = network
+        self.cache = cache
+    }
     
-    func get(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+    func getAll(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         if refresh {
-            network.get(completionHandler: { (vlogs) -> Void in
+            network.getAll(completionHandler: { (vlogs) -> Void in
                 guard let vlogs = vlogs else {
                     completionHandler([])
                     return
@@ -30,9 +34,9 @@ class VlogRepository: RepositoryMultipleProtocol {
                 )
             })
         } else {
-            cache.get { (vlogs) in
+            cache.getAll { (vlogs) in
                 guard let vlogs = vlogs else {
-                    self.get(refresh: !refresh, completionHandler: completionHandler)
+                    self.getAll(refresh: !refresh, completionHandler: completionHandler)
                     return
                 }
                 completionHandler(
@@ -60,8 +64,8 @@ class VlogRepository: RepositoryMultipleProtocol {
         }
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogModel]) -> Void) {
-        network.get(id: id, multiple: { (vlogs) -> Void in
+    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+        network.getSingleMultiple(id: id, completionHandler: { (vlogs) -> Void in
             guard let vlogs = vlogs else {
                 completionHandler([])
                 return

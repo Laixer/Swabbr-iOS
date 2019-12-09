@@ -8,18 +8,21 @@
 
 import Foundation
 
-class VlogReactionRepository: RepositoryMultipleProtocol {
+class VlogReactionRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
     
     typealias Model = VlogReactionModel
     
-    static let shared = VlogReactionRepository()
+    private let network: DataSourceFactory<VlogReaction>
+    private let cache: DataSourceFactory<VlogReaction>
     
-    private let network = VlogReactionNetwork.shared
-    private let cache = VlogReactionCacheHandler.shared
+    init(network: DataSourceFactory<VlogReaction> = DataSourceFactory(VlogReactionNetwork.shared), cache: DataSourceFactory<VlogReaction> = DataSourceFactory(VlogReactionCacheHandler.shared)) {
+        self.network = network
+        self.cache = cache
+    }
     
-    func get(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+    func getAll(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
         if refresh {
-            network.get(completionHandler: { (vlogReactions) -> Void in
+            network.getAll(completionHandler: { (vlogReactions) -> Void in
                 guard let vlogReactions = vlogReactions else {
                     completionHandler([])
                     return
@@ -31,9 +34,9 @@ class VlogReactionRepository: RepositoryMultipleProtocol {
                 )
             })
         } else {
-            cache.get { (vlogReactions) in
+            cache.getAll { (vlogReactions) in
                 guard let vlogReactions = vlogReactions else {
-                    self.get(refresh: !refresh, completionHandler: completionHandler)
+                    self.getAll(refresh: !refresh, completionHandler: completionHandler)
                     return
                 }
                 completionHandler(
@@ -61,8 +64,8 @@ class VlogReactionRepository: RepositoryMultipleProtocol {
         }
     }
     
-    func get(id: Int, refresh: Bool, multiple completionHandler: @escaping ([VlogReactionModel]) -> Void) {
-        network.get(id: id, multiple: { (vlogReactions) -> Void in
+    func getSingleMultiple(id: Int, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+        network.getSingleMultiple(id: id, completionHandler: { (vlogReactions) -> Void in
             guard let vlogReactions = vlogReactions else {
                 completionHandler([])
                 return
