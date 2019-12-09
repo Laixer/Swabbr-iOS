@@ -21,7 +21,7 @@ class VlogReactionCacheHandler: CacheDataSourceProtocol {
         try? cache.set(value: [] as! [Entity])
     }
     
-    func get(completionHandler: @escaping ([VlogReaction]?) -> Void) {
+    func getAll(completionHandler: @escaping ([VlogReaction]?) -> Void) {
         completionHandler(try cache.get())
     }
     

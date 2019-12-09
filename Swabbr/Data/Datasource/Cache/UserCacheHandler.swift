@@ -21,7 +21,7 @@ class UserCacheHandler: CacheDataSourceProtocol {
         try? cache.set(value: [] as! [Entity])
     }
     
-    func get(completionHandler: @escaping ([User]?) -> Void) {
+    func getAll(completionHandler: @escaping ([User]?) -> Void) {
         completionHandler(try cache.get())
     }
     

@@ -21,7 +21,7 @@ class VlogCacheHandler: CacheDataSourceProtocol {
         try? cache.set(value: [] as! [Entity])
     }
     
-    func get(completionHandler: @escaping ([Vlog]?) -> Void) {
+    func getAll(completionHandler: @escaping ([Vlog]?) -> Void) {
         completionHandler(try cache.get())
     }
     

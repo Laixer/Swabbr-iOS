@@ -8,7 +8,7 @@
 
 import CodableCache
 
-protocol CacheDataSourceProtocol: DataSourceProtocol {
+protocol CacheDataSourceProtocol: DataSourceAllProtocol {
     func set(object: Entity?)
     func set(objects: [Entity]?)
 }
