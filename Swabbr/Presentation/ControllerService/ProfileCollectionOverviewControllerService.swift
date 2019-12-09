@@ -10,9 +10,9 @@ class ProfileCollectionOverviewControllerService {
     
     weak var delegate: ProfileCollectionOverviewControllerServiceDelegate?
     
-    private let userFollowRequestUseCase = UserFollowRequestUseCase.shared
     private let vlogUseCase = VlogUseCase()
     private let userUseCase = UserUseCase()
+    private let userFollowRequestUseCase = UserFollowerUseCase()
     
     public private(set) var vlogs: [VlogItem]! = [] {
         didSet {
@@ -31,7 +31,7 @@ class ProfileCollectionOverviewControllerService {
      - parameter userId: An user id.
     */
     func getVlogs(userId: Int) {
-        vlogUseCase.get(id: userId, refresh: true, multiple: { (vlogModels) in
+        vlogUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (vlogModels) in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
@@ -43,18 +43,9 @@ class ProfileCollectionOverviewControllerService {
      - parameter userId: An user id.
     */
     func getFollowers(userId: Int) {
-        let dispatchGroup = DispatchGroup()
-        userFollowRequestUseCase.get(id: userId, refresh: false, multiple: { (userFollowRequestModels) in
-            var followers: [UserItem] = []
-            for userFollowRequestModel in userFollowRequestModels {
-                dispatchGroup.enter()
-                self.userUseCase.get(id: userFollowRequestModel.receiverId, refresh: false, completionHandler: { (userModel) in
-                    followers.append(UserItem.mapToPresentation(model: userModel!))
-                    dispatchGroup.leave()
-                })
-            }
-            dispatchGroup.notify(queue: .main, execute: {
-                self.users = followers
+        userFollowRequestUseCase.get(refresh: false, completionHandler: { (userModels) in
+            self.users = userModels.compactMap({ (userModel) -> UserItem in
+                UserItem.mapToPresentation(model: userModel)
             })
         })
     }

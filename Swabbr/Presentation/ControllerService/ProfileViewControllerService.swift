@@ -39,7 +39,7 @@ class ProfileViewControllerService {
      Get vlogs from a specific user. Runs a callback when ready.
     */
     func getVlogs() {
-        vlogUseCase.get(id: user.id, refresh: false, multiple: { (vlogModels) -> Void in
+        vlogUseCase.getSingleMultiple(id: user.id, refresh: false, completionHandler: { (vlogModels) -> Void in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
@@ -51,4 +51,5 @@ class ProfileViewControllerService {
 protocol ProfileViewControllerServiceDelegate: class {
     func didRetrieveUser(_ sender: ProfileViewControllerService)
     func didRetrieveVlogs(_ sender: ProfileViewControllerService)
+    func setFollowStatus(_ followStatus: String)
 }
