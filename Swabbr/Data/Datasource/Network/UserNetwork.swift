@@ -6,14 +6,12 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserNetwork: NetworkProtocol, DataSourceSearchTermProtocol {
-    typealias Entity = User
-    
+class UserNetwork: NetworkProtocol, DataSourceAllProtocol, DataSourceSearchTermProtocol {
     static let shared = UserNetwork()
     
     var endPoint: String = "users"
 
-    func get(completionHandler: @escaping ([User]?) -> Void) {
+    func getAll(completionHandler: @escaping ([User]?) -> Void) {
         load(buildUrl()) { (users) in
             UserCacheHandler.shared.set(objects: users)
             completionHandler(users)

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
+class UserFollowRequestNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSourceAllProtocol {
     
     typealias Entity = UserFollowRequest
     
@@ -14,7 +14,7 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
     
     var endPoint: String = "followRequests"
     
-    func get(completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
+    func getAll(completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
         load(buildUrl()) { (userFollowRequests) in
             completionHandler(userFollowRequests)
         }
@@ -27,8 +27,8 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceMultipleProtocol {
         }
     }
     
-    func get(id: Int, multiple completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
-        let queryItems = [URLQueryItem(name: "requesterId", value: String(id))]
+    func getSingleMultiple(id: Int, completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
+        let queryItems = [URLQueryItem(name: "userId", value: String(id))]
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
             completionHandler(userFollowRequests)
         }
