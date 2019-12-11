@@ -13,7 +13,7 @@ struct UserModel {
     var id: String
     var firstName: String
     var lastName: String
-    var gender: Gender
+    var gender: Int
     var country: String
     var email: String
     var birthdate: Date

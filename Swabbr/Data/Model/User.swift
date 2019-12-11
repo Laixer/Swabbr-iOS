@@ -12,7 +12,7 @@ struct User {
     var id: String
     var firstName: String
     var lastName: String
-    var gender: Gender
+    var gender: Int
     var country: String
     var email: String
     var birthdate: String
@@ -64,7 +64,7 @@ extension User: Codable {
         id = try container.decode(String.self, forKey: .id)
         firstName = try container.decode(String.self, forKey: .firstName)
         lastName = try container.decode(String.self, forKey: .lastName)
-        gender = try container.decode(Gender.self, forKey: .gender)
+        gender = try container.decode(Int.self, forKey: .gender)
         country = try container.decode(String.self, forKey: .country)
         email = try container.decode(String.self, forKey: .email)
 
@@ -106,10 +106,4 @@ extension User: Codable {
         
     }
 
-}
-
-public enum Gender: String, Codable {
-    case male = "M"
-    case female = "F"
-    case unspecified = "O"
 }
