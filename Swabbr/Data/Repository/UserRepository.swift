@@ -9,6 +9,7 @@
 import Foundation
 
 class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
+    
     typealias Model = UserModel
     
     private let network: DataSourceFactory<User>

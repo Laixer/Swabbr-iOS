@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VlogRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+class VlogRepository: VlogRepositoryProtocol {
     
     typealias Model = VlogModel
     
@@ -76,5 +76,13 @@ class VlogRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
                 })
             )
         })
+    }
+    
+    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+        network.createLike(id: id, completionHandler: completionHandler)
+    }
+    
+    func createVlog(completionHandler: @escaping (Int) -> Void) {
+        network.createVlog(completionHandler: completionHandler)
     }
 }

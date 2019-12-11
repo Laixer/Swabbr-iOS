@@ -5,7 +5,7 @@
 //  Created by James Bal on 15-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-class VlogNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSourceAllProtocol {
+class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
     
     typealias Entity = Vlog
     
@@ -31,6 +31,16 @@ class VlogNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSource
         load(buildUrl(queryItems: queryItems)) { (vlogs) in
             completionHandler(vlogs)
         }
+    }
+    
+    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+        post(buildUrl(), withCompletion: { (responseCode) in
+            completionHandler(responseCode)
+        })
+    }
+    
+    func createVlog(completionHandler: @escaping (Int) -> Void) {
+        completionHandler(200)
     }
 }
 

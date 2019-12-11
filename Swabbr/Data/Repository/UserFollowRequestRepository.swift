@@ -6,7 +6,8 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserFollowRequestRepository: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+class UserFollowRequestRepository: FollowRequestRepositoryProtocol {
+    
     typealias Model = UserFollowRequestModel
     
     private let network: DataSourceFactory<UserFollowRequest>
@@ -43,5 +44,21 @@ class UserFollowRequestRepository: RepositorySingleMultipleProtocol, RepositoryA
         network.get(id: id, completionHandler: { (userFollowRequest) -> Void in
             completionHandler(userFollowRequest?.mapToBusiness())
         })
+    }
+    
+    func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+        network.createFollowRequest(id: userId, completionHandler: completionHandler)
+    }
+    
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+        network.destroyFollowRequest(id: userId, completionHandler: completionHandler)
+    }
+    
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+        network.acceptFollowRequest(id: userId, completionHandler: completionHandler)
+    }
+    
+    func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+        network.declineFollowRequest(id: userId, completionHandler: completionHandler)
     }
 }

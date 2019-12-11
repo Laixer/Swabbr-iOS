@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-class UserFollowRequestNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSourceAllProtocol {
+class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol {
     
     typealias Entity = UserFollowRequest
     
@@ -32,6 +32,30 @@ class UserFollowRequestNetwork: NetworkProtocol, DataSourceSingleMultipleProtoco
         load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
             completionHandler(userFollowRequests)
         }
+    }
+    
+    func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+        post(buildUrl(), withCompletion: { (responseCode) in
+            completionHandler(responseCode)
+        })
+    }
+    
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+        post(buildUrl(), withCompletion: { (responseCode) in
+            completionHandler(responseCode)
+        })
+    }
+    
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+        post(buildUrl(), withCompletion: { (responseCode) in
+            completionHandler(responseCode)
+        })
+    }
+    
+    func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+        post(buildUrl(), withCompletion: { (responseCode) in
+            completionHandler(responseCode)
+        })
     }
     
 }

@@ -6,11 +6,13 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
+
 protocol NetworkProtocol: DataSourceProtocol {
     var endPoint: String {get}
 }
 
 extension NetworkProtocol {
+    
     /**
      It handles the network transfer,
      it will make a call to the given url and it will handle the data accordingly and send it out to the callback function.
@@ -30,6 +32,16 @@ extension NetworkProtocol {
         task.resume()
     }
     
+    internal func post(_ url: URL, withCompletion completion: @escaping (Int) -> Void) {
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+        var httpRequest = URLRequest(url: url)
+        httpRequest.httpMethod = "POST"
+        let task = session.dataTask(with: httpRequest, completionHandler: {(data, response, error) -> Void in
+            completion(200)
+        })
+        task.resume()
+    }
+    
     /**
      It decodes the data from the server to the set modeltype.
      This methode accepts a data value representing the bytes of the data.
@@ -37,7 +49,14 @@ extension NetworkProtocol {
      - Returns: An array of objects according to the given modeltype.
      */
     private func decode(_ data: Data) -> [Entity]? {
-        let wrapper = try? JSONDecoder().decode([Entity].self, from: data)
+        var wrapper = try? JSONDecoder().decode([Entity].self, from: data)
+        if wrapper == nil {
+            let temp = try? JSONDecoder().decode(Entity.self, from: data)
+            guard temp != nil else {
+                return nil
+            }
+            wrapper = [temp!]
+        }
         return wrapper
     }
     
