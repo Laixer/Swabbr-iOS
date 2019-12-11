@@ -154,6 +154,10 @@ extension VlogPageViewController: BaseViewProtocol {
         containerView.isUserInteractionEnabled = true
         containerView.addGestureRecognizer(singleVideoTap)
         
+        let loveItTap = UITapGestureRecognizer(target: self, action: #selector(tappedVideoToLoveIt))
+        loveItTap.numberOfTapsRequired = 2
+        containerView.addGestureRecognizer(loveItTap)
+        
         isLiveLabel.text = "Live"
         isLiveLabel.backgroundColor = UIColor.red
         
@@ -277,5 +281,17 @@ extension VlogPageViewController {
         }
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         scrollView.isScrollEnabled = false
+    }
+    
+    @objc private func tappedVideoToLoveIt() {
+        controllerService.giveLoveIt(for: vlogId) { (error) in
+            guard error == nil else {
+                let alert = UIAlertController(title: "Error", message: error!, preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            print("Liked")
+        }
     }
 }

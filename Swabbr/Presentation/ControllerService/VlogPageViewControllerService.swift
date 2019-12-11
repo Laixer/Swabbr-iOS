@@ -31,6 +31,20 @@ class VlogPageViewControllerService {
         })
     }
     
+    /**
+     Give a vlog a like (love it).
+     - parameter vlogId: A vlog id.
+    */
+    func giveLoveIt(for vlogId: String, completionHandler: @escaping (String?) -> Void) {
+        vlogUseCase.createLike(id: vlogId) { (code) in
+            guard code == 200 else {
+                completionHandler("Error message")
+                return
+            }
+            print("Liked")
+        }
+    }
+    
 }
 
 protocol VlogPageViewControllerServiceDelegate: class {

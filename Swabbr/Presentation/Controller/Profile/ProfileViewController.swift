@@ -35,6 +35,7 @@ class ProfileViewController : UIViewController {
         controllerService.delegate = self
         controllerService.getUser(userId: userId)
         controllerService.getVlogs(userId: userId)
+        controllerService.getFollowStatus(userId: userId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,14 +49,32 @@ class ProfileViewController : UIViewController {
         initElements()
         applyConstraints()
         
+    @objc private func refresh() {
+        controllerService.getUser(userId: userId)
+        controllerService.getVlogs(userId: userId)
+        controllerService.getFollowStatus(userId: userId)
     }
     
+    /**
+     Show the collectionviewcontroller with the given user id for followers
+     */
     @objc private func showFollowers() {
         navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: controllerService.user.id), animated: true)
     }
     
+    /**
+     Show the collectionviewcontroller with the given user id for the following users
+    */
     @objc private func showFollowing() {
-//        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: user.id), animated: true)
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: controllerService.user.id), animated: true)
+    }
+    
+    /**
+     Perform the correct action when button is pressed on the follow button.
+     The use case can differ dependent on the follow state.
+    */
+    @objc private func clickedFollowButton() {
+        
     }
     
     /**
@@ -100,6 +119,14 @@ class ProfileViewController : UIViewController {
 
 // MARK: ProfileViewControllerServiceDelegate
 extension ProfileViewController: ProfileViewControllerServiceDelegate {
+    func setFollowStatus(_ followStatus: String) {
+        switch followStatus {
+        case "accepted": followButton.setTitle("Unfollow", for: .normal)
+        case "declined": followButton.setTitle("Rejected", for: .normal)
+        default: followButton.setTitle("Follow", for: .normal)
+        }
+    }
+    
     func didRetrieveUser(_ sender: ProfileViewControllerService) {
         usernameLabel.text = sender.user.username
         countVlogsLabel.text = String.init(format: "Vlog total: %d", sender.user.totalVlogs)
@@ -118,7 +145,8 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
             followButton.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 followButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
-                followButton.leftAnchor.constraint(equalTo: view.leftAnchor)
+                followButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+                followButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
             ])
         }
     }
@@ -141,9 +169,10 @@ extension ProfileViewController: BaseViewProtocol {
         updateProfileButton.tintColor = UIColor.white
         updateProfileButton.backgroundColor = UIColor.black
         
-        followButton.setTitle("Follow", for: .normal)
         followButton.tintColor = UIColor.white
         followButton.backgroundColor = UIColor.black
+        
+        followButton.addTarget(self, action: #selector(clickedFollowButton), for: .touchUpInside)
         
         let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
         countFollowersLabel.isUserInteractionEnabled = true

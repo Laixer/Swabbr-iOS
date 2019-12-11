@@ -70,6 +70,9 @@
 		C2AEAB9B239A93E4006B19A4 /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */; };
 		C2AEAB9D239E5A72006B19A4 /* UserFollowingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9C239E5A72006B19A4 /* UserFollowingUseCase.swift */; };
 		C2AEAB9F239E5BC5006B19A4 /* UserFollowingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEAB9E239E5BC5006B19A4 /* UserFollowingNetwork.swift */; };
+		C2AEABA7239FAB89006B19A4 /* UserSettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEABA6239FAB89006B19A4 /* UserSettingsItem.swift */; };
+		C2AEABA9239FAE9E006B19A4 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEABA8239FAE9E006B19A4 /* UserSettingsViewController.swift */; };
+		C2AEABAE239FCE01006B19A4 /* UserSettingsControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEABAD239FCE01006B19A4 /* UserSettingsControllerService.swift */; };
 		C2AEABB0239FCEAD006B19A4 /* UserSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEABAF239FCEAD006B19A4 /* UserSettingsUseCase.swift */; };
 		C2AEABB2239FCF49006B19A4 /* UserSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AEABB1239FCF49006B19A4 /* UserSettingsRepository.swift */; };
 		C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18126235DA7A1001D6F0B /* Payload.swift */; };
@@ -236,6 +239,9 @@
 		C2AEAB9A239A93E4006B19A4 /* DataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
 		C2AEAB9C239E5A72006B19A4 /* UserFollowingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowingUseCase.swift; sourceTree = "<group>"; };
 		C2AEAB9E239E5BC5006B19A4 /* UserFollowingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowingNetwork.swift; sourceTree = "<group>"; };
+		C2AEABA6239FAB89006B19A4 /* UserSettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsItem.swift; sourceTree = "<group>"; };
+		C2AEABA8239FAE9E006B19A4 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
+		C2AEABAD239FCE01006B19A4 /* UserSettingsControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsControllerService.swift; sourceTree = "<group>"; };
 		C2AEABAF239FCEAD006B19A4 /* UserSettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsUseCase.swift; sourceTree = "<group>"; };
 		C2AEABB1239FCF49006B19A4 /* UserSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRepository.swift; sourceTree = "<group>"; };
 		C2B18126235DA7A1001D6F0B /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
@@ -395,6 +401,7 @@
 				C29FA451238547AF00C22F67 /* ReactionViewControllerService.swift */,
 				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
 				C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */,
+				C2AEABAD239FCE01006B19A4 /* UserSettingsControllerService.swift */,
 			);
 			path = ControllerService;
 			sourceTree = "<group>";
@@ -406,6 +413,7 @@
 				C29FA414237DACD600C22F67 /* VlogItem.swift */,
 				C29FA439237EED7B00C22F67 /* VlogUserItem.swift */,
 				C29FA4492382DD5200C22F67 /* UserVlogReactionItem.swift */,
+				C2AEABA6239FAB89006B19A4 /* UserSettingsItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -510,6 +518,7 @@
 				C2128D352370744F00E56BAC /* VlogReactionViewController.swift */,
 				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,
 				C29FA47B23952F7000C22F67 /* SearchViewController.swift */,
+				C2AEABA8239FAE9E006B19A4 /* UserSettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1007,6 +1016,7 @@
 				C29FA43A237EED7B00C22F67 /* VlogUserItem.swift in Sources */,
 				C29FA452238547AF00C22F67 /* ReactionViewControllerService.swift in Sources */,
 				C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */,
+				C2AEABA7239FAB89006B19A4 /* UserSettingsItem.swift in Sources */,
 				C2AEAB772397B2F7006B19A4 /* VlogReactionCacheHandler.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
 				C29FA413237D77B100C22F67 /* UserModel.swift in Sources */,
@@ -1028,6 +1038,7 @@
 				C2AEAB97239A9267006B19A4 /* RepositoryFactory.swift in Sources */,
 				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
 				C29FA407237D552000C22F67 /* UserUseCase.swift in Sources */,
+				C2AEABA9239FAE9E006B19A4 /* UserSettingsViewController.swift in Sources */,
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
@@ -1037,6 +1048,7 @@
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
 				C29FA423237DAF3C00C22F67 /* VlogRepository.swift in Sources */,
+				C2AEABAE239FCE01006B19A4 /* UserSettingsControllerService.swift in Sources */,
 				C29FA47C23952F7000C22F67 /* SearchViewController.swift in Sources */,
 				C29FA42F237EBA5600C22F67 /* NetworkProtocol.swift in Sources */,
 				C29FA41F237DAECE00C22F67 /* VlogModel.swift in Sources */,
