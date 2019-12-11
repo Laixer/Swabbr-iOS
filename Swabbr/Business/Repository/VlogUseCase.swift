@@ -25,4 +25,12 @@ class VlogUseCase {
     func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
+    
+    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+        repository.createLike(id: id, completionHandler: completionHandler)
+    }
+    
+    func createVlog(completionHandler: @escaping (Int) -> Void) {
+        repository.createVlog(completionHandler: completionHandler)
+    }
 }

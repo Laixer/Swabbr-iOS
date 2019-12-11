@@ -7,6 +7,7 @@
 //
 
 protocol RepositoryProtocol {
+    typealias SetHandler = (Int) -> Void
     associatedtype Model
     
     /**
@@ -16,4 +17,23 @@ protocol RepositoryProtocol {
      - parameter completionHandler: A callback returning the model or nil.
      */
     func get(id: String, refresh: Bool, completionHandler: @escaping (Model?) -> Void)
+}
+
+// MARK: VlogRepositoryProtocol
+protocol VlogRepositoryProtocol: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+    func createLike(id: String, completionHandler: @escaping SetHandler)
+    func createVlog(completionHandler: @escaping SetHandler)
+}
+
+// MARK: FollowRepositoryProtocol
+protocol FollowRequestRepositoryProtocol: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+    func createFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
+    func declineFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
+}
+
+// MARK: UserSettingsRepositoryProtocol
+protocol UserSettingsRepositoryProtocol: RepositoryProtocol {
+    func updateUserSettings(userSettings: Model, completionHandler: @escaping SetHandler)
 }
