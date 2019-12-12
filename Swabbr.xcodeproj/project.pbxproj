@@ -97,7 +97,7 @@
 		C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */; };
 		C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21FB23321A6600BF772D /* TimelineViewController.swift */; };
 		C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AA23325A1E0071B828 /* LoginViewController.swift */; };
-		C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AC23325A580071B828 /* RegisterViewController.swift */; };
+		C2E776AD23325A580071B828 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AC23325A580071B828 /* RegistrationViewController.swift */; };
 		C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776AE23325AB90071B828 /* ProfileViewController.swift */; };
 		C2E776B223325B160071B828 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776B123325B160071B828 /* User.swift */; };
 		C2E776C52333A4320071B828 /* Vlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E776C42333A4320071B828 /* Vlog.swift */; };
@@ -273,7 +273,7 @@
 		C2DE21F923311D3F00BF772D /* VlogStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogStreamViewController.swift; sourceTree = "<group>"; };
 		C2DE21FB23321A6600BF772D /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		C2E776AA23325A1E0071B828 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C2E776AC23325A580071B828 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C2E776AC23325A580071B828 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		C2E776AE23325AB90071B828 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C2E776B123325B160071B828 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C2E776C42333A4320071B828 /* Vlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vlog.swift; sourceTree = "<group>"; };
@@ -680,7 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E776AA23325A1E0071B828 /* LoginViewController.swift */,
-				C2E776AC23325A580071B828 /* RegisterViewController.swift */,
+				C2E776AC23325A580071B828 /* RegistrationViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -1007,7 +1007,7 @@
 				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C29FA45423855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift in Sources */,
 				C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */,
-				C2E776AD23325A580071B828 /* RegisterViewController.swift in Sources */,
+				C2E776AD23325A580071B828 /* RegistrationViewController.swift in Sources */,
 				C29FA415237DACD600C22F67 /* VlogItem.swift in Sources */,
 				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
