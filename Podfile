@@ -13,6 +13,8 @@ target 'Swabbr' do
 
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  
+  pod 'Eureka', '4.3.1'
 
 end
 

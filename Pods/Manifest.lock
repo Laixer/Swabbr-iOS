@@ -1,5 +1,6 @@
 PODS:
   - CodableCache (0.2.2)
+  - Eureka (4.3.1)
   - Firebase/Analytics (6.13.0):
     - Firebase/Core
   - Firebase/Auth (6.13.0):
@@ -81,6 +82,7 @@ PODS:
 
 DEPENDENCIES:
   - CodableCache (from `https://github.com/asowers1/CodableCache.git`, tag `0.2.3`)
+  - Eureka (= 4.3.1)
   - Firebase/Analytics
   - Firebase/Auth
   - NextLevel (= 0.14.0)
@@ -88,6 +90,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Eureka
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -117,6 +120,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CodableCache: 1005d92aea4c08a7bc149eee4639bd5c39f2094e
+  Eureka: 28ea296f06710f6745266b71f17862048941a32d
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
   FirebaseAuth: 7d0f84873926f6648bbd1391a318dfb1a26b5e4f
@@ -134,6 +138,6 @@ SPEC CHECKSUMS:
   NextLevel: 741b8367150591f0fde53d16c386218e3fd64d30
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 8b3ac51921dee995e817e4e1014dcfa355273ad5
+PODFILE CHECKSUM: 3e2d777f00269bb8ab1353cf26a0893a1964cf80
 
 COCOAPODS: 1.7.5
