@@ -22,10 +22,11 @@ class ReactionViewControllerService {
     /**
      Get reactions of certain vlog. Runs a callback when ready.
      - parameter vlogId: A vlog id.
+     - parameter refresh: A boolean when true will retrieve data from remote.
     */
-    func getReactions(vlogId: String) {
+    func getReactions(vlogId: String, refresh: Bool = false) {
         let dispatchGroup = DispatchGroup()
-        vlogReactionUseCase.getSingleMultiple(id: vlogId, refresh: false, completionHandler: { (vlogReactionModels) -> Void in
+        vlogReactionUseCase.getSingleMultiple(id: vlogId, refresh: refresh, completionHandler: { (vlogReactionModels) -> Void in
             var userVlogReactionRepositoryModels: [UserVlogReactionItem] = []
             for vlogReactionModel in vlogReactionModels {
                 dispatchGroup.enter()

@@ -30,9 +30,10 @@ class ProfileCollectionOverviewControllerService {
     /**
      Get vlogs of a certain user. Runs a callback when ready.
      - parameter userId: An user id.
+     - parameter refresh: A boolean when true will retrieve data from remote.
     */
-    func getVlogs(userId: String) {
-        vlogUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (vlogModels) in
+    func getVlogs(userId: String, refresh: Bool = false) {
+        vlogUseCase.getSingleMultiple(id: userId, refresh: refresh, completionHandler: { (vlogModels) in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })
@@ -42,17 +43,23 @@ class ProfileCollectionOverviewControllerService {
     /**
      Get followers of a certain user. Runs a callback when ready.
      - parameter userId: An user id.
+     - parameter refresh: A boolean when true will retrieve data from remote.
     */
-    func getFollowers(userId: String) {
-        userFollowerUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (userModels) in
+    func getFollowers(userId: String, refresh: Bool = false) {
+        userFollowerUseCase.getSingleMultiple(id: userId, refresh: refresh, completionHandler: { (userModels) in
             self.users = userModels.compactMap({ (userModel) -> UserItem in
                 UserItem.mapToPresentation(model: userModel)
             })
         })
     }
     
-    func getFollowing(userId: String) {
-        userFollowingUseCase.getSingleMultiple(id: userId, refresh: true, completionHandler: { (userModels) in
+    /**
+     Get the accounts the user is following. Runs a callback when ready.
+     - parameter userId: An user id.
+     - parameter refresh: A boolean when true will retrieve data from remote.
+    */
+    func getFollowing(userId: String, refresh: Bool = false) {
+        userFollowingUseCase.getSingleMultiple(id: userId, refresh: refresh, completionHandler: { (userModels) in
             self.users = userModels.compactMap({ (userModel) -> UserItem in
                 UserItem.mapToPresentation(model: userModel)
             })

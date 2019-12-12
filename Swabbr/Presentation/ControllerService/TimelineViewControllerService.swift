@@ -21,14 +21,15 @@ class TimelineViewControllerService {
     
     /**
      Retrieves vlogs from our VlogUseCase. Has a callback on completion for async processing.
+     - parameter refresh: A boolean, when true will retrieve data from remote.
      */
-    func getVlogs() {
-        vlogUseCase.get(refresh: true, completionHandler: { (vlogModels) -> Void in
+    func getVlogs(refresh: Bool = false) {
+        vlogUseCase.get(refresh: refresh, completionHandler: { (vlogModels) -> Void in
             let vlogUserGroup = DispatchGroup()
             var vlogUserItems: [VlogUserItem] = []
             for vlogModel in vlogModels {
                 vlogUserGroup.enter()
-                self.userUseCase.get(id: vlogModel.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
+                self.userUseCase.get(id: vlogModel.ownerId, refresh: refresh, completionHandler: { (userModel) -> Void in
                     vlogUserItems.append(VlogUserItem(vlogModel: vlogModel, userModel: userModel!))
                     vlogUserGroup.leave()
                 })
