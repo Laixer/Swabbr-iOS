@@ -91,6 +91,8 @@
 		C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */; };
 		C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */; };
 		C2C3C45C23A39252007F6814 /* RegistrationUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */; };
+		C2C3C45E23A395CD007F6814 /* RegistrationUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45D23A395CD007F6814 /* RegistrationUserItem.swift */; };
+		C2C3C46023A39681007F6814 /* LoginUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45F23A39681007F6814 /* LoginUserItem.swift */; };
 		C2C3C46223A396DD007F6814 /* RegistrationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C46123A396DD007F6814 /* RegistrationUser.swift */; };
 		C2C3C46423A39A43007F6814 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C46323A39A43007F6814 /* LoginUserModel.swift */; };
 		C2C3C46623A39A85007F6814 /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C46523A39A85007F6814 /* LoginUser.swift */; };
@@ -270,6 +272,8 @@
 		C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrationService.swift; sourceTree = "<group>"; };
 		C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFormatter+StringHandling.swift"; sourceTree = "<group>"; };
 		C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUserModel.swift; sourceTree = "<group>"; };
+		C2C3C45D23A395CD007F6814 /* RegistrationUserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUserItem.swift; sourceTree = "<group>"; };
+		C2C3C45F23A39681007F6814 /* LoginUserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserItem.swift; sourceTree = "<group>"; };
 		C2C3C46123A396DD007F6814 /* RegistrationUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUser.swift; sourceTree = "<group>"; };
 		C2C3C46323A39A43007F6814 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
 		C2C3C46523A39A85007F6814 /* LoginUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
@@ -424,6 +428,8 @@
 				C29FA439237EED7B00C22F67 /* VlogUserItem.swift */,
 				C29FA4492382DD5200C22F67 /* UserVlogReactionItem.swift */,
 				C2AEABA6239FAB89006B19A4 /* UserSettingsItem.swift */,
+				C2C3C45D23A395CD007F6814 /* RegistrationUserItem.swift */,
+				C2C3C45F23A39681007F6814 /* LoginUserItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1015,6 +1021,7 @@
 				C29FA47E23953E2B00C22F67 /* SearchViewControllerService.swift in Sources */,
 				C29FA4602385995300C22F67 /* UserFollowRequestUseCase.swift in Sources */,
 				C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */,
+				C2C3C45E23A395CD007F6814 /* RegistrationUserItem.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
 				C29FA47623952DDF00C22F67 /* RepositorySearchTermProtocol.swift in Sources */,
 				C29FA47A23952E7700C22F67 /* DataSourceSearchTermProtocol.swift in Sources */,
@@ -1080,6 +1087,7 @@
 				C2AEAB8723981C11006B19A4 /* FollowStatusUseCase.swift in Sources */,
 				C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */,
 				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
+				C2C3C46023A39681007F6814 /* LoginUserItem.swift in Sources */,
 				C29FA43C2382AA8C00C22F67 /* VlogReactionRepository.swift in Sources */,
 				C2DE21FC23321A6600BF772D /* TimelineViewController.swift in Sources */,
 				C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */,
