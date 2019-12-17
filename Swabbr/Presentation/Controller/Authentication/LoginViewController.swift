@@ -10,6 +10,8 @@ import Eureka
 
 class LoginViewController: FormViewController {
     
+    private let controllerService = LoginViewControllerService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         form +++ Section()
@@ -27,6 +29,7 @@ class LoginViewController: FormViewController {
             <<< ButtonRow {
                 $0.title = "Login"
         }
+        controllerService.login()
     }
 }
 

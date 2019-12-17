@@ -24,6 +24,7 @@ class ProfileViewController : UIViewController {
     private var profileCollectionOverviewController: ProfileCollectionOverviewViewController?
     
     let controllerService = ProfileViewControllerService()
+    private let userId: String
 
     /**
      Initializes with a user value.
@@ -31,10 +32,10 @@ class ProfileViewController : UIViewController {
      - parameter user: An User object.
     */
     init(userId: String) {
+        self.userId = userId
         super.init(nibName: nil, bundle: nil)
         controllerService.delegate = self
         controllerService.getUser(userId: userId)
-        controllerService.getVlogs(userId: userId)
         controllerService.getFollowStatus(userId: userId)
     }
     
@@ -51,7 +52,6 @@ class ProfileViewController : UIViewController {
         
     @objc private func refresh() {
         controllerService.getUser(userId: userId)
-        controllerService.getVlogs(userId: userId)
         controllerService.getFollowStatus(userId: userId)
     }
     
@@ -59,14 +59,14 @@ class ProfileViewController : UIViewController {
      Show the collectionviewcontroller with the given user id for followers
      */
     @objc private func showFollowers() {
-        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: controllerService.user.id), animated: true)
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followersOwnerId: userId), animated: true)
     }
     
     /**
      Show the collectionviewcontroller with the given user id for the following users
     */
     @objc private func showFollowing() {
-        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: controllerService.user.id), animated: true)
+        navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: userId), animated: true)
     }
     
     /**
@@ -87,7 +87,7 @@ class ProfileViewController : UIViewController {
             return
         }
         
-        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: controllerService.user.id)
+        profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: userId)
         view.addSubview(profileCollectionOverviewController!.view)
         profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -149,9 +149,6 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
                 followButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
             ])
         }
-    }
-    
-    func didRetrieveVlogs(_ sender: ProfileViewControllerService) {
         addProfileVlogOverviewController()
     }
 }

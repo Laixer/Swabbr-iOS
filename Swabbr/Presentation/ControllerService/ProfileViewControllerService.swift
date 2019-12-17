@@ -12,18 +12,12 @@ class ProfileViewControllerService {
     
     private let userUseCase = UserUseCase()
     private let vlogUseCase = VlogUseCase()
-    private let followStatusUseCase = FollowStatusUseCase()
+    private let followStatusUseCase = UserFollowUseCase()
     private let followRequestUseCase = UserFollowRequestUseCase()
     
     public private(set) var user: UserItem! {
         didSet {
             delegate?.didRetrieveUser(self)
-        }
-    }
-    
-    public private(set) var vlogs: [VlogItem]! = [] {
-        didSet {
-            delegate?.didRetrieveVlogs(self)
         }
     }
     
@@ -39,26 +33,13 @@ class ProfileViewControllerService {
     }
     
     /**
-     Get vlogs from a specific user. Runs a callback when ready.
-     - parameter userId: A user id.
-     - parameter refresh: A boolean when true will retrieve data from remote.
-    */
-    func getVlogs(userId: String, refresh: Bool = false) {
-        vlogUseCase.getSingleMultiple(id: userId, refresh: refresh, completionHandler: { (vlogModels) -> Void in
-            self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
-                VlogItem.mapToPresentation(vlogModel: vlogModel)
-            })
-        })
-    }
-    
-    /**
      Get the follow status of the selected user.
      - parameter userId: A user id.
      - parameter refresh: A boolean when true will retrieve data from remote.
     */
     func getFollowStatus(userId: String, refresh: Bool = false) {
         followStatusUseCase.get(id: userId, refresh: refresh, completionHandler: { (followStatusModel) in
-            self.delegate?.setFollowStatus(followStatusModel!.status)
+            self.delegate?.setFollowStatus(followStatusModel?.status ?? "")
         })
     }
     
@@ -68,6 +49,7 @@ class ProfileViewControllerService {
     */
     func performFollowAction(completionHandler: @escaping (Error) -> Void) {
         followStatusUseCase.get(id: user.id, refresh: true, completionHandler: { (followStatusModel) in
+            
         })
     }
     
@@ -75,6 +57,5 @@ class ProfileViewControllerService {
 
 protocol ProfileViewControllerServiceDelegate: class {
     func didRetrieveUser(_ sender: ProfileViewControllerService)
-    func didRetrieveVlogs(_ sender: ProfileViewControllerService)
     func setFollowStatus(_ followStatus: String)
 }

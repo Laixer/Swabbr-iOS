@@ -22,7 +22,7 @@ class UserSettingsControllerService {
      Retrieve the user settings of the current user.
     */
     func getUserSettings() {
-        userSettingsUseCase.get(id: "", refresh: true) { (userSettingsModel) in
+        userSettingsUseCase.get(refresh: false) { (userSettingsModel) in
             self.userSettings = UserSettingsItem.mapToPresentation(userSettingsModel: userSettingsModel!)
         }
     }

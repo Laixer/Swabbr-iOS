@@ -10,8 +10,11 @@ import Eureka
 
 class RegistrationViewController: FormViewController {
     
+    private let controllerService = RegistrationViewControllerService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let english = NSLocale(localeIdentifier: "en_US")
         form +++ Section()
             <<< TextRow {
                 $0.title = "Firstname"
@@ -36,18 +39,24 @@ class RegistrationViewController: FormViewController {
             }
             <<< PasswordRow("password") {
                 $0.title = "Password"
+                $0.placeholder = "password"
                 $0.add(rule: RuleRequired())
             }
             <<< PasswordRow {
                 $0.title = "Confirm password"
+                $0.placeholder = "retype password"
                 $0.add(rule: RuleEqualsToRow(form: form, tag: "password"))
                 $0.add(rule: RuleRequired())
-                }.cellUpdate { cell, _ in
-                    cell.titleLabel?.textColor = .red
+                $0.validationOptions = .validatesOnChangeAfterBlurred
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             <<< DateRow {
                 $0.title = "Date of birth"
                 $0.add(rule: RuleRequired())
+                $0.noValueDisplayText = "Select date"
             }
             <<< PhoneRow {
                 $0.title = "Phone number"
@@ -62,9 +71,11 @@ class RegistrationViewController: FormViewController {
             <<< PickerInlineRow<String>() {
                 $0.title = "Country"
                 $0.noValueDisplayText = "Choose"
-                let english = NSLocale(localeIdentifier: "en_US")
-                $0.options = NSLocale.isoCountryCodes.compactMap{return english.displayName(forKey: .countryCode, value: $0)}.sorted()
+                $0.options = NSLocale.isoCountryCodes.compactMap { return english.displayName(forKey: .countryCode, value: $0) }.sorted()
                 $0.add(rule: RuleRequired())
+            }
+            <<< SwitchRow {
+                $0.title = "Account is Private"
             }
             <<< ButtonRow {
                 $0.title = "Signup"
