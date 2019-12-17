@@ -8,14 +8,14 @@
 
 class UserSettingsUseCase {
     
-    private let repository: RepositoryFactory<UserSettingsModel>
+    private let repository: UserSettingsRepositoryProtocol
     
-    init(_ repository: RepositoryFactory<UserSettingsModel> = RepositoryFactory(UserSettingsRepository())) {
+    init(_ repository: UserSettingsRepositoryProtocol = UserSettingsRepository()) {
         self.repository = repository
     }
     
-    func get(id: String, refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
-        repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
+        repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     
     func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping (Int) -> Void) {

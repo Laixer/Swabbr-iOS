@@ -8,9 +8,9 @@
 
 class UserFollowRequestUseCase {
     
-    private let repository: RepositoryFactory<UserFollowRequestModel>
+    private let repository: FollowRequestRepositoryProtocol
     
-    init(_ repository: RepositoryFactory<UserFollowRequestModel> = RepositoryFactory(UserFollowRequestRepository())) {
+    init(_ repository: FollowRequestRepositoryProtocol = UserFollowRequestRepository()) {
         self.repository = repository
     }
     
@@ -27,18 +27,18 @@ class UserFollowRequestUseCase {
     }
     
     func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
-        repository.createFollowRequest(id: userId, completionHandler: completionHandler)
+        repository.createFollowRequest(for: userId, completionHandler: completionHandler)
     }
     
     func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
-        repository.destroyFollowRequest(id: userId, completionHandler: completionHandler)
+        repository.destroyFollowRequest(for: userId, completionHandler: completionHandler)
     }
     
     func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
-        repository.acceptFollowRequest(id: userId, completionHandler: completionHandler)
+        repository.acceptFollowRequest(from: userId, completionHandler: completionHandler)
     }
     
     func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
-        repository.declineFollowRequest(id: userId, completionHandler: completionHandler)
+        repository.declineFollowRequest(from: userId, completionHandler: completionHandler)
     }
 }

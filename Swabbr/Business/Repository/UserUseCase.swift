@@ -8,9 +8,9 @@
 
 class UserUseCase {
     
-    private let repository: RepositoryFactory<UserModel>
+    private let repository: UserRepositoryProtocol
     
-    init(_ repository: RepositoryFactory<UserModel> = RepositoryFactory(UserRepository())) {
+    init(_ repository: UserRepositoryProtocol = UserRepository()) {
         self.repository = repository
     }
 

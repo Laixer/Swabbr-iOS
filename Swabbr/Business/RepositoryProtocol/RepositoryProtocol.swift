@@ -5,35 +5,64 @@
 //  Created by James Bal on 14-11-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-
-protocol RepositoryProtocol {
-    typealias SetHandler = (Int) -> Void
-    associatedtype Model
-    
-    /**
-     Get a specifc model by a certain id.
-     - parameter id: An int value of an specific id.
-     - parameter refresh: A boolean when false look in the cache first.
-     - parameter completionHandler: A callback returning the model or nil.
-     */
-    func get(id: String, refresh: Bool, completionHandler: @escaping (Model?) -> Void)
+// MARK: UserRepositoryProtocol
+protocol UserRepositoryProtocol {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void)
+    func getAll(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
 }
 
 // MARK: VlogRepositoryProtocol
-protocol VlogRepositoryProtocol: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+protocol VlogRepositoryProtocol {
+    typealias SetHandler = (Int) -> Void
+    func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void)
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
+    func getAll(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
     func createLike(id: String, completionHandler: @escaping SetHandler)
     func createVlog(completionHandler: @escaping SetHandler)
 }
 
+// MARK: VlogReactionRepositoryProtocol
+protocol VlogReactionRepositoryProtocol {
+    func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void)
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
+    func getAll(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
+}
+
 // MARK: FollowRepositoryProtocol
-protocol FollowRequestRepositoryProtocol: RepositorySingleMultipleProtocol, RepositoryAllProtocol {
+protocol FollowRequestRepositoryProtocol {
+    typealias SetHandler = (Int) -> Void
+    func get(id: String, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void)
+    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void)
+    func getAll(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void)
     func createFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
     func destroyFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
     func acceptFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
     func declineFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
 }
 
-// MARK: UserSettingsRepositoryProtocol
-protocol UserSettingsRepositoryProtocol: RepositoryProtocol {
-    func updateUserSettings(userSettings: Model, completionHandler: @escaping SetHandler)
+// MARK: UserFollowRepositoryProtocol
+protocol UserFollowRepositoryProtocol {
+    func getFollowers(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
+    func getFollowing(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
+    func get(id: String, refresh: Bool, completionHandler: @escaping (FollowStatusModel?) -> Void)
 }
+
+// MARK: UserSettingsRepositoryProtocol
+protocol UserSettingsRepositoryProtocol {
+    typealias SetHandler = (Int) -> Void
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void)
+    func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping SetHandler)
+}
+
+// MARK: LoginRepositoryProtocol
+protocol LoginRepositoryProtocol {
+    func login(loginUser: LoginUserModel, completionHandler: @escaping (Int) -> Void)
+}
+
+// MARK: RegisterRepositoryProtocol
+protocol RegisterRepositoryProtocol {
+    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (Int) -> Void)
+}
+
+
+

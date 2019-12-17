@@ -8,9 +8,9 @@
 
 class VlogUseCase {
     
-    private let repository: RepositoryFactory<VlogModel>
+    private let repository: VlogRepositoryProtocol
     
-    init(_ repository: RepositoryFactory<VlogModel> = RepositoryFactory(VlogRepository())) {
+    init(_ repository: VlogRepositoryProtocol = VlogRepository()) {
         self.repository = repository
     }
     

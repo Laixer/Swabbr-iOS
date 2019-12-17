@@ -1,0 +1,29 @@
+//
+//  UserFollowingUseCase.swift
+//  Swabbr
+//
+//  Created by James Bal on 09-12-19.
+//  Copyright © 2019 Laixer. All rights reserved.
+//
+
+class UserFollowUseCase {
+    
+    private let repository: UserFollowRepositoryProtocol
+    
+    init(_ repository: UserFollowRepositoryProtocol = UserFollowRepository()) {
+        self.repository = repository
+    }
+    
+    func getFollowers(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+        repository.getFollowers(id: id, refresh: refresh, completionHandler: completionHandler)
+    }
+    
+    func getFollowing(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
+        repository.getFollowing(id: id, refresh: refresh, completionHandler: completionHandler)
+    }
+    
+    func get(id: String, refresh: Bool, completionHandler: @escaping (FollowStatusModel?) -> Void) {
+        repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
+    }
+    
+}
