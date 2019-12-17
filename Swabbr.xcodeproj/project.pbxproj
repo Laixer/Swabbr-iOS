@@ -69,6 +69,7 @@
 		C2B18155235F4D83001D6F0B /* VlogReactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */; };
 		C2B18157235F4DA5001D6F0B /* UserFollowRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */; };
 		C2B181672362EE5D001D6F0B /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B181662362EE5D001D6F0B /* DateTests.swift */; };
+		C2B5412C23A7AD36000A1AD3 /* LoginViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */; };
 		C2B5412E23A7B19E000A1AD3 /* AuthorizedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */; };
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
@@ -76,6 +77,7 @@
 		C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */; };
 		C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */; };
 		C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */; };
+		C2C3C45423A29117007F6814 /* RegistrationViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */; };
 		C2C3C45623A36F62007F6814 /* UserSettingsCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45523A36F62007F6814 /* UserSettingsCacheHandler.swift */; };
 		C2C3C45823A36FA4007F6814 /* CacheDataSourceAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45723A36FA4007F6814 /* CacheDataSourceAllProtocol.swift */; };
 		C2C3C45A23A372A6007F6814 /* CacheDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45923A372A6007F6814 /* CacheDataSourceFactory.swift */; };
@@ -240,6 +242,7 @@
 		C2B18154235F4D83001D6F0B /* VlogReactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionTests.swift; sourceTree = "<group>"; };
 		C2B18156235F4DA5001D6F0B /* UserFollowRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestTests.swift; sourceTree = "<group>"; };
 		C2B181662362EE5D001D6F0B /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
+		C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerService.swift; sourceTree = "<group>"; };
 		C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUser.swift; sourceTree = "<group>"; };
 		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 		C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swabbr.entitlements; sourceTree = "<group>"; };
 		C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrationService.swift; sourceTree = "<group>"; };
 		C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFormatter+StringHandling.swift"; sourceTree = "<group>"; };
+		C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewControllerService.swift; sourceTree = "<group>"; };
 		C2C3C45523A36F62007F6814 /* UserSettingsCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsCacheHandler.swift; sourceTree = "<group>"; };
 		C2C3C45723A36FA4007F6814 /* CacheDataSourceAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataSourceAllProtocol.swift; sourceTree = "<group>"; };
 		C2C3C45923A372A6007F6814 /* CacheDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataSourceFactory.swift; sourceTree = "<group>"; };
@@ -400,6 +404,8 @@
 				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
 				C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */,
 				C2AEABAD239FCE01006B19A4 /* UserSettingsControllerService.swift */,
+				C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */,
+				C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */,
 			);
 			path = ControllerService;
 			sourceTree = "<group>";
@@ -1034,6 +1040,7 @@
 				C2AEAB7D2397F93E006B19A4 /* UserSettingsModel.swift in Sources */,
 				C2C3C45A23A372A6007F6814 /* CacheDataSourceFactory.swift in Sources */,
 				C2B5412E23A7B19E000A1AD3 /* AuthorizedUser.swift in Sources */,
+				C2C3C45423A29117007F6814 /* RegistrationViewControllerService.swift in Sources */,
 				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
 				C29FA407237D552000C22F67 /* UserUseCase.swift in Sources */,
 				C2AEABA9239FAE9E006B19A4 /* UserSettingsViewController.swift in Sources */,
@@ -1075,6 +1082,7 @@
 				C2AEAB8323981A0A006B19A4 /* FollowStatus.swift in Sources */,
 				C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */,
 				C29FA45623855F8C00C22F67 /* UserFollowRequestNetwork.swift in Sources */,
+				C2B5412C23A7AD36000A1AD3 /* LoginViewControllerService.swift in Sources */,
 				C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */,
 				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C29FA42D237EA83C00C22F67 /* UserNetwork.swift in Sources */,
