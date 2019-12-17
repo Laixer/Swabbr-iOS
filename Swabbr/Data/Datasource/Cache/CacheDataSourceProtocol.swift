@@ -6,9 +6,8 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import CodableCache
-
-protocol CacheDataSourceProtocol: DataSourceAllProtocol {
+protocol CacheDataSourceProtocol {
+    associatedtype Entity: Decodable
+    func get(id: String, completionHandler: @escaping (Entity) -> Void) throws
     func set(object: Entity?)
-    func set(objects: [Entity]?)
 }

@@ -6,18 +6,23 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
+import Alamofire
+
 class UserSettingsNetwork: NetworkProtocol, UserSettingsDataSourceProtocol {
-    
-    typealias Entity = UserSettings
-    
-    static let shared = UserSettingsNetwork()
     
     var endPoint: String = "userSettings"
     
-    func get(id: String, completionHandler: @escaping (UserSettings?) -> Void) {
-        load(buildUrl(), withCompletion: { (userSettings) in
-            completionHandler((userSettings != nil) ? userSettings![0] : nil)
-        })
+    func get(completionHandler: @escaping (UserSettings?) -> Void) {
+        AF.request(buildUrl()).responseDecodable { (response: DataResponse<UserSettings>) in
+            switch response.result {
+            case .success(let userSettings):
+                completionHandler(userSettings)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler(nil)
+                // failure handling
+            }
+        }
     }
     
     func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping (Int) -> Void) {

@@ -6,32 +6,50 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
+import Alamofire
 
-class VlogReactionNetwork: NetworkProtocol, DataSourceSingleMultipleProtocol, DataSourceAllProtocol {
-    typealias Entity = VlogReaction
-    
-    static let shared = VlogReactionNetwork()
+class VlogReactionNetwork: NetworkProtocol, VlogReactionDataSourceProtocol {
     
     var endPoint: String = "reactions"
     
-    func getAll(completionHandler: @escaping ([VlogReaction]?) -> Void) {
-        load(buildUrl()) { (vlogReactions) in
-            completionHandler(vlogReactions)
+    func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) {
+        AF.request(buildUrl()).responseDecodable { (response: DataResponse<[VlogReaction]>) in
+            switch response.result {
+            case .success(let vlogReactions):
+                completionHandler(vlogReactions)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler([])
+                // failure handling
+            }
         }
     }
     
     func get(id: String, completionHandler: @escaping (VlogReaction?) -> Void) {
         let queryItems = [URLQueryItem(name: "vlogId", value: id)]
-        load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
-            completionHandler((vlogReactions != nil) ? vlogReactions![0] : nil)
+        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<VlogReaction>) in
+            switch response.result {
+            case .success(let vlogReaction):
+                completionHandler(vlogReaction)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler(nil)
+                // failure handling
+            }
         }
     }
     
-    func getSingleMultiple(id: String, completionHandler: @escaping ([VlogReaction]?) -> Void) {
+    func getSingleMultiple(id: String, completionHandler: @escaping ([VlogReaction]) -> Void) {
         let queryItems = [URLQueryItem(name: "vlogId", value: id)]
-        load(buildUrl(queryItems: queryItems)) { (vlogReactions) in
-            completionHandler(vlogReactions)
+        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<[VlogReaction]>) in
+            switch response.result {
+            case .success(let vlogReactions):
+                completionHandler(vlogReactions)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler([])
+                // failure handling
+            }
         }
     }
 }

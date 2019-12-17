@@ -9,7 +9,7 @@
 
 import CodableCache
 
-class UserCacheHandler: CacheDataSourceProtocol {
+class UserCacheHandler: CacheDataSourceAllProtocol {
     typealias Entity = User
     
     static let shared = UserCacheHandler()
@@ -21,16 +21,24 @@ class UserCacheHandler: CacheDataSourceProtocol {
         try? cache.set(value: [] as! [Entity])
     }
     
-    func getAll(completionHandler: @escaping ([User]?) -> Void) {
-        completionHandler(try cache.get())
+    func getAll(completionHandler: @escaping ([User]) -> Void) throws {
+        guard let users = cache.get() else {
+            throw NSError.init()
+        }
+        guard !users.isEmpty else {
+            throw NSError.init()
+        }
+        completionHandler(users)
     }
     
-    func get(id: String, completionHandler: @escaping (User?) -> Void) {
+    func get(id: String, completionHandler: @escaping (User) -> Void) throws {
         guard let users = cache.get() else {
-            completionHandler(nil)
-            return
+            throw NSError.init()
         }
-        completionHandler(users.first(where: {$0.id == id}))
+        guard let user = users.first(where: {$0.id == id}) else {
+            throw NSError.init()
+        }
+        completionHandler(user)
     }
     
     func set(object: User?) {
@@ -47,10 +55,7 @@ class UserCacheHandler: CacheDataSourceProtocol {
         try? cache.set(value: users)
     }
     
-    func set(objects: [User]?) {
-        guard let objects = objects else {
-            return
-        }
+    func setAll(objects: [User]) {
         try? cache.set(value: objects)
     }
     

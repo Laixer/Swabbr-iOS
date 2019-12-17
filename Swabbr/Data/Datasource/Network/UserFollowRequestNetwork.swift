@@ -6,56 +6,69 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
+import Alamofire
+
 class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol {
-    
-    typealias Entity = UserFollowRequest
     
     static let shared = UserFollowRequestNetwork()
     
     var endPoint: String = "followRequests"
     
-    func getAll(completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
-        load(buildUrl()) { (userFollowRequests) in
-            completionHandler(userFollowRequests)
+    func getAll(completionHandler: @escaping ([UserFollowRequest]) -> Void) {
+        AF.request(buildUrl()).responseDecodable { (response: DataResponse<[UserFollowRequest]>) in
+            switch response.result {
+            case .success(let userFollowRequests):
+                completionHandler(userFollowRequests)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler([])
+                // failure handling
+            }
         }
     }
     
     func get(id: String, completionHandler: @escaping (UserFollowRequest?) -> Void) {
         let queryItems = [URLQueryItem(name: "id", value: id)]
-        load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
-            completionHandler((userFollowRequests != nil) ? userFollowRequests![0] : nil)
+        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<UserFollowRequest>) in
+            switch response.result {
+            case .success(let userFollowRequest):
+                completionHandler(userFollowRequest)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler(nil)
+                // failure handling
+            }
         }
     }
     
-    func getSingleMultiple(id: String, completionHandler: @escaping ([UserFollowRequest]?) -> Void) {
+    func getSingleMultiple(id: String, completionHandler: @escaping ([UserFollowRequest]) -> Void) {
         let queryItems = [URLQueryItem(name: "userId", value: id)]
-        load(buildUrl(queryItems: queryItems)) { (userFollowRequests) in
-            completionHandler(userFollowRequests)
+        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<[UserFollowRequest]>) in
+            switch response.result {
+            case .success(let userFollowRequests):
+                completionHandler(userFollowRequests)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completionHandler([])
+                // failure handling
+            }
         }
     }
     
     func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
-        post(buildUrl(), withCompletion: { (responseCode) in
-            completionHandler(responseCode)
-        })
+        completionHandler(200)
     }
     
     func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
-        post(buildUrl(), withCompletion: { (responseCode) in
-            completionHandler(responseCode)
-        })
+        completionHandler(200)
     }
     
     func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
-        post(buildUrl(), withCompletion: { (responseCode) in
-            completionHandler(responseCode)
-        })
+        completionHandler(200)
     }
     
     func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
-        post(buildUrl(), withCompletion: { (responseCode) in
-            completionHandler(responseCode)
-        })
+        completionHandler(200)
     }
     
 }
