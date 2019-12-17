@@ -52,6 +52,7 @@ extension UserSettings: Codable {
     
 }
 
+// MARK: mapToEntity
 extension UserSettings {
     static func mapToEntity(model: UserSettingsModel) -> UserSettings {
         return UserSettings(isPrivate: model.isPrivate, dailyVlogRequestLimit: model.dailyVlogRequestLimit, followMode: model.followMode)
