@@ -40,7 +40,6 @@
 		C29FA45623855F8C00C22F67 /* UserFollowRequestNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */; };
 		C29FA4582385784300C22F67 /* UserFollowRequestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4572385784300C22F67 /* UserFollowRequestRepository.swift */; };
 		C29FA45A2385791D00C22F67 /* UserFollowRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */; };
-		C29FA45C238587F300C22F67 /* UserDefaults+UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */; };
 		C29FA4602385995300C22F67 /* UserFollowRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */; };
 		C29FA47C23952F7000C22F67 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47B23952F7000C22F67 /* SearchViewController.swift */; };
 		C29FA47E23953E2B00C22F67 /* SearchViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */; };
@@ -72,6 +71,7 @@
 		C2B5412C23A7AD36000A1AD3 /* LoginViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */; };
 		C2B5412E23A7B19E000A1AD3 /* AuthorizedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */; };
 		C2B5413223A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413123A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift */; };
+		C2B5413423A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */; };
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
 		C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD32355FB2900EEDF1B /* TokenData.swift */; };
@@ -209,7 +209,6 @@
 		C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestNetwork.swift; sourceTree = "<group>"; };
 		C29FA4572385784300C22F67 /* UserFollowRequestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestRepository.swift; sourceTree = "<group>"; };
 		C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestModel.swift; sourceTree = "<group>"; };
-		C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UserId.swift"; sourceTree = "<group>"; };
 		C29FA45F2385995300C22F67 /* UserFollowRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestUseCase.swift; sourceTree = "<group>"; };
 		C29FA47B23952F7000C22F67 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerService.swift; sourceTree = "<group>"; };
@@ -244,6 +243,7 @@
 		C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerService.swift; sourceTree = "<group>"; };
 		C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUser.swift; sourceTree = "<group>"; };
 		C2B5413123A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUserCacheHandler.swift; sourceTree = "<group>"; };
+		C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+IsLoggedIn.swift"; sourceTree = "<group>"; };
 		C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotification.swift; sourceTree = "<group>"; };
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
 		C2C24CD32355FB2900EEDF1B /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
@@ -606,7 +606,7 @@
 			children = (
 				C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */,
 				C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */,
-				C29FA45B238587F300C22F67 /* UserDefaults+UserId.swift */,
+				C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1041,6 +1041,7 @@
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
+				C2B5413423A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift in Sources */,
 				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2AEABB0239FCEAD006B19A4 /* UserSettingsUseCase.swift in Sources */,
 				C2C3C46423A39A43007F6814 /* LoginUserModel.swift in Sources */,
