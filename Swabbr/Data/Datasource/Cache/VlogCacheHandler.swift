@@ -9,34 +9,33 @@
 
 import CodableCache
 
-class VlogCacheHandler: CacheDataSourceAllProtocol {
-    typealias Entity = Vlog
+class VlogCacheHandler: VlogCacheDataSourceProtocol {
     
     static let shared = VlogCacheHandler()
     
-    private let cache: CodableCache<[Entity]>!
+    private let cache: CodableCache<[Vlog]>!
     
     private init() {
-        cache = CodableCache<[Entity]>(key: String(describing: Entity.self))
-        try? cache.set(value: [] as! [Entity])
+        cache = CodableCache<[Vlog]>(key: String(describing: Vlog.self))
+        try? cache.set(value: [] as! [Vlog])
     }
     
     func getAll(completionHandler: @escaping ([Vlog]) -> Void) throws {
         guard let vlogs = cache.get() else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         guard !vlogs.isEmpty else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         completionHandler(vlogs)
     }
     
     func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws {
         guard let vlogs = cache.get() else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         guard let vlog = vlogs.first(where: {$0.id == id}) else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         completionHandler(vlog)
     }

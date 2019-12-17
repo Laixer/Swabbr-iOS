@@ -9,29 +9,36 @@
 class AuthRepository: AuthRepositoryProtocol {
     
     private let network: AuthDataSourceProtocol
-    private let userCache: CacheDataSourceFactory<User>
-    private let userSettingsCache: CacheDataSourceFactory<UserSettings>
+    private let userCache: UserCacheDataSourceProtocol
+    private let userSettingsCache: UserSettingsCacheDataSourceProtocol
+    private let authorizedUserCache: AuthorizedUserCacheDataSourceProtocol
     
     init(network: AuthDataSourceProtocol = AuthNetwork(),
-         userCache: CacheDataSourceFactory<User> = CacheDataSourceFactory(UserCacheHandler.shared),
-         userSettingsCache: CacheDataSourceFactory<UserSettings> = CacheDataSourceFactory(UserSettingsCacheHandler.shared)) {
+         userCache: UserCacheDataSourceProtocol = UserCacheHandler.shared,
+         userSettingsCache: UserSettingsCacheDataSourceProtocol = UserSettingsCacheHandler.shared,
+         authorizedUserCache: AuthorizedUserCacheDataSourceProtocol = AuthorizedUserCacheHandler.shared) {
         self.network = network
         self.userCache = userCache
         self.userSettingsCache = userSettingsCache
+        self.authorizedUserCache = authorizedUserCache
     }
     
     func login(loginUser: LoginUserModel, completionHandler: @escaping (Int) -> Void) {
-        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (code, accessToken, user, userSettings) in
-            self.userCache.set(object: user)
-            self.userSettingsCache.set(object: userSettings)
+        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (code, authorizedUser) in
+            self.userCache.set(object: authorizedUser.user)
+            self.userSettingsCache.set(object: authorizedUser.userSettings)
+            self.authorizedUserCache.set(object: authorizedUser)
+            UserDefaults.standard.setIsLoggedIn(value: true)
             completionHandler(code)
         }
     }
     
     func register(registerUser: RegistrationUserModel, completionHandler: @escaping (Int) -> Void) {
-        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (code, accessToken, user, userSettings) in
-            self.userCache.set(object: user)
-            self.userSettingsCache.set(object: userSettings)
+        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (code, authorizedUser) in
+            self.userCache.set(object: authorizedUser.user)
+            self.userSettingsCache.set(object: authorizedUser.userSettings)
+            self.authorizedUserCache.set(object: authorizedUser)
+            UserDefaults.standard.setIsLoggedIn(value: true)
             completionHandler(code)
         }
     }

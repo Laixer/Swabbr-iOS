@@ -9,34 +9,33 @@
 
 import CodableCache
 
-class VlogReactionCacheHandler: CacheDataSourceAllProtocol {
-    typealias Entity = VlogReaction
+class VlogReactionCacheHandler: VlogReactionCacheDataSourceProtocol {
     
     static let shared = VlogReactionCacheHandler()
     
-    private let cache: CodableCache<[Entity]>!
+    private let cache: CodableCache<[VlogReaction]>!
     
     private init() {
-        cache = CodableCache<[Entity]>(key: String(describing: Entity.self))
-        try? cache.set(value: [] as! [Entity])
+        cache = CodableCache<[VlogReaction]>(key: String(describing: VlogReaction.self))
+        try? cache.set(value: [] as! [VlogReaction])
     }
     
     func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws  {
         guard let vlogReactions = cache.get() else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         guard !vlogReactions.isEmpty else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         completionHandler(vlogReactions)
     }
     
     func get(id: String, completionHandler: @escaping (VlogReaction) -> Void) throws {
         guard let vlogReactions = cache.get() else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         guard let vlogReaction = vlogReactions.first(where: {$0.id == id}) else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         completionHandler(vlogReaction)
     }

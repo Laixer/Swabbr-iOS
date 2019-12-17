@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-struct AuthorizedUser: Decodable {
+struct AuthorizedUser: Codable {
     
     let accessToken: String
     let user: User

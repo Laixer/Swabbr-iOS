@@ -8,21 +8,19 @@
 
 import CodableCache
 
-class UserSettingsCacheHandler: CacheDataSourceProtocol {
-    
-    typealias Entity = UserSettings
+class UserSettingsCacheHandler: UserSettingsCacheDataSourceProtocol {
     
     static let shared = UserSettingsCacheHandler()
     
-    private let cache: CodableCache<Entity>!
+    private let cache: CodableCache<UserSettings>!
     
     private init() {
-        cache = CodableCache<Entity>(key: String(describing: Entity.self))
+        cache = CodableCache<UserSettings>(key: String(describing: UserSettings.self))
     }
     
     func get(id: String, completionHandler: @escaping (UserSettings) -> Void) throws {
         guard let userSettings = cache.get() else {
-            throw NSError.init()
+            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
         completionHandler(userSettings)
     }

@@ -11,9 +11,9 @@ import Foundation
 class VlogReactionRepository: VlogReactionRepositoryProtocol {
     
     private let network: VlogReactionDataSourceProtocol
-    private let cache: CacheDataSourceFactory<VlogReaction>
+    private let cache: VlogReactionCacheDataSourceProtocol
     
-    init(network: VlogReactionDataSourceProtocol = VlogReactionNetwork(), cache: CacheDataSourceFactory<VlogReaction> = CacheDataSourceFactory(VlogReactionCacheHandler.shared)) {
+    init(network: VlogReactionDataSourceProtocol = VlogReactionNetwork(), cache: VlogReactionCacheDataSourceProtocol = VlogReactionCacheHandler.shared) {
         self.network = network
         self.cache = cache
     }

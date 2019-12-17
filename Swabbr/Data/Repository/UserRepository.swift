@@ -11,9 +11,9 @@ import Foundation
 class UserRepository: UserRepositoryProtocol {
     
     private let network: UserDataSourceProtocol
-    private let cache: CacheDataSourceFactory<User>
+    private let cache: UserCacheDataSourceProtocol
     
-    init(network: UserDataSourceProtocol = UserNetwork(), cache: CacheDataSourceFactory<User> = CacheDataSourceFactory(UserCacheHandler.shared)) {
+    init(network: UserDataSourceProtocol = UserNetwork(), cache: UserCacheDataSourceProtocol = UserCacheHandler.shared) {
         self.network = network
         self.cache = cache
     }

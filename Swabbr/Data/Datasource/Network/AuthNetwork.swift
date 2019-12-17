@@ -12,24 +12,24 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
     
     var endPoint: String = "login"
     
-    func login(loginUser: LoginUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void) {
+    func login(loginUser: LoginUser, completionHandler: @escaping (Int, AuthorizedUser) -> Void) {
         endPoint = "login"
         AF.request(buildUrl(), method: .get, parameters: loginUser).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authorizedUser):
-                completionHandler(response.response?.statusCode ?? 404, authorizedUser.accessToken, authorizedUser.user, authorizedUser.userSettings)
+                completionHandler(response.response?.statusCode ?? 404, authorizedUser)
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    func register(registrationUser: RegistrationUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void) {
+    func register(registrationUser: RegistrationUser, completionHandler: @escaping (Int, AuthorizedUser) -> Void) {
         endPoint = "register"
         AF.request(buildUrl(), method: .get, parameters: registrationUser).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authorizedUser):
-                completionHandler(response.response?.statusCode ?? 404, authorizedUser.accessToken, authorizedUser.user, authorizedUser.userSettings)
+                completionHandler(response.response?.statusCode ?? 404, authorizedUser)
             case .failure(let error):
                 print(error)
             }

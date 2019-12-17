@@ -11,9 +11,9 @@ import Foundation
 class VlogRepository: VlogRepositoryProtocol {
     
     private let network: VlogDataSourceProtocol
-    private let cache: CacheDataSourceFactory<Vlog>
+    private let cache: VlogCacheDataSourceProtocol
     
-    init(network: VlogDataSourceProtocol = VlogNetwork(), cache: CacheDataSourceFactory<Vlog> = CacheDataSourceFactory(VlogCacheHandler.shared)) {
+    init(network: VlogDataSourceProtocol = VlogNetwork(), cache: VlogCacheDataSourceProtocol = VlogCacheHandler.shared) {
         self.network = network
         self.cache = cache
     }

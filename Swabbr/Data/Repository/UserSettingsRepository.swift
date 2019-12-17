@@ -10,9 +10,9 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
     
     
     private let network: UserSettingsDataSourceProtocol
-    private let cache: CacheDataSourceFactory<UserSettings>
+    private let cache: UserSettingsCacheDataSourceProtocol
 
-    init(network: UserSettingsDataSourceProtocol = UserSettingsNetwork(), cache: CacheDataSourceFactory<UserSettings> = CacheDataSourceFactory(UserSettingsCacheHandler.shared)) {
+    init(network: UserSettingsDataSourceProtocol = UserSettingsNetwork(), cache: UserSettingsCacheDataSourceProtocol = UserSettingsCacheHandler.shared) {
         self.network = network
         self.cache = cache
     }
