@@ -54,10 +54,7 @@ protocol UserSettingsDataSourceProtocol {
 }
 
 // MARK: AuthDataSourceProtocol
-protocol LoginDataSourceProtocol {
+protocol AuthDataSourceProtocol {
     func login(loginUser: LoginUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void)
-}
-
-protocol RegisterDataSourceProtocol {
     func register(registrationUser: RegistrationUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void)
 }

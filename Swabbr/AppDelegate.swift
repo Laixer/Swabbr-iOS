@@ -60,12 +60,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
 //        FirebaseApp.configure()
         
-        // setup window
         window = UIWindow(frame: UIScreen.main.bounds)
-        let rootViewController = TimelineViewController(nibName: nil, bundle: nil)
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        var rootViewController: UIViewController?
+        if UserDefaults.standard.string(forKey: "user") != nil {
+            // setup window
+            rootViewController = TimelineViewController(nibName: nil, bundle: nil)
+            let navigationController = UINavigationController(rootViewController: rootViewController!)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        } else {
+            rootViewController = LoginViewController()
+            window?.rootViewController = rootViewController
+            window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 

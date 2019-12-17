@@ -8,11 +8,12 @@
 
 import Alamofire
 
-class LoginNetwork: NetworkProtocol, LoginDataSourceProtocol {
+class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
     
     var endPoint: String = "login"
     
     func login(loginUser: LoginUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void) {
+        endPoint = "login"
         AF.request(buildUrl(), method: .get, parameters: loginUser).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authorizedUser):
@@ -22,13 +23,9 @@ class LoginNetwork: NetworkProtocol, LoginDataSourceProtocol {
             }
         }
     }
-}
-
-class RegistrationNetwork: NetworkProtocol, RegisterDataSourceProtocol {
-    
-    var endPoint: String = "register"
     
     func register(registrationUser: RegistrationUser, completionHandler: @escaping (Int, String, User, UserSettings) -> Void) {
+        endPoint = "register"
         AF.request(buildUrl(), method: .get, parameters: registrationUser).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authorizedUser):

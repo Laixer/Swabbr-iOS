@@ -8,10 +8,18 @@
 
 class LoginViewControllerService {
     
+    weak var delegate: LoginViewControllerServiceDelegate?
+    
     private let loginUseCase = AuthUseCase()
     
     func login() {
-        loginUseCase.login(loginUser: LoginUserItem(email: "test", password: "test"))
+        loginUseCase.login(loginUser: LoginUserItem(email: "test", password: "test")) { (code) in
+            self.delegate?.handleLoginResponse(code: code)
+        }
     }
     
+}
+
+protocol LoginViewControllerServiceDelegate: class {
+    func handleLoginResponse(code: Int)
 }

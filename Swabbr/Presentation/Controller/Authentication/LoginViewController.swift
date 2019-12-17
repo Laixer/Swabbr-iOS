@@ -12,6 +12,15 @@ class LoginViewController: FormViewController {
     
     private let controllerService = LoginViewControllerService()
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        controllerService.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         form +++ Section()
@@ -28,8 +37,17 @@ class LoginViewController: FormViewController {
             }
             <<< ButtonRow {
                 $0.title = "Login"
+                $0.onCellSelection({ (_, _) in
+                    self.controllerService.login()
+                })
         }
-        controllerService.login()
+    }
+}
+
+extension LoginViewController: LoginViewControllerServiceDelegate {
+    func handleLoginResponse(code: Int) {
+        UserDefaults.standard.set("login", forKey: "user")
+        self.present(UINavigationController(rootViewController: TimelineViewController(nibName: nil, bundle: nil)), animated: true, completion: nil)
     }
 }
 

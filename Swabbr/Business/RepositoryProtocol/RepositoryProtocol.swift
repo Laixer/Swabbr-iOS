@@ -54,15 +54,10 @@ protocol UserSettingsRepositoryProtocol {
     func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping SetHandler)
 }
 
-// MARK: LoginRepositoryProtocol
-protocol LoginRepositoryProtocol {
+// MARK: AuthRepositoryProtocol
+protocol AuthRepositoryProtocol {
     func login(loginUser: LoginUserModel, completionHandler: @escaping (Int) -> Void)
-}
-
-// MARK: RegisterRepositoryProtocol
-protocol RegisterRepositoryProtocol {
     func register(registerUser: RegistrationUserModel, completionHandler: @escaping (Int) -> Void)
 }
-
 
 

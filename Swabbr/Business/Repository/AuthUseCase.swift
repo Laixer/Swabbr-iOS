@@ -8,17 +8,15 @@
 
 class AuthUseCase {
     
-    private let loginRepository: LoginRepositoryProtocol
-    private let registerRepository: RegisterRepositoryProtocol
+    private let authRepository: AuthRepositoryProtocol
     
-    init(_ loginRepository: LoginRepositoryProtocol = LoginRepository(), _ registerRepository: RegisterRepositoryProtocol = RegisterRepository()) {
-        self.loginRepository = loginRepository
-        self.registerRepository = registerRepository
+    init(_ authRepository: AuthRepositoryProtocol = AuthRepository()) {
+        self.authRepository = authRepository
     }
     
-    func login(loginUser: LoginUserItem) {
-        loginRepository.login(loginUser: loginUser.mapToBusiness()) { (code) in
-            print(code)
+    func login(loginUser: LoginUserItem, completionHandler: @escaping (Int) -> Void) {
+        authRepository.login(loginUser: loginUser.mapToBusiness()) { (code) in
+            completionHandler(code)
         }
     }
     
