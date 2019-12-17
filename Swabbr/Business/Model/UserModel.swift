@@ -6,8 +6,6 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
 struct UserModel {
     
     var id: String
