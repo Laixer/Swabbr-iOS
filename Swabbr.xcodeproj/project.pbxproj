@@ -89,6 +89,8 @@
 		C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */; };
 		C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */; };
 		C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */; };
+		C2C3C45C23A39252007F6814 /* RegistrationUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */; };
+		C2C3C46423A39A43007F6814 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C46323A39A43007F6814 /* LoginUserModel.swift */; };
 		C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE21D8232FA35700BF772D /* AppDelegate.swift */; };
 		C2DE21E0232FA3E900BF772D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21DF232FA3E900BF772D /* Assets.xcassets */; };
 		C2DE21E3232FA3E900BF772D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2DE21E1232FA3E900BF772D /* LaunchScreen.storyboard */; };
@@ -263,6 +265,8 @@
 		C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swabbr.entitlements; sourceTree = "<group>"; };
 		C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrationService.swift; sourceTree = "<group>"; };
 		C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFormatter+StringHandling.swift"; sourceTree = "<group>"; };
+		C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUserModel.swift; sourceTree = "<group>"; };
+		C2C3C46323A39A43007F6814 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
 		C2DE21D5232FA35700BF772D /* Swabbr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swabbr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DE21D8232FA35700BF772D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2DE21DF232FA3E900BF772D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -442,6 +446,8 @@
 				C29FA4592385791D00C22F67 /* UserFollowRequestModel.swift */,
 				C2AEAB7C2397F93E006B19A4 /* UserSettingsModel.swift */,
 				C2AEAB80239819C8006B19A4 /* FollowStatusModel.swift */,
+				C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */,
+				C2C3C46323A39A43007F6814 /* LoginUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1045,6 +1051,7 @@
 				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2AEABB0239FCEAD006B19A4 /* UserSettingsUseCase.swift in Sources */,
 				C2AEAB95239A8649006B19A4 /* RepositoryAllProtocol.swift in Sources */,
+				C2C3C46423A39A43007F6814 /* LoginUserModel.swift in Sources */,
 				C2DE21D9232FA35700BF772D /* AppDelegate.swift in Sources */,
 				C2E776E82344B20E0071B828 /* UserFollowRequest.swift in Sources */,
 				C29FA423237DAF3C00C22F67 /* VlogRepository.swift in Sources */,
@@ -1090,6 +1097,7 @@
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 				C2AEAB8923981C2D006B19A4 /* FollowStatusRepository.swift in Sources */,
 				C29FA44A2382DD5200C22F67 /* UserVlogReactionItem.swift in Sources */,
+				C2C3C45C23A39252007F6814 /* RegistrationUserModel.swift in Sources */,
 				C2AEAB7B2397F662006B19A4 /* UserSettings.swift in Sources */,
 				C2AEAB8F23993A16006B19A4 /* UserFollowerUseCase.swift in Sources */,
 				C29FA419237DAE4500C22F67 /* TimelineViewControllerService.swift in Sources */,
