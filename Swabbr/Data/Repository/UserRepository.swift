@@ -8,14 +8,12 @@
 
 import Foundation
 
-class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
+class UserRepository: UserRepositoryProtocol {
     
-    typealias Model = UserModel
+    private let network: UserDataSourceProtocol
+    private let cache: CacheDataSourceFactory<User>
     
-    private let network: DataSourceFactory<User>
-    private let cache: DataSourceFactory<User>
-    
-    init(network: DataSourceFactory<User> = DataSourceFactory(UserNetwork.shared), cache: DataSourceFactory<User> = DataSourceFactory(UserCacheHandler.shared)) {
+    init(network: UserDataSourceProtocol = UserNetwork(), cache: CacheDataSourceFactory<User> = CacheDataSourceFactory(UserCacheHandler.shared)) {
         self.network = network
         self.cache = cache
     }
@@ -23,27 +21,24 @@ class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
     func getAll(refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
         if refresh {
             network.getAll(completionHandler: { (users) -> Void in
-                guard let users = users else {
-                    completionHandler([])
-                    return
-                }
+                self.cache.setAll(objects: users)
                 completionHandler(
-                    users.map({ (user) -> Model in
+                    users.map({ (user) -> UserModel in
                         user.mapToBusiness()
                     })
                 )
             })
         } else {
-            cache.getAll { (users) in
-                guard let users = users else {
-                    self.getAll(refresh: !refresh, completionHandler: completionHandler)
-                    return
+            do {
+                try cache.getAll { (users) in
+                    completionHandler(
+                        users.map({ (user) -> UserModel in
+                            user.mapToBusiness()
+                        })
+                    )
                 }
-                completionHandler(
-                    users.map({ (user) -> Model in
-                        user.mapToBusiness()
-                    })
-                )
+            } catch {
+                self.getAll(refresh: !refresh, completionHandler: completionHandler)
             }
         }
     }
@@ -51,15 +46,16 @@ class UserRepository: RepositoryProtocol, RepositoryAllProtocol {
     func get(id: String, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (user) -> Void in
+                self.cache.set(object: user)
                 completionHandler(user?.mapToBusiness())
             })
         } else {
-            cache.get(id: id) { (user) in
-                if user == nil {
-                    self.get(id: id, refresh: !refresh, completionHandler: completionHandler)
-                } else {
-                    completionHandler(user?.mapToBusiness())
+            do {
+                try cache.get(id: id) { (user) in
+                    completionHandler(user.mapToBusiness())
                 }
+            } catch {
+               self.get(id: id, refresh: !refresh, completionHandler: completionHandler)
             }
         }
     }

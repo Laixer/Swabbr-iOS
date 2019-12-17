@@ -10,12 +10,10 @@ import Foundation
 
 class VlogRepository: VlogRepositoryProtocol {
     
-    typealias Model = VlogModel
+    private let network: VlogDataSourceProtocol
+    private let cache: CacheDataSourceFactory<Vlog>
     
-    private let network: DataSourceFactory<Vlog>
-    private let cache: DataSourceFactory<Vlog>
-    
-    init(network: DataSourceFactory<Vlog> = DataSourceFactory(VlogNetwork.shared), cache: DataSourceFactory<Vlog> = DataSourceFactory(VlogCacheHandler.shared)) {
+    init(network: VlogDataSourceProtocol = VlogNetwork(), cache: CacheDataSourceFactory<Vlog> = CacheDataSourceFactory(VlogCacheHandler.shared)) {
         self.network = network
         self.cache = cache
     }
@@ -23,27 +21,24 @@ class VlogRepository: VlogRepositoryProtocol {
     func getAll(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         if refresh {
             network.getAll(completionHandler: { (vlogs) -> Void in
-                guard let vlogs = vlogs else {
-                    completionHandler([])
-                    return
-                }
+                self.cache.setAll(objects: vlogs)
                 completionHandler(
-                    vlogs.map({ (vlog) -> Model in
+                    vlogs.map({ (vlog) -> VlogModel in
                         vlog.mapToBusiness()
                     })
                 )
             })
         } else {
-            cache.getAll { (vlogs) in
-                guard let vlogs = vlogs else {
-                    self.getAll(refresh: !refresh, completionHandler: completionHandler)
-                    return
+            do {
+                try cache.getAll { (vlogs) in
+                    completionHandler(
+                        vlogs.map({ (vlog) -> VlogModel in
+                            vlog.mapToBusiness()
+                        })
+                    )
                 }
-                completionHandler(
-                    vlogs.map({ (vlog) -> Model in
-                        vlog.mapToBusiness()
-                    })
-                )
+            } catch {
+                self.getAll(refresh: !refresh, completionHandler: completionHandler)
             }
         }
     }
@@ -51,27 +46,24 @@ class VlogRepository: VlogRepositoryProtocol {
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (vlog) -> Void in
+                self.cache.set(object: vlog)
                 completionHandler(vlog?.mapToBusiness())
             })
         } else {
-            cache.get(id: id) { (vlog) in
-                if vlog == nil {
-                    self.get(id: id, refresh: !refresh, completionHandler: completionHandler)
-                } else {
-                    completionHandler(vlog?.mapToBusiness())
+            do {
+                try cache.get(id: id) { (vlog) in
+                    completionHandler(vlog.mapToBusiness())
                 }
+            } catch {
+                self.get(id: id, refresh: !refresh, completionHandler: completionHandler)
             }
         }
     }
     
     func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
         network.getSingleMultiple(id: id, completionHandler: { (vlogs) -> Void in
-            guard let vlogs = vlogs else {
-                completionHandler([])
-                return
-            }
             completionHandler(
-                vlogs.map({ (vlog) -> Model in
+                vlogs.map({ (vlog) -> VlogModel in
                     vlog.mapToBusiness()
                 })
             )

@@ -7,23 +7,34 @@
 //
 
 class UserSettingsRepository: UserSettingsRepositoryProtocol {
-
-    typealias Model = UserSettingsModel
     
-    private let network: DataSourceFactory<UserSettings>
+    
+    private let network: UserSettingsDataSourceProtocol
+    private let cache: CacheDataSourceFactory<UserSettings>
 
-    init(network: DataSourceFactory<UserSettings> = DataSourceFactory(UserSettingsNetwork.shared)) {
+    init(network: UserSettingsDataSourceProtocol = UserSettingsNetwork(), cache: CacheDataSourceFactory<UserSettings> = CacheDataSourceFactory(UserSettingsCacheHandler.shared)) {
         self.network = network
+        self.cache = cache
     }
     
-    func get(id: String, refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
-        network.get(id: id, completionHandler: { (userSettingsModel) in
-            completionHandler(userSettingsModel?.mapToBusiness())
-        })
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
+        if refresh {
+            network.get(completionHandler: { (userSettingsModel) in
+                self.cache.set(object: userSettingsModel)
+                completionHandler(userSettingsModel?.mapToBusiness())
+            })
+        } else {
+            do {
+                try cache.get(id: "") { (userSettings) in
+                    completionHandler(userSettings.mapToBusiness())
+                }
+            } catch {
+                self.get(refresh: !refresh, completionHandler: completionHandler)
+            }
+        }
     }
     
     func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping(Int) -> Void) {
         network.updateUserSettings(userSettings: UserSettings.mapToEntity(model: userSettings), completionHandler: completionHandler)
     }
 }
-
