@@ -11,7 +11,7 @@ import UserNotifications
 import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: UNUserNotificationCenterDelegate
     var configValues: NSDictionary?
@@ -27,10 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var registrationService : NotificationRegistrationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        if UserDefaults.standard.getUserId() == nil {
-            UserDefaults.standard.setUserId(value: 1)
-        }
         
         if(CommandLine.arguments.contains("testing")) {
             ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .test)
@@ -62,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         window = UIWindow(frame: UIScreen.main.bounds)
         var rootViewController: UIViewController?
-        if UserDefaults.standard.string(forKey: "user") != nil {
+        if UserDefaults.standard.getIsLoggedIn() == true {
             // setup window
             rootViewController = TimelineViewController(nibName: nil, bundle: nil)
             let navigationController = UINavigationController(rootViewController: rootViewController!)
@@ -102,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 }
 
 // MARK: UNUserNotificationCenterDelegate
-extension AppDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 
@@ -144,7 +140,6 @@ extension AppDelegate {
     @available(iOS 10, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         handleNotification(with: response.notification.request.content.userInfo)
-        print(response.notification.request.content.userInfo)
         showAlert(withText: response.notification.request.content.body)
     }
     
