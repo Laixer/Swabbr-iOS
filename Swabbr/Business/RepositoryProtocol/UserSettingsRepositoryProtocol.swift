@@ -7,7 +7,7 @@
 //
 
 protocol UserSettingsRepositoryProtocol {
-    typealias SetHandler = (Int) -> Void
+    typealias SetHandler = (String?) -> Void
     func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void)
     func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping SetHandler)
 }

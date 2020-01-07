@@ -30,8 +30,13 @@ class UserSettingsViewController: FormViewController {
                 $0.options = [0, 1, 2, 3]
                 $0.value = 3
             }.onChange { (element) -> Void in
-                    self.userSettingsItem?.dailyVlogRequestLimit = element.value!
-            }
+                guard let value = element.value else {
+                    return
+                }
+                self.userSettingsItem?.dailyVlogRequestLimit = value
+                }.onPresent({ (_, element) in
+                    element.enableDeselection = false
+                })
             <<< PushRow<Int>("followMode") {
                 let modes = ["Never", "Always", "Manual"]
                 $0.title = "Follow mode"
@@ -39,8 +44,13 @@ class UserSettingsViewController: FormViewController {
                 $0.value = 0
                 $0.displayValueFor = { (rowValue: Int?) in modes[rowValue!] }
             }.onChange { (element) -> Void in
-                    self.userSettingsItem?.followMode = element.value!
-            }
+                guard let value = element.value else {
+                    return
+                }
+                self.userSettingsItem?.followMode = value
+            }.onPresent({ (_, element) in
+                element.enableDeselection = false
+            })
             <<< ButtonRow {
                 $0.title = "Save"
                 }.onCellSelection( {(_, _) -> Void in
@@ -59,7 +69,6 @@ class UserSettingsViewController: FormViewController {
     private func saveButtonClicked() {
         // userSettings
         if controllerService.userSettings! == userSettingsItem! {
-            // TODO: alert
             return
         }
         controllerService.updateUserSettings(userSettingsItem: userSettingsItem!)
@@ -79,5 +88,12 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
         followMode.value = userSettingsItem?.followMode
         
         tableView.reloadData()
+    }
+    
+    func updatedUserSettings(errorString: String?) {
+        guard let errorString = errorString else {
+            return
+        }
+        BasicErrorDialog.createAlert(message: errorString, context: self)
     }
 }

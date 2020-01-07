@@ -26,18 +26,17 @@ class UserSettingsNetwork: NetworkProtocol, UserSettingsDataSourceProtocol {
         }
     }
     
-    func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping (Int, UserSettings?) -> Void) {
+    func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping (UserSettings?, String?) -> Void) {
         var request = buildUrl(path: "update", authorization: true)
-        request.httpMethod = "POST"
+        request.httpMethod = "PUT"
         request.httpBody = try! JSONEncoder().encode(userSettings)
+        request.addValue("text/json", forHTTPHeaderField: "Content-Type")
         AF.request(request).responseDecodable { (response: DataResponse<UserSettings>) in
             switch response.result {
             case .success(let userSettings):
-                completionHandler(response.response?.statusCode ?? 404, userSettings)
-            case .failure(let error):
-                print(error.localizedDescription)
-                completionHandler(404, nil)
-                // failure handling
+                completionHandler(userSettings, nil)
+            case .failure:
+                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }

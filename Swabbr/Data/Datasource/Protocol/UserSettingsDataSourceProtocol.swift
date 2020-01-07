@@ -7,7 +7,17 @@
 //
 
 protocol UserSettingsDataSourceProtocol {
-    typealias SetHandler = (Int, UserSettings?) -> Void
+    typealias SetHandler = (UserSettings?, String?) -> Void
+    /**
+     Retrieve the usersettings from a source.
+     - parameter completionHandler: A completionHandler which will return an optional UserSettings object.
+    */
     func get(completionHandler: @escaping (UserSettings?) -> Void)
+    
+    /**
+     Update the usersettings.
+     - parameter userSettings: An UserSettings object.
+     - parameter completionHandler: A completionHandler which will return an optional UserSettings object and optional Error String.
+    */
     func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping SetHandler)
 }

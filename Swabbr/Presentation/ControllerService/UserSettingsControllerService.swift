@@ -32,8 +32,8 @@ class UserSettingsControllerService {
      - parameter userSettingsItem: A new UserSettingsItem object.
     */
     func updateUserSettings(userSettingsItem: UserSettingsItem) {
-        userSettingsUseCase.updateUserSettings(userSettings: userSettingsItem.mapToBusiness()) { (code) in
-            print(code)
+        userSettingsUseCase.updateUserSettings(userSettings: userSettingsItem.mapToBusiness()) { (errorString) in
+            self.delegate?.updatedUserSettings(errorString: errorString)
         }
     }
     
@@ -41,4 +41,5 @@ class UserSettingsControllerService {
 
 protocol UserSettingsViewControllerServiceDelegate: class {
     func retrievedUserSettings(_ sender: UserSettingsControllerService)
+    func updatedUserSettings(errorString: String?)
 }

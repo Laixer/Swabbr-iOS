@@ -7,7 +7,7 @@
 //
 
 struct UserSettings {
-    
+
     let isPrivate: Bool
     let dailyVlogRequestLimit: Int
     let followMode: Int

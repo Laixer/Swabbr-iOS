@@ -18,9 +18,8 @@ class UserSettingsUseCase {
         repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     
-    func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping (Int) -> Void) {
+    func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping (String?) -> Void) {
         repository.updateUserSettings(userSettings: userSettings, completionHandler: completionHandler)
     }
     
 }
-

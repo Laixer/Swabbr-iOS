@@ -10,7 +10,6 @@
 
 class UserSettingsRepository: UserSettingsRepositoryProtocol {
     
-    
     private let network: UserSettingsDataSourceProtocol
     private let userSettingsCache: UserSettingsCacheDataSourceProtocol
     private let authorizedUserCache: AuthorizedUserCacheDataSourceProtocol
@@ -40,14 +39,14 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
         }
     }
     
-    func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping(Int) -> Void) {
-        network.updateUserSettings(userSettings: UserSettings.mapToEntity(model: userSettings)) { (code, userSettings) in
+    func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping(String?) -> Void) {
+        network.updateUserSettings(userSettings: UserSettings.mapToEntity(model: userSettings)) { (userSettings, errorString) in
             guard let userSettings = userSettings else {
-                completionHandler(404)
+                completionHandler(errorString)
                 return
             }
             try! self.userSettingsCache.set(object: userSettings)
-            completionHandler(code)
+            completionHandler(nil)
         }
     }
 }
