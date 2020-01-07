@@ -23,8 +23,7 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
             case .success(let authorizedUser):
                 completionHandler(authorizedUser, nil)
             case .failure:
-                print(String.init(data: response.data!, encoding: .utf8)!)
-                completionHandler(nil, String.init(format: "%d: %@",response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }
@@ -33,14 +32,13 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         var request = buildUrl(path: "register")
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(registrationUser)
-        print(try! JSONEncoder().encode(registrationUser))
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("text/json", forHTTPHeaderField: "Content-Type")
         AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authorizedUser):
                 completionHandler(authorizedUser, nil)
             case .failure:
-                completionHandler(nil, String.init(format: "%d: %@",response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }

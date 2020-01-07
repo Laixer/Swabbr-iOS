@@ -24,7 +24,7 @@ extension NetworkProtocol {
         components.queryItems = queryItems
         var urlRequest = URLRequest(url: components.url!)
         if authorization {
-            urlRequest.addValue(String.init(format: "Bearer {0}", UserDefaults.standard.getAccessToken()!), forHTTPHeaderField: "Authorization")
+            urlRequest.addValue(String.init(format: "Bearer %@", UserDefaults.standard.getAccessToken()!), forHTTPHeaderField: "Authorization")
         }
         return urlRequest
     }
