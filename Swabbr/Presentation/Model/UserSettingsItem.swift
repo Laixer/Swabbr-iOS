@@ -10,16 +10,16 @@ struct UserSettingsItem {
     
     var isPrivate: Bool
     var dailyVlogRequestLimit: Int
-    var followMode: FollowMode
+    var followMode: Int
     
     init(userSettingsModel: UserSettingsModel) {
         isPrivate = userSettingsModel.isPrivate
         dailyVlogRequestLimit = userSettingsModel.dailyVlogRequestLimit
-        followMode = FollowMode(rawValue: userSettingsModel.followMode)!
+        followMode = userSettingsModel.followMode
     }
     
     func mapToBusiness() -> UserSettingsModel {
-        return UserSettingsModel(isPrivate: isPrivate, dailyVlogRequestLimit: dailyVlogRequestLimit, followMode: followMode.rawValue)
+        return UserSettingsModel(isPrivate: isPrivate, dailyVlogRequestLimit: dailyVlogRequestLimit, followMode: followMode)
     }
     
 }
@@ -34,8 +34,4 @@ extension UserSettingsItem: Equatable {
     static func == (lhs: UserSettingsItem, rhs: UserSettingsItem) -> Bool {
         return lhs.isPrivate == rhs.isPrivate && lhs.dailyVlogRequestLimit == rhs.dailyVlogRequestLimit && lhs.followMode == rhs.followMode
     }
-}
-
-public enum FollowMode: Int, CaseIterable {
-    case always = 0, never, manual
 }

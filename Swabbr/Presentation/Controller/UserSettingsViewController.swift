@@ -15,10 +15,6 @@ class UserSettingsViewController: FormViewController {
     
     private var userSettingsItem: UserSettingsItem?
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +32,12 @@ class UserSettingsViewController: FormViewController {
             }.onChange { (element) -> Void in
                     self.userSettingsItem?.dailyVlogRequestLimit = element.value!
             }
-            <<< PushRow<FollowMode>("followMode") {
+            <<< PushRow<Int>("followMode") {
+                let modes = ["Never", "Always", "Manual"]
                 $0.title = "Follow mode"
-                $0.options = FollowMode.allCases
-                $0.value = FollowMode.manual
+                $0.options = [0, 1, 2]
+                $0.value = 0
+                $0.displayValueFor = { (rowValue: Int?) in modes[rowValue!] }
             }.onChange { (element) -> Void in
                     self.userSettingsItem?.followMode = element.value!
             }
@@ -75,7 +73,7 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
         
         let isPrivate: SwitchRow = form.rowBy(tag: "isPrivate")!
         let requestLimit: PushRow<Int> = form.rowBy(tag: "requestLimit")!
-        let followMode: PushRow<FollowMode> = form.rowBy(tag: "followMode")!
+        let followMode: PushRow<Int> = form.rowBy(tag: "followMode")!
         isPrivate.value = userSettingsItem?.isPrivate
         requestLimit.value = userSettingsItem?.dailyVlogRequestLimit
         followMode.value = userSettingsItem?.followMode

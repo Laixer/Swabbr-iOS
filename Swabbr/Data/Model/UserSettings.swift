@@ -23,7 +23,7 @@ struct UserSettings {
      Put each value in their respected model variant.
      */
     enum CodingKeys: String, CodingKey {
-        case isPrivate = "private", dailyVlogRequestLimit, followMode
+        case isPrivate = "isPrivate", dailyVlogRequestLimit, followMode
     }
     
 }
@@ -33,11 +33,10 @@ extension UserSettings: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
         dailyVlogRequestLimit = try container.decode(Int.self, forKey: .dailyVlogRequestLimit)
         followMode = try container.decode(Int.self, forKey: .followMode)
-        
     }
     
     func encode(to encoder: Encoder) throws {

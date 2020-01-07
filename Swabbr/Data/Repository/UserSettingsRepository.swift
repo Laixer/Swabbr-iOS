@@ -6,26 +6,32 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 class UserSettingsRepository: UserSettingsRepositoryProtocol {
     
     
     private let network: UserSettingsDataSourceProtocol
-    private let cache: UserSettingsCacheDataSourceProtocol
+    private let userSettingsCache: UserSettingsCacheDataSourceProtocol
+    private let authorizedUserCache: AuthorizedUserCacheDataSourceProtocol
 
-    init(network: UserSettingsDataSourceProtocol = UserSettingsNetwork(), cache: UserSettingsCacheDataSourceProtocol = UserSettingsCacheHandler.shared) {
+    init(network: UserSettingsDataSourceProtocol = UserSettingsNetwork(),
+         userSettingsCache: UserSettingsCacheDataSourceProtocol = UserSettingsCacheHandler.shared,
+         authorizedUserCache: AuthorizedUserCacheDataSourceProtocol = AuthorizedUserCacheHandler.shared) {
         self.network = network
-        self.cache = cache
+        self.userSettingsCache = userSettingsCache
+        self.authorizedUserCache = authorizedUserCache
     }
     
     func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
         if refresh {
             network.get(completionHandler: { (userSettingsModel) in
-                self.cache.set(object: userSettingsModel)
+                self.userSettingsCache.set(object: userSettingsModel)
                 completionHandler(userSettingsModel?.mapToBusiness())
             })
         } else {
             do {
-                try cache.get(id: "") { (userSettings) in
+                try userSettingsCache.get { (userSettings) in
                     completionHandler(userSettings.mapToBusiness())
                 }
             } catch {
@@ -35,6 +41,13 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
     }
     
     func updateUserSettings(userSettings: UserSettingsModel, completionHandler: @escaping(Int) -> Void) {
-        network.updateUserSettings(userSettings: UserSettings.mapToEntity(model: userSettings), completionHandler: completionHandler)
+        network.updateUserSettings(userSettings: UserSettings.mapToEntity(model: userSettings)) { (code, userSettings) in
+            guard let userSettings = userSettings else {
+                completionHandler(404)
+                return
+            }
+            try! self.userSettingsCache.set(object: userSettings)
+            completionHandler(code)
+        }
     }
 }

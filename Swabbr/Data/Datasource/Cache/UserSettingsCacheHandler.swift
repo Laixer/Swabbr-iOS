@@ -18,7 +18,7 @@ class UserSettingsCacheHandler: UserSettingsCacheDataSourceProtocol {
         cache = CodableCache<UserSettings>(key: String(describing: UserSettings.self))
     }
     
-    func get(id: String, completionHandler: @escaping (UserSettings) -> Void) throws {
+    func get(completionHandler: @escaping (UserSettings) -> Void) throws {
         guard let userSettings = cache.get() else {
             throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
