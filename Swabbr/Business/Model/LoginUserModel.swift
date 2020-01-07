@@ -10,5 +10,6 @@ struct LoginUserModel {
     
     var email: String
     var password: String
+    var rememberMe: Bool
     
 }
