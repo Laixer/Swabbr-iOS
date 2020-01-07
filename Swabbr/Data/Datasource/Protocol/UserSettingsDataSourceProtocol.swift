@@ -7,7 +7,7 @@
 //
 
 protocol UserSettingsDataSourceProtocol {
-    typealias SetHandler = (Int) -> Void
+    typealias SetHandler = (Int, UserSettings?) -> Void
     func get(completionHandler: @escaping (UserSettings?) -> Void)
     func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping SetHandler)
 }
