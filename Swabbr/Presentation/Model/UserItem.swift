@@ -13,7 +13,6 @@ struct UserItem {
     var totalVlogs: Int
     var totalFollowers: Int
     var totalFollowing: Int
-    var interests: [String]
     var profileImageUrl: String
     
     init(userModel: UserModel) {
@@ -22,7 +21,6 @@ struct UserItem {
         totalVlogs = userModel.totalVlogs
         totalFollowers = userModel.totalFollowers
         totalFollowing = userModel.totalFollowing
-        interests = userModel.interests
         profileImageUrl = userModel.profileImageUrl
     }
     

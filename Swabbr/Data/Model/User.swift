@@ -19,20 +19,22 @@ struct User {
     var timezone: String
     var username: String
     var profileImageUrl: String
-    var interests: [String]
     var totalVlogs: Int
     var totalFollowers: Int
     var totalFollowing: Int
     var longitude: Float
     var latitude: Float
+    var isPrivate: Bool
     
     /**
      Handles possible name convention differences.
      Put each value in their respected model variant.
     */
     enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, gender, country, email, birthdate, timezone, profileImageUrl, interests, totalVlogs, totalFollowers, totalFollowing, longitude, latitude
+        case id = "userId"
+        case birthdate = "birthDate"
         case username = "nickname"
+        case firstName, lastName, gender, country, email, timezone, profileImageUrl, totalVlogs, totalFollowers, totalFollowing, longitude, latitude, isPrivate
     }
     
     func mapToBusiness() -> UserModel {
@@ -46,13 +48,13 @@ struct User {
                          timezone: timezone,
                          username: username,
                          profileImageUrl: profileImageUrl,
-                         interests: interests,
                          totalVlogs: totalVlogs,
                          totalFollowers: totalFollowers,
                          totalFollowing: totalFollowing,
                          longitude: longitude,
                          latitude: latitude)
     }
+    
 }
 
 // MARK: Codable
@@ -73,13 +75,14 @@ extension User: Codable {
         timezone = try container.decode(String.self, forKey: .timezone)
         username = try container.decode(String.self, forKey: .username)
         profileImageUrl = try container.decode(String.self, forKey: .profileImageUrl)
-        interests = try container.decode([String].self, forKey: .interests)
         totalVlogs = try container.decode(Int.self, forKey: .totalVlogs)
         totalFollowers = try container.decode(Int.self, forKey: .totalFollowers)
         totalFollowing = try container.decode(Int.self, forKey: .totalFollowing)
 
         longitude = try container.decodeToType(Float.self, key: .longitude)
         latitude = try container.decodeToType(Float.self, key: .latitude)
+        
+        isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
 
     }
     
@@ -97,7 +100,6 @@ extension User: Codable {
         try container.encode(timezone, forKey: .timezone)
         try container.encode(username, forKey: .username)
         try container.encode(profileImageUrl, forKey: .profileImageUrl)
-        try container.encode(interests, forKey: .interests)
         try container.encode(totalVlogs, forKey: .totalVlogs)
         try container.encode(totalFollowers, forKey: .totalFollowers)
         try container.encode(totalFollowing, forKey: .totalFollowing)

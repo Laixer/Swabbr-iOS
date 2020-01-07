@@ -18,7 +18,6 @@ struct UserModel {
     var timezone: String
     var username: String
     var profileImageUrl: String
-    var interests: [String]
     var totalVlogs: Int
     var totalFollowers: Int
     var totalFollowing: Int
