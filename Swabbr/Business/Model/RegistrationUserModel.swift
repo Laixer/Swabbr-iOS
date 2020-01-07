@@ -14,7 +14,7 @@ struct RegistrationUserModel {
     var country: String
     var email: String
     var password: String
-    var birthdate: Date
+    var birthdate: String
     var timezone: String
     var username: String
     var profileImageUrl: String

@@ -12,14 +12,14 @@ class LoginViewControllerService {
     
     private let loginUseCase = AuthUseCase()
     
-    func login() {
-        loginUseCase.login(loginUser: LoginUserItem(email: "test", password: "test")) { (code) in
-            self.delegate?.handleLoginResponse(code: code)
+    func login(_ loginItem: LoginUserItem) {
+        loginUseCase.login(loginUser: loginItem) { (errorString) in
+            self.delegate?.handleLoginResponse(errorString: errorString)
         }
     }
     
 }
 
 protocol LoginViewControllerServiceDelegate: class {
-    func handleLoginResponse(code: Int)
+    func handleLoginResponse(errorString: String?)
 }

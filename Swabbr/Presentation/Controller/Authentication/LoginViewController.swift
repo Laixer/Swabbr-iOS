@@ -5,6 +5,8 @@
 //  Created by James Bal on 18-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+// swiftlint:disable force_cast
+
 
 import Eureka
 
@@ -24,30 +26,51 @@ class LoginViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         form +++ Section()
-            <<< TextRow {
+            <<< TextRow("email") {
                 $0.title = "Email"
                 $0.placeholder = "email@email.com"
                 $0.add(rule: RuleEmail())
                 $0.add(rule: RuleRequired())
             }
-            <<< PasswordRow {
+            <<< PasswordRow("password") {
                 $0.title = "Password"
                 $0.placeholder = "password"
                 $0.add(rule: RuleRequired())
             }
+            <<< SwitchRow("rememberMe") {
+                $0.title = "Remember me"
+                $0.value = false
+            }
             <<< ButtonRow {
                 $0.title = "Login"
                 $0.onCellSelection({ (_, _) in
-                    self.controllerService.login()
+                    self.submitLoginForm()
                 })
         }
     }
+    
+    /**
+     Submits the form
+    */
+    private func submitLoginForm() {
+    
+        let dictionary = form.values()
+        let loginItem = LoginUserItem(email: dictionary["email"] as! String,
+                                      password: dictionary["password"] as! String,
+                                      rememberMe: dictionary["rememberMe"] as! Bool)
+        controllerService.login(loginItem)
+    
+    }
+    
 }
 
 extension LoginViewController: LoginViewControllerServiceDelegate {
-    func handleLoginResponse(code: Int) {
-        UserDefaults.standard.set("login", forKey: "user")
-        self.present(UINavigationController(rootViewController: TimelineViewController(nibName: nil, bundle: nil)), animated: true, completion: nil)
+    func handleLoginResponse(errorString: String?) {
+        guard errorString == nil else {
+            BasicErrorDialog.createAlert(message: errorString, context: self)
+            return
+        }
+//        self.present(UINavigationController(rootViewController: TimelineViewController(nibName: nil, bundle: nil)), animated: true, completion: nil)
     }
 }
 

@@ -14,14 +14,12 @@ class AuthUseCase {
         self.authRepository = authRepository
     }
     
-    func login(loginUser: LoginUserItem, completionHandler: @escaping (Int) -> Void) {
-        authRepository.login(loginUser: loginUser.mapToBusiness()) { (code) in
-            completionHandler(code)
-        }
+    func login(loginUser: LoginUserItem, completionHandler: @escaping (String?) -> Void) {
+        authRepository.login(loginUser: loginUser.mapToBusiness(), completionHandler: completionHandler)
     }
     
-    func register() {
-        
+    func register(registerUser: RegistrationUserItem, completionHandler: @escaping (String?) -> Void) {
+        authRepository.register(registerUser: registerUser.mapToBusiness(), completionHandler: completionHandler)
     }
     
 }

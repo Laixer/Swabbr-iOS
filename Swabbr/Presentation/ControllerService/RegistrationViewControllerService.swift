@@ -10,15 +10,16 @@ class RegistrationViewControllerService {
     
     weak var delegate: RegistrationViewControllerServiceDelegate?
     
-    // usermodel
-    // password
+    private let registerUseCase = AuthUseCase()
     
     func registerUser(registrationUserItem: RegistrationUserItem) {
-        
+        registerUseCase.register(registerUser: registrationUserItem) { (errorString) in
+            self.delegate?.registeredUser(errorString: errorString)
+        }
     }
     
 }
 
 protocol RegistrationViewControllerServiceDelegate: class {
-    
+    func registeredUser(errorString: String?)
 }

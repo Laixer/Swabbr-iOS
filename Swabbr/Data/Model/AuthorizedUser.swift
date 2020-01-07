@@ -6,14 +6,18 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-struct AuthorizedUser: Codable {
+struct AuthorizedUser {
     
     let accessToken: String
     let user: User
     let userSettings: UserSettings
     
-    enum CodingKeys: CodingKey {
-        case accessToken, user, userSettings
+}
+    
+extension AuthorizedUser: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "token", user, userSettings
     }
     
     init(from decoder: Decoder) throws {
@@ -23,6 +27,7 @@ struct AuthorizedUser: Codable {
         userSettings = try container.decode(UserSettings.self, forKey: .userSettings)
         user = try container.decode(User.self, forKey: .user)
         
+        UserDefaults.standard.setAccessToken(value: accessToken)
     }
     
 }

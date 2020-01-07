@@ -8,12 +8,12 @@
 
 extension UserDefaults {
     
-    func setIsLoggedIn(value: Bool) {
-        set(value, forKey: "isLoggedIn")
+    func setAccessToken(value: String) {
+        set(value, forKey: "accessToken")
     }
     
-    func getIsLoggedIn() -> Bool {
-        return bool(forKey: "isLoggedIn")
+    func getAccessToken() -> String? {
+        return string(forKey: "accessToken")
     }
     
 }

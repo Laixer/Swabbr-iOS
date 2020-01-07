@@ -14,7 +14,7 @@ struct RegistrationUser {
     var country: String
     var email: String
     var password: String
-    var birthdate: Date
+    var birthdate: String
     var timezone: String
     var username: String
     var profileImageUrl: String
@@ -33,7 +33,7 @@ extension RegistrationUser: Encodable {
     enum CodingKeys: String, CodingKey {
         case firstName, lastName, gender, country, email, password, birthdate, timezone, profileImageUrl, phoneNumber
         case username = "nickname"
-        case isPrivate = "private"
+        case isPrivate = "isPrivate"
     }
     
     func encode(to encoder: Encoder) throws {

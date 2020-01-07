@@ -23,23 +23,29 @@ class AuthRepository: AuthRepositoryProtocol {
         self.authorizedUserCache = authorizedUserCache
     }
     
-    func login(loginUser: LoginUserModel, completionHandler: @escaping (Int) -> Void) {
-        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (code, authorizedUser) in
+    func login(loginUser: LoginUserModel, completionHandler: @escaping (String?) -> Void) {
+        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (authorizedUser, errorString) in
+            guard let authorizedUser = authorizedUser else {
+                completionHandler(errorString)
+                return
+            }
             self.userCache.set(object: authorizedUser.user)
             self.userSettingsCache.set(object: authorizedUser.userSettings)
             self.authorizedUserCache.set(object: authorizedUser)
-            UserDefaults.standard.setIsLoggedIn(value: true)
-            completionHandler(code)
+            completionHandler(nil)
         }
     }
     
-    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (Int) -> Void) {
-        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (code, authorizedUser) in
+    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (String?) -> Void) {
+        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (authorizedUser, errorString) in
+            guard let authorizedUser = authorizedUser else {
+                completionHandler(errorString)
+                return
+            }
             self.userCache.set(object: authorizedUser.user)
             self.userSettingsCache.set(object: authorizedUser.userSettings)
             self.authorizedUserCache.set(object: authorizedUser)
-            UserDefaults.standard.setIsLoggedIn(value: true)
-            completionHandler(code)
+            completionHandler(nil)
         }
     }
     

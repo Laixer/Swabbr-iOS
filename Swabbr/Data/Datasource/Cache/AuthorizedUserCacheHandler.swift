@@ -18,7 +18,7 @@ class AuthorizedUserCacheHandler: AuthorizedUserCacheDataSourceProtocol {
         cache = CodableCache<AuthorizedUser>(key: String(describing: AuthorizedUser.self))
     }
     
-    func get(id: String, completionHandler: @escaping (AuthorizedUser) -> Void) throws {
+    func get(completionHandler: @escaping (AuthorizedUser) -> Void) throws {
         guard let authorizedUser = cache.get() else {
             throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }
