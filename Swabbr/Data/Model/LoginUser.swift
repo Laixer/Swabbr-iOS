@@ -10,6 +10,7 @@ struct LoginUser {
 
     var email: String
     var password: String
+    var rememberMe: Bool
 
 }
 
@@ -21,7 +22,7 @@ extension LoginUser: Encodable {
      Put each value in their respected model variant.
      */
     enum CodingKeys: String, CodingKey {
-        case email, password
+        case email, password, rememberMe
     }
     
     func encode(to encoder: Encoder) throws {
@@ -29,6 +30,7 @@ extension LoginUser: Encodable {
 
         try container.encode(email, forKey: .email)
         try container.encode(password, forKey: .password)
+        try container.encode(rememberMe, forKey: .rememberMe)
     }
     
 }
@@ -37,7 +39,8 @@ extension LoginUser: Encodable {
 extension LoginUser {
     static func mapToEntity(model: LoginUserModel) -> LoginUser {
         return LoginUser(email: model.email,
-                         password: model.password)
+                         password: model.password,
+                         rememberMe: model.rememberMe)
     }
 }
 

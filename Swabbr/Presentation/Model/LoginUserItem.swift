@@ -10,10 +10,12 @@ struct LoginUserItem {
     
     var email: String
     var password: String
+    var rememberMe: Bool
     
     func mapToBusiness() -> LoginUserModel {
         return LoginUserModel(email: email,
-                              password: password)
+                              password: password,
+                              rememberMe: rememberMe)
     }
     
 }
