@@ -13,12 +13,11 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
     var endPoint: String = "vlogs"
     
     func getAll(completionHandler: @escaping ([Vlog]) -> Void) {
-        AF.request(buildUrl()).responseDecodable { (response: DataResponse<[Vlog]>) in
+        AF.request(buildUrl(path: "featured", authorization: true)).responseDecodable { (response: DataResponse<[Vlog]>) in
             switch response.result {
             case .success(let vlogs):
                 completionHandler(vlogs)
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completionHandler([])
                 // failure handling
             }
@@ -26,7 +25,7 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
     }
     
     func get(id: String, completionHandler: @escaping (Vlog?) -> Void) {
-        AF.request(buildUrl(path: id)).responseDecodable { (response: DataResponse<Vlog>) in
+        AF.request(buildUrl(path: id, authorization: true)).responseDecodable { (response: DataResponse<Vlog>) in
             switch response.result {
             case .success(let vlog):
                 completionHandler(vlog)
@@ -39,8 +38,7 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
     }
     
     func getSingleMultiple(id: String, completionHandler: @escaping ([Vlog]) -> Void) {
-        let queryItems = [URLQueryItem(name: "userId", value: id)]
-        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<[Vlog]>) in
+        AF.request(buildUrl(path: "users/\(id)", authorization: true)).responseDecodable { (response: DataResponse<[Vlog]>) in
             switch response.result {
             case .success(let vlogs):
                 completionHandler(vlogs)

@@ -20,8 +20,8 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         request.addValue("text/json", forHTTPHeaderField: "Content-Type")
         AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
-            case .success(let authorizedUser):
-                completionHandler(authorizedUser, nil)
+            case .success(let authUser):
+                completionHandler(authUser, nil)
             case .failure:
                 completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
@@ -35,11 +35,24 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         request.addValue("text/json", forHTTPHeaderField: "Content-Type")
         AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
-            case .success(let authorizedUser):
-                completionHandler(authorizedUser, nil)
+            case .success(let authUser):
+                completionHandler(authUser, nil)
             case .failure:
                 completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
+    }
+    
+    func logout(completionHandler: @escaping (String?) -> Void) {
+        var request = buildUrl(path: "logout", authorization: true)
+        request.httpMethod = "DELETE"
+        AF.request(request).response(completionHandler: { (response) in
+            switch response.result {
+            case .success:
+                completionHandler(nil)
+            case .failure:
+                completionHandler(String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+            }
+        })
     }
 }

@@ -7,12 +7,11 @@
 //
 
 protocol FollowRequestDataSourceProtocol {
-    typealias SetHandler = (Int) -> Void
     func get(id: String, completionHandler: @escaping (UserFollowRequest?) -> Void)
     func getSingleMultiple(id: String, completionHandler: @escaping ([UserFollowRequest]) -> Void)
     func getAll(completionHandler: @escaping ([UserFollowRequest]) -> Void)
-    func createFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
-    func destroyFollowRequest(for userId: String, completionHandler: @escaping SetHandler)
-    func acceptFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
-    func declineFollowRequest(from userId: String, completionHandler: @escaping SetHandler)
+    func createFollowRequest(for userId: String, completionHandler: @escaping (UserFollowRequest?, String?) -> Void)
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping (String?) -> Void)
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void)
+    func declineFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void)
 }

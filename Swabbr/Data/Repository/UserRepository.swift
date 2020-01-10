@@ -60,18 +60,33 @@ class UserRepository: UserRepositoryProtocol {
         }
     }
     
-//    func get(term: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void) {
-//        network.get(term: term, completionHandler: { (users) -> Void in
-//            guard let users = users else {
-//                completionHandler([])
-//                return
-//            }
-//            completionHandler(
-//                users.map({ (user) -> Model in
-//                    user.mapToBusiness()
-//                })
-//            )
-//        })
-//    }
+    func getCurrent(refresh: Bool, completionHandler: @escaping (UserModel?, String?) -> Void) {
+        if refresh {
+            network.getCurrent(completionHandler: { (user, errorString) -> Void in
+                guard let user = user else {
+                    completionHandler(nil, errorString)
+                    return
+                }
+                self.cache.set(object: user)
+                completionHandler(user.mapToBusiness(), nil)
+            })
+        } else {
+            
+        }
+    }
+    
+    func setAuthUser(userModel: UserModel) {
+        self.cache.set(object: User.mapToEntity(model: userModel))
+    }
+    
+    func searchForUsers(searchTerm: String, completionHandler: @escaping ([UserModel]) -> Void) {
+        network.searchForUsers(searchTerm: searchTerm, completionHandler: { (users) -> Void in
+            completionHandler(
+                users.map({ (user) -> UserModel in
+                    user.mapToBusiness()
+                })
+            )
+        })
+    }
     
 }

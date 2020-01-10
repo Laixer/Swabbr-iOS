@@ -21,4 +21,12 @@ class UserUseCase {
     func get(id: String, refresh: Bool, completionHandler: @escaping (UserModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
+    
+    func current(refresh: Bool, completionHandler: @escaping (UserModel?, String?) -> Void) {
+        repository.getCurrent(refresh: refresh, completionHandler: completionHandler)
+    }
+    
+    func searchForUsers(searchTerm: String, completionHandler: @escaping ([UserModel]) -> Void) {
+        repository.searchForUsers(searchTerm: searchTerm, completionHandler: completionHandler)
+    }
 }

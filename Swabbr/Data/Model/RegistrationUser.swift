@@ -64,7 +64,7 @@ extension RegistrationUser {
                                 country: model.country,
                                 email: model.email,
                                 password: model.password,
-                                birthdate: model.birthdate,
+                                birthdate: model.birthdate.iso8601(),
                                 timezone: model.timezone,
                                 username: model.username,
                                 profileImageUrl: model.profileImageUrl,

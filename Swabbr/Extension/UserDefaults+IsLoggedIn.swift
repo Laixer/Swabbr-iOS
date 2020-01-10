@@ -8,7 +8,7 @@
 
 extension UserDefaults {
     
-    func setAccessToken(value: String) {
+    func setAccessToken(value: String?) {
         set(value, forKey: "accessToken")
     }
     

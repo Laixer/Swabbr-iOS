@@ -11,6 +11,7 @@ class UserSettingsControllerService {
     weak var delegate: UserSettingsViewControllerServiceDelegate?
     
     private let userSettingsUseCase = UserSettingsUseCase()
+    private let authUseCase = AuthUseCase()
     
     public var userSettings: UserSettingsItem! {
         didSet {
@@ -37,9 +38,19 @@ class UserSettingsControllerService {
         }
     }
     
+    /**
+     Logout the current account.
+    */
+    func logout() {
+        authUseCase.logout { (errorString) in
+            self.delegate?.logoutStatus(errorString: errorString)
+        }
+    }
+    
 }
 
 protocol UserSettingsViewControllerServiceDelegate: class {
     func retrievedUserSettings(_ sender: UserSettingsControllerService)
     func updatedUserSettings(errorString: String?)
+    func logoutStatus(errorString: String?)
 }

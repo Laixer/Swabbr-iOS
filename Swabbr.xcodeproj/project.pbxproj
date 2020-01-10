@@ -10,6 +10,10 @@
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C20E401323AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401223AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift */; };
 		C20E401523C46F13009DC160 /* BasicErrorDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401423C46F13009DC160 /* BasicErrorDialog.swift */; };
+		C20E401723C4C10B009DC160 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */; };
+		C20E401B23C5E129009DC160 /* AuthorizedUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */; };
+		C20E401D23C7488C009DC160 /* UIImageView+ImageFromUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */; };
+		C20E401F23C865A2009DC160 /* UserFollowRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401E23C865A1009DC160 /* UserFollowRequestItem.swift */; };
 		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
 		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
 		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
@@ -193,6 +197,10 @@
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C20E401223AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAudioOrCameraPermissionsAlertDialog.swift; sourceTree = "<group>"; };
 		C20E401423C46F13009DC160 /* BasicErrorDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorDialog.swift; sourceTree = "<group>"; };
+		C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUserModel.swift; sourceTree = "<group>"; };
+		C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageFromUrl.swift"; sourceTree = "<group>"; };
+		C20E401E23C865A1009DC160 /* UserFollowRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestItem.swift; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
 		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
 		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
@@ -455,6 +463,7 @@
 				C2AEABA6239FAB89006B19A4 /* UserSettingsItem.swift */,
 				C2C3C45D23A395CD007F6814 /* RegistrationUserItem.swift */,
 				C2C3C45F23A39681007F6814 /* LoginUserItem.swift */,
+				C20E401E23C865A1009DC160 /* UserFollowRequestItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -484,6 +493,7 @@
 				C2AEAB80239819C8006B19A4 /* FollowStatusModel.swift */,
 				C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */,
 				C2C3C46323A39A43007F6814 /* LoginUserModel.swift */,
+				C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -558,6 +568,7 @@
 				C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */,
 				C29FA47B23952F7000C22F67 /* SearchViewController.swift */,
 				C2AEABA8239FAE9E006B19A4 /* UserSettingsViewController.swift */,
+				C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -664,6 +675,7 @@
 				C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */,
 				C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */,
 				C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */,
+				C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1077,6 +1089,7 @@
 				C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */,
 				C2B5415323A90EBE000A1AD3 /* VlogReactionDataSourceProtocol.swift in Sources */,
 				C2AEABA7239FAB89006B19A4 /* UserSettingsItem.swift in Sources */,
+				C20E401F23C865A2009DC160 /* UserFollowRequestItem.swift in Sources */,
 				C2AEAB772397B2F7006B19A4 /* VlogReactionCacheHandler.swift in Sources */,
 				C2B5414F23A90DB0000A1AD3 /* UserSettingsDataSourceProtocol.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
@@ -1128,6 +1141,7 @@
 				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
 				C2B5414723A90D29000A1AD3 /* VlogDataSourceProtocol.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
+				C20E401723C4C10B009DC160 /* MainTabBarViewController.swift in Sources */,
 				C2E776E623423B5A0071B828 /* VlogReaction.swift in Sources */,
 				C2E776C52333A4320071B828 /* Vlog.swift in Sources */,
 				C2B5414023A90CBE000A1AD3 /* UserSettingsRepositoryProtocol.swift in Sources */,
@@ -1137,6 +1151,7 @@
 				C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */,
 				C2DE21F0232FB73F00BF772D /* LocationHandler.swift in Sources */,
 				C2B5414223A90CCF000A1AD3 /* AuthRepositoryProtocol.swift in Sources */,
+				C20E401B23C5E129009DC160 /* AuthorizedUserModel.swift in Sources */,
 				C2AEAB9123993AAE006B19A4 /* UserFollowRepository.swift in Sources */,
 				C29FA403237D549A00C22F67 /* ProfileViewControllerService.swift in Sources */,
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
@@ -1150,6 +1165,7 @@
 				C2B5412C23A7AD36000A1AD3 /* LoginViewControllerService.swift in Sources */,
 				C2B5413223A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift in Sources */,
 				C2E77719235485C60071B828 /* ApiPreferences.swift in Sources */,
+				C20E401D23C7488C009DC160 /* UIImageView+ImageFromUrl.swift in Sources */,
 				C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */,
 				C29FA42D237EA83C00C22F67 /* UserNetwork.swift in Sources */,
 				C2B5414423A90CFF000A1AD3 /* UserDataSourceProtocol.swift in Sources */,

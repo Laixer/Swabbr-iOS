@@ -12,18 +12,23 @@ class ProfileViewControllerService {
     
     private let userUseCase = UserUseCase()
     private let vlogUseCase = VlogUseCase()
-    private let followStatusUseCase = UserFollowUseCase()
     private let followRequestUseCase = UserFollowRequestUseCase()
     
-    public private(set) var user: UserItem! {
+    public private(set) var user: UserItem? {
         didSet {
             delegate?.didRetrieveUser(self)
         }
     }
     
+    public private(set) var followRequest: UserFollowRequestItem? {
+        didSet {
+            delegate?.setFollowStatus(followRequest?.status)
+        }
+    }
+    
     /**
      Get certain user. Runs a callback when ready.
-     - parameter userId: A user id.
+     - parameter userId: An user id.
      - parameter refresh: A boolean when true will retrieve data from remote.
     */
     func getUser(userId: String, refresh: Bool = false) {
@@ -38,8 +43,12 @@ class ProfileViewControllerService {
      - parameter refresh: A boolean when true will retrieve data from remote.
     */
     func getFollowStatus(userId: String, refresh: Bool = false) {
-        followStatusUseCase.get(id: userId, refresh: refresh, completionHandler: { (followStatusModel) in
-            self.delegate?.setFollowStatus(followStatusModel?.status ?? "")
+        followRequestUseCase.get(id: userId, refresh: refresh, completionHandler: { (followRequestModel) in
+            guard let followRequestModel = followRequestModel else {
+                self.followRequest = nil
+                return
+            }
+            self.followRequest = UserFollowRequestItem.mapToPresentation(userFollowRequestModel: followRequestModel)
         })
     }
     
@@ -47,15 +56,45 @@ class ProfileViewControllerService {
      Perform the action of following related actions.
      The action is dependent on the current follow state.
     */
-    func performFollowAction(completionHandler: @escaping (Error) -> Void) {
-        followStatusUseCase.get(id: user.id, refresh: true, completionHandler: { (followStatusModel) in
-            
-        })
+    func createFollowRequest(userId: String) {
+        followRequestUseCase.createFollowRequest(for: userId) { (followRequest, errorString) in
+            self.delegate?.performedFollowRequestCall(errorString)
+            guard let followRequest = followRequest else {
+                return
+            }
+            self.followRequest = UserFollowRequestItem.mapToPresentation(userFollowRequestModel: followRequest)
+        }
+    }
+    
+    /**
+     
+    */
+    func removeFollowRequest() {
+        followRequestUseCase.destroyFollowRequest(for: followRequest!.id) { (errorString) in
+            self.delegate?.performedFollowRequestCall(errorString)
+            guard errorString == nil else {
+                return
+            }
+            self.followRequest = nil
+        }
+    }
+    
+    /**
+     Get the current authenticated user.
+    */
+    func getCurrentUser(refresh: Bool = false) {
+        userUseCase.current(refresh: refresh) { (userModel, errorString) in
+            guard errorString == nil else {
+                return
+            }
+            self.user = UserItem.mapToPresentation(model: userModel!)
+        }
     }
     
 }
 
 protocol ProfileViewControllerServiceDelegate: class {
     func didRetrieveUser(_ sender: ProfileViewControllerService)
-    func setFollowStatus(_ followStatus: String)
+    func setFollowStatus(_ followStatus: Int?)
+    func performedFollowRequestCall(_ errorString: String?)
 }

@@ -7,6 +7,7 @@
 //
 
 protocol AuthRepositoryProtocol {
-    func login(loginUser: LoginUserModel, completionHandler: @escaping (String?) -> Void)
-    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (String?) -> Void)
+    func login(loginUser: LoginUserModel, completionHandler: @escaping (AuthorizedUserModel?, String?) -> Void)
+    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (AuthorizedUserModel?, String?) -> Void)
+    func logout(completionHandler: @escaping (String?) -> Void)
 }

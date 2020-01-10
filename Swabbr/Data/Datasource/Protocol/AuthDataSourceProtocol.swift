@@ -9,4 +9,5 @@
 protocol AuthDataSourceProtocol {
     func login(loginUser: LoginUser, completionHandler: @escaping (AuthorizedUser?, String?) -> Void)
     func register(registrationUser: RegistrationUser, completionHandler: @escaping (AuthorizedUser?, String?) -> Void)
+    func logout(completionHandler: @escaping (String?) -> Void)
 }

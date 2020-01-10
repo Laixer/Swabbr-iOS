@@ -23,14 +23,12 @@ class SearchViewController: UIViewController, BaseViewProtocol {
         applyConstraints()
         
         controllerService.delegate = self
-        
-        controllerService.getVlogs()
+        controllerService.findUsers(term: "")
     }
     
     func initElements() {
-        searchBar.placeholder = "Search..."
-        searchBar.backgroundColor = UIColor.clear
         
+        searchBar.placeholder = "Search..."
         searchBar.delegate = self
         
         let layout = UICollectionViewFlowLayout()
@@ -40,61 +38,56 @@ class SearchViewController: UIViewController, BaseViewProtocol {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.register(VlogCollectionViewCell.self, forCellWithReuseIdentifier: "vlogCell")
-        
-        view.addSubview(searchBar)
-        view.addSubview(collectionView)
-        
         let tapGesture = UITapGestureRecognizer()
         tapGesture.numberOfTapsRequired = 1
+        tapGesture.cancelsTouchesInView = false
         tapGesture.addTarget(self, action: #selector(dismissKeyboard))
         
-        view.addGestureRecognizer(tapGesture)
+        collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: "userCell")
+        collectionView.addGestureRecognizer(tapGesture)
+
+        view.addSubview(collectionView)
     }
     
     func applyConstraints() {
         
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            searchBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
+    /**
+     Handles the actions required to dismiss the keyboard of the screen.
+    */
     @objc private func dismissKeyboard() {
-        view.endEditing(true)
+        if searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
+            searchBar.endEditing(true)
+        }
     }
+    
 }
 
 // MARK: SearchViewControllerServiceDelegate
 extension SearchViewController: SearchViewControllerServiceDelegate {
-    func foundVlogs(_ sender: SearchViewControllerService) {
+    func foundUsers(_ sender: SearchViewControllerService) {
         collectionView.reloadData()
     }
 }
 
 // MARK: UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if (searchBar.text?.count)! <= 3 {
-            return
-        }
-        controllerService.findUsersVlogs(term: searchBar.text!)
-        view.endEditing(true)
-    }
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if (searchBar.text?.count)! > 3 {
-            return
-        }
-        controllerService.getVlogs()
+        dismissKeyboard()
+        controllerService.findUsers(term: searchBar.text!)
     }
 }
 
@@ -106,14 +99,20 @@ extension SearchViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return controllerService.vlogs.count
+        return controllerService.users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as? VlogCollectionViewCell
-        let vlog = controllerService.vlogs[indexPath.row]
-        cell!.durationLabel.text = vlog.duration
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as? UserCollectionViewCell
+        let user = controllerService.users[indexPath.row]
+        cell!.profileImageView.imageFromUrl(user.profileImageUrl)
+        cell!.usernameLabel.text = user.username
         return cell!
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = controllerService.users[indexPath.row]
+        self.navigationController?.pushViewController(ProfileViewController(userId: user.id), animated: true)
     }
     
 }
@@ -138,4 +137,3 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
-

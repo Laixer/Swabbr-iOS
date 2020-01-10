@@ -32,4 +32,8 @@ class AuthorizedUserCacheHandler: AuthorizedUserCacheDataSourceProtocol {
         try? cache.set(value: object)
     }
     
+    func remove() {
+        try? cache.clear()
+    }
+    
 }

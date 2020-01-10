@@ -16,6 +16,7 @@ class RegistrationViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let english = NSLocale(localeIdentifier: "en_US")
         form +++ Section()
             <<< TextRow("firstname") {
@@ -116,14 +117,21 @@ class RegistrationViewController: FormViewController {
             }
             <<< ButtonRow {
                 $0.title = "Signup"
-                $0.onCellSelection({ (_, _) in
-                    self.sendRegisterForm()
+                $0.onCellSelection({[unowned self] (_, _) in
                     guard self.form.validate().isEmpty else {
                         return
                     }
                     self.sendRegisterForm()
                 })
             }
+            <<< ButtonRow {
+                $0.title = "Cancel"
+                $0.onCellSelection({[weak self] (_, _) in
+                    self?.dismiss(animated: true, completion: nil)
+                })
+            }
+        
+        controllerService.delegate = self
     }
     
     /**

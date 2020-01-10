@@ -9,42 +9,43 @@
 class AuthRepository: AuthRepositoryProtocol {
     
     private let network: AuthDataSourceProtocol
-    private let userCache: UserCacheDataSourceProtocol
-    private let userSettingsCache: UserSettingsCacheDataSourceProtocol
     private let authorizedUserCache: AuthorizedUserCacheDataSourceProtocol
     
     init(network: AuthDataSourceProtocol = AuthNetwork(),
-         userCache: UserCacheDataSourceProtocol = UserCacheHandler.shared,
-         userSettingsCache: UserSettingsCacheDataSourceProtocol = UserSettingsCacheHandler.shared,
          authorizedUserCache: AuthorizedUserCacheDataSourceProtocol = AuthorizedUserCacheHandler.shared) {
         self.network = network
-        self.userCache = userCache
-        self.userSettingsCache = userSettingsCache
         self.authorizedUserCache = authorizedUserCache
     }
     
-    func login(loginUser: LoginUserModel, completionHandler: @escaping (String?) -> Void) {
-        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (authorizedUser, errorString) in
-            guard let authorizedUser = authorizedUser else {
-                completionHandler(errorString)
+    func login(loginUser: LoginUserModel, completionHandler: @escaping (AuthorizedUserModel?, String?) -> Void) {
+        network.login(loginUser: LoginUser.mapToEntity(model: loginUser)) { (authUser, errorString) in
+            guard let authUser = authUser else {
+                completionHandler(nil, errorString)
                 return
             }
-            self.userCache.set(object: authorizedUser.user)
-            self.userSettingsCache.set(object: authorizedUser.userSettings)
-            self.authorizedUserCache.set(object: authorizedUser)
-            completionHandler(nil)
+            self.authorizedUserCache.set(object: authUser)
+            completionHandler(authUser.mapToBusiness(), nil)
         }
     }
     
-    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (String?) -> Void) {
-        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (authorizedUser, errorString) in
-            guard let authorizedUser = authorizedUser else {
+    func register(registerUser: RegistrationUserModel, completionHandler: @escaping (AuthorizedUserModel?, String?) -> Void) {
+        network.register(registrationUser: RegistrationUser.mapToEntity(model: registerUser)) { (authUser, errorString) in
+            guard let authUser = authUser else {
+                completionHandler(nil, errorString)
+                return
+            }
+            self.authorizedUserCache.set(object: authUser)
+            completionHandler(authUser.mapToBusiness(), nil)
+        }
+    }
+    
+    func logout(completionHandler: @escaping (String?) -> Void) {
+        network.logout { (errorString) in
+            guard errorString == nil else {
                 completionHandler(errorString)
                 return
             }
-            self.userCache.set(object: authorizedUser.user)
-            self.userSettingsCache.set(object: authorizedUser.userSettings)
-            self.authorizedUserCache.set(object: authorizedUser)
+            self.authorizedUserCache.remove()
             completionHandler(nil)
         }
     }

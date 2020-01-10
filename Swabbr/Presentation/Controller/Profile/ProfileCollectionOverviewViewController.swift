@@ -32,7 +32,6 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(vlogOwnerId: String) {
         type = DataType.vlogs
         super.init(nibName: nil, bundle: nil)
-        controllerService.delegate = self
         controllerService.getVlogs(userId: vlogOwnerId)
     }
     
@@ -43,7 +42,6 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(followingOwnerId: String) {
         type = DataType.following
         super.init(nibName: nil, bundle: nil)
-        controllerService.delegate = self
         controllerService.getFollowing(userId: followingOwnerId)
     }
     
@@ -54,7 +52,6 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     init(followersOwnerId: String) {
         type = DataType.followers
         super.init(nibName: nil, bundle: nil)
-        controllerService.delegate = self
         controllerService.getFollowers(userId: followersOwnerId)
     }
     
@@ -65,6 +62,8 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     override func viewDidLoad() {
         
         view.backgroundColor = UIColor.white
+        
+        controllerService.delegate = self
         
         initElements()
         applyConstraints()

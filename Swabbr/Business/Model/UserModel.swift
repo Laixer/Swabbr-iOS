@@ -14,7 +14,7 @@ struct UserModel {
     var gender: Int
     var country: String
     var email: String
-    var birthdate: Date
+    var birthdate: String
     var timezone: String
     var username: String
     var profileImageUrl: String
@@ -23,5 +23,6 @@ struct UserModel {
     var totalFollowing: Int
     var longitude: Float
     var latitude: Float
+    var isPrivate: Bool
     
 }

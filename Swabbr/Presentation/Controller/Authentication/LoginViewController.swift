@@ -7,7 +7,6 @@
 //
 // swiftlint:disable force_cast
 
-
 import Eureka
 
 class LoginViewController: FormViewController {
@@ -28,6 +27,9 @@ class LoginViewController: FormViewController {
         form +++ Section()
             <<< TextRow("email") {
                 $0.title = "Email"
+                $0.cellSetup({ (cell, _) in
+                    cell.textField.autocapitalizationType = .none
+                })
                 $0.placeholder = "email@email.com"
                 $0.add(rule: RuleEmail())
                 $0.add(rule: RuleRequired())
@@ -43,8 +45,17 @@ class LoginViewController: FormViewController {
             }
             <<< ButtonRow {
                 $0.title = "Login"
-                $0.onCellSelection({ (_, _) in
+                $0.onCellSelection({[unowned self] (_, _) in
+                    guard self.form.validate().isEmpty else {
+                        return
+                    }
                     self.submitLoginForm()
+                })
+            }
+            <<< ButtonRow {
+                $0.title = "Register"
+                $0.onCellSelection({[weak self] (_, _) in
+                    self?.present(RegistrationViewController(), animated: true, completion: nil)
                 })
         }
     }
@@ -61,7 +72,6 @@ class LoginViewController: FormViewController {
         controllerService.login(loginItem)
     
     }
-    
 }
 
 extension LoginViewController: LoginViewControllerServiceDelegate {
@@ -70,7 +80,8 @@ extension LoginViewController: LoginViewControllerServiceDelegate {
             BasicErrorDialog.createAlert(message: errorString, context: self)
             return
         }
-//        self.present(UINavigationController(rootViewController: TimelineViewController(nibName: nil, bundle: nil)), animated: true, completion: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window!.rootViewController = MainTabBarViewController()
+//        self.dismiss(animated: false, completion: nil)
     }
 }
-

@@ -5,6 +5,7 @@
 //  Created by James Bal on 10-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
+// swiftlint:disable force_cast
 
 import UIKit
 import Eureka
@@ -18,18 +19,20 @@ class UserSettingsViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Settings"
+        
         form +++ Section()
             <<< SwitchRow("isPrivate") {
                 $0.title = "Profile is private"
                 $0.value = false
-            }.onChange { (element) -> Void in
-                self.userSettingsItem?.isPrivate = element.value!
+            }.onChange { [weak self](element) -> Void in
+                self?.userSettingsItem?.isPrivate = element.value!
             }
             <<< PushRow<Int>("requestLimit") {
                 $0.title = "Daily request limit"
                 $0.options = [0, 1, 2, 3]
                 $0.value = 3
-            }.onChange { (element) -> Void in
+            }.onChange { [unowned self](element) -> Void in
                 guard let value = element.value else {
                     return
                 }
@@ -43,7 +46,7 @@ class UserSettingsViewController: FormViewController {
                 $0.options = [0, 1, 2]
                 $0.value = 0
                 $0.displayValueFor = { (rowValue: Int?) in modes[rowValue!] }
-            }.onChange { (element) -> Void in
+            }.onChange { [unowned self](element) -> Void in
                 guard let value = element.value else {
                     return
                 }
@@ -53,10 +56,15 @@ class UserSettingsViewController: FormViewController {
             })
             <<< ButtonRow {
                 $0.title = "Save"
-                }.onCellSelection( {(_, _) -> Void in
-                    self.saveButtonClicked()
+                }.onCellSelection( {[weak self](_, _) -> Void in
+                    self?.saveButtonClicked()
                 })
-        
+            <<< ButtonRow {
+                $0.title = "Logout"
+                }
+                .onCellSelection( {[weak self](_, _) -> Void in
+                    self?.logoutButtonClicked()
+                })
         controllerService.delegate = self
         controllerService.getUserSettings()
     }
@@ -67,11 +75,17 @@ class UserSettingsViewController: FormViewController {
      if differences has been found it will send the new object tot he controller service other it will show an alert.
     */
     private func saveButtonClicked() {
-        // userSettings
         if controllerService.userSettings! == userSettingsItem! {
             return
         }
         controllerService.updateUserSettings(userSettingsItem: userSettingsItem!)
+    }
+
+    /**
+     Will ask the controllerservice to handle the actions required to logout of the current account.
+    */
+    private func logoutButtonClicked() {
+        controllerService.logout()
     }
 }
 
@@ -86,12 +100,22 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
         isPrivate.value = userSettingsItem?.isPrivate
         requestLimit.value = userSettingsItem?.dailyVlogRequestLimit
         followMode.value = userSettingsItem?.followMode
-        
+
         tableView.reloadData()
     }
     
     func updatedUserSettings(errorString: String?) {
         guard let errorString = errorString else {
+            return
+        }
+        BasicErrorDialog.createAlert(message: errorString, context: self)
+    }
+    
+    func logoutStatus(errorString: String?) {
+        guard let errorString = errorString else {
+            UserDefaults.standard.setAccessToken(value: nil)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window!.rootViewController = LoginViewController()
             return
         }
         BasicErrorDialog.createAlert(message: errorString, context: self)

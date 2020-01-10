@@ -11,10 +11,10 @@ import Foundation
 struct UserFollowRequest {
     
     var id: String
-    var requesterId: Int
-    var receiverId: Int
-    var status: Status
-    var timestamp: Date
+    var requesterId: String
+    var receiverId: String
+    var status: Int
+    var timestamp: String
     
     func mapToBusiness() -> UserFollowRequestModel {
         return UserFollowRequestModel(id: id,
@@ -33,19 +33,20 @@ extension UserFollowRequest: Codable {
      Put each value in their respected model variant.
      */
     enum CodingKeys: String, CodingKey {
-        case id, requesterId, receiverId, status, timestamp
+        case id = "followRequestId", requesterId, receiverId, status
+        case timestamp = "timeCreated"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
-        requesterId = try container.decodeToType(Int.self, key: .requesterId)
-        receiverId = try container.decodeToType(Int.self, key: .receiverId)
+        requesterId = try container.decode(String.self, forKey: .requesterId)
+        receiverId = try container.decode(String.self, forKey: .receiverId)
         
-        status = try container.decode(Status.self, forKey: .status)
+        status = try container.decode(Int.self, forKey: .status)
         
-        timestamp = DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: try container.decode(String.self, forKey: .timestamp))!
+        timestamp = try container.decode(String.self, forKey: .timestamp)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -53,16 +54,10 @@ extension UserFollowRequest: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(id, forKey: .id)
-        try container.encode(String(requesterId), forKey: .requesterId)
-        try container.encode(String(receiverId), forKey: .receiverId)
+        try container.encode(requesterId, forKey: .requesterId)
+        try container.encode(receiverId, forKey: .receiverId)
         try container.encode(status, forKey: .status)
         try container.encode(timestamp, forKey: .timestamp)
         
     }
-}
-
-public enum Status: String, Codable {
-    case accepted = "accepted"
-    case pending = "pending"
-    case declined = "declined"
 }

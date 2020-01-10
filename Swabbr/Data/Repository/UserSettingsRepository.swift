@@ -6,8 +6,6 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-// swiftlint:disable force_try
-
 class UserSettingsRepository: UserSettingsRepositoryProtocol {
     
     private let network: UserSettingsDataSourceProtocol
@@ -45,8 +43,14 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
                 completionHandler(errorString)
                 return
             }
-            try! self.userSettingsCache.set(object: userSettings)
+            self.userSettingsCache.set(object: userSettings)
             completionHandler(nil)
         }
     }
+    
+    func setUserSettings(userSettings: UserSettingsModel) {
+        self.userSettingsCache.remove()
+        self.userSettingsCache.set(object: UserSettings.mapToEntity(model: userSettings))
+    }
+    
 }

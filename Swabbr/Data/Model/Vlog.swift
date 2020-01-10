@@ -24,7 +24,7 @@ struct Vlog {
         return VlogModel(id: id,
                          isPrivate: isPrivate,
                          duration: duration,
-                         startDate: DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: startDate)!,
+                         startDate: Date(),
                          totalLikes: totalLikes,
                          totalReactions: totalReactions,
                          totalViews: totalViews,
@@ -41,9 +41,10 @@ extension Vlog: Codable {
      Put each value in their respected model variant.
      */
     enum CodingKeys: String, CodingKey {
-        case id
-        case isPrivate = "private"
-        case duration, startDate, totalLikes, totalReactions, totalViews, isLive, owner
+        case id = "vlogId"
+        case isPrivate = "isPrivate"
+        case duration, startDate = "dateStarted"
+        case totalLikes, totalReactions, totalViews, isLive
         case ownerId = "userId"
         
     }
@@ -54,13 +55,13 @@ extension Vlog: Codable {
         id = try container.decode(String.self, forKey: .id)
         
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
-        duration = try container.decode(String.self, forKey: .duration)
+        duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? ""
         
         startDate = try container.decode(String.self, forKey: .startDate)
         
-        totalLikes = try container.decode(Int.self, forKey: .totalLikes)
-        totalReactions = try container.decode(Int.self, forKey: .totalReactions)
-        totalViews = try container.decode(Int.self, forKey: .totalViews)
+        totalLikes = try container.decodeIfPresent(Int.self, forKey: .totalLikes) ?? 0
+        totalReactions = try container.decodeIfPresent(Int.self, forKey: .totalReactions) ?? 0
+        totalViews = try container.decodeIfPresent(Int.self, forKey: .totalViews) ?? 0
         isLive = try container.decode(Bool.self, forKey: .isLive)
         ownerId = try container.decode(String.self, forKey: .ownerId)
         

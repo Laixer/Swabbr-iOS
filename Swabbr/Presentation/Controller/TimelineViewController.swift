@@ -10,7 +10,7 @@
 
 import UIKit
 
-class TimelineViewController : UIViewController {
+class TimelineViewController: UIViewController {
     
     weak var pageViewController: UIPageViewController!
     

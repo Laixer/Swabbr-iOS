@@ -12,8 +12,14 @@ struct AuthorizedUser {
     let user: User
     let userSettings: UserSettings
     
-}
+    func mapToBusiness() -> AuthorizedUserModel {
+        return AuthorizedUserModel(accessToken: accessToken,
+                                   user: user.mapToBusiness(),
+                                   userSettings: userSettings.mapToBusiness())
+    }
     
+}
+
 extension AuthorizedUser: Codable {
     
     enum CodingKeys: String, CodingKey {
@@ -30,4 +36,21 @@ extension AuthorizedUser: Codable {
         UserDefaults.standard.setAccessToken(value: accessToken)
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(accessToken, forKey: .accessToken)
+        try container.encode(user, forKey: .user)
+        try container.encode(userSettings, forKey: .userSettings)
+    }
+    
+}
+
+// MARK: mapToEntity
+extension AuthorizedUser {
+    static func mapToEntity(model: AuthorizedUserModel) -> AuthorizedUser {
+        return AuthorizedUser(accessToken: model.accessToken,
+                              user: User.mapToEntity(model: model.user),
+                              userSettings: UserSettings.mapToEntity(model: model.userSettings))
+    }
 }

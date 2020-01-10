@@ -26,19 +26,19 @@ class UserFollowRequestUseCase {
         repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+    func createFollowRequest(for userId: String, completionHandler: @escaping (UserFollowRequestModel?, String?) -> Void) {
         repository.createFollowRequest(for: userId, completionHandler: completionHandler)
     }
     
-    func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping (String?) -> Void) {
         repository.destroyFollowRequest(for: userId, completionHandler: completionHandler)
     }
     
-    func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
         repository.acceptFollowRequest(from: userId, completionHandler: completionHandler)
     }
     
-    func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+    func declineFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
         repository.declineFollowRequest(from: userId, completionHandler: completionHandler)
     }
 }

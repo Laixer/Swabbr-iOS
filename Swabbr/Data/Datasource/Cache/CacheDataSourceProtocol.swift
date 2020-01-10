@@ -33,10 +33,12 @@ protocol VlogReactionCacheDataSourceProtocol {
 protocol UserSettingsCacheDataSourceProtocol {
     func get(completionHandler: @escaping (UserSettings) -> Void) throws
     func set(object: UserSettings?)
+    func remove()
 }
 
 // MARK: AuthorizedUserCacheDataSourceProtocol
 protocol AuthorizedUserCacheDataSourceProtocol {
     func get(completionHandler: @escaping (AuthorizedUser) -> Void) throws
     func set(object: AuthorizedUser?)
+    func remove()
 }

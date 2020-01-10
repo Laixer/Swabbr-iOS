@@ -28,7 +28,7 @@ struct RegistrationUserItem {
                                     country: country,
                                     email: email,
                                     password: password,
-                                    birthdate: birthdate.iso8601(),
+                                    birthdate: birthdate,
                                     timezone: timezone,
                                     username: username,
                                     profileImageUrl: profileImageUrl ?? "",

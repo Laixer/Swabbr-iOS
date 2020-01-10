@@ -40,19 +40,21 @@ class UserFollowRequestRepository: FollowRequestRepositoryProtocol {
         })
     }
     
-    func createFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
-        network.createFollowRequest(for: userId, completionHandler: completionHandler)
+    func createFollowRequest(for userId: String, completionHandler: @escaping (UserFollowRequestModel?, String?) -> Void) {
+        network.createFollowRequest(for: userId, completionHandler: { (userFollowRequest, errorString) -> Void in
+            completionHandler(userFollowRequest?.mapToBusiness(), errorString)
+        })
     }
     
-    func destroyFollowRequest(for userId: String, completionHandler: @escaping (Int) -> Void) {
+    func destroyFollowRequest(for userId: String, completionHandler: @escaping (String?) -> Void) {
         network.destroyFollowRequest(for: userId, completionHandler: completionHandler)
     }
     
-    func acceptFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+    func acceptFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
         network.acceptFollowRequest(from: userId, completionHandler: completionHandler)
     }
     
-    func declineFollowRequest(from userId: String, completionHandler: @escaping (Int) -> Void) {
+    func declineFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
         network.declineFollowRequest(from: userId, completionHandler: completionHandler)
     }
 }

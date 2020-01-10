@@ -48,9 +48,10 @@ class UserCacheHandler: UserCacheDataSourceProtocol {
             return
         }
         if users.contains(where: {$0.id == object.id}) {
-            return
+            users.insert(object, at: users.lastIndex(where: {$0.id == object.id})!)
+        } else {
+            users.append(object)
         }
-        users.append(object)
         try? cache.set(value: users)
     }
     

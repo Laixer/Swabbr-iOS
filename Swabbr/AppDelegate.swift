@@ -57,19 +57,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FirebaseApp.configure()
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        var rootViewController: UIViewController?
-        if UserDefaults.standard.getIsLoggedIn() == true {
-            // setup window
-            rootViewController = TimelineViewController(nibName: nil, bundle: nil)
-            let navigationController = UINavigationController(rootViewController: rootViewController!)
-            window?.rootViewController = navigationController
-            window?.makeKeyAndVisible()
-        } else {
-            rootViewController = LoginViewController()
-            window?.rootViewController = rootViewController
-            window?.makeKeyAndVisible()
+        var controller: UIViewController {
+//            if UserDefaults.standard.getAccessToken() != nil {
+//                return MainTabBarViewController()
+//            }
+            return LoginViewController()
         }
-        
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
         return true
     }
 

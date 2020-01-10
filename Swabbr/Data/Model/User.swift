@@ -33,8 +33,7 @@ struct User {
     enum CodingKeys: String, CodingKey {
         case id = "userId"
         case birthdate = "birthDate"
-        case username = "nickname"
-        case firstName, lastName, gender, country, email, timezone, profileImageUrl, totalVlogs, totalFollowers, totalFollowing, longitude, latitude, isPrivate
+        case username = "nickname", firstName, lastName, gender, country, email, timezone, profileImageUrl, totalVlogs, totalFollowers, totalFollowing, longitude, latitude, isPrivate
     }
     
     func mapToBusiness() -> UserModel {
@@ -44,7 +43,7 @@ struct User {
                          gender: gender,
                          country: country,
                          email: email,
-                         birthdate: DateFormatter().stringToBaseDate(format: "dd/MM/yyyy", value: birthdate)!,
+                         birthdate: birthdate,
                          timezone: timezone,
                          username: username,
                          profileImageUrl: profileImageUrl,
@@ -52,7 +51,8 @@ struct User {
                          totalFollowers: totalFollowers,
                          totalFollowing: totalFollowing,
                          longitude: longitude,
-                         latitude: latitude)
+                         latitude: latitude,
+                         isPrivate: isPrivate)
     }
     
 }
@@ -72,9 +72,9 @@ extension User: Codable {
 
         birthdate = try container.decode(String.self, forKey: .birthdate)
 
-        timezone = try container.decode(String.self, forKey: .timezone)
+        timezone = try container.decodeIfPresent(String.self, forKey: .timezone) ?? ""
         username = try container.decode(String.self, forKey: .username)
-        profileImageUrl = try container.decode(String.self, forKey: .profileImageUrl)
+        profileImageUrl = try container.decodeIfPresent(String.self, forKey: .profileImageUrl) ?? ""
         totalVlogs = try container.decode(Int.self, forKey: .totalVlogs)
         totalFollowers = try container.decode(Int.self, forKey: .totalFollowers)
         totalFollowing = try container.decode(Int.self, forKey: .totalFollowing)
@@ -108,4 +108,26 @@ extension User: Codable {
         
     }
 
+}
+
+// MARK: mapToEntity
+extension User {
+    static func mapToEntity(model: UserModel) -> User {
+        return User(id: model.id,
+                    firstName: model.firstName,
+                    lastName: model.lastName,
+                    gender: model.gender,
+                    country: model.country,
+                    email: model.email,
+                    birthdate: model.birthdate,
+                    timezone: model.timezone,
+                    username: model.username,
+                    profileImageUrl: model.profileImageUrl,
+                    totalVlogs: model.totalVlogs,
+                    totalFollowers: model.totalFollowers,
+                    totalFollowing: model.totalFollowing,
+                    longitude: model.longitude,
+                    latitude: model.latitude,
+                    isPrivate: model.isPrivate)
+    }
 }

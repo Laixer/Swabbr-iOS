@@ -9,9 +9,9 @@
 struct UserFollowRequestModel {
     
     var id: String
-    var requesterId: Int
-    var receiverId: Int
-    var status: Status
-    var timestamp: Date
+    var requesterId: String
+    var receiverId: String
+    var status: Int
+    var timestamp: String
     
 }

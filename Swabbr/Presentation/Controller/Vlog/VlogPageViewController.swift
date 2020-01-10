@@ -106,13 +106,7 @@ extension VlogPageViewController: VlogPageViewControllerServiceDelegate {
         viewsCountLabel.text = String(sender.vlog.vlogTotalViews)
         reactionCountLabel.text = String(sender.vlog.vlogTotalReactions)
         userUsernameLabel.text = sender.vlog.userUsername
-        do {
-            let url = URL(string: "https://cdn.mos.cms.futurecdn.net/yJaNqkw6JPf2QuXiYobcY3.jpg")
-            let data = try Data(contentsOf: url!)
-            userProfileImageView.image = UIImage(data: data)
-        } catch {
-            print(error)
-        }
+        userProfileImageView.imageFromUrl(sender.vlog.userProfileImageUrl)
         if sender.vlog.vlogIsLive {
             containerView.addSubview(isLiveLabel)
             NSLayoutConstraint.activate([

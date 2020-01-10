@@ -11,45 +11,23 @@ class SearchViewControllerService {
     weak var delegate: SearchViewControllerServiceDelegate?
     
     private let userUseCase = UserUseCase()
-    private let vlogUseCase = VlogUseCase()
     
-    public private(set) var vlogs: [VlogItem]! = [] {
+    public private(set) var users: [UserItem]! = [] {
         didSet {
-            delegate?.foundVlogs(self)
+            delegate?.foundUsers(self)
         }
     }
     
-//    func findUsersVlogs(term: String) {
-//        let dispatchGroup = DispatchGroup()
-//        userUseCase.get(term: term, refresh: true, completionHandler: {(userModels) -> Void in
-//            var innerVlogs: [VlogItem] = []
-//            
-//            for userModel in userModels {
-//                dispatchGroup.enter()
-//                self.vlogUseCase.get(id: userModel.id, refresh: false, multiple: {(vlogModels) -> Void in
-//                    innerVlogs += vlogModels.compactMap({ (vlogModel) -> VlogItem in
-//                        VlogItem.mapToPresentation(vlogModel: vlogModel)
-//                    })
-//                    dispatchGroup.leave()
-//                })
-//            }
-//            
-//            dispatchGroup.notify(queue: .main, execute: {
-//                self.vlogs = innerVlogs
-//            })
-//        })
-//    }
-    
-    func getVlogs() {
-        vlogUseCase.get(refresh: true, completionHandler: {(vlogModels) -> Void in
-            self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
-                VlogItem.mapToPresentation(vlogModel: vlogModel)
+    func findUsers(term: String) {
+        userUseCase.searchForUsers(searchTerm: term) { (userModels) in
+            self.users = userModels.compactMap({ (userModel) -> UserItem in
+                UserItem.mapToPresentation(model: userModel)
             })
-        })
+        }
     }
 
 }
 
 protocol SearchViewControllerServiceDelegate: class {
-    func foundVlogs(_ sender: SearchViewControllerService)
+    func foundUsers(_ sender: SearchViewControllerService)
 }
