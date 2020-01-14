@@ -36,7 +36,8 @@ class UserSettingsNetwork: NetworkProtocol, UserSettingsDataSourceProtocol {
             case .success(let userSettings):
                 completionHandler(userSettings, nil)
             case .failure:
-                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil,
+                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }

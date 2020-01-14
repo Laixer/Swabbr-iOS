@@ -7,28 +7,28 @@
 //
 
 class UserFollowRequestRepository: FollowRequestRepositoryProtocol {
-    
+
     private let network: FollowRequestDataSourceProtocol
     
     init(network: FollowRequestDataSourceProtocol = UserFollowRequestNetwork()) {
         self.network = network
     }
     
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        network.getSingleMultiple(id: id, completionHandler: { (userFollowRequests) in
+    func getIncomingRequests(completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+        network.getIncomingRequests(completionHandler: { (userFollowRequests) -> Void in
             completionHandler(
-                userFollowRequests.map({ (userFollowRequest) -> UserFollowRequestModel in
-                    userFollowRequest.mapToBusiness()
+                userFollowRequests.map({ (followRequest) -> UserFollowRequestModel in
+                    followRequest.mapToBusiness()
                 })
             )
         })
     }
     
-    func getAll(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
-        network.getAll(completionHandler: { (userFollowRequests) -> Void in
+    func getOutgoingRequests(completionHandler: @escaping ([UserFollowRequestModel]) -> Void) {
+        network.getOutgoingRequests(completionHandler: { (userFollowRequests) -> Void in
             completionHandler(
-                userFollowRequests.map({ (userFollowRequest) -> UserFollowRequestModel in
-                    userFollowRequest.mapToBusiness()
+                userFollowRequests.map({ (followRequest) -> UserFollowRequestModel in
+                    followRequest.mapToBusiness()
                 })
             )
         })
@@ -46,15 +46,15 @@ class UserFollowRequestRepository: FollowRequestRepositoryProtocol {
         })
     }
     
-    func destroyFollowRequest(for userId: String, completionHandler: @escaping (String?) -> Void) {
-        network.destroyFollowRequest(for: userId, completionHandler: completionHandler)
+    func destroyFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+        network.destroyFollowRequest(followRequestId: followRequestId, completionHandler: completionHandler)
     }
     
-    func acceptFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
-        network.acceptFollowRequest(from: userId, completionHandler: completionHandler)
+    func acceptFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+        network.acceptFollowRequest(followRequestId: followRequestId, completionHandler: completionHandler)
     }
     
-    func declineFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void) {
-        network.declineFollowRequest(from: userId, completionHandler: completionHandler)
+    func declineFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+        network.declineFollowRequest(followRequestId: followRequestId, completionHandler: completionHandler)
     }
 }

@@ -43,6 +43,3 @@ extension LoginUser {
                          rememberMe: model.rememberMe)
     }
 }
-
-
-

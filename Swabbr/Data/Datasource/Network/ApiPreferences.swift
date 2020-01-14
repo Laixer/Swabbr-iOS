@@ -18,8 +18,7 @@ struct ApiPreferences: Decodable {
 extension ApiPreferences {
     
     enum Enviroment: String {
-        case test = "test"
-        case release = "release"
+        case test, release
     }
     
     /**

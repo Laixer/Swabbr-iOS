@@ -5,7 +5,6 @@
 //  Created by James Bal on 05-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable force_try
 
 import Alamofire
 
@@ -32,18 +31,6 @@ class UserFollowNetwork: NetworkProtocol, UserFollowDataSourceProtocol {
                 completionHandler(users)
             case .failure:
                 completionHandler([])
-                // failure handling
-            }
-        }
-    }
-    
-    func get(id: String, completionHandler: @escaping (FollowStatus?) -> Void) {
-        AF.request(buildUrl()).responseDecodable { (response: DataResponse<FollowStatus>) in
-            switch response.result {
-            case .success(let followStatus):
-                completionHandler(followStatus)
-            case .failure(let error):
-                completionHandler(nil)
                 // failure handling
             }
         }

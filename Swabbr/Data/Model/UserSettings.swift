@@ -23,7 +23,7 @@ struct UserSettings {
      Put each value in their respected model variant.
      */
     enum CodingKeys: String, CodingKey {
-        case isPrivate = "isPrivate", dailyVlogRequestLimit, followMode
+        case isPrivate, dailyVlogRequestLimit, followMode
     }
     
 }

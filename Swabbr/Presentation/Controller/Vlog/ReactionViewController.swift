@@ -78,7 +78,7 @@ extension ReactionViewController: ReactionViewControllerServiceDelegate {
 }
 
 // MARK: UITableViewDelegate, UITableViewDataSource
-extension ReactionViewController : UITableViewDelegate, UITableViewDataSource {
+extension ReactionViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

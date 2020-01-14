@@ -55,7 +55,7 @@ class LoginViewController: FormViewController {
             <<< ButtonRow {
                 $0.title = "Register"
                 $0.onCellSelection({[weak self] (_, _) in
-                    self?.present(RegistrationViewController(), animated: true, completion: nil)
+                    self?.present(UINavigationController(rootViewController: RegistrationViewController()), animated: true, completion: nil)
                 })
         }
     }
@@ -82,6 +82,5 @@ extension LoginViewController: LoginViewControllerServiceDelegate {
         }
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window!.rootViewController = MainTabBarViewController()
-//        self.dismiss(animated: false, completion: nil)
     }
 }

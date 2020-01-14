@@ -26,12 +26,13 @@ class ReactionViewControllerService {
     */
     func getReactions(vlogId: String, refresh: Bool = false) {
         let dispatchGroup = DispatchGroup()
-        vlogReactionUseCase.getSingleMultiple(id: vlogId, refresh: refresh, completionHandler: { (vlogReactionModels) -> Void in
+        vlogReactionUseCase.getVlogReactions(id: vlogId, refresh: refresh, completionHandler: { (vlogReactionModels) -> Void in
             var userVlogReactionRepositoryModels: [UserVlogReactionItem] = []
             for vlogReactionModel in vlogReactionModels {
                 dispatchGroup.enter()
                 self.userUseCase.get(id: vlogReactionModel.ownerId, refresh: false, completionHandler: { (userModel) in
-                    userVlogReactionRepositoryModels.append(UserVlogReactionItem.mapToPresentation(userModel: userModel!, vlogReactionModel: vlogReactionModel))
+                    userVlogReactionRepositoryModels.append(UserVlogReactionItem.mapToPresentation(userModel: userModel!,
+                                                                                                   vlogReactionModel: vlogReactionModel))
                     dispatchGroup.leave()
                 })
             }

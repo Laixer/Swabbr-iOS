@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import AVKit
 
-
 class VlogCollectionViewCell: UICollectionViewCell {
     
     let durationLabel = UILabel()

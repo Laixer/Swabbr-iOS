@@ -8,6 +8,4 @@
 
 protocol VlogReactionDataSourceProtocol {
     func get(id: String, completionHandler: @escaping (VlogReaction?) -> Void)
-    func getSingleMultiple(id: String, completionHandler: @escaping ([VlogReaction]) -> Void)
-    func getAll(completionHandler: @escaping ([VlogReaction]) -> Void)
 }

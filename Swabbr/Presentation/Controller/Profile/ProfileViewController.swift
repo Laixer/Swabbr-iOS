@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController : UIViewController {
+class ProfileViewController: UIViewController {
     
     private let profileImageView = UIImageView()
     private let usernameLabel = UILabel()
@@ -255,7 +255,7 @@ extension ProfileViewController: BaseViewProtocol {
             
             // countFollowingLabel
             countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor, constant: 20),
-            countFollowingLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            countFollowingLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
             
         ])
         

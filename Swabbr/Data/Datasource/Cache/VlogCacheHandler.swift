@@ -20,16 +20,6 @@ class VlogCacheHandler: VlogCacheDataSourceProtocol {
         try? cache.set(value: [] as! [Vlog])
     }
     
-    func getAll(completionHandler: @escaping ([Vlog]) -> Void) throws {
-        guard let vlogs = cache.get() else {
-            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
-        }
-        guard !vlogs.isEmpty else {
-            throw NSError.init(domain: "cache", code: 400, userInfo: nil)
-        }
-        completionHandler(vlogs)
-    }
-    
     func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws {
         guard let vlogs = cache.get() else {
             throw NSError.init(domain: "cache", code: 400, userInfo: nil)
@@ -48,14 +38,11 @@ class VlogCacheHandler: VlogCacheDataSourceProtocol {
             return
         }
         if vlogs.contains(where: {$0.id == object.id}) {
-            return
+            vlogs.insert(object, at: vlogs.lastIndex(where: {$0.id == object.id})!)
+        } else {
+            vlogs.append(object)
         }
-        vlogs.append(object)
         try? cache.set(value: vlogs)
-    }
-    
-    func setAll(objects: [Vlog]) {
-        try? cache.set(value: objects)
     }
     
 }

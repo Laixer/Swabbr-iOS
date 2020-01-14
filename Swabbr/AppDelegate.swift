@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: UIApplicationDelegate
     var window: UIWindow?
     
-    var registrationService : NotificationRegistrationService?
+    var registrationService: NotificationRegistrationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if(CommandLine.arguments.contains("testing")) {
+        if CommandLine.arguments.contains("testing") {
             ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .test)
         }
         
@@ -58,10 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         var controller: UIViewController {
-//            if UserDefaults.standard.getAccessToken() != nil {
-//                return MainTabBarViewController()
-//            }
-            return LoginViewController()
+            if !UserDefaults.standard.bool(forKey: "rememberMe") {
+                return LoginViewController()
+            }
+            return MainTabBarViewController()
         }
         window?.rootViewController = controller
         window?.makeKeyAndVisible()
@@ -138,7 +138,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         showAlert(withText: response.notification.request.content.body)
     }
     
-    private func handleNotification(with userInfo: [AnyHashable : Any]) {
+    private func handleNotification(with userInfo: [AnyHashable: Any]) {
         let jsonData = try? JSONSerialization.data(withJSONObject: userInfo["payload"]!, options: [])
         let notificationObject = try? JSONDecoder().decode(Payload<SNotification>.self, from: jsonData!)
         switch notificationObject!.innerData.clickAction {
@@ -166,4 +166,3 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
 }
-

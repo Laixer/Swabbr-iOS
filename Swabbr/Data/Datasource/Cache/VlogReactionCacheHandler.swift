@@ -20,7 +20,7 @@ class VlogReactionCacheHandler: VlogReactionCacheDataSourceProtocol {
         try? cache.set(value: [] as! [VlogReaction])
     }
     
-    func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws  {
+    func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws {
         guard let vlogReactions = cache.get() else {
             throw NSError.init(domain: "cache", code: 400, userInfo: nil)
         }

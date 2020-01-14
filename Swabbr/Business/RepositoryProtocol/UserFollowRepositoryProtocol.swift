@@ -9,5 +9,4 @@
 protocol UserFollowRepositoryProtocol {
     func getFollowers(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
     func getFollowing(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
-    func get(id: String, refresh: Bool, completionHandler: @escaping (FollowStatusModel?) -> Void)
 }

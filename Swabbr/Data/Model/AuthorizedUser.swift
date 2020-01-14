@@ -32,8 +32,6 @@ extension AuthorizedUser: Codable {
         accessToken = try container.decode(String.self, forKey: .accessToken)
         userSettings = try container.decode(UserSettings.self, forKey: .userSettings)
         user = try container.decode(User.self, forKey: .user)
-        
-        UserDefaults.standard.setAccessToken(value: accessToken)
     }
     
     func encode(to encoder: Encoder) throws {

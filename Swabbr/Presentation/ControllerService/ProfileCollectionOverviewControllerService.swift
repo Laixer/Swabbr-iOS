@@ -32,7 +32,7 @@ class ProfileCollectionOverviewControllerService {
      - parameter refresh: A boolean when true will retrieve data from remote.
     */
     func getVlogs(userId: String, refresh: Bool = false) {
-        vlogUseCase.getSingleMultiple(id: userId, refresh: refresh, completionHandler: { (vlogModels) in
+        vlogUseCase.getUserVlogs(id: userId, refresh: refresh, completionHandler: { (vlogModels) in
             self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
                 VlogItem.mapToPresentation(vlogModel: vlogModel)
             })

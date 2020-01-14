@@ -12,7 +12,7 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
     
     var endPoint: String = "vlogs"
     
-    func getAll(completionHandler: @escaping ([Vlog]) -> Void) {
+    func getFeatured(completionHandler: @escaping ([Vlog]) -> Void) {
         AF.request(buildUrl(path: "featured", authorization: true)).responseDecodable { (response: DataResponse<[Vlog]>) in
             switch response.result {
             case .success(let vlogs):
@@ -37,7 +37,7 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
         }
     }
     
-    func getSingleMultiple(id: String, completionHandler: @escaping ([Vlog]) -> Void) {
+    func getUserVlogs(id: String, completionHandler: @escaping ([Vlog]) -> Void) {
         AF.request(buildUrl(path: "users/\(id)", authorization: true)).responseDecodable { (response: DataResponse<[Vlog]>) in
             switch response.result {
             case .success(let vlogs):
@@ -58,4 +58,3 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
         completionHandler(200)
     }
 }
-

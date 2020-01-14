@@ -56,15 +56,15 @@ class UserSettingsViewController: FormViewController {
             })
             <<< ButtonRow {
                 $0.title = "Save"
-                }.onCellSelection( {[weak self](_, _) -> Void in
+                }.onCellSelection { [weak self](_, _) -> Void in
                     self?.saveButtonClicked()
-                })
+                }
             <<< ButtonRow {
                 $0.title = "Logout"
                 }
-                .onCellSelection( {[weak self](_, _) -> Void in
+                .onCellSelection { [weak self](_, _) -> Void in
                     self?.logoutButtonClicked()
-                })
+                }
         controllerService.delegate = self
         controllerService.getUserSettings()
     }
@@ -113,7 +113,6 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
     
     func logoutStatus(errorString: String?) {
         guard let errorString = errorString else {
-            UserDefaults.standard.setAccessToken(value: nil)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window!.rootViewController = LoginViewController()
             return

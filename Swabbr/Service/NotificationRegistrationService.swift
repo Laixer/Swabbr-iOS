@@ -15,20 +15,20 @@ class NotificationRegistrationService {
     private let session = URLSession(configuration: URLSessionConfiguration.default)
     private let apiVersion = "2015-01"
     private let jsonEncoder = JSONEncoder()
-    private let defaultHeaders: [String : String]
-    private let installationId : String
-    private let pushChannel : String
-    private let hubNamespace : String
-    private let hubName : String
-    private let keyName : String
-    private let key : String
-    private var tokenData : TokenData? = nil
+    private let defaultHeaders: [String: String]
+    private let installationId: String
+    private let pushChannel: String
+    private let hubNamespace: String
+    private let hubName: String
+    private let keyName: String
+    private let key: String
+    private var tokenData: TokenData?
     
-    init(withInstallationId installationId : String,
-         andPushChannel pushChannel : String,
-         andHubNamespace hubNamespace : String,
-         andHubName hubName : String,
-         andKeyName keyName : String,
+    init(withInstallationId installationId: String,
+         andPushChannel pushChannel: String,
+         andHubNamespace hubNamespace: String,
+         andHubName hubName: String,
+         andKeyName keyName: String,
          andKey key: String) {
         self.installationId = installationId
         self.pushChannel = pushChannel
@@ -40,8 +40,8 @@ class NotificationRegistrationService {
     }
     
     func register(
-        withTags tags : [String]? = nil,
-        completeWith completion: ((_ result: Bool) -> ())? = nil) {
+        withTags tags: [String]? = nil,
+        completeWith completion: ((_ result: Bool) -> Void)? = nil) {
         
         var deviceInstallation = DeviceInstallation(withInstallationId: installationId, andPushChannel: pushChannel)
         
@@ -58,14 +58,14 @@ class NotificationRegistrationService {
             var request = URLRequest(url: URL(string: apiEndpoint)!)
             request.httpMethod = "PUT"
             
-            for (key,value) in self.defaultHeaders {
+            for (key, value) in self.defaultHeaders {
                 request.addValue(value, forHTTPHeaderField: key)
             }
             
             request.addValue(sasToken, forHTTPHeaderField: "Authorization")
             request.httpBody = Data(deviceInstallationJson.utf8)
             
-            (self.session.dataTask(with: request) { dat, res, err in
+            (self.session.dataTask(with: request) { _, res, err in
                 if let completion = completion {
                     completion(err == nil && (res as! HTTPURLResponse).statusCode == 200)
                 }
@@ -78,15 +78,15 @@ class NotificationRegistrationService {
     }
     
     private func getSasToken() -> String {
-        if (tokenData == nil ||
-            Date(timeIntervalSince1970: Double((tokenData?.expiration)!)) < Date(timeIntervalSinceNow: -(5 * 60))) {
+        if tokenData == nil ||
+            Date(timeIntervalSince1970: Double((tokenData?.expiration)!)) < Date(timeIntervalSinceNow: -(5 * 60)) {
             self.tokenData = TokenUtility.getSasToken(forResourceUrl: getBaseAddress(), withKeyName: self.keyName, andKey: self.key)
         }
         
         return (tokenData?.token)!
     }
     
-    private func encodeToJson<T : Encodable>(_ object: T) -> String? {
+    private func encodeToJson<T: Encodable>(_ object: T) -> String? {
         do {
             let jsonData = try jsonEncoder.encode(object)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
@@ -94,8 +94,7 @@ class NotificationRegistrationService {
             } else {
                 return nil
             }
-        }
-        catch {
+        } catch {
             return nil
         }
     }

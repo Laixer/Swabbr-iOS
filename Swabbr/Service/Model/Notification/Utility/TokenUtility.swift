@@ -27,7 +27,7 @@ struct TokenUtility {
      - parameter expiryInSeconds: An int value representing the validity time in seconds.
      - Returns: A TokenData object.
     */
-    static func getSasToken(forResourceUrl resourceUrl : String, withKeyName keyName : String, andKey key : String, andExpiryInSeconds expiryInSeconds : Int = 3600) -> TokenData {
+    static func getSasToken(forResourceUrl resourceUrl: String, withKeyName keyName: String, andKey key: String, andExpiryInSeconds expiryInSeconds: Int = 3600) -> TokenData {
         let expiry = (Int(NSDate().timeIntervalSince1970) + expiryInSeconds).description
         let encodedUrl = urlEncodedString(withString: resourceUrl)
         let stringToSign = "\(encodedUrl)\n\(expiry)"
@@ -46,11 +46,11 @@ struct TokenUtility {
      - parameter key: A data value which represents the data of the key.
      - Returns: Data of a base64 encoded string.
     */
-    private static func sha256HMac(withData data : Data, andKey key : Data) -> Data {
+    private static func sha256HMac(withData data: Data, andKey key: Data) -> Data {
         let context = Context.allocate(capacity: 1)
         CCHmacInit(context, CCHmacAlgorithm(kCCHmacAlgSHA256), (key as NSData).bytes, size_t((key as NSData).length))
         CCHmacUpdate(context, (data as NSData).bytes, (data as NSData).length)
-        var hmac = Array<UInt8>(repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        var hmac = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
         CCHmacFinal(context, &hmac)
         
         let result = NSData(bytes: hmac, length: hmac.count)
@@ -64,25 +64,27 @@ struct TokenUtility {
      - parameter stringToConvert: A string value which represents the resource url.
      - Returns: A string which is percent-encoded.
     */
-    private static func urlEncodedString(withString stringToConvert : String) -> String {
+    private static func urlEncodedString(withString stringToConvert: String) -> String {
         var encodedString = ""
         let sourceUtf8 = (stringToConvert as NSString).utf8String
         let length = strlen(sourceUtf8!)
         
         let charArray: [Character] = [ ".", "-", "_", "~", "a", "z", "A", "Z", "0", "9"]
-        let asUInt8Array = String(charArray).utf8.map{ Int8($0) }
+        let asUInt8Array = String(charArray).utf8.map { Int8($0) }
         
         for i in 0..<length {
             let currentChar = sourceUtf8![i]
             
-            if (currentChar == asUInt8Array[0] || currentChar == asUInt8Array[1] || currentChar == asUInt8Array[2] || currentChar == asUInt8Array[3] ||
+            if  currentChar == asUInt8Array[0] ||
+                currentChar == asUInt8Array[1] ||
+                currentChar == asUInt8Array[2] ||
+                currentChar == asUInt8Array[3] ||
                 (currentChar >= asUInt8Array[4] && currentChar <= asUInt8Array[5]) ||
                 (currentChar >= asUInt8Array[6] && currentChar <= asUInt8Array[7]) ||
-                (currentChar >= asUInt8Array[8] && currentChar <= asUInt8Array[9])) {
-                encodedString += String(format:"%c", currentChar)
-            }
-            else {
-                encodedString += String(format:"%%%02x", currentChar)
+                (currentChar >= asUInt8Array[8] && currentChar <= asUInt8Array[9]) {
+                encodedString += String(format: "%c", currentChar)
+            } else {
+                encodedString += String(format: "%%%02x", currentChar)
             }
         }
         

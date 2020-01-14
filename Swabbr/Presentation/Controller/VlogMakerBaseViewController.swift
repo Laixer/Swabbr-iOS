@@ -39,9 +39,11 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
         applyConstraints()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
         if NextLevel.authorizationStatus(forMediaType: AVMediaType.video) == .authorized &&
             NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
@@ -53,8 +55,10 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
                     NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
                     self.prepareForVlog()
                 } else if status == .notAuthorized {
-                    // gracefully handle when audio/video is not authorized
-                    print("NextLevel doesn't have authorization for audio or video")
+                    NoAudioOrCameraPermissionsAlertDialog.createAlert(context: self, onYesHandler: { (_) in
+                        // dismiss
+                    })
+                    
                 }
             }
             NextLevel.requestAuthorization(forMediaType: AVMediaType.audio) { (mediaType, status) in
@@ -63,8 +67,9 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
                     NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
                     self.prepareForVlog()
                 } else if status == .notAuthorized {
-                    // gracefully handle when audio/video is not authorized
-                    print("NextLevel doesn't have authorization for audio or video")
+                    NoAudioOrCameraPermissionsAlertDialog.createAlert(context: self, onYesHandler: { (_) in
+                        // dismiss
+                    })
                 }
             }
         }
@@ -133,7 +138,7 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
 }
 
 // MARK: UIGestureRecognizerDelegate
-extension VlogMakerBaseViewController : UIGestureRecognizerDelegate {
+extension VlogMakerBaseViewController: UIGestureRecognizerDelegate {
     
     /**
      This will handle the "Pinch" gesture. The pinch gesture is responsible for the zooming.

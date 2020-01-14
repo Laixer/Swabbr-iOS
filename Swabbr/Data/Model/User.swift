@@ -33,7 +33,20 @@ struct User {
     enum CodingKeys: String, CodingKey {
         case id = "userId"
         case birthdate = "birthDate"
-        case username = "nickname", firstName, lastName, gender, country, email, timezone, profileImageUrl, totalVlogs, totalFollowers, totalFollowing, longitude, latitude, isPrivate
+        case username = "nickname",
+        firstName,
+        lastName,
+        gender,
+        country,
+        email,
+        timezone,
+        profileImageUrl,
+        totalVlogs,
+        totalFollowers,
+        totalFollowing,
+        longitude,
+        latitude,
+        isPrivate
     }
     
     func mapToBusiness() -> UserModel {

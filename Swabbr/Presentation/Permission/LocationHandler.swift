@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationHandler : NSObject, PermissionHandlerProtocol {
+class LocationHandler: NSObject, PermissionHandlerProtocol {
     
     private static var _self: LocationHandler?
     
@@ -73,7 +73,7 @@ class LocationHandler : NSObject, PermissionHandlerProtocol {
     
 }
 
-extension LocationHandler : CLLocationManagerDelegate {
+extension LocationHandler: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("test")
     }

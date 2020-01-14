@@ -15,8 +15,6 @@ protocol FollowRequestRepositoryProtocol {
      - parameter completionHandler: The callback will return an optional UserFollowRequestModel
     */
     func get(id: String, refresh: Bool, completionHandler: @escaping (UserFollowRequestModel?) -> Void)
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void)
-    func getAll(refresh: Bool, completionHandler: @escaping ([UserFollowRequestModel]) -> Void)
     
     /**
      Create a follow request.
@@ -30,19 +28,19 @@ protocol FollowRequestRepositoryProtocol {
      - parameter userId: The userId for which the given follow request will be removed.
      - parameter completionHandler: The callback will return an optional String
      */
-    func destroyFollowRequest(for userId: String, completionHandler: @escaping (String?) -> Void)
+    func destroyFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void)
     
     /**
      Accept the request.
      - parameter userId: The userId from which the follow request originated will be accepted.
      - parameter completionHandler: The callback will return an optional String
      */
-    func acceptFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void)
+    func acceptFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void)
     
     /**
      Deny the request.
      - parameter userId: The userId from which the follow request originated will be rejected.
      - parameter completionHandler: The callback will return an optional String
      */
-    func declineFollowRequest(from userId: String, completionHandler: @escaping (String?) -> Void)
+    func declineFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void)
 }

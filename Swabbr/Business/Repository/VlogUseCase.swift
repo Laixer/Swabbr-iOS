@@ -15,15 +15,15 @@ class VlogUseCase {
     }
     
     func get(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
-        repository.getAll(refresh: refresh, completionHandler: completionHandler)
+        repository.getFeatured(refresh: refresh, completionHandler: completionHandler)
     }
     
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
         repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
-        repository.getSingleMultiple(id: id, refresh: refresh, completionHandler: completionHandler)
+    func getUserVlogs(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+        repository.getUserVlogs(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
     func createLike(id: String, completionHandler: @escaping (Int) -> Void) {

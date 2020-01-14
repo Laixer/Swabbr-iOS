@@ -20,7 +20,7 @@ class ProfileViewControllerService {
         }
     }
     
-    public private(set) var followRequest: UserFollowRequestItem? {
+    public private(set) var followRequest: FollowRequestItem? {
         didSet {
             delegate?.setFollowStatus(followRequest?.status)
         }
@@ -48,7 +48,7 @@ class ProfileViewControllerService {
                 self.followRequest = nil
                 return
             }
-            self.followRequest = UserFollowRequestItem.mapToPresentation(userFollowRequestModel: followRequestModel)
+            self.followRequest = FollowRequestItem.mapToPresentation(userFollowRequestModel: followRequestModel)
         })
     }
     
@@ -62,15 +62,15 @@ class ProfileViewControllerService {
             guard let followRequest = followRequest else {
                 return
             }
-            self.followRequest = UserFollowRequestItem.mapToPresentation(userFollowRequestModel: followRequest)
+            self.followRequest = FollowRequestItem.mapToPresentation(userFollowRequestModel: followRequest)
         }
     }
     
     /**
-     
+     Remove the follow request.
     */
     func removeFollowRequest() {
-        followRequestUseCase.destroyFollowRequest(for: followRequest!.id) { (errorString) in
+        followRequestUseCase.destroyFollowRequest(followRequestId: followRequest!.id) { (errorString) in
             self.delegate?.performedFollowRequestCall(errorString)
             guard errorString == nil else {
                 return

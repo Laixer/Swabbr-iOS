@@ -94,7 +94,7 @@ extension FocusIndicatorView {
     
 }
 
-fileprivate class Rectangle: UIView {
+private class Rectangle: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,10 +108,10 @@ fileprivate class Rectangle: UIView {
         let height = rect.height
         let width = rect.width
         
-        let color:UIColor = UIColor.white
+        let color: UIColor = UIColor.white
         
         let drect = CGRect(x: rect.minX, y: rect.minY, width: width, height: height)
-        let bpath:UIBezierPath = UIBezierPath(rect: drect)
+        let bpath: UIBezierPath = UIBezierPath(rect: drect)
         
         color.set()
         bpath.stroke()

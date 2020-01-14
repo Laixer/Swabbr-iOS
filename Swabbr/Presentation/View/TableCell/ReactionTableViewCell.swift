@@ -6,11 +6,10 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import UIKit
 import AVKit
 import AVFoundation
 
-class ReactionTableViewCell : UITableViewCell {
+class ReactionTableViewCell: UITableViewCell {
     
     let userUsernameLabel = UILabel()
     let likesLabel = UILabel()
@@ -29,7 +28,6 @@ class ReactionTableViewCell : UITableViewCell {
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // TODO: set dynamic video url
         playerView.player = player
         playerView.videoGravity = .resizeAspectFill
         playerView.showsPlaybackControls = false

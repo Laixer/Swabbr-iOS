@@ -18,29 +18,14 @@ class VlogRepository: VlogRepositoryProtocol {
         self.cache = cache
     }
     
-    func getAll(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
-        if refresh {
-            network.getAll(completionHandler: { (vlogs) -> Void in
-                self.cache.setAll(objects: vlogs)
-                completionHandler(
-                    vlogs.map({ (vlog) -> VlogModel in
-                        vlog.mapToBusiness()
-                    })
-                )
-            })
-        } else {
-            do {
-                try cache.getAll { (vlogs) in
-                    completionHandler(
-                        vlogs.map({ (vlog) -> VlogModel in
-                            vlog.mapToBusiness()
-                        })
-                    )
-                }
-            } catch {
-                self.getAll(refresh: !refresh, completionHandler: completionHandler)
-            }
-        }
+    func getFeatured(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+        network.getFeatured(completionHandler: { (vlogs) -> Void in
+            completionHandler(
+                vlogs.map({ (vlog) -> VlogModel in
+                    vlog.mapToBusiness()
+                })
+            )
+        })
     }
     
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void) {
@@ -60,8 +45,8 @@ class VlogRepository: VlogRepositoryProtocol {
         }
     }
     
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
-        network.getSingleMultiple(id: id, completionHandler: { (vlogs) -> Void in
+    func getUserVlogs(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void) {
+        network.getUserVlogs(id: id, completionHandler: { (vlogs) -> Void in
             completionHandler(
                 vlogs.map({ (vlog) -> VlogModel in
                     vlog.mapToBusiness()

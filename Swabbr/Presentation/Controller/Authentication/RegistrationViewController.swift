@@ -21,7 +21,7 @@ class RegistrationViewController: FormViewController {
         form +++ Section()
             <<< TextRow("firstname") {
                 $0.title = "Firstname"
-                $0.placeholder = "John"
+                $0.placeholder = "Jane"
                 $0.add(rule: RuleRequired())
                 }.cellUpdate { cell, row in
                 if !row.isValid {
@@ -30,7 +30,7 @@ class RegistrationViewController: FormViewController {
             }
             <<< TextRow("lastname") {
                 $0.title = "Lastname"
-                $0.placeholder = "Smith"
+                $0.placeholder = "Doe"
                 $0.add(rule: RuleRequired())
                 }.cellUpdate { cell, row in
                     if !row.isValid {
@@ -39,7 +39,7 @@ class RegistrationViewController: FormViewController {
             }
             <<< TextRow("username") {
                 $0.title = "Username"
-                $0.placeholder = "piet paulusma"
+                $0.placeholder = "Jane Doe"
                 $0.add(rule: RuleRequired())
                 }.cellUpdate { cell, row in
                     if !row.isValid {
@@ -48,7 +48,10 @@ class RegistrationViewController: FormViewController {
             }
             <<< TextRow("email") {
                 $0.title = "Email"
-                $0.placeholder = "email@email.com"
+                $0.placeholder = "jane@doe.com"
+                $0.cellSetup({ (cell, _) in
+                    cell.textField.autocapitalizationType = .none
+                })
                 $0.add(rule: RuleEmail())
                 $0.add(rule: RuleRequired())
                 }.cellUpdate { cell, row in
@@ -100,7 +103,9 @@ class RegistrationViewController: FormViewController {
                     if !row.isValid {
                         cell.textLabel?.textColor = .red
                     }
-            }
+                }.onPresent({ (_, element) in
+                    element.enableDeselection = false
+                })
             <<< PickerInlineRow<String>("country") {
                 $0.title = "Country"
                 $0.noValueDisplayText = "Choose"
@@ -161,6 +166,7 @@ extension RegistrationViewController: RegistrationViewControllerServiceDelegate 
             BasicErrorDialog.createAlert(message: errorString, context: self)
             return
         }
-        self.present(UINavigationController(rootViewController: TimelineViewController(nibName: nil, bundle: nil)), animated: true, completion: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window!.rootViewController = MainTabBarViewController()
     }
 }

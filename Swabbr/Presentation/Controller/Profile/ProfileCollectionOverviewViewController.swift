@@ -5,7 +5,6 @@
 //  Created by James Bal on 02-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// TODO: refactor
 // swiftlint:disable force_cast
 
 import Foundation

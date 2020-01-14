@@ -46,7 +46,7 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
         goCoderConfig.broadcastScaleMode = .aspectFit
         
         if let goCoderLicensingError = WowzaGoCoder.registerLicenseKey(sdkAppLicenseKey) {
-            print("error license")
+            print(goCoderLicensingError)
             return
         }
         
@@ -73,7 +73,7 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     }
     
     func onWOWZStatus(_ status: WOWZBroadcastStatus!) {
-        switch(status.state) {
+        switch status.state {
         case .idle:
             print("idle")
         case .broadcasting:
@@ -84,7 +84,7 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     }
     
     func onWOWZError(_ status: WOWZBroadcastStatus!) {
-        print("error \(status)")
+        print("error \(String(describing: status))")
     }
     
     override func recordButtonClicked() {

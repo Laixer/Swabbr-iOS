@@ -33,7 +33,7 @@ class UserCollectionViewCell: UICollectionViewCell {
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             profileImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             profileImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            profileImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            profileImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             
             ])
         

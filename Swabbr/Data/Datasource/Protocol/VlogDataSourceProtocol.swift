@@ -9,8 +9,8 @@
 protocol VlogDataSourceProtocol {
     typealias SetHandler = (Int) -> Void
     func get(id: String, completionHandler: @escaping (Vlog?) -> Void)
-    func getSingleMultiple(id: String, completionHandler: @escaping ([Vlog]) -> Void)
-    func getAll(completionHandler: @escaping ([Vlog]) -> Void)
+    func getUserVlogs(id: String, completionHandler: @escaping ([Vlog]) -> Void)
+    func getFeatured(completionHandler: @escaping ([Vlog]) -> Void)
     func createLike(id: String, completionHandler: @escaping SetHandler)
     func createVlog(completionHandler: @escaping SetHandler)
 }

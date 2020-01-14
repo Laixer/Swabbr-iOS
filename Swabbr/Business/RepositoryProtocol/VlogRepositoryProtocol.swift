@@ -9,8 +9,8 @@
 protocol VlogRepositoryProtocol {
     typealias SetHandler = (Int) -> Void
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogModel?) -> Void)
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
-    func getAll(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
+    func getUserVlogs(id: String, refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
+    func getFeatured(refresh: Bool, completionHandler: @escaping ([VlogModel]) -> Void)
     func createLike(id: String, completionHandler: @escaping SetHandler)
     func createVlog(completionHandler: @escaping SetHandler)
 }

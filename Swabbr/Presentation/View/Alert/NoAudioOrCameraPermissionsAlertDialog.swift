@@ -10,7 +10,9 @@ import UIKit
 
 class NoAudioOrCameraPermissionsAlertDialog {
     
-    private let alert = UIAlertController(title: "Missing permissions", message: "No permission given to use audio and/ or video.", preferredStyle: .alert)
+    private let alert = UIAlertController(title: "Missing permissions",
+                                          message: "No permission given to use audio and/ or video.",
+                                          preferredStyle: .alert)
     
     private init(onYesHandler: @escaping (UIAlertAction) -> Void) {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: onYesHandler))

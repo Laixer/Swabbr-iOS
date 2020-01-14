@@ -9,5 +9,4 @@
 protocol UserFollowDataSourceProtocol {
     func getFollowers(id: String, completionHandler: @escaping ([User]) -> Void)
     func getFollowing(id: String, completionHandler: @escaping ([User]) -> Void)
-    func get(id: String, completionHandler: @escaping (FollowStatus?) -> Void)
 }

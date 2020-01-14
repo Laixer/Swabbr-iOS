@@ -12,7 +12,7 @@ import UIKit
 import AVKit
 import AVFoundation
 
-class VlogPageViewController : UIViewController {
+class VlogPageViewController: UIViewController {
     
     private let player = AVPlayer(playerItem: nil)
     

@@ -1,27 +1,29 @@
 //
-//  UserFollowRequestModel.swift
+//  UserFollowRequestItem.swift
 //  Swabbr
 //
-//  Created by James Bal on 10-01-20.
+//  Created by James Bal on 13-01-20.
 //  Copyright © 2020 Laixer. All rights reserved.
 //
 
 struct UserFollowRequestItem {
     
-    var id: String
-    var receiverId: String
-    var status: Int
+    var followRequestId: String
+    var userUsername: String
+    var userProfileImageUrl: String
+    var date: String
     
-    init(userFollowRequestModel: UserFollowRequestModel) {
-        id = userFollowRequestModel.id
-        receiverId = userFollowRequestModel.receiverId
-        status = userFollowRequestModel.status
+    init(userModel: UserModel, userFollowRequestModel: UserFollowRequestModel) {
+        followRequestId = userFollowRequestModel.id
+        userUsername = userModel.username
+        userProfileImageUrl = userModel.profileImageUrl
+        date = userFollowRequestModel.timestamp
     }
     
 }
 
-extension UserFollowRequestItem {
-    static func mapToPresentation(userFollowRequestModel: UserFollowRequestModel) -> UserFollowRequestItem {
-        return UserFollowRequestItem(userFollowRequestModel: userFollowRequestModel)
+extension FollowRequestItem {
+    static func mapToPresentation(userModel: UserModel, userFollowRequestModel: UserFollowRequestModel) -> UserFollowRequestItem {
+        return UserFollowRequestItem(userModel: userModel, userFollowRequestModel: userFollowRequestModel)
     }
 }

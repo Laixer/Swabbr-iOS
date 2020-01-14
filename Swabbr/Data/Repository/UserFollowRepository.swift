@@ -33,14 +33,4 @@ class UserFollowRepository: UserFollowRepositoryProtocol {
             )
         })
     }
-    
-    func get(id: String, refresh: Bool, completionHandler: @escaping (FollowStatusModel?) -> Void) {
-        network.get(id: id, completionHandler: { (followStatus) in
-            completionHandler(followStatus?.mapToBusiness())
-        })
-    }
-    
-    
-    
 }
-

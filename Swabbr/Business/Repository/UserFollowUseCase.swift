@@ -22,8 +22,4 @@ class UserFollowUseCase {
         repository.getFollowing(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func get(id: String, refresh: Bool, completionHandler: @escaping (FollowStatusModel?) -> Void) {
-        repository.get(id: id, refresh: refresh, completionHandler: completionHandler)
-    }
-    
 }

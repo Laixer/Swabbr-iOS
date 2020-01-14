@@ -18,31 +18,6 @@ class VlogReactionRepository: VlogReactionRepositoryProtocol {
         self.cache = cache
     }
     
-    func getAll(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
-        if refresh {
-            network.getAll(completionHandler: { (vlogReactions) -> Void in
-                self.cache.setAll(objects: vlogReactions)
-                completionHandler(
-                    vlogReactions.map({ (vlogReaction) -> VlogReactionModel in
-                        vlogReaction.mapToBusiness()
-                    })
-                )
-            })
-        } else {
-            do {
-                try cache.getAll { (vlogReactions) in
-                    completionHandler(
-                        vlogReactions.map({ (vlogReaction) -> VlogReactionModel in
-                            vlogReaction.mapToBusiness()
-                        })
-                    )
-                }
-            } catch {
-                self.getAll(refresh: !refresh, completionHandler: completionHandler)
-            }
-        }
-    }
-    
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void) {
         if refresh {
             network.get(id: id, completionHandler: { (vlogReaction) -> Void in
@@ -60,8 +35,8 @@ class VlogReactionRepository: VlogReactionRepositoryProtocol {
         }
     }
     
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
-        network.getSingleMultiple(id: id, completionHandler: { (vlogReactions) -> Void in
+    func getVlogReactions(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void) {
+        network.getVlogReactions(id: id, completionHandler: { (vlogReactions) -> Void in
             completionHandler(
                 vlogReactions.map({ (vlogReaction) -> VlogReactionModel in
                     vlogReaction.mapToBusiness()

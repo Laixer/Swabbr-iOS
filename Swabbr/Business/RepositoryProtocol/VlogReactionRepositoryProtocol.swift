@@ -8,6 +8,5 @@
 
 protocol VlogReactionRepositoryProtocol {
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void)
-    func getSingleMultiple(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
-    func getAll(refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
+    func getVlogReactions(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
 }

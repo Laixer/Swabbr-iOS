@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VlogTimeProgressBar : UIProgressView {
+class VlogTimeProgressBar: UIProgressView {
     
     /// required time to make this bar fill up, default is 10
     private var requiredTimeInSeconds: TimeInterval = 10
@@ -50,20 +50,17 @@ class VlogTimeProgressBar : UIProgressView {
     func start(completionHandler: @escaping CompletionHandler) {
         
         // start animating
-        // TODO: this is kind of a hack, fix later
         UIView.animate(withDuration: 0.0, animations: { () -> Void in
             self.layoutIfNeeded()
-        }, completion: { (finished) in
+        }, completion: { (_) in
             self.progress = 1
             
             UIView.animate(withDuration: self.requiredTimeInSeconds, delay: 0.0, options: [.curveLinear], animations: { () -> Void in
                 self.layoutIfNeeded()
-            }, completion: { (completed) in
+            }, completion: { (_) in
                 completionHandler()
             })
         })
         
     }
-
-    
 }

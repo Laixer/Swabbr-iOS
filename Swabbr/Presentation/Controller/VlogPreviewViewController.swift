@@ -22,8 +22,8 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
     var isPlaying = false
     
     // testing purposes
-    init() {
-        player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+    init(urlString: String = "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4") {
+        player = AVPlayer(url: URL(string: urlString)!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -73,8 +73,9 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
         slider.addTarget(self, action: #selector(handlePlayheadSlideTouchEnd), for: .touchUpOutside)
         slider.addTarget(self, action: #selector(handlePlayheadSlideValueChanged), for: .valueChanged)
         
-        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1,preferredTimescale: 1), queue: DispatchQueue.main, using: {
-            [unowned self] time -> Void in
+        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1),
+                                       queue: DispatchQueue.main,
+                                       using: { [unowned self] time -> Void in
             if self.player.currentItem?.status == .readyToPlay {
                 let time: Float64 = CMTimeGetSeconds(self.player.currentTime())
                 self.slider.value = Float(time)
@@ -106,7 +107,7 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
             slider.leftAnchor.constraint(equalTo: duration.rightAnchor),
             slider.rightAnchor.constraint(equalTo: currentDuration.leftAnchor),
             slider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            slider.heightAnchor.constraint(equalToConstant: 50),
+            slider.heightAnchor.constraint(equalToConstant: 50)
             
         ])
     }

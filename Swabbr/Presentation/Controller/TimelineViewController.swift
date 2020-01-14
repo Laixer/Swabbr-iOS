@@ -5,7 +5,6 @@
 //  Created by James Bal on 18-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-//  TODO: display error when vlog unavailable
 //  swiftlint:disable force_cast
 
 import UIKit
@@ -44,7 +43,7 @@ class TimelineViewController: UIViewController {
 }
 
 // MARK: UIPageViewControllerDataSource
-extension TimelineViewController : UIPageViewControllerDataSource {
+extension TimelineViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let vlogId = (viewController as! VlogPageViewController).vlogId
@@ -94,7 +93,7 @@ extension TimelineViewController : UIPageViewControllerDataSource {
 }
 
 // MARK: TimelineViewControllerServiceDelegate
-extension TimelineViewController : TimelineViewControllerServiceDelegate {
+extension TimelineViewController: TimelineViewControllerServiceDelegate {
     func didRetrieveVlogs(_ sender: TimelineViewControllerService) {
         let vlogController = VlogPageViewController(vlogId: sender.vlogs[0].vlogId)
         pageViewController.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)

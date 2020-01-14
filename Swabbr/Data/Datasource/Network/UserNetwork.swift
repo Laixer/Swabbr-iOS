@@ -38,25 +38,23 @@ class UserNetwork: NetworkProtocol, UserDataSourceProtocol {
         }
     }
     
-    func get(term: String, completionHandler: @escaping ([User]) -> Void) {
-        // TODO: search for the user
-        completionHandler([])
-    }
-    
     func getCurrent(completionHandler: @escaping (User?, String?) -> Void) {
         AF.request(buildUrl(path: "self", authorization: true)).responseDecodable(completionHandler: { (response: DataResponse<User>) in
             switch response.result {
             case .success(let user):
                 completionHandler(user, nil)
             case .failure:
-                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil,
+                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         })
     }
     
     func searchForUsers(searchTerm: String, completionHandler: @escaping ([User]) -> Void) {
         let searchQuery = [URLQueryItem(name: "query", value: searchTerm)]
-        AF.request(buildUrl(queryItems: searchQuery, path: "search", authorization: true)).responseDecodable(completionHandler: { (response: DataResponse<[User]>) in
+        AF.request(buildUrl(queryItems: searchQuery,
+                            path: "search",
+                            authorization: true)).responseDecodable(completionHandler: { (response: DataResponse<[User]>) in
             switch response.result {
             case .success(let users):
                 completionHandler(users)

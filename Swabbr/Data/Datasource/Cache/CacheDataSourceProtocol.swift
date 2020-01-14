@@ -17,8 +17,6 @@ protocol UserCacheDataSourceProtocol {
 protocol VlogCacheDataSourceProtocol {
     func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws
     func set(object: Vlog?)
-    func getAll(completionHandler: @escaping ([Vlog]) -> Void) throws
-    func setAll(objects: [Vlog])
 }
 
 // MARK: VlogReactionCacheDataSourceProtocol

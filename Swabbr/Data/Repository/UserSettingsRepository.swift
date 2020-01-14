@@ -22,9 +22,13 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
     
     func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
         if refresh {
-            network.get(completionHandler: { (userSettingsModel) in
-                self.userSettingsCache.set(object: userSettingsModel)
-                completionHandler(userSettingsModel?.mapToBusiness())
+            network.get(completionHandler: { (userSettings) in
+                guard let userSettings = userSettings else {
+                    completionHandler(nil)
+                    return
+                }
+                self.setUserSettings(userSettings: userSettings.mapToBusiness())
+                completionHandler(userSettings.mapToBusiness())
             })
         } else {
             do {
@@ -43,7 +47,7 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
                 completionHandler(errorString)
                 return
             }
-            self.userSettingsCache.set(object: userSettings)
+            self.setUserSettings(userSettings: userSettings.mapToBusiness())
             completionHandler(nil)
         }
     }

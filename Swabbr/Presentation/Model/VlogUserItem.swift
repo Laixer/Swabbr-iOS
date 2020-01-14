@@ -29,7 +29,6 @@ struct VlogUserItem: Equatable {
         userUsername = userModel.username
         userProfileImageUrl = userModel.profileImageUrl
     }
-    
 }
 
 extension VlogUserItem {

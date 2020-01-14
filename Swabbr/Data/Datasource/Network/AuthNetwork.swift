@@ -21,9 +21,12 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authUser):
+                UserDefaults.standard.set(loginUser.rememberMe, forKey: "rememberMe")
+                KeychainService.shared.set(key: "access_token", value: authUser.accessToken)
                 completionHandler(authUser, nil)
             case .failure:
-                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil,
+                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }
@@ -36,9 +39,12 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
             switch response.result {
             case .success(let authUser):
+                UserDefaults.standard.set(false, forKey: "rememberMe")
+                KeychainService.shared.set(key: "access_token", value: authUser.accessToken)
                 completionHandler(authUser, nil)
             case .failure:
-                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                completionHandler(nil,
+                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         }
     }
@@ -49,6 +55,8 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         AF.request(request).response(completionHandler: { (response) in
             switch response.result {
             case .success:
+                UserDefaults.standard.set(false, forKey: "rememberMe")
+                KeychainService.shared.remove(key: "access_token")
                 completionHandler(nil)
             case .failure:
                 completionHandler(String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))

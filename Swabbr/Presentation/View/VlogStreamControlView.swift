@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VlogStreamControlView : UIView {
+class VlogStreamControlView: UIView {
     
     private var minimumVlogTimeProgressBar: VlogTimeProgressBar?
     private let countdownLabel = CountdownLabel()
@@ -95,7 +95,7 @@ class VlogStreamControlView : UIView {
                 minimumVlogTimeProgressBar!.centerXAnchor.constraint(equalTo: centerXAnchor),
                 minimumVlogTimeProgressBar!.bottomAnchor.constraint(equalTo: recordButton.topAnchor),
                 minimumVlogTimeProgressBar!.heightAnchor.constraint(equalToConstant: 20),
-                minimumVlogTimeProgressBar!.widthAnchor.constraint(equalToConstant: 300),
+                minimumVlogTimeProgressBar!.widthAnchor.constraint(equalToConstant: 300)
             ])
             
         }
@@ -137,7 +137,9 @@ class VlogStreamControlView : UIView {
     */
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews as [UIView] {
-            if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
+            if !subview.isHidden && subview.alpha > 0 &&
+                subview.isUserInteractionEnabled &&
+                subview.point(inside: convert(point, to: subview), with: event) {
                 return true
             }
         }

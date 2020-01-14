@@ -77,7 +77,7 @@ extension VlogReactionViewController {
             session.mergeClips(usingPreset: AVAssetExportPresetHighestQuality, completionHandler: { (url: URL?, error: Error?) in
                 if let url = url {
                     self.saveVideo(withURL: url)
-                } else if let _ = error {
+                } else if error != nil {
                     print("failed to merge clips at the end of capture \(String(describing: error))")
                 }
             })
@@ -216,7 +216,7 @@ extension VlogReactionViewController: NextLevelVideoDelegate {
 //        endCapture()
     }
 
-    func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String : Any]?) {
+    func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String: Any]?) {
 
     }
 
