@@ -89,6 +89,14 @@ extension SearchViewController: UISearchBarDelegate {
         dismissKeyboard()
         controllerService.findUsers(term: searchBar.text!)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            controllerService.clearUsers()
+            collectionView.reloadData()
+        }
+    }
+    
 }
 
 // MARK: UICollectionViewDelegate, UICollectionViewDataSource
