@@ -22,7 +22,7 @@ struct VlogReaction {
                                  isPrivate: isPrivate,
                                  ownerId: ownerId,
                                  duration: duration,
-                                 postDate: DateFormatter().stringToBaseDate(format: "yyyy-MM-dd HH:mm", value: postDate)!,
+                                 postDate: DateFormatter().stringToBaseDate(format: "yyyy-MM-dd", value: postDate)!,
                                  vlogId: vlogId)
     }
     
