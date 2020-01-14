@@ -18,12 +18,23 @@ class SearchViewControllerService {
         }
     }
     
+    /**
+     Find users with a specific term.
+     - parameter term: The term which will be used to identify the users.
+    */
     func findUsers(term: String) {
         userUseCase.searchForUsers(searchTerm: term) { (userModels) in
             self.users = userModels.compactMap({ (userModel) -> UserItem in
                 UserItem.mapToPresentation(model: userModel)
             })
         }
+    }
+    
+    /**
+     Empties the users array.
+    */
+    func clearUsers() {
+        users.removeAll()
     }
 
 }
