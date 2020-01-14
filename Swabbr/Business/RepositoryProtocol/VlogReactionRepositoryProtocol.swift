@@ -7,6 +7,19 @@
 //
 
 protocol VlogReactionRepositoryProtocol {
+    /**
+     Get a specific user reaction.
+     - parameter id: The id of the reaction.
+     - parameter refresh: When true retrieve data from remote.
+     - parameter completionHandler: The callback will return an optional VlogReactionModel
+    */
     func get(id: String, refresh: Bool, completionHandler: @escaping (VlogReactionModel?) -> Void)
+    
+    /**
+     Get all reactions from a vlog.
+     - parameter id: The id of the vlog.
+     - parameter refresh: When true retrieve data from remote.
+     - parameter completionHandler: The callback will return an list of VlogReactionModel
+    */
     func getVlogReactions(id: String, refresh: Bool, completionHandler: @escaping ([VlogReactionModel]) -> Void)
 }

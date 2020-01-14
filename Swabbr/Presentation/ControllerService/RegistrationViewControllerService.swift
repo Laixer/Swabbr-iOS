@@ -12,6 +12,10 @@ class RegistrationViewControllerService {
     
     private let registerUseCase = AuthUseCase()
     
+    /**
+     Register a user using the AuthUseCase.
+     - parameter registrationUserItem: A RegistrationUserItem object.
+    */
     func registerUser(registrationUserItem: RegistrationUserItem) {
         registerUseCase.register(registerUser: registrationUserItem) { (errorString) in
             self.delegate?.registeredUser(errorString: errorString)

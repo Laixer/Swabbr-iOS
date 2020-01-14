@@ -12,6 +12,10 @@ class LoginViewControllerService {
     
     private let loginUseCase = AuthUseCase()
     
+    /**
+     Login a user using the AuthUseCase.
+     - parameter loginItem: A LoginUserItem object.
+    */
     func login(_ loginItem: LoginUserItem) {
         loginUseCase.login(loginUser: loginItem) { (errorString) in
             self.delegate?.handleLoginResponse(errorString: errorString)

@@ -22,5 +22,4 @@ class VlogReactionUseCase {
         repository.getVlogReactions(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    
 }
