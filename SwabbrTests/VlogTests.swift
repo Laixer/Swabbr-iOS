@@ -11,49 +11,128 @@ import XCTest
 
 class VlogTests: XCTestCase {
     
-    var jsonData: Data!
-    var decoder: JSONDecoder!
-    var encoder: JSONEncoder!
+    private var vlog: Vlog!
+    
+    private class MockServer: VlogDataSourceProtocol {
+        
+        private let vlog: Vlog
+        
+        init(vlog: Vlog) {
+            self.vlog = vlog
+        }
+        
+        func get(id: String, completionHandler: @escaping (Vlog?) -> Void) {
+            do {
+                let _ = try JSONEncoder().encode(vlog)
+                completionHandler(vlog)
+            } catch {
+                completionHandler(nil)
+            }
+        }
+        
+        func getUserVlogs(id: String, completionHandler: @escaping ([Vlog]) -> Void) {
+            completionHandler([vlog])
+        }
+        
+        func getFeatured(completionHandler: @escaping ([Vlog]) -> Void) {
+            completionHandler([vlog])
+        }
+        
+        func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+            completionHandler(200)
+        }
+        
+        func createVlog(completionHandler: @escaping (Int) -> Void) {
+            completionHandler(200)
+        }
+        
+        func get(id: String, completionHandler: @escaping (Int) -> Void) {
+            completionHandler(200)
+        }
+    }
+    
+    private class MockCache: VlogCacheDataSourceProtocol {
+        
+        private var vlog: Vlog?
+        
+        func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws {
+            guard let vlog = vlog else {
+                throw NSError(domain: "cache", code: 400, userInfo: nil)
+            }
+            completionHandler(vlog)
+        }
+        
+        func set(object: Vlog?) {
+            guard var object = object else {
+                return
+            }
+            object.id = "2"
+            vlog = object
+        }
+        
+        
+    }
 
     override func setUp() {
-        let jsonString = "{\"id\": \"0\", \"private\": true, \"userId\": 0, \"duration\": \"00:20\", \"startDate\": \"2019-02-02 13:45\", \"totalLikes\": 10, \"totalReactions\": 12, \"totalViews\": 10, \"isLive\": true}"
-        jsonData = jsonString.data(using: .utf8)
-        decoder = JSONDecoder()
-        encoder = JSONEncoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        vlog = Vlog(id: "1",
+                    isPrivate: true,
+                    duration: "00:00",
+                    startDate: "08-08-08 16:45",
+                    totalLikes: 10,
+                    totalReactions: 10,
+                    totalViews: 10,
+                    isLive: true,
+                    ownerId: "1")
     }
 
     override func tearDown() {
-        jsonData = nil
-        decoder = nil
-        encoder = nil
+        vlog = nil
     }
 
-    func testJSONToVlog() {
-        let vlog = try? decoder.decode(Vlog.self, from: jsonData!)
-        XCTAssertNotNil(vlog, "The json string does not conform the vlog model")
+    func testDataSourceEntityToPresentationItem() {
+    
+        let vlogMockDS = MockServer(vlog: vlog)
+        let vlogUseCase = VlogUseCase(VlogRepository(network: vlogMockDS))
+    
+        vlogUseCase.get(id: "1", refresh: true) { (vlogModel) in
+            guard let vlogModel = vlogModel else {
+                XCTFail("The vlog object could not be converted to model")
+                return
+            }
+            XCTAssertNotNil(VlogItem.mapToPresentation(vlogModel: vlogModel), "The VlogUseCase returns an incorrect Model which can't be converted to the item")
+        }
+    
     }
     
-    func testForCorrectDate() {
-        let vlog = try? decoder.decode(Vlog.self, from: jsonData!)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-        let expectedDate = dateFormatter.date(from: "2019-02-02 13:45")!
-        XCTAssertEqual(vlog!.startDate, expectedDate, "The vlog start date: \(vlog!.startDate) is not the same as: \(expectedDate)")
-    }
-    
-    func testVlogToJSON() {
-        let vlog = try? decoder.decode(Vlog.self, from: jsonData!)
-        let originalJsonDict = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
-
-        let vlogToJsonData = try? encoder.encode(vlog)
-        let vlogToJsonDict = try? JSONSerialization.jsonObject(with: vlogToJsonData!, options: []) as! [String: AnyHashable]
+    func testIfCacheDataIsUsed() {
         
-        XCTAssertEqual(originalJsonDict, vlogToJsonDict, "The original json is not equal to the vlog generated json: Original: \(originalJsonDict) | Generated: \(vlogToJsonDict)")
+        let vlogMockDS = MockServer(vlog: vlog)
+        let vlogMockCache = MockCache()
+        let vlogUseCase = VlogUseCase(VlogRepository(network: vlogMockDS, cache: vlogMockCache))
+        
+        vlogUseCase.get(id: "1", refresh: false) { (vlogModel) in
+            
+            guard let vlogModel = vlogModel else {
+                XCTFail("The vlog object could not be converted to model")
+                return
+            }
+            
+            XCTAssertEqual(vlogModel.id, self.vlog.id)
+            
+            vlogUseCase.get(id: "1", refresh: false) { (vlogModel) in
+                
+                XCTAssertEqual(vlogModel!.id, "2")
+                
+            }
+        }
+        
+    }
+    
+    func testCacheThrowingErrorWhenUserNotFound() {
+        let vlogMockCache = MockCache()
+        XCTAssertThrowsError(try vlogMockCache.get(id: "11111") { (vlog) in
+            print(vlog)
+        })
     }
 
 }

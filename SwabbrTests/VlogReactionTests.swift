@@ -11,41 +11,114 @@ import XCTest
 
 class VlogReactionTests: XCTestCase {
     
-    var jsonString: String!
-    var decoder: JSONDecoder!
-    var encoder: JSONEncoder!
+    private var vlogReaction: VlogReaction!
+    
+    private class MockServer: VlogReactionDataSourceProtocol {
+        
+        private let vlogReaction: VlogReaction
+        
+        init(vlogReaction: VlogReaction) {
+            self.vlogReaction = vlogReaction
+        }
+        
+        func get(id: String, completionHandler: @escaping (VlogReaction?) -> Void) {
+            do {
+                let _ = try JSONEncoder().encode(vlogReaction)
+                completionHandler(vlogReaction)
+            } catch {
+                completionHandler(nil)
+            }
+        }
+        
+        func getVlogReactions(id: String, completionHandler: @escaping ([VlogReaction]) -> Void) {
+            
+        }
+        
+    }
+    
+    private class MockCache: VlogReactionCacheDataSourceProtocol {
+        
+        private var vlogReaction: VlogReaction?
+        
+        func get(id: String, completionHandler: @escaping (VlogReaction) -> Void) throws {
+            guard let vlogReaction = vlogReaction else {
+                throw NSError(domain: "cache", code: 400, userInfo: nil)
+            }
+            completionHandler(vlogReaction)
+        }
+        
+        func set(object: VlogReaction?) {
+            guard var object = object else {
+                return
+            }
+            object.id = "2"
+            vlogReaction = object
+        }
+        
+        func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws {
+            
+        }
+        
+        func setAll(objects: [VlogReaction]) {
+            
+        }
+    }
 
     override func setUp() {
-        jsonString = "{\"id\": \"0\", \"private\": true, \"userId\": 2, \"duration\": \"00:20\", \"postDate\": \"2019-01-20 12:43\", \"vlogId\": \"2\"}"
-        decoder = JSONDecoder()
-        encoder = JSONEncoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        vlogReaction = VlogReaction(id: "1", isPrivate: true, ownerId: "1", duration: "12", postDate: "2020-04-02", vlogId: "2")
     }
 
     override func tearDown() {
-        jsonString = nil
-        decoder = nil
-        encoder = nil
+        vlogReaction = nil
     }
     
-    func testJSONToVlogReaction() {
-        let jsonData = jsonString.data(using: .utf8)
-        let vlogReaction = try? decoder.decode(VlogReaction.self, from: jsonData!)
-        XCTAssertNotNil(vlogReaction, "The json string does not conform the VlogReaction model")
+    func testDataSourceEntityToModel() {
+        
+        let vlogReactionMockDS = MockServer(vlogReaction: vlogReaction)
+        let vlogReactionMockCache = MockCache()
+        let vlogReactionRepository = VlogReactionRepository(network: vlogReactionMockDS, cache: vlogReactionMockCache)
+        let vlogReactionUseCase = VlogReactionUseCase(vlogReactionRepository)
+        
+        vlogReactionUseCase.get(id: "1", refresh: true) { (vlogReactionModel) in
+            guard let vlogReactionModel = vlogReactionModel else {
+                XCTFail("The vlogreaction object could not be converted to model")
+                return
+            }
+            XCTAssertEqual(vlogReactionModel.id, self.vlogReaction.id)
+        }
+        
     }
-    
-    func testVlogReactionToJSON() {
-        let jsonData = jsonString.data(using: .utf8)
-        let originalJsonDict = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
+
+    func testIfCacheDataIsUsed() {
         
-        let vlogReaction = try? decoder.decode(VlogReaction.self, from: jsonData!)
-        let vlogReactionToJsonData = try? encoder.encode(vlogReaction)
-        let vlogReactionToJsonDict = try? JSONSerialization.jsonObject(with: vlogReactionToJsonData!, options: []) as! [String: AnyHashable]
+        let vlogReactionMockDS = MockServer(vlogReaction: vlogReaction)
+        let vlogReactionMockCache = MockCache()
+        let vlogReactionRepository = VlogReactionRepository(network: vlogReactionMockDS, cache: vlogReactionMockCache)
+        let vlogReactionUseCase = VlogReactionUseCase(vlogReactionRepository)
         
-        XCTAssertEqual(originalJsonDict, vlogReactionToJsonDict, "The original json is not equal to the vlog reaction generated json: Original: \(originalJsonDict) | Generated: \(vlogReactionToJsonDict)")
+        vlogReactionUseCase.get(id: "1", refresh: false) { (vlogReactionModel) in
+            
+            guard let vlogReactionModel = vlogReactionModel else {
+                XCTFail("The vlogreaction object could not be converted to model")
+                return
+            }
+            
+            XCTAssertEqual(vlogReactionModel.id, self.vlogReaction.id)
+            
+            vlogReactionUseCase.get(id: "1", refresh: false) { (vlogReactionModel) in
+                
+                XCTAssertEqual(vlogReactionModel!.id, "2")
+                
+            }
+        }
+        
+    }
+
+    func testCacheThrowingErrorWhenUserNotFound() {
+        let vlogMockCache = MockCache()
+        XCTAssertThrowsError(try vlogMockCache.get(id: "11111") { (vlog) in
+            print(vlog)
+        })
     }
 
 }

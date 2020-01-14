@@ -11,83 +11,145 @@ import XCTest
 
 class UserTests: XCTestCase {
     
-    var jsonString: String!
-    var decoder: JSONDecoder!
-    var encoder: JSONEncoder!
+    private var user: User!
+    
+    private class MockUserDataSource: UserDataSourceProtocol {
+        func searchForUsers(searchTerm: String, completionHandler: @escaping ([User]) -> Void) {
+            completionHandler([])
+        }
+
+        private let user: User
+        
+        init(user: User) {
+            self.user = user
+        }
+        
+        func get(id: String, completionHandler: @escaping (User?) -> Void) {
+            do {
+                let _ = try JSONEncoder().encode(user)
+                completionHandler(user)
+            } catch {
+                completionHandler(nil)
+            }
+        }
+        
+        func getAll(completionHandler: @escaping ([User]) -> Void) {
+            completionHandler([user])
+        }
+        
+        func getCurrent(completionHandler: @escaping (User?, String?) -> Void) {
+            do {
+                let _ = try JSONEncoder().encode(user)
+                completionHandler(user, nil)
+            } catch {
+                completionHandler(nil, "Error")
+            }
+        }
+    }
+    
+    private class MockUserCache: UserCacheDataSourceProtocol {
+        
+        private var user: User?
+        
+        func get(id: String, completionHandler: @escaping (User) -> Void) throws {
+            guard let user = user else {
+                throw NSError(domain: "cache", code: 404, userInfo: nil)
+            }
+            completionHandler(user)
+        }
+        
+        func set(object: User?) {
+            guard var object = object else {
+                return
+            }
+            object.id = "2"
+            user = object
+        }
+        
+        func getAll(completionHandler: @escaping ([User]) -> Void) throws {
+            guard let user = user else {
+                throw NSError(domain: "cache", code: 404, userInfo: nil)
+            }
+            completionHandler([user])
+        }
+        
+        func setAll(objects: [User]) {
+            user = objects[0]
+            user!.id = "2"
+        }
+    }
 
     override func setUp() {
         
-        jsonString = "{\"id\": \"0\", \"firstName\": \"Apple\", \"lastName\": \"Swift\", \"gender\": \"M\", \"country\": \"Germany\", \"email\": \"apple@swift.com\", \"birthdate\": \"02/06/2014\", \"timezone\": \"+2\", \"nickname\": \"AppleIsTheBest\", \"profileImageUrl\": \"image.png\", \"interests\": [\"Apple\", \"Swift\", \"Innovation\"], \"totalVlogs\": 2, \"totalFollowers\":6, \"totalFollowing\": 2014, \"longitude\": \"0.0\", \"latitude\": \"0.0\"}"
-        decoder = JSONDecoder()
-        
-        encoder = JSONEncoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        user = User(id: "1",
+                    firstName: "Test",
+                    lastName: "Test",
+                    gender: 0,
+                    country: "Test",
+                    email: "Test@Test.nl",
+                    birthdate: "02/06/2019",
+                    timezone: "CET",
+                    username: "Test",
+                    profileImageUrl: "Test",
+                    totalVlogs: 1,
+                    totalFollowers: 1,
+                    totalFollowing: 1,
+                    longitude: 15.05,
+                    latitude: 15.05,
+                    isPrivate: true)
         
     }
 
     override func tearDown() {
-        
-        jsonString = nil
-        decoder = nil
-        encoder = nil
-        
-    }
-
-    func testJSONToUserEntity() {
-        let jsonData = jsonString.data(using: .utf8)
-        let user = try? decoder.decode(User.self, from: jsonData!)
-        XCTAssertNotNil(user, "The json string does not conform the user model")
+        user = nil
     }
     
-    func testErrorMessageWhenConvertToFloatFails() {
-        jsonString = "{\"id\": \"0\", \"firstName\": \"Apple\", \"lastName\": \"Swift\", \"gender\": \"M\", \"country\": \"Germany\", \"email\": \"apple@swift.com\", \"birthdate\": \"02/06/2014\", \"timezone\": \"+2\", \"nickname\": \"AppleIsTheBest\", \"profileImageUrl\": \"image.png\", \"interests\": [\"Apple\", \"Swift\", \"Innovation\"], \"totalVlogs\": 2, \"totalFollowers\":6, \"totalFollowing\": 2014, \"longitude\": \"53.00003\", \"latitude\": \"Test\"}"
-        let jsonData = jsonString.data(using: .utf8)
-        XCTAssertThrowsError(try decoder.decode(User.self, from: jsonData!)) { (error) in
-            print(error)
+    func testDataSourceEntityToPresentationItem() {
+        
+        let userMockDS = MockUserDataSource(user: user)
+        let userRepository = UserRepository(network: userMockDS)
+        let userUseCase = UserUseCase(userRepository)
+        
+        userUseCase.get(id: "1", refresh: true) { (userModel) in
+            guard let userModel = userModel else {
+                XCTFail("The user object could not be converted to model")
+                return
+            }
+            XCTAssertNotNil(UserItem.mapToPresentation(model: userModel), "The UserUseCase returns an incorrect Model which can't be converted to the item")
         }
         
     }
     
-    func testForCorrectDate() {
-        let jsonData = jsonString.data(using: .utf8)
-        let user = try? decoder.decode(User.self, from: jsonData!)
+    func testIfCacheDataIsUsed() {
         
-        let expectedDateString = "2014-06-02T00:00:00.000Z"
-
-        XCTAssertEqual(user!.birthdate.iso8601(), expectedDateString, "The user birthdate: \(user!.birthdate.iso8601()) is not the same as: \(expectedDateString)")
+        let userMockCache = MockUserCache()
+        let userMockDS = MockUserDataSource(user: user)
+        let userRepository = UserRepository(network: userMockDS, cache: userMockCache)
+        let userUseCase = UserUseCase(userRepository)
+        
+        userUseCase.get(id: "1", refresh: false) { (userModel) in
+            
+            guard let userModel = userModel else {
+                XCTFail("The user object could not be converted to model")
+                return
+            }
+            
+            XCTAssertEqual(userModel.id, self.user.id)
+            
+            userUseCase.get(id: "1", refresh: false) { (userModel) in
+                
+                XCTAssertEqual(userModel!.id, "2")
+                
+            }
+        }
+        
     }
     
-    func testUserToJSON() {
-        
-        let jsonData = jsonString.data(using: .utf8)
-        let userObject = try? decoder.decode(User.self, from: jsonData!)
-        
-        let userJsonBytes = try? encoder.encode(userObject)
-        let userJson = try? JSONSerialization.jsonObject(with: userJsonBytes!, options: []) as! [String: AnyHashable]
-        
-        let originalJson = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
-
-        XCTAssertEqual(originalJson, userJson, "The original json is not equal to the user generated json: Original: \(originalJson) | Generated: \(userJson)")
-        
+    func testCacheThrowingErrorWhenUserNotFound() {
+        let userMockCache = MockUserCache()
+        XCTAssertThrowsError(try userMockCache.get(id: "11111") { (user) in
+            print(user)
+        })
     }
     
-    func testPayloadWithUserObject() {
-        
-        let payloadString = "{\"protocol\":\"swabbr\",\"protocol_version\":1,\"data_type\":\"notification\",\"data_type_version\":1,\"data\":\(jsonString!),\"content_type\":\"json\",\"timestamp\":\"\",\"user_agent\":\"iphone\"}"
-        let jsonData = payloadString.data(using: .utf8)
-        let payloadWithUserObject = try? decoder.decode(Payload<User>.self, from: jsonData!)
-
-        let payloadJsonBytes = try? encoder.encode(payloadWithUserObject)
-        
-        let userJson = try? JSONSerialization.jsonObject(with: payloadJsonBytes!, options: []) as! [String: AnyHashable]
-        
-        let originalJson = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
-        
-        XCTAssertEqual(originalJson, userJson, "The original json is not equal to the payload and user generated json: Original: \(originalJson) | Generated: \(userJson)")
-
-    }
-
 }

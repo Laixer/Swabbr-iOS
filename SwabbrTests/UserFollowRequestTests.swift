@@ -11,43 +11,79 @@ import XCTest
 
 class UserFollowRequestTests: XCTestCase {
     
-    var jsonString: String!
-    var jsonData: Data!
-    var decoder: JSONDecoder!
-    var encoder: JSONEncoder!
+    var userFollowRequest: UserFollowRequest!
+    
+    private class MockServer: FollowRequestDataSourceProtocol {
+
+        private let userFollowRequest: UserFollowRequest
+        
+        init(userFollowRequest: UserFollowRequest) {
+            self.userFollowRequest = userFollowRequest
+        }
+        
+        func get(id: String, completionHandler: @escaping (UserFollowRequest?) -> Void) {
+            do {
+                let _ = try JSONEncoder().encode(userFollowRequest)
+                completionHandler(userFollowRequest)
+            } catch {
+                completionHandler(nil)
+            }
+        }
+        
+        func getIncomingRequests(completionHandler: @escaping ([UserFollowRequest]) -> Void) {
+            
+        }
+        
+        func getOutgoingRequests(completionHandler: @escaping ([UserFollowRequest]) -> Void) {
+            
+        }
+        
+        func createFollowRequest(for userId: String, completionHandler: @escaping (UserFollowRequest?, String?) -> Void) {
+            
+        }
+        
+        func destroyFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+            completionHandler(nil)
+        }
+        
+        func acceptFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+            completionHandler(nil)
+        }
+        
+        func declineFollowRequest(followRequestId: String, completionHandler: @escaping (String?) -> Void) {
+            completionHandler(nil)
+        }
+        
+    }
 
     override func setUp() {
-        jsonString = "{\"id\": \"0\", \"requesterId\": \"1\", \"receiverId\": \"2\", \"status\": \"accepted\", \"timestamp\": \"2019-01-20 12:43\"}"
-        jsonData = jsonString.data(using: .utf8)
-        decoder = JSONDecoder()
-        encoder = JSONEncoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+0:00")
-        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        
+        userFollowRequest = UserFollowRequest(id: "1",
+                                              requesterId: "1",
+                                              receiverId: "1",
+                                              status: 0,
+                                              timestamp: "12345")
+        
     }
 
     override func tearDown() {
-        jsonString = nil
-        jsonData = nil
-        decoder = nil
-        encoder = nil
-    }
-
-    func testJSONToUserFollowRequest() {
-        let userFollowRequest = try? decoder.decode(UserFollowRequest.self, from: jsonData!)
-        XCTAssertNotNil(userFollowRequest, "The json string does not conform the UserFollowRequest model")
-        XCTAssert(userFollowRequest!.status == Status.accepted, "The current status is not as expected")
+        userFollowRequest = nil
     }
     
-    func testUserFollowRequestToJSON() {
-        let userFollowRequest = try? decoder.decode(UserFollowRequest.self, from: jsonData!)
-        let originalJsonDict = try? JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyHashable]
+    func testDataSourceEntityToPresentationItem() {
         
-        let userFollowRequestToJsonData = try? encoder.encode(userFollowRequest)
-        let userFollowRequestToJsonDict = try? JSONSerialization.jsonObject(with: userFollowRequestToJsonData!, options: []) as! [String: AnyHashable]
+        let followRequestMockDS = MockServer(userFollowRequest: userFollowRequest)
+        let repository = UserFollowRequestRepository(network: followRequestMockDS)
+        let followRequestUseCase = UserFollowRequestUseCase(repository)
         
-        XCTAssertEqual(originalJsonDict, userFollowRequestToJsonDict, "The original json is not equal to the user follow request generated json: Original: \(originalJsonDict) | Generated: \(userFollowRequestToJsonDict)")
+        followRequestUseCase.get(id: "1", refresh: true) { (followRequestModel) in
+            guard let followRequestModel = followRequestModel else {
+                XCTFail("The followrequest object could not be converted to model")
+                return
+            }
+            XCTAssertNotNil(FollowRequestItem.mapToPresentation(userFollowRequestModel: followRequestModel), "The FollowRequestUseCase returns an incorrect Model which can't be converted to the item")
+        }
+        
     }
 
 }
