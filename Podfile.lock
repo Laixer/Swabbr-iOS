@@ -73,6 +73,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.3.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.3.0)
+  - KeychainSwift (13.0.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -87,6 +88,7 @@ DEPENDENCIES:
   - Eureka (= 4.3.1)
   - Firebase/Analytics
   - Firebase/Auth
+  - KeychainSwift (~> 13.0)
   - NextLevel (= 0.14.0)
   - SwiftLint (= 0.35.0)
 
@@ -107,6 +109,7 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - GTMSessionFetcher
+    - KeychainSwift
     - nanopb
     - NextLevel
     - SwiftLint
@@ -138,10 +141,11 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: ef79a4728b864946a8aafdbab770d5294faf3b5f
   GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
+  KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NextLevel: 741b8367150591f0fde53d16c386218e3fd64d30
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 09aa901865a829a8af6b545d1d653d1d8b3c3b01
+PODFILE CHECKSUM: 6a4f8a9c9fa79ec4cbda9c888ba9b97b8a96af7a
 
 COCOAPODS: 1.7.5

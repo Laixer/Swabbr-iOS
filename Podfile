@@ -13,6 +13,7 @@ target 'Swabbr' do
 
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'KeychainSwift', '~> 13.0'
   
   pod 'Eureka', '4.3.1'
   pod 'Alamofire', '5.0.0-beta.3'
