@@ -4,8 +4,6 @@
 //
 //  Created by James Bal on 18-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
-//
-// swiftlint:disable force_cast
 
 import Eureka
 
@@ -64,11 +62,11 @@ class LoginViewController: FormViewController {
      Submits the form
     */
     private func submitLoginForm() {
-    
+        
         let dictionary = form.values()
-        let loginItem = LoginUserItem(email: dictionary["email"] as! String,
-                                      password: dictionary["password"] as! String,
-                                      rememberMe: dictionary["rememberMe"] as! Bool)
+        let loginItem = LoginUserItem(email: String(describing: dictionary["email"]),
+                                      password: String(describing: dictionary["password"]),
+                                      rememberMe: Bool(String(describing: dictionary["rememberMe"]))!)
         controllerService.login(loginItem)
     
     }
@@ -76,11 +74,14 @@ class LoginViewController: FormViewController {
 
 extension LoginViewController: LoginViewControllerServiceDelegate {
     func handleLoginResponse(errorString: String?) {
-        guard errorString == nil else {
+        
+        if let errorString = errorString {
             BasicErrorDialog.createAlert(message: errorString, context: self)
             return
         }
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = MainTabBarViewController()
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.window!.rootViewController = MainTabBarViewController()
+        }
     }
 }
