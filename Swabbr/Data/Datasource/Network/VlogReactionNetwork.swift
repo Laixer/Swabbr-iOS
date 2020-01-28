@@ -13,8 +13,7 @@ class VlogReactionNetwork: NetworkProtocol, VlogReactionDataSourceProtocol {
     var endPoint: String = "reactions"
     
     func get(id: String, completionHandler: @escaping (VlogReaction?) -> Void) {
-        let queryItems = [URLQueryItem(name: "vlogId", value: id)]
-        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<VlogReaction>) in
+        AF.request(buildUrl(path: id)).responseDecodable { (response: DataResponse<VlogReaction>) in
             switch response.result {
             case .success(let vlogReaction):
                 completionHandler(vlogReaction)
@@ -27,8 +26,7 @@ class VlogReactionNetwork: NetworkProtocol, VlogReactionDataSourceProtocol {
     }
     
     func getVlogReactions(id: String, completionHandler: @escaping ([VlogReaction]) -> Void) {
-        let queryItems = [URLQueryItem(name: "vlogId", value: id)]
-        AF.request(buildUrl(queryItems: queryItems)).responseDecodable { (response: DataResponse<[VlogReaction]>) in
+        AF.request(buildUrl(path: "vlogs/\(id)")).responseDecodable { (response: DataResponse<[VlogReaction]>) in
             switch response.result {
             case .success(let vlogReactions):
                 completionHandler(vlogReactions)
