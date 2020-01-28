@@ -25,5 +25,9 @@ class LoginViewControllerService {
 }
 
 protocol LoginViewControllerServiceDelegate: class {
+    /**
+     Will be run when the login call has been completed.
+     - parameter errorString: An optional String representing the error.
+    */
     func handleLoginResponse(errorString: String?)
 }

@@ -25,5 +25,9 @@ class RegistrationViewControllerService {
 }
 
 protocol RegistrationViewControllerServiceDelegate: class {
+    /**
+     Will be run when the register call has been completed.
+     - parameter errorString: An optional String representing the error.
+     */
     func registeredUser(errorString: String?)
 }
