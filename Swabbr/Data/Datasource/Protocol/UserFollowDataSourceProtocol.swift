@@ -21,4 +21,6 @@ protocol UserFollowDataSourceProtocol {
      - parameter completionHandler: The callback will return a list of User.
      */
     func getFollowing(id: String, completionHandler: @escaping ([User]) -> Void)
+    
+    func unfollowUser(userId: String, completionHandler: @escaping (String?) -> Void)
 }

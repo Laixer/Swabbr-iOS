@@ -5,7 +5,6 @@
 //  Created by James Bal on 14-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable identifier_name
 
 import Foundation
 

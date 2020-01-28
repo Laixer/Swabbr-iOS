@@ -29,7 +29,7 @@ class UserSettingsNetwork: NetworkProtocol, UserSettingsDataSourceProtocol {
     func updateUserSettings(userSettings: UserSettings, completionHandler: @escaping (UserSettings?, String?) -> Void) {
         var request = buildUrl(path: "update", authorization: true)
         request.httpMethod = "PUT"
-        request.httpBody = try! JSONEncoder().encode(userSettings)
+        request.httpBody = try? JSONEncoder().encode(userSettings)
         request.addValue("text/json", forHTTPHeaderField: "Content-Type")
         AF.request(request).responseDecodable { (response: DataResponse<UserSettings>) in
             switch response.result {
