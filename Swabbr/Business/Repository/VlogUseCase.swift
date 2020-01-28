@@ -26,11 +26,11 @@ class VlogUseCase {
         repository.getUserVlogs(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
-    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+    func createLike(id: String, completionHandler: @escaping (String?) -> Void) {
         repository.createLike(id: id, completionHandler: completionHandler)
     }
     
-    func createVlog(completionHandler: @escaping (Int) -> Void) {
+    func createVlog(completionHandler: @escaping (String?) -> Void) {
         repository.createVlog(completionHandler: completionHandler)
     }
 }

@@ -7,7 +7,6 @@
 //
 
 protocol VlogDataSourceProtocol {
-    typealias SetHandler = (Int) -> Void
     
     /**
      Get a specific vlog with id.
@@ -34,11 +33,11 @@ protocol VlogDataSourceProtocol {
      - parameter id: The id of the vlog.
      - parameter completionHandler: A callback which will return an optional String.
      */
-    func createLike(id: String, completionHandler: @escaping SetHandler)
+    func createLike(id: String, completionHandler: @escaping (String?) -> Void)
     
     /**
      Add a vlog to the remote.
      - parameter completionHandler: A callback which will return an optional String.
      */
-    func createVlog(completionHandler: @escaping SetHandler)
+    func createVlog(completionHandler: @escaping (String?) -> Void)
 }

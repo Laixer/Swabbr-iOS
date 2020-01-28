@@ -280,11 +280,9 @@ extension VlogPageViewController {
     @objc private func tappedVideoToLoveIt() {
         controllerService.giveLoveIt(for: vlogId) { (error) in
             guard error == nil else {
-                let alert = UIAlertController(title: "Error", message: error!, preferredStyle: .alert)
-                self.present(alert, animated: true, completion: nil)
+                BasicErrorDialog.createAlert(message: error, context: self)
                 return
             }
-            
             print("Liked")
         }
     }

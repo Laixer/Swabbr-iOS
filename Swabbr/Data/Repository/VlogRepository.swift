@@ -55,11 +55,11 @@ class VlogRepository: VlogRepositoryProtocol {
         })
     }
     
-    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
+    func createLike(id: String, completionHandler: @escaping (String?) -> Void) {
         network.createLike(id: id, completionHandler: completionHandler)
     }
     
-    func createVlog(completionHandler: @escaping (Int) -> Void) {
+    func createVlog(completionHandler: @escaping (String?) -> Void) {
         network.createVlog(completionHandler: completionHandler)
     }
 }

@@ -50,11 +50,15 @@ class VlogNetwork: NetworkProtocol, VlogDataSourceProtocol {
         }
     }
     
-    func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
-        completionHandler(200)
+    func createLike(id: String, completionHandler: @escaping (String?) -> Void) {
+        var request = buildUrl(path: "like/\(id)", authorization: true)
+        request.httpMethod = "POST"
+        AF.request(request).validate().response(completionHandler: { (response) in
+            completionHandler(response.error?.localizedDescription)
+        })
     }
     
-    func createVlog(completionHandler: @escaping (Int) -> Void) {
-        completionHandler(200)
+    func createVlog(completionHandler: @escaping (String?) -> Void) {
+        completionHandler(nil)
     }
 }

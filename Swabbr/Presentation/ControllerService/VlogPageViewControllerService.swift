@@ -25,8 +25,11 @@ class VlogPageViewControllerService {
     */
     func getVlog(vlogId: String) {
         vlogUseCase.get(id: vlogId, refresh: false, completionHandler: { (vlogModel) -> Void in
-            self.userUseCase.get(id: vlogModel!.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
-                self.vlog = VlogUserItem(vlogModel: vlogModel!, userModel: userModel!)
+            guard let vlogModel = vlogModel else {
+                return
+            }
+            self.userUseCase.get(id: vlogModel.ownerId, refresh: false, completionHandler: { (userModel) -> Void in
+                self.vlog = VlogUserItem(vlogModel: vlogModel, userModel: userModel!)
             })
         })
     }
@@ -36,12 +39,8 @@ class VlogPageViewControllerService {
      - parameter vlogId: A vlog id.
     */
     func giveLoveIt(for vlogId: String, completionHandler: @escaping (String?) -> Void) {
-        vlogUseCase.createLike(id: vlogId) { (code) in
-            guard code == 200 else {
-                completionHandler("Error message")
-                return
-            }
-            print("Liked")
+        vlogUseCase.createLike(id: vlogId) { (errorString) in
+            completionHandler(errorString)
         }
     }
     
