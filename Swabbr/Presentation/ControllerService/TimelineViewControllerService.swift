@@ -13,7 +13,7 @@ class TimelineViewControllerService {
     private let vlogUseCase = VlogUseCase()
     private let userUseCase = UserUseCase()
     
-    public private(set) var vlogs: [VlogUserItem]! = [] {
+    public private(set) var vlogs: [VlogItem]! = [] {
         didSet {
             delegate?.didRetrieveVlogs(self)
         }
@@ -25,18 +25,9 @@ class TimelineViewControllerService {
      */
     func getVlogs(refresh: Bool = false) {
         vlogUseCase.get(refresh: refresh, completionHandler: { (vlogModels) -> Void in
-            let vlogUserGroup = DispatchGroup()
-            var vlogUserItems: [VlogUserItem] = []
-            for vlogModel in vlogModels {
-                vlogUserGroup.enter()
-                self.userUseCase.get(id: vlogModel.ownerId, refresh: refresh, completionHandler: { (userModel) -> Void in
-                    vlogUserItems.append(VlogUserItem(vlogModel: vlogModel, userModel: userModel!))
-                    vlogUserGroup.leave()
-                })
-            }
-            vlogUserGroup.notify(queue: .main) {
-                self.vlogs = vlogUserItems
-            }
+            self.vlogs = vlogModels.compactMap({ (vlogModel) -> VlogItem in
+                VlogItem.mapToPresentation(vlogModel: vlogModel)
+            })
         })
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-struct VlogItem {
+struct VlogItem: Equatable {
     
     var id: String
     var duration: String

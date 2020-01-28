@@ -5,7 +5,6 @@
 //  Created by James Bal on 18-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-//  swiftlint:disable force_cast
 
 import UIKit
 
@@ -17,8 +16,6 @@ class TimelineViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        navigationController?.navigationBar.isHidden = true
-        
         view.backgroundColor = UIColor.white
         
         title = "Timeline"
@@ -27,28 +24,34 @@ class TimelineViewController: UIViewController {
         
         pvc.dataSource = self
         
-        self.addChild(pvc)
-        self.view.addSubview(pvc.view)
+        addChild(pvc)
+        view.addSubview(pvc.view)
         
         pvc.view.frame = view.frame
         
         pvc.didMove(toParent: self)
         
-        self.pageViewController = pvc
+        pageViewController = pvc
         
         controllerService.delegate = self
         controllerService.getVlogs()
         
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
 }
 
 // MARK: UIPageViewControllerDataSource
 extension TimelineViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vlogId = (viewController as! VlogPageViewController).vlogId
-        let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
-            vlogUserItem.vlogId == vlogId
+        let vlogId = (viewController as? VlogPageViewController)!.vlogId
+        let vlog = self.controllerService.vlogs.first(where: { (vlogItem) -> Bool in
+            vlogItem.id == vlogId
         })
         guard let cIndex = self.controllerService.vlogs.firstIndex(of: vlog!) else {
             return nil
@@ -57,20 +60,20 @@ extension TimelineViewController: UIPageViewControllerDataSource {
         let previousIndex = cIndex - 1
         
         guard previousIndex >= 0 else {
-            return VlogPageViewController(vlogId: self.controllerService.vlogs.last!.vlogId)
+            return VlogPageViewController(vlogId: self.controllerService.vlogs.last!.id)
         }
         
         guard self.controllerService.vlogs.count > previousIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlogId: self.controllerService.vlogs[previousIndex].vlogId)
+        return VlogPageViewController(vlogId: self.controllerService.vlogs[previousIndex].id)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vlogId = (viewController as! VlogPageViewController).vlogId
-        let vlog = self.controllerService.vlogs.first(where: { (vlogUserItem) -> Bool in
-            vlogUserItem.vlogId == vlogId
+        let vlogId = (viewController as? VlogPageViewController)!.vlogId
+        let vlog = self.controllerService.vlogs.first(where: { (vlogItem) -> Bool in
+            vlogItem.id == vlogId
         })
         guard let cIndex = self.controllerService.vlogs.firstIndex(of: vlog!) else {
             return nil
@@ -80,14 +83,14 @@ extension TimelineViewController: UIPageViewControllerDataSource {
         let vlogCount = self.controllerService.vlogs.count
         
         guard vlogCount != nextIndex else {
-            return VlogPageViewController(vlogId: self.controllerService.vlogs.first!.vlogId)
+            return VlogPageViewController(vlogId: self.controllerService.vlogs.first!.id)
         }
         
         guard vlogCount > nextIndex else {
             return nil
         }
         
-        return VlogPageViewController(vlogId: self.controllerService.vlogs[nextIndex].vlogId)
+        return VlogPageViewController(vlogId: self.controllerService.vlogs[nextIndex].id)
     }
     
 }
@@ -95,7 +98,7 @@ extension TimelineViewController: UIPageViewControllerDataSource {
 // MARK: TimelineViewControllerServiceDelegate
 extension TimelineViewController: TimelineViewControllerServiceDelegate {
     func didRetrieveVlogs(_ sender: TimelineViewControllerService) {
-        let vlogController = VlogPageViewController(vlogId: sender.vlogs[0].vlogId)
+        let vlogController = VlogPageViewController(vlogId: sender.vlogs[sender.vlogs.count - 1].id)
         pageViewController.setViewControllers([vlogController], direction: .forward, animated: true, completion: nil)
     }
 }

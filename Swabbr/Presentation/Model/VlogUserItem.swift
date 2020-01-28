@@ -6,7 +6,7 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-struct VlogUserItem: Equatable {
+struct VlogUserItem {
     
     var vlogId: String
     var vlogTotalLikes: Int
