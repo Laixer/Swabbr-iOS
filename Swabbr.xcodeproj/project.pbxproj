@@ -18,6 +18,7 @@
 		C20E402923CC6C33009DC160 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402823CC6C33009DC160 /* KeychainService.swift */; };
 		C20E403123CC9B32009DC160 /* UserFollowRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */; };
 		C20E403523CDF204009DC160 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403423CDF204009DC160 /* UserSettingsTests.swift */; };
+		C20E404723D9851B009DC160 /* SLivestreamNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E404623D9851B009DC160 /* SLivestreamNotification.swift */; };
 		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
 		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
 		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
@@ -205,6 +206,7 @@
 		C20E402823CC6C33009DC160 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestItem.swift; sourceTree = "<group>"; };
 		C20E403423CDF204009DC160 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
+		C20E404623D9851B009DC160 /* SLivestreamNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLivestreamNotification.swift; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
 		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
 		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
@@ -646,6 +648,7 @@
 				C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */,
 				C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */,
 				C2C24CD32355FB2900EEDF1B /* TokenData.swift */,
+				C20E404623D9851B009DC160 /* SLivestreamNotification.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -1168,6 +1171,7 @@
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 				C29FA44A2382DD5200C22F67 /* UserVlogReactionItem.swift in Sources */,
+				C20E404723D9851B009DC160 /* SLivestreamNotification.swift in Sources */,
 				C2C3C45C23A39252007F6814 /* RegistrationUserModel.swift in Sources */,
 				C2AEAB7B2397F662006B19A4 /* UserSettings.swift in Sources */,
 				C29FA419237DAE4500C22F67 /* TimelineViewControllerService.swift in Sources */,

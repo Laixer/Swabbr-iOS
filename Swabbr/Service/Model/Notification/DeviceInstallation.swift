@@ -6,19 +6,30 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
-struct DeviceInstallation: Codable {
+struct DeviceInstallation: Encodable {
     
-    let installationId: String
-    let pushChannel: String
-    let platform = "apns"
-    var tags: [String]
+    let handle: String
+    let platform = 0
     
-    init(withInstallationId installationId: String, andPushChannel pushChannel: String) {
-        self.installationId = installationId
-        self.pushChannel = pushChannel
-        self.tags = [String]()
+    init(handle: String) {
+        self.handle = handle
+    }
+    
+    /**
+     Handles possible name convention differences.
+     Put each value in their respected model variant.
+     */
+    enum CodingKeys: String, CodingKey {
+        case platform, handle
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(platform, forKey: .platform)
+        try container.encode(handle, forKey: .handle)
+        
     }
     
 }

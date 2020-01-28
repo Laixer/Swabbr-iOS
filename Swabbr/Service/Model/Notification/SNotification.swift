@@ -6,14 +6,11 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import Foundation
-
 struct SNotification {
 
-    let title: String
-    let message: String
     let clickAction: ClickAction
-
+    let object: AnyObject?
+    
     enum ClickAction: String, Decodable {
         case followedProfileLive = "followed_profile_live"
         case inactiveUserMotivate = "inactive_user_motivate"
@@ -25,8 +22,8 @@ struct SNotification {
     }
     
     enum CodingKeys: String, CodingKey {
-        case title, message
         case clickAction = "click_action"
+        case object
     }
 
 }
@@ -37,13 +34,38 @@ extension SNotification: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        title = try container.decode(String.self, forKey: .title)
-        message = try container.decode(String.self, forKey: .message)
         clickAction = try container.decode(ClickAction.self, forKey: .clickAction)
         
+        switch clickAction {
+        case .followedProfileLive:
+            object = try container.decode(ObjectId.self, forKey: .object) as AnyObject
+        case .inactiveUserMotivate:
+            object = nil
+        case .inactiveUnwatchedVlogs:
+            object = nil
+        case .inactiveVlogRecordRequest:
+            object = nil
+        case .vlogGainedLikes:
+            object = nil
+        case .vlogNewReaction:
+            object = nil
+        case .vlogRecordRequest:
+            object = try container.decode(SLivestreamNotification.self, forKey: .object) as AnyObject
+        }
+
     }
     
     func encode(to encoder: Encoder) throws {
-        
+        return
     }
+}
+
+struct ObjectId: Decodable {
+    
+    let id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+    }
+    
 }

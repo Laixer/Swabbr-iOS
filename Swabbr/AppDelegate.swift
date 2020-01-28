@@ -6,25 +6,14 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
-import UIKit
 import UserNotifications
 import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    // MARK: UNUserNotificationCenterDelegate
-    var configValues: NSDictionary?
-    var notificationHubNamespace: String?
-    var notificationHubName: String?
-    var notificationHubKeyName: String?
-    var notificationHubKey: String?
-    let tags = ["iOS"]
 
     // MARK: UIApplicationDelegate
     var window: UIWindow?
-    
-    var registrationService: NotificationRegistrationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -32,33 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ApiPreferences.shared = ApiPreferences.getAPIPreferences(enviroment: .test)
         }
         
-        // MARK: UNUserNotificationCenterDelegate
-        if let path = Bundle.main.path(forResource: "Notification-Hub-Settings", ofType: "plist") {
-            if let configValues = NSDictionary(contentsOfFile: path) {
-                self.notificationHubNamespace = configValues["notificationHubNamespace"] as? String
-                self.notificationHubName = configValues["notificationHubName"] as? String
-                self.notificationHubKeyName = configValues["notificationHubKeyName"] as? String
-                self.notificationHubKey = configValues["notificationHubKey"] as? String
-            }
-        }
-        
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
-                (granted, error) in
-                if granted {
-                    DispatchQueue.main.async {
-                        application.registerForRemoteNotifications()
-                    }
-                }
-            }
         }
         
 //        FirebaseApp.configure()
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        
         var controller: UIViewController {
-            if !UserDefaults.standard.bool(forKey: "rememberMe") {
+            if KeychainService.shared.get(key: "access_token") == nil {
                 return LoginViewController()
             }
             return MainTabBarViewController()
@@ -96,73 +68,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
-        let installationId = (UIDevice.current.identifierForVendor?.description)!
-        let pushChannel = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-
         // Initialize the Notification Registration Service
         self.registrationService = NotificationRegistrationService(
             withInstallationId: installationId,
             andPushChannel: pushChannel,
-            andHubNamespace: notificationHubNamespace!,
-            andHubName: notificationHubName!,
-            andKeyName: notificationHubKeyName!,
-            andKey: notificationHubKey!)
+        NotificationRegistrationService.shared.register(deviceToken: deviceToken)
+    }
 
-        // Call register, passing in the tags and template parameters
-        // ["genericTemplate" : self.genericTemplate]
-        self.registrationService!.register(withTags: nil) { (result) in
-            if !result {
-                print("Registration issue")
-            } else {
-                print("Registered")
-            }
-        }
-    }
-    
-    func showAlert(withText text: String) {
-        let alertController = UIAlertController(title: "Test", message: text, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-    }
-    
-    @available(iOS 10, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        handleNotification(with: notification.request.content.userInfo)
-        showAlert(withText: notification.request.content.body)
-    }
-    
     @available(iOS 10, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        handleNotification(with: response.notification.request.content.userInfo)
-        showAlert(withText: response.notification.request.content.body)
-    }
-    
-    private func handleNotification(with userInfo: [AnyHashable: Any]) {
-        let jsonData = try? JSONSerialization.data(withJSONObject: userInfo["payload"]!, options: [])
-        let notificationObject = try? JSONDecoder().decode(Payload<SNotification>.self, from: jsonData!)
-        switch notificationObject!.innerData.clickAction {
-        case .followedProfileLive:
-            // timeline with specific vlog
-            break
-        case .inactiveUserMotivate:
-            // timelineviewcontroller
-            break
-        case .inactiveUnwatchedVlogs:
-            // followers list
-            break
-        case .inactiveVlogRecordRequest:
-            // timelineviewcontroller
-            break
-        case .vlogGainedLikes:
-            break
-        case .vlogNewReaction:
-            break
-        case .vlogRecordRequest:
-            // vlogstreamviewcontroller
-            break
-        }
-        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "notif"),
+                                        object: nil,
+                                        userInfo: response.notification.request.content.userInfo)
+        completionHandler()
     }
     
 }
