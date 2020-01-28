@@ -12,6 +12,7 @@ class ProfileViewControllerService {
     
     private let userUseCase = UserUseCase()
     private let vlogUseCase = VlogUseCase()
+    private let followUseCase = UserFollowUseCase()
     private let followRequestUseCase = UserFollowRequestUseCase()
     
     public private(set) var user: UserItem? {
@@ -71,6 +72,16 @@ class ProfileViewControllerService {
     */
     func removeFollowRequest() {
         followRequestUseCase.destroyFollowRequest(followRequestId: followRequest!.id) { (errorString) in
+            self.delegate?.performedFollowRequestCall(errorString)
+            guard errorString == nil else {
+                return
+            }
+            self.followRequest = nil
+        }
+    }
+    
+    func unfollowUser(withId userId: String) {
+        followUseCase.unfollowUser(userId: userId) { (errorString) in
             self.delegate?.performedFollowRequestCall(errorString)
             guard errorString == nil else {
                 return

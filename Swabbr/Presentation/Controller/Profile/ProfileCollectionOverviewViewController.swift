@@ -4,8 +4,6 @@
 //
 //  Created by James Bal on 02-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
-//
-// swiftlint:disable force_cast
 
 import Foundation
 import UIKit
@@ -24,12 +22,15 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     
     private let controllerService = ProfileCollectionOverviewControllerService()
     
+    private let id: String
+    
     /**
      Initialize the view controller this way if we want to get the vlogs thats associated to the given user id.
      - parameter userId: An int value representing an user id.
     */
     init(vlogOwnerId: String) {
         type = DataType.vlogs
+        id = vlogOwnerId
         super.init(nibName: nil, bundle: nil)
         controllerService.getVlogs(userId: vlogOwnerId)
     }
@@ -40,6 +41,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      */
     init(followingOwnerId: String) {
         type = DataType.following
+        id = followingOwnerId
         super.init(nibName: nil, bundle: nil)
         controllerService.getFollowing(userId: followingOwnerId)
     }
@@ -50,6 +52,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
      */
     init(followersOwnerId: String) {
         type = DataType.followers
+        id = followersOwnerId
         super.init(nibName: nil, bundle: nil)
         controllerService.getFollowers(userId: followersOwnerId)
     }
@@ -58,11 +61,27 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Load data appropriate for the user.
+    */
+    func loadData() {
+        switch type {
+        case .following:
+            controllerService.getFollowing(userId: id, refresh: true)
+        case .followers:
+            controllerService.getFollowers(userId: id, refresh: true)
+        case .vlogs:
+            controllerService.getVlogs(userId: id, refresh: true)
+        }
+    }
+    
     override func viewDidLoad() {
         
         view.backgroundColor = UIColor.white
         
         controllerService.delegate = self
+        
+        view.accessibilityIdentifier = "Profile overview collection"
         
         initElements()
         applyConstraints()
@@ -89,7 +108,7 @@ class ProfileCollectionOverviewViewController: UIViewController, BaseViewProtoco
     internal func applyConstraints() {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -125,16 +144,15 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell?
         if type == DataType.vlogs {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as! VlogCollectionViewCell
+            cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as? VlogCollectionViewCell)!
             let vlog = controllerService.vlogs[indexPath.row]
-            (cell! as! VlogCollectionViewCell).durationLabel.text = vlog.duration
+            (cell as? VlogCollectionViewCell)!.durationLabel.text = vlog.duration
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserCollectionViewCell
+            cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as? UserCollectionViewCell)!
             let user = controllerService.users[indexPath.row]
-            (cell! as! UserCollectionViewCell).usernameLabel.text = user.username
+            (cell as? UserCollectionViewCell)!.usernameLabel.text = user.username
         }
-        
-        return cell!
+        return cell ?? UICollectionViewCell()
     }
     
 }

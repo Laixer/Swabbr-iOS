@@ -33,4 +33,10 @@ class UserFollowRepository: UserFollowRepositoryProtocol {
             )
         })
     }
+    
+    func unfollowUser(userId: String, completionHandler: @escaping (String?) -> Void) {
+        network.unfollowUser(userId: userId, completionHandler: { (errorString) in
+            completionHandler(errorString)
+        })
+    }
 }

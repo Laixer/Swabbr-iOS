@@ -10,7 +10,7 @@ import Alamofire
 
 class UserFollowNetwork: NetworkProtocol, UserFollowDataSourceProtocol {
     
-    var endPoint: String = "users/users"
+    var endPoint: String = "users"
     
     func getFollowers(id: String, completionHandler: @escaping ([User]) -> Void) {
         AF.request(buildUrl(path: "\(id)/followers")).responseDecodable { (response: DataResponse<[User]>) in
@@ -19,7 +19,6 @@ class UserFollowNetwork: NetworkProtocol, UserFollowDataSourceProtocol {
                 completionHandler(users)
             case .failure:
                 completionHandler([])
-                // failure handling
             }
         }
     }
@@ -31,8 +30,20 @@ class UserFollowNetwork: NetworkProtocol, UserFollowDataSourceProtocol {
                 completionHandler(users)
             case .failure:
                 completionHandler([])
-                // failure handling
             }
         }
+    }
+    
+    func unfollowUser(userId: String, completionHandler: @escaping (String?) -> Void) {
+        var request = buildUrl(path: "\(userId)/unfollow")
+        request.httpMethod = "DELETE"
+        AF.request(request).response(completionHandler: { (response) in
+            switch response.result {
+            case .success:
+                completionHandler(nil)
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
+            }
+        })
     }
 }

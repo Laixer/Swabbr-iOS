@@ -23,4 +23,6 @@ protocol UserFollowRepositoryProtocol {
      - parameter completionHandler: The callback will return a list of UserModels.
      */
     func getFollowing(id: String, refresh: Bool, completionHandler: @escaping ([UserModel]) -> Void)
+    
+    func unfollowUser(userId: String, completionHandler: @escaping (String?) -> Void)
 }

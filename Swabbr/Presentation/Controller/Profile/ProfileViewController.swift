@@ -11,19 +11,23 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
     private let profileImageView = UIImageView()
     private let usernameLabel = UILabel()
     private let countVlogsLabel = UILabel()
     private let countFollowersLabel = UILabel()
     private let countFollowingLabel = UILabel()
-    private var followButton = UIButton()
-    private let updateProfileButton = UIButton()
+    private let profileButton = UIButton()
     
     private var isCurrentUser = false
+    private var refreshing = false
     
     private var profileCollectionOverviewController: ProfileCollectionOverviewViewController?
     
     let controllerService = ProfileViewControllerService()
+    
     private var userId: String?
 
     /**
@@ -62,9 +66,15 @@ class ProfileViewController: UIViewController {
         
     }
     
+    /**
+     Function retrieves all data that needs to be refreshed
+    */
     @objc private func refresh() {
-        controllerService.getUser(userId: userId!)
-        controllerService.getFollowStatus(userId: userId!)
+        controllerService.getUser(userId: userId!, refresh: true)
+        if !isCurrentUser {
+            controllerService.getFollowStatus(userId: userId!, refresh: true)
+        }
+        scrollView.refreshControl?.endRefreshing()
     }
     
     /**
@@ -77,7 +87,7 @@ class ProfileViewController: UIViewController {
     /**
      Show the collectionviewcontroller with the given user id for the following users
     */
-    @objc private func showFollowing() {
+    @objc internal func showFollowing() {
         navigationController?.pushViewController(ProfileCollectionOverviewViewController(followingOwnerId: userId!), animated: true)
     }
     
@@ -86,7 +96,7 @@ class ProfileViewController: UIViewController {
      The use case can differ dependent on the follow state.
     */
     @objc private func clickedFollowButton() {
-        followButton.isEnabled = false
+        profileButton.isEnabled = false
         guard let followRequest = controllerService.followRequest else {
             controllerService.createFollowRequest(userId: userId!)
             return
@@ -94,8 +104,10 @@ class ProfileViewController: UIViewController {
         switch followRequest.status {
         case 0:
             controllerService.removeFollowRequest()
+        case 1:
+            controllerService.unfollowUser(withId: userId!)
         default:
-            print("default")
+            controllerService.createFollowRequest(userId: userId!)
         }
     }
     
@@ -105,32 +117,21 @@ class ProfileViewController: UIViewController {
     */
     private func addProfileVlogOverviewController() {
         
-        if profileCollectionOverviewController != nil {
+        if let profileCollectionOverviewController = profileCollectionOverviewController {
+            profileCollectionOverviewController.loadData()
             return
         }
         
         profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: userId!)
-        view.addSubview(profileCollectionOverviewController!.view)
+        contentView.addSubview(profileCollectionOverviewController!.view)
+
         profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            profileCollectionOverviewController!.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            profileCollectionOverviewController!.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            profileCollectionOverviewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            profileCollectionOverviewController!.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            profileCollectionOverviewController!.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            profileCollectionOverviewController!.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            profileCollectionOverviewController!.view.topAnchor.constraint(equalTo: profileButton.bottomAnchor)
         ])
-        
-        if isCurrentUser {
-            
-            NSLayoutConstraint.activate([
-                profileCollectionOverviewController!.view.topAnchor.constraint(equalTo: updateProfileButton.bottomAnchor)
-            ])
-            
-        } else {
-            
-            NSLayoutConstraint.activate([
-                profileCollectionOverviewController!.view.topAnchor.constraint(equalTo: followButton.bottomAnchor)
-            ])
-            
-        }
         
         addChild(profileCollectionOverviewController!)
         profileCollectionOverviewController!.didMove(toParent: self)
@@ -143,9 +144,9 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: ProfileViewControllerServiceDelegate {
     
     func performedFollowRequestCall(_ errorString: String?) {
-        followButton.isEnabled = true
+        profileButton.isEnabled = true
         guard let errorString = errorString else {
-            followButton.setTitle("Sent", for: .normal)
+            profileButton.setTitle("Sent", for: .normal)
             return
         }
         BasicErrorDialog.createAlert(message: errorString, context: self)
@@ -153,18 +154,18 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
     
     func setFollowStatus(_ followStatus: Int?) {
         switch followStatus {
-        case 0: followButton.setTitle("Sent", for: .normal)
-        case 1: followButton.setTitle("Unfollow", for: .normal)
-        case 2: followButton.setTitle("Rejected", for: .normal)
-        default: followButton.setTitle("Follow", for: .normal)
+        case 0: profileButton.setTitle("Pending", for: .normal)
+        case 1: profileButton.setTitle("Unfollow", for: .normal)
+        case 2: profileButton.setTitle("Declined", for: .normal)
+        default: profileButton.setTitle("Follow", for: .normal)
         }
-        followButton.isEnabled = true
+        profileButton.isEnabled = true
     }
     
     func didRetrieveUser(_ sender: ProfileViewControllerService) {
         
         guard let user = sender.user else {
-//            BasicErrorDialog.createAlert(message: sender.error!, context: self)
+            BasicErrorDialog.createAlert(message: "Unknown user", context: self)
             return
         }
         
@@ -176,24 +177,19 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
         countVlogsLabel.text = String.init(format: "Vlog total: %d", user.totalVlogs)
         countFollowersLabel.text = String.init(format: "followers: %d", user.totalFollowers)
         countFollowingLabel.text = String.init(format: "following: %d", user.totalFollowing)
-        if isCurrentUser {
-            view.addSubview(updateProfileButton)
-            updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                updateProfileButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
-                updateProfileButton.leftAnchor.constraint(equalTo: view.leftAnchor)
-            ])
-        } else {
-            view.addSubview(followButton)
-            followButton.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                followButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
-                followButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-                followButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-            ])
-        }
         profileImageView.imageFromUrl(user.profileImageUrl)
-        addProfileVlogOverviewController()
+        
+        if !refreshing {
+        
+            if isCurrentUser {
+                profileButton.isEnabled = true
+            } else {
+                profileButton.addTarget(self, action: #selector(clickedFollowButton), for: .touchUpInside)
+            }
+            
+            refreshing = true
+            
+        }
     }
 }
 
@@ -201,20 +197,23 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
 extension ProfileViewController: BaseViewProtocol {
     internal func initElements() {
         
-        view.addSubview(usernameLabel)
-        view.addSubview(profileImageView)
-        view.addSubview(countVlogsLabel)
-        view.addSubview(countFollowersLabel)
-        view.addSubview(countFollowingLabel)
+        contentView.addSubview(usernameLabel)
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(countVlogsLabel)
+        contentView.addSubview(countFollowersLabel)
+        contentView.addSubview(countFollowingLabel)
+        contentView.addSubview(profileButton)
         
-        updateProfileButton.setTitle("Update", for: .normal)
-        updateProfileButton.tintColor = UIColor.white
-        updateProfileButton.backgroundColor = UIColor.black
+        scrollView.isScrollEnabled = true
+        scrollView.alwaysBounceVertical = true
+        view.addSubview(scrollView)
         
-        followButton.tintColor = UIColor.white
-        followButton.backgroundColor = UIColor.black
-        followButton.addTarget(self, action: #selector(clickedFollowButton), for: .touchUpInside)
-        followButton.isEnabled = false
+        scrollView.addSubview(contentView)
+        
+        profileButton.setTitle("Update", for: .normal)
+        profileButton.tintColor = UIColor.white
+        profileButton.backgroundColor = UIColor.black
+        profileButton.isEnabled = false
         
         let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
         countFollowersLabel.isUserInteractionEnabled = true
@@ -223,41 +222,65 @@ extension ProfileViewController: BaseViewProtocol {
         let tapFollowingGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowing))
         countFollowingLabel.isUserInteractionEnabled = true
         countFollowingLabel.addGestureRecognizer(tapFollowingGesture)
+        
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
     internal func applyConstraints() {
         
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         countVlogsLabel.translatesAutoresizingMaskIntoConstraints = false
         countFollowersLabel.translatesAutoresizingMaskIntoConstraints = false
         countFollowingLabel.translatesAutoresizingMaskIntoConstraints = false
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leftAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.rightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            
             // profileImageView
-            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            profileImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            profileImageView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor),
             profileImageView.widthAnchor.constraint(equalToConstant: 150),
             profileImageView.heightAnchor.constraint(equalToConstant: 150),
-            
+
             // usernameLabel
             usernameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor),
-            usernameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            
+            usernameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+
             //countVlogsLabel
             countVlogsLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor),
-            countVlogsLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            
+            countVlogsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+
             // countFollowersLabel
             countFollowersLabel.topAnchor.constraint(equalTo: countVlogsLabel.bottomAnchor),
-            countFollowersLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            
+            countFollowersLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+
             // countFollowingLabel
             countFollowingLabel.topAnchor.constraint(equalTo: countFollowersLabel.bottomAnchor, constant: 20),
-            countFollowingLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+            countFollowingLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            
+            // profileButton
+            profileButton.topAnchor.constraint(equalTo: countFollowingLabel.bottomAnchor),
+            profileButton.leftAnchor.constraint(equalTo: contentView.leftAnchor)
             
         ])
+        
+        addProfileVlogOverviewController()
         
     }
 }

@@ -22,4 +22,8 @@ class UserFollowUseCase {
         repository.getFollowing(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
+    func unfollowUser(userId: String, completionHandler: @escaping (String?) -> Void) {
+        repository.unfollowUser(userId: userId, completionHandler: completionHandler)
+    }
+    
 }
