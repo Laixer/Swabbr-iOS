@@ -18,6 +18,12 @@
 		C20E402923CC6C33009DC160 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402823CC6C33009DC160 /* KeychainService.swift */; };
 		C20E403123CC9B32009DC160 /* UserFollowRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */; };
 		C20E403523CDF204009DC160 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403423CDF204009DC160 /* UserSettingsTests.swift */; };
+		C20E403723D5DE2D009DC160 /* LivestreamNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403623D5DE2A009DC160 /* LivestreamNetwork.swift */; };
+		C20E403923D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403823D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift */; };
+		C20E403B23D5E3F0009DC160 /* LivestreamRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403A23D5E3F0009DC160 /* LivestreamRepository.swift */; };
+		C20E403D23D5E401009DC160 /* LivestreamRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403C23D5E401009DC160 /* LivestreamRepositoryProtocol.swift */; };
+		C20E403F23D5E4C8009DC160 /* LivestreamUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403E23D5E4C8009DC160 /* LivestreamUseCase.swift */; };
+		C20E404123D5E553009DC160 /* VlogStreamViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E404023D5E553009DC160 /* VlogStreamViewControllerService.swift */; };
 		C20E404723D9851B009DC160 /* SLivestreamNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E404623D9851B009DC160 /* SLivestreamNotification.swift */; };
 		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
 		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
@@ -206,6 +212,12 @@
 		C20E402823CC6C33009DC160 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestItem.swift; sourceTree = "<group>"; };
 		C20E403423CDF204009DC160 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
+		C20E403623D5DE2A009DC160 /* LivestreamNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamNetwork.swift; sourceTree = "<group>"; };
+		C20E403823D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamDataSourceProtocol.swift; sourceTree = "<group>"; };
+		C20E403A23D5E3F0009DC160 /* LivestreamRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamRepository.swift; sourceTree = "<group>"; };
+		C20E403C23D5E401009DC160 /* LivestreamRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamRepositoryProtocol.swift; sourceTree = "<group>"; };
+		C20E403E23D5E4C8009DC160 /* LivestreamUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamUseCase.swift; sourceTree = "<group>"; };
+		C20E404023D5E553009DC160 /* VlogStreamViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogStreamViewControllerService.swift; sourceTree = "<group>"; };
 		C20E404623D9851B009DC160 /* SLivestreamNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLivestreamNotification.swift; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
 		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
@@ -446,11 +458,12 @@
 				C29FA418237DAE4500C22F67 /* TimelineViewControllerService.swift */,
 				C29FA4412382D30B00C22F67 /* VlogPageViewControllerService.swift */,
 				C29FA451238547AF00C22F67 /* ReactionViewControllerService.swift */,
-				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
 				C29FA47D23953E2B00C22F67 /* SearchViewControllerService.swift */,
 				C2AEABAD239FCE01006B19A4 /* UserSettingsControllerService.swift */,
+				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
 				C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */,
 				C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */,
+				C20E404023D5E553009DC160 /* VlogStreamViewControllerService.swift */,
 			);
 			path = ControllerService;
 			sourceTree = "<group>";
@@ -481,6 +494,7 @@
 				C2AEAB9C239E5A72006B19A4 /* UserFollowUseCase.swift */,
 				C2AEABAF239FCEAD006B19A4 /* UserSettingsUseCase.swift */,
 				C2C3C46723A3A0D8007F6814 /* AuthUseCase.swift */,
+				C20E403E23D5E4C8009DC160 /* LivestreamUseCase.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -525,6 +539,7 @@
 				C2AEAB9023993AAE006B19A4 /* UserFollowRepository.swift */,
 				C2AEABB1239FCF49006B19A4 /* UserSettingsRepository.swift */,
 				C2C3C46923A3ACCA007F6814 /* AuthRepository.swift */,
+				C20E403A23D5E3F0009DC160 /* LivestreamRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -541,6 +556,7 @@
 				C2AEAB8A23991CFC006B19A4 /* UserFollowNetwork.swift */,
 				C29FA45523855F8C00C22F67 /* UserFollowRequestNetwork.swift */,
 				C2C3C46B23A3CB84007F6814 /* AuthNetwork.swift */,
+				C20E403623D5DE2A009DC160 /* LivestreamNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -602,6 +618,7 @@
 				C2B5413D23A90CA6000A1AD3 /* UserFollowRepositoryProtocol.swift */,
 				C2B5413F23A90CBE000A1AD3 /* UserSettingsRepositoryProtocol.swift */,
 				C2B5414123A90CCF000A1AD3 /* AuthRepositoryProtocol.swift */,
+				C20E403C23D5E401009DC160 /* LivestreamRepositoryProtocol.swift */,
 			);
 			path = RepositoryProtocol;
 			sourceTree = "<group>";
@@ -638,6 +655,7 @@
 				C2B5414E23A90DB0000A1AD3 /* UserSettingsDataSourceProtocol.swift */,
 				C2B5415023A90DC2000A1AD3 /* AuthDataSourceProtocol.swift */,
 				C2B5415223A90EBE000A1AD3 /* VlogReactionDataSourceProtocol.swift */,
+				C20E403823D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1067,6 +1085,7 @@
 				C2B5413A23A90C71000A1AD3 /* VlogReactionRepositoryProtocol.swift in Sources */,
 				C2E776F32347742A0071B828 /* BaseViewProtocol.swift in Sources */,
 				C2B5414D23A90D98000A1AD3 /* UserFollowDataSourceProtocol.swift in Sources */,
+				C20E403B23D5E3F0009DC160 /* LivestreamRepository.swift in Sources */,
 				C2C3C45E23A395CD007F6814 /* RegistrationUserItem.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
 				C2B5413823A90C56000A1AD3 /* VlogRepositoryProtocol.swift in Sources */,
@@ -1074,7 +1093,9 @@
 				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C29FA45423855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift in Sources */,
 				C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */,
+				C20E403723D5DE2D009DC160 /* LivestreamNetwork.swift in Sources */,
 				C2E776AD23325A580071B828 /* RegistrationViewController.swift in Sources */,
+				C20E403F23D5E4C8009DC160 /* LivestreamUseCase.swift in Sources */,
 				C29FA415237DACD600C22F67 /* VlogItem.swift in Sources */,
 				C2E776C72333A82F0071B828 /* VlogPageViewController.swift in Sources */,
 				C2B5414B23A90D75000A1AD3 /* FollowRequestDataSourceProtocol.swift in Sources */,
@@ -1113,6 +1134,7 @@
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
+				C20E403D23D5E401009DC160 /* LivestreamRepositoryProtocol.swift in Sources */,
 				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2AEABB0239FCEAD006B19A4 /* UserSettingsUseCase.swift in Sources */,
 				C2B5413E23A90CA6000A1AD3 /* UserFollowRepositoryProtocol.swift in Sources */,
@@ -1165,8 +1187,10 @@
 				C2B5414423A90CFF000A1AD3 /* UserDataSourceProtocol.swift in Sources */,
 				C29FA43E2382AAE800C22F67 /* VlogReactionNetwork.swift in Sources */,
 				C2E776F123462A9F0071B828 /* UserCollectionViewCell.swift in Sources */,
+				C20E404123D5E553009DC160 /* VlogStreamViewControllerService.swift in Sources */,
 				C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */,
 				C2C3C46623A39A85007F6814 /* LoginUser.swift in Sources */,
+				C20E403923D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift in Sources */,
 				C2B5415123A90DC2000A1AD3 /* AuthDataSourceProtocol.swift in Sources */,
 				C2E776C92333C61F0071B828 /* ReactionTableViewCell.swift in Sources */,
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,

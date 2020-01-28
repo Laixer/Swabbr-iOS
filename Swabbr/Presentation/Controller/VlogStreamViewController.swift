@@ -7,7 +7,9 @@
 //
 //  This class will handle all Streaming related actions
 //
-//import HaishinKit
+
+// swiftlint:disable large_tuple
+
 import VideoToolbox
 import CoreMedia
 import AVFoundation
@@ -16,11 +18,31 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     
     let sdkAppLicenseKey = "GOSK-1F47-010C-632D-5825-C587"
     
-    var goCoder: WowzaGoCoder?
-    let goCoderConfig = WowzaConfig()
+    private var goCoder: WowzaGoCoder?
+    private let goCoderConfig = WowzaConfig()
     
-    init() {
+    private let controllerService = VlogStreamViewControllerService()
+    
+    private var frameImage: UIImage?
+    
+    let modalHandler = ModalHandler()
+    
+    /**
+     # Notes: #
+     1. id: String
+     2. hostAddress: String
+     3. applicationName: String
+     4. streamName: String
+     5. portNumber: UInt
+     6. username: String
+     7. password: String
+    */
+    private let streamCreds: (String, String, String, String, UInt, String, String)
+    
+    init(creds: (String, String, String, String, UInt, String, String)) {
+        self.streamCreds = creds
         super.init(isStreaming: true)
+        controllerService.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,47 +50,47 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     }
     
     override func viewDidLoad() {
-        controlView.startOperateView {
-            self.goCoder?.startStreaming(self)
-        }
-    }
-    
-    override func prepareForVlog() {
+        super.viewDidLoad()
         
-        goCoderConfig.hostAddress = "300628.entrypoint.cloud.wowza.com"
-        goCoderConfig.applicationName = "app-00d3"
-        goCoderConfig.streamName = "51fac356"
-        goCoderConfig.username = "client46848"
-        goCoderConfig.password = "6f19a7b9"
+        view.accessibilityIdentifier = "Streaming View"
         
-        goCoderConfig.load(.preset1280x720)
-        goCoderConfig.broadcastVideoOrientation = .alwaysPortrait
-        goCoderConfig.broadcastScaleMode = .aspectFit
+        modalHandler.delegate = self
         
         if let goCoderLicensingError = WowzaGoCoder.registerLicenseKey(sdkAppLicenseKey) {
             print(goCoderLicensingError)
             return
         }
-        
-        if let goCoder = WowzaGoCoder.sharedInstance() {
-            self.goCoder = goCoder
-            
-            self.goCoder?.register(self as WOWZAudioSink)
-            self.goCoder?.register(self as WOWZVideoSink)
-            self.goCoder?.config = self.goCoderConfig
-            
-            self.goCoder?.cameraView = self.previewView
-            self.goCoder?.cameraPreview?.previewGravity = .resizeAspectFill
-            self.goCoder?.cameraPreview?.start()
-        }
 
+        goCoder = WowzaGoCoder.sharedInstance()
+
+        goCoder!.cameraView = self.previewView
+        goCoder!.cameraPreview?.previewGravity = .resizeAspectFill
+        goCoder!.cameraPreview?.start()
     }
     
-    override func viewDidLayoutSubviews() {
-        goCoder?.cameraPreview?.previewLayer!.frame = view.bounds
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        goCoderConfig.hostAddress = streamCreds.1
+        goCoderConfig.applicationName = streamCreds.2
+        goCoderConfig.streamName = streamCreds.3
+        goCoderConfig.portNumber = streamCreds.4
+        goCoderConfig.username = streamCreds.5
+        goCoderConfig.password = streamCreds.6
+        
+        goCoderConfig.load(.preset1920x1080)
+        goCoderConfig.broadcastVideoOrientation = .alwaysPortrait
+        goCoderConfig.broadcastScaleMode = .aspectFit
+        
+        goCoder!.register(self as WOWZAudioSink)
+        goCoder!.register(self as WOWZVideoSink)
+        goCoder!.config = self.goCoderConfig
     }
     
-    func videoFrameWasCaptured(_ imageBuffer: CVImageBuffer, framePresentationTime: CMTime, frameDuration: CMTime) {
+    override func prepareForVlog() {
+        
+        controlView!.startOperateView { [unowned self] in
+            self.controllerService.startLive(id: self.streamCreds.0)
+        }
         
     }
     
@@ -84,11 +106,24 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     }
     
     func onWOWZError(_ status: WOWZBroadcastStatus!) {
-        print("error \(String(describing: status))")
+        BasicErrorDialog.createAlert(message: String(describing: status), handler: { [weak self](_) in
+            self?.goCoder?.endStreaming(self)
+            self?.dismiss(animated: true, completion: nil)
+            }, context: self)
+    }
+    
+    func videoFrameWasCaptured(_ imageBuffer: CVImageBuffer, framePresentationTime: CMTime, frameDuration: CMTime) {
+        guard let goCoder = goCoder else {
+            return
+        }
+        if goCoder.isStreaming && frameImage == nil {
+            let frameImage = CIImage(cvImageBuffer: imageBuffer)
+            self.frameImage = UIImage(ciImage: frameImage)
+        }
     }
     
     override func recordButtonClicked() {
-        goCoder?.endStreaming(self)
+        controllerService.endLive(id: streamCreds.0)
     }
     
     override func switchButtonClicked() {
@@ -101,4 +136,61 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
             // currentPosition
         }
     }
+    
+    deinit {
+        self.goCoder?.unregisterAudioSink(self as WOWZAudioSink)
+        self.goCoder?.unregisterVideoSink(self as WOWZVideoSink)
+        self.goCoder?.cameraPreview?.stop()
+        self.goCoder = nil
+    }
+    
+}
+
+extension VlogStreamViewController: VlogStreamViewControllerServiceDelegate {
+    func tryStartingStream(errorString: String?) {
+        guard errorString == nil else {
+            BasicErrorDialog.createAlert(message: errorString, handler: { [weak self](_) in
+                self?.dismiss(animated: true, completion: nil)
+            }, context: self)
+            return
+        }
+        goCoder?.startStreaming(self)
+    }
+    
+    func tryEndingStream(errorString: String?) {
+        if let errorString = errorString {
+            BasicErrorDialog.createAlert(message: errorString, handler: { [weak self](_) in
+                self?.dismiss(animated: true, completion: nil)
+                }, context: self)
+            return
+        }
+        goCoder?.endStreaming(self)
+        show(UINavigationController(rootViewController: VlogPreviewViewController(image: frameImage!, context: modalHandler)), sender: nil)
+    }
+    
+}
+
+extension VlogStreamViewController: ModalHandlerDelegate {
+    func dismissModals() {
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
+}
+
+// TODO: SHOULD BE A CLEANER WAY
+protocol ModalHandlerDelegate: class {
+    
+    func dismissModals()
+    
+}
+
+class ModalHandler {
+    
+    weak var delegate: ModalHandlerDelegate?
+    
+    func dismissAllModals() {
+        delegate?.dismissModals()
+    }
+    
 }
