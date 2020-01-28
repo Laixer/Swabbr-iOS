@@ -5,7 +5,6 @@
 //  Created by James Bal on 04-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable force_cast
 
 import CodableCache
 
@@ -17,7 +16,7 @@ class VlogReactionCacheHandler: VlogReactionCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[VlogReaction]>(key: String(describing: VlogReaction.self))
-        try? cache.set(value: [] as! [VlogReaction])
+        try? cache.set(value: ([] as? [VlogReaction])!)
     }
     
     func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws {

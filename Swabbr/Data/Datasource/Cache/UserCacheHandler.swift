@@ -5,7 +5,6 @@
 //  Created by James Bal on 02-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable force_cast
 
 import CodableCache
 
@@ -17,7 +16,7 @@ class UserCacheHandler: UserCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[User]>(key: String(describing: User.self))
-        try? cache.set(value: [] as! [User])
+        try? cache.set(value: ([] as? [User])!)
     }
     
     func getAll(completionHandler: @escaping ([User]) -> Void) throws {

@@ -5,7 +5,6 @@
 //  Created by James Bal on 04-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable force_cast
 
 import CodableCache
 
@@ -17,7 +16,7 @@ class VlogCacheHandler: VlogCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[Vlog]>(key: String(describing: Vlog.self))
-        try? cache.set(value: [] as! [Vlog])
+        try? cache.set(value: ([] as? [Vlog])!)
     }
     
     func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws {
