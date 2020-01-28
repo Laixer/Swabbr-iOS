@@ -12,7 +12,7 @@ import UIKit
 
 class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
     
-    internal let controlView: VlogStreamControlView!
+    internal var controlView: VlogStreamControlView?
     internal var previewView: UIView!
     
     fileprivate let focusView = FocusIndicatorView(frame: .zero)
@@ -22,18 +22,22 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
     
     private let isStreaming: Bool!
     
+    private var hasStarted = false
+    
     /**
      Initialize this class giving a boolean which determins if it needs a different view.
      - parameter isStreaming: A boolean when true will output more controls for the livestream.
     */
     init(isStreaming: Bool) {
-        controlView = VlogStreamControlView(isStreaming: isStreaming)
         self.isStreaming = isStreaming
         super.init(nibName: nil, bundle: nil)
-        
-        controlView.recordButton.addTarget(self, action: #selector(recordButtonClicked), for: .touchUpInside)
-        controlView.flipCameraTopLeftButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
-        controlView.flipCameraBottomRightButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
+    }
+    
+    override func viewDidLoad() {
+        controlView = VlogStreamControlView(isStreaming: isStreaming)
+        controlView!.recordButton.addTarget(self, action: #selector(recordButtonClicked), for: .touchUpInside)
+        controlView!.flipCameraTopLeftButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
+        controlView!.flipCameraBottomRightButton.addTarget(self, action: #selector(switchButtonClicked), for: .touchUpInside)
         
         initElements()
         applyConstraints()
@@ -44,6 +48,10 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        guard !hasStarted else {
+            return
+        }
         
         if NextLevel.authorizationStatus(forMediaType: AVMediaType.video) == .authorized &&
             NextLevel.authorizationStatus(forMediaType: AVMediaType.audio) == .authorized {
@@ -73,6 +81,8 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
                 }
             }
         }
+        
+        hasStarted = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -105,18 +115,18 @@ class VlogMakerBaseViewController: UIViewController, BaseViewProtocol {
             previewView.layer.addSublayer(NextLevel.shared.previewLayer)
         }
         view.addSubview(previewView)
-        view.addSubview(controlView)
+        view.addSubview(controlView!)
     }
     
     internal func applyConstraints() {
-        controlView.translatesAutoresizingMaskIntoConstraints = false
+        controlView!.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-            controlView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            controlView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            controlView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            controlView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            controlView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            controlView!.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            controlView!.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            controlView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             
         ])
     }

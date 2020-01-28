@@ -39,7 +39,7 @@ class VlogReactionViewController: VlogMakerBaseViewController {
         nextLevel.deviceDelegate = self
         nextLevel.videoDelegate = self
         
-        controlView.startOperateView {
+        controlView!.startOperateView {
             self.nextLevel.record()
         }
     }
@@ -101,7 +101,7 @@ extension VlogReactionViewController {
     }
 
     internal func saveVideo(withURL url: URL) {
-        present(VlogPreviewViewController(url: url), animated: true, completion: nil)
+//        present(VlogPreviewViewController(url: url), animated: true, completion: nil)
     }
 }
 
