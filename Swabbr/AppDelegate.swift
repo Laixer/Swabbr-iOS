@@ -68,10 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        // Initialize the Notification Registration Service
-        self.registrationService = NotificationRegistrationService(
-            withInstallationId: installationId,
-            andPushChannel: pushChannel,
         NotificationRegistrationService.shared.register(deviceToken: deviceToken)
     }
 
