@@ -16,7 +16,11 @@
 		C20E401D23C7488C009DC160 /* UIImageView+ImageFromUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */; };
 		C20E401F23C865A2009DC160 /* FollowRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401E23C865A1009DC160 /* FollowRequestItem.swift */; };
 		C20E402923CC6C33009DC160 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402823CC6C33009DC160 /* KeychainService.swift */; };
+		C20E402B23CC8529009DC160 /* FollowRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402A23CC8529009DC160 /* FollowRequestViewController.swift */; };
+		C20E402D23CC8B59009DC160 /* FollowRequestViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402C23CC8B59009DC160 /* FollowRequestViewControllerService.swift */; };
+		C20E402F23CC9814009DC160 /* IncomingRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E402E23CC9814009DC160 /* IncomingRequestTableViewCell.swift */; };
 		C20E403123CC9B32009DC160 /* UserFollowRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */; };
+		C20E403323CCACB6009DC160 /* OutgoingRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403223CCACB6009DC160 /* OutgoingRequestTableViewCell.swift */; };
 		C20E403523CDF204009DC160 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403423CDF204009DC160 /* UserSettingsTests.swift */; };
 		C20E403723D5DE2D009DC160 /* LivestreamNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403623D5DE2A009DC160 /* LivestreamNetwork.swift */; };
 		C20E403923D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E403823D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift */; };
@@ -210,7 +214,11 @@
 		C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageFromUrl.swift"; sourceTree = "<group>"; };
 		C20E401E23C865A1009DC160 /* FollowRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestItem.swift; sourceTree = "<group>"; };
 		C20E402823CC6C33009DC160 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		C20E402A23CC8529009DC160 /* FollowRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestViewController.swift; sourceTree = "<group>"; };
+		C20E402C23CC8B59009DC160 /* FollowRequestViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestViewControllerService.swift; sourceTree = "<group>"; };
+		C20E402E23CC9814009DC160 /* IncomingRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingRequestTableViewCell.swift; sourceTree = "<group>"; };
 		C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowRequestItem.swift; sourceTree = "<group>"; };
+		C20E403223CCACB6009DC160 /* OutgoingRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingRequestTableViewCell.swift; sourceTree = "<group>"; };
 		C20E403423CDF204009DC160 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
 		C20E403623D5DE2A009DC160 /* LivestreamNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamNetwork.swift; sourceTree = "<group>"; };
 		C20E403823D5DEC1009DC160 /* LivestreamDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamDataSourceProtocol.swift; sourceTree = "<group>"; };
@@ -463,6 +471,7 @@
 				C29FA45323855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift */,
 				C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */,
 				C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */,
+				C20E402C23CC8B59009DC160 /* FollowRequestViewControllerService.swift */,
 				C20E404023D5E553009DC160 /* VlogStreamViewControllerService.swift */,
 			);
 			path = ControllerService;
@@ -586,6 +595,7 @@
 				C29FA47B23952F7000C22F67 /* SearchViewController.swift */,
 				C2AEABA8239FAE9E006B19A4 /* UserSettingsViewController.swift */,
 				C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */,
+				C20E402A23CC8529009DC160 /* FollowRequestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -779,6 +789,8 @@
 			isa = PBXGroup;
 			children = (
 				C2E776C82333C61F0071B828 /* ReactionTableViewCell.swift */,
+				C20E402E23CC9814009DC160 /* IncomingRequestTableViewCell.swift */,
+				C20E403223CCACB6009DC160 /* OutgoingRequestTableViewCell.swift */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -1115,6 +1127,7 @@
 				C2AEAB9D239E5A72006B19A4 /* UserFollowUseCase.swift in Sources */,
 				C29FA431237ED0EC00C22F67 /* VlogNetwork.swift in Sources */,
 				C2AEABB2239FCF49006B19A4 /* UserSettingsRepository.swift in Sources */,
+				C20E402F23CC9814009DC160 /* IncomingRequestTableViewCell.swift in Sources */,
 				C2C3C46823A3A0D8007F6814 /* AuthUseCase.swift in Sources */,
 				C2AEAB752397B298006B19A4 /* VlogCacheHandler.swift in Sources */,
 				C2C3C46A23A3ACCA007F6814 /* AuthRepository.swift in Sources */,
@@ -1156,6 +1169,7 @@
 				C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */,
 				C20E401523C46F13009DC160 /* BasicErrorDialog.swift in Sources */,
 				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
+				C20E402D23CC8B59009DC160 /* FollowRequestViewControllerService.swift in Sources */,
 				C2B5414723A90D29000A1AD3 /* VlogDataSourceProtocol.swift in Sources */,
 				C2E776B223325B160071B828 /* User.swift in Sources */,
 				C20E401723C4C10B009DC160 /* MainTabBarViewController.swift in Sources */,
@@ -1174,6 +1188,7 @@
 				C2B18153235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift in Sources */,
 				C2C3C45623A36F62007F6814 /* UserSettingsCacheHandler.swift in Sources */,
 				C2AEAB7F2397FB7E006B19A4 /* UserSettingsNetwork.swift in Sources */,
+				C20E402B23CC8529009DC160 /* FollowRequestViewController.swift in Sources */,
 				C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */,
 				C29FA4582385784300C22F67 /* UserFollowRequestRepository.swift in Sources */,
 				C29FA4402382AE4E00C22F67 /* VlogReactionModel.swift in Sources */,
@@ -1196,6 +1211,7 @@
 				C2DE21EE232FB57C00BF772D /* PermissionHandlerProtocol.swift in Sources */,
 				C29FA44A2382DD5200C22F67 /* UserVlogReactionItem.swift in Sources */,
 				C20E404723D9851B009DC160 /* SLivestreamNotification.swift in Sources */,
+				C20E403323CCACB6009DC160 /* OutgoingRequestTableViewCell.swift in Sources */,
 				C2C3C45C23A39252007F6814 /* RegistrationUserModel.swift in Sources */,
 				C2AEAB7B2397F662006B19A4 /* UserSettings.swift in Sources */,
 				C29FA419237DAE4500C22F67 /* TimelineViewControllerService.swift in Sources */,
