@@ -77,7 +77,6 @@
 		C2B5412C23A7AD36000A1AD3 /* LoginViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */; };
 		C2B5412E23A7B19E000A1AD3 /* AuthorizedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */; };
 		C2B5413223A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413123A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift */; };
-		C2B5413423A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */; };
 		C2B5413623A90C33000A1AD3 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413523A90C33000A1AD3 /* UserRepositoryProtocol.swift */; };
 		C2B5413823A90C56000A1AD3 /* VlogRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413723A90C56000A1AD3 /* VlogRepositoryProtocol.swift */; };
 		C2B5413A23A90C71000A1AD3 /* VlogReactionRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5413923A90C71000A1AD3 /* VlogReactionRepositoryProtocol.swift */; };
@@ -95,7 +94,6 @@
 		C2C24CD02355FA6D00EEDF1B /* SNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */; };
 		C2C24CD22355FAA300EEDF1B /* DeviceInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */; };
 		C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD32355FB2900EEDF1B /* TokenData.swift */; };
-		C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */; };
 		C2C24CDE235726F600EEDF1B /* NotificationRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */; };
 		C2C24CE12359B02500EEDF1B /* DataFormatter+StringHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */; };
 		C2C3C45423A29117007F6814 /* RegistrationViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C3C45323A29117007F6814 /* RegistrationViewControllerService.swift */; };
@@ -269,7 +267,6 @@
 		C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerService.swift; sourceTree = "<group>"; };
 		C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUser.swift; sourceTree = "<group>"; };
 		C2B5413123A8FFF5000A1AD3 /* AuthorizedUserCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUserCacheHandler.swift; sourceTree = "<group>"; };
-		C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+IsLoggedIn.swift"; sourceTree = "<group>"; };
 		C2B5413523A90C33000A1AD3 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C2B5413723A90C56000A1AD3 /* VlogRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C2B5413923A90C71000A1AD3 /* VlogReactionRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -288,7 +285,6 @@
 		C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInstallation.swift; sourceTree = "<group>"; };
 		C2C24CD32355FB2900EEDF1B /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		C2C24CD62355FE5A00EEDF1B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
-		C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtility.swift; sourceTree = "<group>"; };
 		C2C24CDB23571EE400EEDF1B /* Swabbr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swabbr.entitlements; sourceTree = "<group>"; };
 		C2C24CDD235726F600EEDF1B /* NotificationRegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrationService.swift; sourceTree = "<group>"; };
 		C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFormatter+StringHandling.swift"; sourceTree = "<group>"; };
@@ -647,20 +643,11 @@
 		C2C24CCE2355FA5B00EEDF1B /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				C2C24CD7235607DA00EEDF1B /* Utility */,
 				C2C24CCF2355FA6D00EEDF1B /* SNotification.swift */,
 				C2C24CD12355FAA300EEDF1B /* DeviceInstallation.swift */,
 				C2C24CD32355FB2900EEDF1B /* TokenData.swift */,
 			);
 			path = Notification;
-			sourceTree = "<group>";
-		};
-		C2C24CD7235607DA00EEDF1B /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				C2C24CD8235607EB00EEDF1B /* TokenUtility.swift */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		C2C24CDC235726D000EEDF1B /* Service */ = {
@@ -678,7 +665,6 @@
 			children = (
 				C2C24CE02359B02500EEDF1B /* DataFormatter+StringHandling.swift */,
 				C2B18152235F2F2A001D6F0B /* KeyedDecodingContainer+DecodeToType.swift */,
-				C2B5413323A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift */,
 				C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */,
 			);
 			path = Extension;
@@ -1101,7 +1087,6 @@
 				C2B5414F23A90DB0000A1AD3 /* UserSettingsDataSourceProtocol.swift in Sources */,
 				C2DE21FA23311D3F00BF772D /* VlogStreamViewController.swift in Sources */,
 				C29FA413237D77B100C22F67 /* UserModel.swift in Sources */,
-				C2C24CD9235607EB00EEDF1B /* TokenUtility.swift in Sources */,
 				C29FA4422382D30B00C22F67 /* VlogPageViewControllerService.swift in Sources */,
 				C2AEAB9D239E5A72006B19A4 /* UserFollowUseCase.swift in Sources */,
 				C29FA431237ED0EC00C22F67 /* VlogNetwork.swift in Sources */,
@@ -1125,7 +1110,6 @@
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
-				C2B5413423A904E2000A1AD3 /* UserDefaults+IsLoggedIn.swift in Sources */,
 				C2C24CD42355FB2900EEDF1B /* TokenData.swift in Sources */,
 				C2AEABB0239FCEAD006B19A4 /* UserSettingsUseCase.swift in Sources */,
 				C2B5413E23A90CA6000A1AD3 /* UserFollowRepositoryProtocol.swift in Sources */,
