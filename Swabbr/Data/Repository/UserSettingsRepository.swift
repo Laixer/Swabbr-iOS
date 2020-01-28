@@ -20,20 +20,20 @@ class UserSettingsRepository: UserSettingsRepositoryProtocol {
         self.authorizedUserCache = authorizedUserCache
     }
     
-    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?, String?) -> Void) {
         if refresh {
-            network.get(completionHandler: { (userSettings) in
+            network.get(completionHandler: { (userSettings, errorString) in
                 guard let userSettings = userSettings else {
-                    completionHandler(nil)
+                    completionHandler(nil, errorString)
                     return
                 }
                 self.setUserSettings(userSettings: userSettings.mapToBusiness())
-                completionHandler(userSettings.mapToBusiness())
+                completionHandler(userSettings.mapToBusiness(), nil)
             })
         } else {
             do {
                 try userSettingsCache.get { (userSettings) in
-                    completionHandler(userSettings.mapToBusiness())
+                    completionHandler(userSettings.mapToBusiness(), nil)
                 }
             } catch {
                 self.get(refresh: !refresh, completionHandler: completionHandler)

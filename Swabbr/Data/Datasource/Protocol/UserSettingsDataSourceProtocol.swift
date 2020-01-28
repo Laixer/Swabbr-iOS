@@ -9,9 +9,9 @@
 protocol UserSettingsDataSourceProtocol {
     /**
      Retrieve the usersettings from a source.
-     - parameter completionHandler: A completionHandler which will return an optional UserSettings object.
+     - parameter completionHandler: A completionHandler which will return an optional UserSettings object and optional Error String.
     */
-    func get(completionHandler: @escaping (UserSettings?) -> Void)
+    func get(completionHandler: @escaping (UserSettings?, String?) -> Void)
     
     /**
      Update the usersettings.

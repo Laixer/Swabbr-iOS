@@ -4,8 +4,6 @@
 //
 //  Created by James Bal on 10-12-19.
 //  Copyright © 2019 Laixer. All rights reserved.
-//
-// swiftlint:disable force_cast
 
 import UIKit
 import Eureka
@@ -45,7 +43,7 @@ class UserSettingsViewController: FormViewController {
                 $0.title = "Follow mode"
                 $0.options = [0, 1, 2]
                 $0.value = 0
-                $0.displayValueFor = { (rowValue: Int?) in modes[rowValue!] }
+                $0.displayValueFor = { (rowValue: Int?) in modes[rowValue ?? 0] }
             }.onChange { [unowned self](element) -> Void in
                 guard let value = element.value else {
                     return
@@ -91,32 +89,51 @@ class UserSettingsViewController: FormViewController {
 
 // MARK: UserSettingsControllerServiceDelegate
 extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate {
-    func retrievedUserSettings(_ sender: UserSettingsControllerService) {
-        userSettingsItem = sender.userSettings
+    func retrievedUserSettings(errorString: String?) {
+
+        if let errorString = errorString {
+            BasicErrorDialog.createAlert(message: errorString, handler: { (_) in
+                self.dismiss(animated: true, completion: nil)
+            }, context: self)
+            return
+        }
         
+        userSettingsItem = controllerService.userSettings
+        
+        reloadTableData()
+        
+    }
+    
+    func updatedUserSettings(errorString: String?) {
+        if let errorString = errorString {
+            BasicErrorDialog.createAlert(message: errorString, context: self)
+            userSettingsItem = controllerService.userSettings
+            reloadTableData()
+        }
+    }
+    
+    func logoutStatus(errorString: String?) {
+        if let errorString = errorString {
+            BasicErrorDialog.createAlert(message: errorString, context: self)
+            return
+        }
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.window!.rootViewController = LoginViewController()
+        }
+        
+    }
+    
+    /**
+     Reloads the form with the corrosponding data.
+    */
+    func reloadTableData() {
         let isPrivate: SwitchRow = form.rowBy(tag: "isPrivate")!
         let requestLimit: PushRow<Int> = form.rowBy(tag: "requestLimit")!
         let followMode: PushRow<Int> = form.rowBy(tag: "followMode")!
         isPrivate.value = userSettingsItem?.isPrivate
         requestLimit.value = userSettingsItem?.dailyVlogRequestLimit
         followMode.value = userSettingsItem?.followMode
-
         tableView.reloadData()
-    }
-    
-    func updatedUserSettings(errorString: String?) {
-        guard let errorString = errorString else {
-            return
-        }
-        BasicErrorDialog.createAlert(message: errorString, context: self)
-    }
-    
-    func logoutStatus(errorString: String?) {
-        guard let errorString = errorString else {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window!.rootViewController = LoginViewController()
-            return
-        }
-        BasicErrorDialog.createAlert(message: errorString, context: self)
     }
 }

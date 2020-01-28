@@ -13,18 +13,19 @@ class UserSettingsControllerService {
     private let userSettingsUseCase = UserSettingsUseCase()
     private let authUseCase = AuthUseCase()
     
-    public var userSettings: UserSettingsItem! {
-        didSet {
-            delegate?.retrievedUserSettings(self)
-        }
-    }
+    public var userSettings: UserSettingsItem!
     
     /**
      Retrieve the user settings of the current user.
     */
     func getUserSettings() {
-        userSettingsUseCase.get(refresh: false) { (userSettingsModel) in
-            self.userSettings = UserSettingsItem.mapToPresentation(userSettingsModel: userSettingsModel!)
+        userSettingsUseCase.get(refresh: false) { (userSettingsModel, errorString) in
+            guard let userSettingsModel = userSettingsModel else {
+                self.delegate?.retrievedUserSettings(errorString: errorString)
+                return
+            }
+            self.userSettings = UserSettingsItem.mapToPresentation(userSettingsModel: userSettingsModel)
+            self.delegate?.retrievedUserSettings(errorString: nil)
         }
     }
     
@@ -50,7 +51,7 @@ class UserSettingsControllerService {
 }
 
 protocol UserSettingsViewControllerServiceDelegate: class {
-    func retrievedUserSettings(_ sender: UserSettingsControllerService)
+    func retrievedUserSettings(errorString: String?)
     func updatedUserSettings(errorString: String?)
     func logoutStatus(errorString: String?)
 }

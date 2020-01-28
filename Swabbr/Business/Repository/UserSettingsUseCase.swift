@@ -14,7 +14,7 @@ class UserSettingsUseCase {
         self.repository = repository
     }
     
-    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void) {
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?, String?) -> Void) {
         repository.get(refresh: refresh, completionHandler: completionHandler)
     }
     

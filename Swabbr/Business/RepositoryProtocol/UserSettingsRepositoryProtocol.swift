@@ -11,9 +11,9 @@ protocol UserSettingsRepositoryProtocol {
     /**
      Get the UserSettings of the current logged in user.
      - parameter refresh: When true indicates it needs to get the data from the remote.
-     - parameter completionHandler: The callback will return an optional UserSettingsModel.
+     - parameter completionHandler: The callback will return an optional UserSettingsModel and an optional String.
     */
-    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?) -> Void)
+    func get(refresh: Bool, completionHandler: @escaping (UserSettingsModel?, String?) -> Void)
     
     /**
      Update the current UserSettings.
