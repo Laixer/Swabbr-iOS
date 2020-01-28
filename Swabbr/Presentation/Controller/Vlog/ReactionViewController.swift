@@ -5,7 +5,6 @@
 //  Created by James Bal on 30-09-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable force_cast
 
 import UIKit
 import AVKit
@@ -86,14 +85,17 @@ extension ReactionViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath) as! ReactionTableViewCell
-        let reaction = controllerService.reactions[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath) as? ReactionTableViewCell {
+            let reaction = controllerService.reactions[indexPath.row]
+            
+            cell.userUsernameLabel.text = reaction.userUsername
+            cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.reactionDate)
+            cell.durationLabel.text = reaction.reactionDuration
+            
+            return cell
+        }
         
-        cell.userUsernameLabel.text = reaction.userUsername
-        cell.dateLabel.text = dateFormatter.displayDateAsString(date: reaction.reactionDate)
-        cell.durationLabel.text = reaction.reactionDuration
-        
-        return cell
+        return UITableViewCell()
     }
     
     // MARK: UITableViewDelegate
@@ -135,7 +137,9 @@ extension ReactionViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if visibleCellsCount == 1 {
-            (visibleCells[0] as! ReactionTableViewCell).player.play()
+            if let cell = visibleCells[0] as? ReactionTableViewCell {
+                cell.player.play()
+            }
             return
         }
         
