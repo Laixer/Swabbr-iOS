@@ -58,9 +58,9 @@ class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol
             switch response.result {
             case .success(let userFollowRequest):
                 completionHandler(userFollowRequest, nil)
-            case .failure:
+            case .failure(let error):
                 completionHandler(nil,
-                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                                  error.localizedDescription)
             }
         }
     }
@@ -73,8 +73,8 @@ class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol
             switch response.result {
             case .success:
                 completionHandler(nil)
-            case .failure:
-                completionHandler(String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
             }
         }
     }
@@ -87,8 +87,8 @@ class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol
             switch response.result {
             case .success:
                 completionHandler(nil)
-            case .failure:
-                completionHandler(String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
             }
         }
     }
@@ -101,8 +101,8 @@ class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol
             switch response.result {
             case .success:
                 completionHandler(nil)
-            case .failure:
-                completionHandler(String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
             }
         }
     }

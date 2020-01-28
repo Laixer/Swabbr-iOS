@@ -17,8 +17,7 @@ class UserNetwork: NetworkProtocol, UserDataSourceProtocol {
             switch response.result {
             case .success(let users):
                 completionHandler(users)
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completionHandler([])
                 // failure handling
             }
@@ -30,8 +29,7 @@ class UserNetwork: NetworkProtocol, UserDataSourceProtocol {
             switch response.result {
             case .success(let user):
                 completionHandler(user)
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completionHandler(nil)
                 // failure handling
             }
@@ -43,9 +41,9 @@ class UserNetwork: NetworkProtocol, UserDataSourceProtocol {
             switch response.result {
             case .success(let user):
                 completionHandler(user, nil)
-            case .failure:
+            case .failure(let error):
                 completionHandler(nil,
-                                  String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
+                                  error.localizedDescription)
             }
         })
     }
@@ -60,8 +58,6 @@ class UserNetwork: NetworkProtocol, UserDataSourceProtocol {
                 completionHandler(users)
             case .failure:
                 completionHandler([])
-                // failure handling
-//                completionHandler(nil, String.init(format: "%d: %@", response.response!.statusCode, String.init(data: response.data!, encoding: .utf8)!))
             }
         })
     }
