@@ -43,6 +43,16 @@ class TimelineViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    /**
+     Show a specific vlog.
+     # Notes #
+     User has pressed on a notification.
+     - parameter id: The id of the vlog.
+    */
+    func showSpecificVlog(id: String) {
+        controllerService.showCurrentLive(id: id)
+    }
+
 }
 
 // MARK: UIPageViewControllerDataSource

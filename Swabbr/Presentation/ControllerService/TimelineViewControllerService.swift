@@ -19,6 +19,15 @@ class TimelineViewControllerService {
         }
     }
     
+    func showCurrentLive(id: String) {
+        vlogUseCase.get(id: id, refresh: true) { (vlogModel) in
+            guard let vlogModel = vlogModel else {
+                return
+            }
+            self.vlogs.append(VlogItem.mapToPresentation(vlogModel: vlogModel))
+        }
+    }
+    
     /**
      Retrieves vlogs from our VlogUseCase. Has a callback on completion for async processing.
      - parameter refresh: A boolean, when true will retrieve data from remote.
