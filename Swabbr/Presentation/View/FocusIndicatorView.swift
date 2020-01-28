@@ -62,12 +62,11 @@ extension FocusIndicatorView {
         }
         UIView.animate(withDuration: 0.5, animations: {
             self.focusRingRectangle.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        }) { (completed) in
+        }, completion: { (completed) in
             if completed {
                 self.stopAnimation()
             }
-            
-        }
+        })
     }
     
     /**
@@ -85,11 +84,11 @@ extension FocusIndicatorView {
         }
         UIView.animate(withDuration: 0.2, animations: {
             self.focusRingRectangle.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        }) { (completed) in
+        }, completion: { (completed) in
             if completed {
                 self.removeFromSuperview()
             }
-        }
+        })
     }
     
 }
