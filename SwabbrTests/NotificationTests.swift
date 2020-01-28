@@ -16,7 +16,7 @@ class NotificationTests: XCTestCase {
     var decoder: JSONDecoder!
 
     override func setUp() {
-        jsonString = "{\"protocol\":\"swabbr\",\"protocol_version\":1,\"data_type\":\"notification\",\"data_type_version\":1,\"data\":{\"title\":\"vlog\",\"message\":\"Opnemen\",\"click_action\":\"vlog_record_request\"},\"content_type\":\"json\",\"timestamp\":\"\",\"user_agent\":\"iphone\"}"
+        jsonString = "{\"protocol\":\"swabbr\",\"protocol_version\":1,\"data_type\":\"notification\",\"data_type_version\":1,\"data\":{\"click_action\":\"vlog_record_request\", \"object\":{\"Id\":\"test\",\"HostAddress\":\"Opnemen\",\"AppName\":\"test\", \"Password\": \"test\", \"Port\": 532, \"StreamName\": \"test\", \"Username\": \"test\"}},\"content_type\":\"json\",\"timestamp\":\"5435345\",\"user_agent\":\"iphone\"}"
         jsonData = jsonString.data(using: .utf8)
         decoder = JSONDecoder()
     }
@@ -28,8 +28,14 @@ class NotificationTests: XCTestCase {
     }
 
     func testJSONToNotification() {
-        let notification = try? decoder.decode(Payload<SNotification>.self, from: jsonData!)
-        XCTAssertNotNil(notification, "The notification model does not conform the payload model")
+        do {
+            let notification = try decoder.decode(Payload<SNotification>.self, from: jsonData!)
+            print("done")
+            XCTAssertNotNil(notification, "Could not decode")
+        } catch {
+            print(error)
+            XCTFail(error.localizedDescription)
+        }
     }
     
     func testTheNotificationData() {

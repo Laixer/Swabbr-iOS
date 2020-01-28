@@ -14,6 +14,14 @@ class VlogTests: XCTestCase {
     private var vlog: Vlog!
     
     private class MockServer: VlogDataSourceProtocol {
+        func createLike(id: String, completionHandler: @escaping (String?) -> Void) {
+            
+        }
+        
+        func createVlog(completionHandler: @escaping (String?) -> Void) {
+            
+        }
+        
         
         private let vlog: Vlog
         
@@ -36,18 +44,6 @@ class VlogTests: XCTestCase {
         
         func getFeatured(completionHandler: @escaping ([Vlog]) -> Void) {
             completionHandler([vlog])
-        }
-        
-        func createLike(id: String, completionHandler: @escaping (Int) -> Void) {
-            completionHandler(200)
-        }
-        
-        func createVlog(completionHandler: @escaping (Int) -> Void) {
-            completionHandler(200)
-        }
-        
-        func get(id: String, completionHandler: @escaping (Int) -> Void) {
-            completionHandler(200)
         }
     }
     
