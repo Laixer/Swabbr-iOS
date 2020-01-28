@@ -5,33 +5,23 @@
 //  Created by James Bal on 21-10-19.
 //  Copyright © 2019 Laixer. All rights reserved.
 //
-// swiftlint:disable identifier_name
 
 import Foundation
 
 class Payload<T: Codable>: Codable {
 
-    let _protocol: String
-    let _protocolVersion: Int
-    private let dataType: DataType
-    let dataTypeVersion: Int
+    let pProtocol: String
+    let pProtocolVersion: String
+    private let dataType: String
+    let dataTypeVersion: String
     let innerData: T
-    private var contentType: ContentType
-    var timestamp: String?
-    var userAgent: String?
-    
-    private enum DataType: String, Codable {
-        case User = "user"
-        case Notification = "notification"
-    }
-    
-    private enum ContentType: String, Codable {
-        case JSON = "json"
-    }
+    private var contentType: String
+    var timestamp: String
+    var userAgent: String
     
     enum CodingKeys: String, CodingKey {
-        case _protocol = "protocol"
-        case _protocolVersion = "protocol_version"
+        case pProtocol = "protocol"
+        case pProtocolVersion = "protocol_version"
         case dataType = "data_type"
         case dataTypeVersion = "data_type_version"
         case innerData = "data"
@@ -44,14 +34,15 @@ class Payload<T: Codable>: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        _protocol = try container.decode(String.self, forKey: ._protocol)
-        _protocolVersion = try container.decode(Int.self, forKey: ._protocolVersion)
-        dataType = try container.decode(DataType.self, forKey: .dataType)
-        dataTypeVersion = try container.decode(Int.self, forKey: .dataTypeVersion)
+        pProtocol = try container.decode(String.self, forKey: .pProtocol)
+        pProtocolVersion = try container.decode(String.self, forKey: .pProtocolVersion)
+        
+        dataType = try container.decode(String.self, forKey: .dataType)
+        dataTypeVersion = try container.decode(String.self, forKey: .dataTypeVersion)
         
         innerData = try container.decode(T.self, forKey: .innerData)
         
-        contentType = try container.decode(ContentType.self, forKey: .contentType)
+        contentType = try container.decode(String.self, forKey: .contentType)
         timestamp = try container.decode(String.self, forKey: .timestamp)
         userAgent = try container.decode(String.self, forKey: .userAgent)
         
@@ -61,8 +52,8 @@ class Payload<T: Codable>: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(_protocol, forKey: ._protocol)
-        try container.encode(_protocolVersion, forKey: ._protocolVersion)
+        try container.encode(pProtocol, forKey: .pProtocol)
+        try container.encode(pProtocolVersion, forKey: .pProtocolVersion)
         try container.encode(dataType, forKey: .dataType)
         try container.encode(dataTypeVersion, forKey: .dataTypeVersion)
         try container.encode(contentType, forKey: .contentType)
