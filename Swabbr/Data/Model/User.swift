@@ -22,8 +22,8 @@ struct User {
     var totalVlogs: Int
     var totalFollowers: Int
     var totalFollowing: Int
-    var longitude: Float
-    var latitude: Float
+    var longitude: Float = 0
+    var latitude: Float = 0
     var isPrivate: Bool
     
     /**
@@ -91,9 +91,14 @@ extension User: Codable {
         totalVlogs = try container.decode(Int.self, forKey: .totalVlogs)
         totalFollowers = try container.decode(Int.self, forKey: .totalFollowers)
         totalFollowing = try container.decode(Int.self, forKey: .totalFollowing)
-
-        longitude = try container.decodeToType(Float.self, key: .longitude)
-        latitude = try container.decodeToType(Float.self, key: .latitude)
+        
+        if let longString = try container.decodeIfPresent(String.self, forKey: .longitude) {
+            longitude = Float(longString)!
+        }
+        
+        if let latString = try container.decodeIfPresent(String.self, forKey: .latitude) {
+            latitude = Float(latString)!
+        }
         
         isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
 
