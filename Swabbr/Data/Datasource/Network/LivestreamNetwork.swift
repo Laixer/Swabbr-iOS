@@ -13,7 +13,7 @@ class LivestreamNetwork: NetworkProtocol, LivestreamDataSourceProtocol {
     var endPoint: String = "livestreams"
     
     func start(id: String, completionHandler: @escaping (String?) -> Void) {
-        var request = buildUrl(path: "\(id)/start", authorization: true)
+        var request = buildUrl(path: "\(id)/startbroadcast", authorization: true)
         request.httpMethod = "PUT"
         AF.request(request).response(completionHandler: { (response) in
             switch response.result {
@@ -41,6 +41,8 @@ class LivestreamNetwork: NetworkProtocol, LivestreamDataSourceProtocol {
     func publish(id: String, completionHandler: @escaping (String?) -> Void) {
         var request = buildUrl(path: "\(id)/publish", authorization: true)
         request.httpMethod = "PUT"
+        // TODO: livestreamVlogModel?
+        request.httpBody = "{\"isPrivate\": false}".data(using: .utf8)
         AF.request(request).response(completionHandler: { (response) in
             switch response.result {
             case .success:
