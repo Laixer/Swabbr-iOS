@@ -54,13 +54,18 @@ class UserFollowRequestNetwork: NetworkProtocol, FollowRequestDataSourceProtocol
         let queryItems = [URLQueryItem(name: "receiverId", value: userId)]
         var request = buildUrl(queryItems: queryItems, path: "send", authorization: true)
         request.httpMethod = "POST"
-        AF.request(request).validate().responseDecodable { (response: DataResponse<UserFollowRequest>) in
-            switch response.result {
-            case .success(let userFollowRequest):
+        AF.request(request).responseData { response in
+            guard let data = response.result.value else {
+                completionHandler(nil, "Server Error")
+                return
+            }
+            
+            if let userFollowRequest = try? JSONDecoder().decode(UserFollowRequest.self, from: data) {
                 completionHandler(userFollowRequest, nil)
-            case .failure(let error):
-                completionHandler(nil,
-                                  error.localizedDescription)
+            }
+            
+            if let error = try? JSONDecoder().decode(SError.self, from: data) {
+                completionHandler(nil, error.message)
             }
         }
     }
