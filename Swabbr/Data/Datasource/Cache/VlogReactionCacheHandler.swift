@@ -16,7 +16,7 @@ class VlogReactionCacheHandler: VlogReactionCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[VlogReaction]>(key: String(describing: VlogReaction.self))
-        try? cache.set(value: ([] as? [VlogReaction])!)
+        try? cache.set(value: [VlogReaction]())
     }
     
     func getAll(completionHandler: @escaping ([VlogReaction]) -> Void) throws {
@@ -46,10 +46,11 @@ class VlogReactionCacheHandler: VlogReactionCacheDataSourceProtocol {
         guard var vlogReactions = cache.get() else {
             return
         }
-        if vlogReactions.contains(where: {$0.id == object.id}) {
-            return
+        if let index = vlogReactions.firstIndex(where: {$0.id == object.id}) {
+            vlogReactions[index] = object
+        } else {
+            vlogReactions.append(object)
         }
-        vlogReactions.append(object)
         try? cache.set(value: vlogReactions)
     }
     

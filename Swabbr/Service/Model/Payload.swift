@@ -22,8 +22,8 @@ class Payload<T: Codable>: Codable {
     enum CodingKeys: String, CodingKey {
         case pProtocol = "protocol"
         case pProtocolVersion = "protocol_version"
-        case dataType = "data_type"
-        case dataTypeVersion = "data_type_version"
+        case dataType = "object_type"
+        case dataTypeVersion = "object_type_version"
         case innerData = "data"
         case contentType = "content_type"
         case userAgent = "user_agent"
@@ -37,8 +37,8 @@ class Payload<T: Codable>: Codable {
         pProtocol = try container.decode(String.self, forKey: .pProtocol)
         pProtocolVersion = try container.decode(String.self, forKey: .pProtocolVersion)
         
-        dataType = try container.decode(String.self, forKey: .dataType)
-        dataTypeVersion = try container.decode(String.self, forKey: .dataTypeVersion)
+        dataType = try container.decodeIfPresent(String.self, forKey: .dataType) ?? ""
+        dataTypeVersion = try container.decodeIfPresent(String.self, forKey: .dataTypeVersion) ?? ""
         
         innerData = try container.decode(T.self, forKey: .innerData)
         

@@ -22,4 +22,8 @@ class LivestreamRepository: LivestreamRepositoryProtocol {
         network.stop(id: id, completionHandler: completionHandler)
     }
     
+    func publish(id: String, completionHandler: @escaping (String?) -> Void) {
+        network.publish(id: id, completionHandler: completionHandler)
+    }
+    
 }

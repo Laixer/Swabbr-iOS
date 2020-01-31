@@ -82,7 +82,7 @@ extension FollowRequestViewController: FollowRequestViewControllerServiceDelegat
             tableView.reloadData()
             return
         }
-        BasicErrorDialog.createAlert(message: errorString, context: self)
+        BasicDialog.createAlert(message: errorString, context: self)
     }
     func retrievedFollowRequests() {
         tableView.reloadData()

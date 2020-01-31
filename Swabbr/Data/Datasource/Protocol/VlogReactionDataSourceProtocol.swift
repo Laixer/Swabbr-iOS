@@ -20,4 +20,6 @@ protocol VlogReactionDataSourceProtocol {
      - parameter completionHandler: The callback will return an list of VlogReactionModel
      */
     func getVlogReactions(id: String, completionHandler: @escaping ([VlogReaction]) -> Void)
+    
+    func createReaction(vlogReaction: CreatedVlogReaction, completionHandler: @escaping (String?) -> Void)
 }

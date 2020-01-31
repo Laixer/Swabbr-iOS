@@ -16,7 +16,7 @@ class UserCacheHandler: UserCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[User]>(key: String(describing: User.self))
-        try? cache.set(value: ([] as? [User])!)
+        try? cache.set(value: [User]())
     }
     
     func getAll(completionHandler: @escaping ([User]) -> Void) throws {
@@ -46,8 +46,8 @@ class UserCacheHandler: UserCacheDataSourceProtocol {
         guard var users = cache.get() else {
             return
         }
-        if users.contains(where: {$0.id == object.id}) {
-            users.insert(object, at: users.lastIndex(where: {$0.id == object.id})!)
+        if let index = users.firstIndex(where: {$0.id == object.id}) {
+            users[index] = object
         } else {
             users.append(object)
         }

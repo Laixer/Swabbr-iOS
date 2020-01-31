@@ -10,7 +10,7 @@
 		4EB855795D9BAC9FD164B795 /* Pods_Swabbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B72A0B03FF139F493C06E87 /* Pods_Swabbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C20E400E23AA33DE009DC160 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E400D23AA33DD009DC160 /* AuthTests.swift */; };
 		C20E401323AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401223AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift */; };
-		C20E401523C46F13009DC160 /* BasicErrorDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401423C46F13009DC160 /* BasicErrorDialog.swift */; };
+		C20E401523C46F13009DC160 /* BasicDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401423C46F13009DC160 /* BasicDialog.swift */; };
 		C20E401723C4C10B009DC160 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */; };
 		C20E401B23C5E129009DC160 /* AuthorizedUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */; };
 		C20E401D23C7488C009DC160 /* UIImageView+ImageFromUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */; };
@@ -31,6 +31,10 @@
 		C20E404723D9851B009DC160 /* SLivestreamNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E404623D9851B009DC160 /* SLivestreamNotification.swift */; };
 		C2128D3223702C6400E56BAC /* VlogMakerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */; };
 		C2128D362370744F00E56BAC /* VlogReactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128D352370744F00E56BAC /* VlogReactionViewController.swift */; };
+		C219D15223E1A188005EBC06 /* VlogPreviewViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15123E1A188005EBC06 /* VlogPreviewViewControllerService.swift */; };
+		C219D15423E1C6CC005EBC06 /* CreatedVlogReactionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15323E1C6CC005EBC06 /* CreatedVlogReactionItem.swift */; };
+		C219D15623E1C70D005EBC06 /* CreatedVlogReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15523E1C70D005EBC06 /* CreatedVlogReactionModel.swift */; };
+		C219D15823E1C868005EBC06 /* CreatedVlogReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */; };
 		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
 		C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
@@ -208,7 +212,7 @@
 		B59C7C9444F55D21D8F7D367 /* Pods-Swabbr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swabbr.release.xcconfig"; path = "Target Support Files/Pods-Swabbr/Pods-Swabbr.release.xcconfig"; sourceTree = "<group>"; };
 		C20E400D23AA33DD009DC160 /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 		C20E401223AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAudioOrCameraPermissionsAlertDialog.swift; sourceTree = "<group>"; };
-		C20E401423C46F13009DC160 /* BasicErrorDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorDialog.swift; sourceTree = "<group>"; };
+		C20E401423C46F13009DC160 /* BasicDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDialog.swift; sourceTree = "<group>"; };
 		C20E401623C4C10B009DC160 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedUserModel.swift; sourceTree = "<group>"; };
 		C20E401C23C7488C009DC160 /* UIImageView+ImageFromUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageFromUrl.swift"; sourceTree = "<group>"; };
@@ -229,6 +233,10 @@
 		C20E404623D9851B009DC160 /* SLivestreamNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLivestreamNotification.swift; sourceTree = "<group>"; };
 		C2128D3123702C6400E56BAC /* VlogMakerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogMakerBaseViewController.swift; sourceTree = "<group>"; };
 		C2128D352370744F00E56BAC /* VlogReactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogReactionViewController.swift; sourceTree = "<group>"; };
+		C219D15123E1A188005EBC06 /* VlogPreviewViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewControllerService.swift; sourceTree = "<group>"; };
+		C219D15323E1C6CC005EBC06 /* CreatedVlogReactionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReactionItem.swift; sourceTree = "<group>"; };
+		C219D15523E1C70D005EBC06 /* CreatedVlogReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReactionModel.swift; sourceTree = "<group>"; };
+		C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReaction.swift; sourceTree = "<group>"; };
 		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
 		C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
@@ -422,7 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				C20E401223AB722E009DC160 /* NoAudioOrCameraPermissionsAlertDialog.swift */,
-				C20E401423C46F13009DC160 /* BasicErrorDialog.swift */,
+				C20E401423C46F13009DC160 /* BasicDialog.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -473,6 +481,7 @@
 				C2B5412B23A7AD36000A1AD3 /* LoginViewControllerService.swift */,
 				C20E402C23CC8B59009DC160 /* FollowRequestViewControllerService.swift */,
 				C20E404023D5E553009DC160 /* VlogStreamViewControllerService.swift */,
+				C219D15123E1A188005EBC06 /* VlogPreviewViewControllerService.swift */,
 			);
 			path = ControllerService;
 			sourceTree = "<group>";
@@ -489,6 +498,7 @@
 				C2C3C45F23A39681007F6814 /* LoginUserItem.swift */,
 				C20E401E23C865A1009DC160 /* FollowRequestItem.swift */,
 				C20E403023CC9B32009DC160 /* UserFollowRequestItem.swift */,
+				C219D15323E1C6CC005EBC06 /* CreatedVlogReactionItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -519,6 +529,7 @@
 				C2C3C45B23A39252007F6814 /* RegistrationUserModel.swift */,
 				C2C3C46323A39A43007F6814 /* LoginUserModel.swift */,
 				C20E401A23C5E129009DC160 /* AuthorizedUserModel.swift */,
+				C219D15523E1C70D005EBC06 /* CreatedVlogReactionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -534,6 +545,7 @@
 				C2C3C46123A396DD007F6814 /* RegistrationUser.swift */,
 				C2C3C46523A39A85007F6814 /* LoginUser.swift */,
 				C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */,
+				C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1100,8 +1112,11 @@
 				C20E403B23D5E3F0009DC160 /* LivestreamRepository.swift in Sources */,
 				C2C3C45E23A395CD007F6814 /* RegistrationUserItem.swift in Sources */,
 				C2E776AB23325A1E0071B828 /* LoginViewController.swift in Sources */,
+				C219D15623E1C70D005EBC06 /* CreatedVlogReactionModel.swift in Sources */,
+				C219D15423E1C6CC005EBC06 /* CreatedVlogReactionItem.swift in Sources */,
 				C2B5413823A90C56000A1AD3 /* VlogRepositoryProtocol.swift in Sources */,
 				C20E403123CC9B32009DC160 /* UserFollowRequestItem.swift in Sources */,
+				C219D15223E1A188005EBC06 /* VlogPreviewViewControllerService.swift in Sources */,
 				C2E776EC2344E03E0071B828 /* ProfileCollectionOverviewViewController.swift in Sources */,
 				C29FA45423855E9B00C22F67 /* ProfileCollectionOverviewControllerService.swift in Sources */,
 				C29FA40B237D57C000C22F67 /* UserRepository.swift in Sources */,
@@ -1114,6 +1129,7 @@
 				C2E776CD2338B96C0071B828 /* VlogTimeProgressBar.swift in Sources */,
 				C2E776D12338D7D50071B828 /* VlogStreamControlView.swift in Sources */,
 				C29FA43A237EED7B00C22F67 /* VlogUserItem.swift in Sources */,
+				C219D15823E1C868005EBC06 /* CreatedVlogReaction.swift in Sources */,
 				C29FA452238547AF00C22F67 /* ReactionViewControllerService.swift in Sources */,
 				C29FA4832395709000C22F67 /* CacheDataSourceProtocol.swift in Sources */,
 				C2B5415323A90EBE000A1AD3 /* VlogReactionDataSourceProtocol.swift in Sources */,
@@ -1167,7 +1183,7 @@
 				C29FA41D237DAEA900C22F67 /* VlogUseCase.swift in Sources */,
 				C29FA48123956AF800C22F67 /* UserCacheHandler.swift in Sources */,
 				C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */,
-				C20E401523C46F13009DC160 /* BasicErrorDialog.swift in Sources */,
+				C20E401523C46F13009DC160 /* BasicDialog.swift in Sources */,
 				C2B18127235DA7A1001D6F0B /* Payload.swift in Sources */,
 				C20E402D23CC8B59009DC160 /* FollowRequestViewControllerService.swift in Sources */,
 				C2B5414723A90D29000A1AD3 /* VlogDataSourceProtocol.swift in Sources */,

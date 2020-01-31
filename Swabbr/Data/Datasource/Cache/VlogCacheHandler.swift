@@ -16,7 +16,7 @@ class VlogCacheHandler: VlogCacheDataSourceProtocol {
     
     private init() {
         cache = CodableCache<[Vlog]>(key: String(describing: Vlog.self))
-        try? cache.set(value: ([] as? [Vlog])!)
+        try? cache.set(value: [Vlog]())
     }
     
     func get(id: String, completionHandler: @escaping (Vlog) -> Void) throws {
@@ -36,8 +36,8 @@ class VlogCacheHandler: VlogCacheDataSourceProtocol {
         guard var vlogs = cache.get() else {
             return
         }
-        if vlogs.contains(where: {$0.id == object.id}) {
-            vlogs.insert(object, at: vlogs.lastIndex(where: {$0.id == object.id})!)
+        if let index = vlogs.firstIndex(where: {$0.id == object.id}) {
+            vlogs[index] = object
         } else {
             vlogs.append(object)
         }

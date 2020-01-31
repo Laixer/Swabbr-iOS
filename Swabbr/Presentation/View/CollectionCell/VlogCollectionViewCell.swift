@@ -13,30 +13,43 @@ import AVKit
 class VlogCollectionViewCell: UICollectionViewCell {
     
     let durationLabel = UILabel()
-    let player = AVPlayer(url: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
-    let playerView = AVPlayerViewController()
+    let thumbView = UIImageView()
+    
+    var vlogUrl: String? {
+        didSet {
+            guard let vlogUrl = vlogUrl else {
+                return
+            }
+            
+            // TODO HANDLE IMAGE
+            thumbView.image = UIImage()
+            
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        thumbView.backgroundColor = UIColor.black
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        playerView.view.translatesAutoresizingMaskIntoConstraints = false
+        thumbView.translatesAutoresizingMaskIntoConstraints = false
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // TODO: set dynamic video url
-        playerView.player = player
-        playerView.videoGravity = .resizeAspectFill
-        playerView.showsPlaybackControls = false
-        
-        contentView.addSubview(playerView.view)
+        contentView.addSubview(thumbView)
+        thumbView.backgroundColor = UIColor.blue
         contentView.addSubview(durationLabel)
         
         NSLayoutConstraint.activate([
             
-            // playerView
-            playerView.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            playerView.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            playerView.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            playerView.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            // thumbView
+            thumbView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            thumbView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            thumbView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            thumbView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             // durationLabel
             durationLabel.topAnchor.constraint(equalTo: contentView.topAnchor),

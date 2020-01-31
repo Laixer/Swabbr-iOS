@@ -25,6 +25,7 @@ class VlogPageViewController: UIViewController {
     private let reactionButton = UIButton()
     
     private let playerView = UIView()
+    private var playerItem: AVPlayerItem?
     
     private let containerView = UIView()
     
@@ -34,6 +35,8 @@ class VlogPageViewController: UIViewController {
     private let controllerService = VlogPageViewControllerService()
     
     let vlogId: String
+    
+    var isVisible: Bool = false
     
     /**
      The initializer which accepts a Vlog as parameter.
@@ -51,6 +54,13 @@ class VlogPageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func displayFromProfile() {
+        userProfileImageView.isUserInteractionEnabled = false
+        userProfileImageView.isHidden = true
+        userUsernameLabel.isUserInteractionEnabled = false
+        userUsernameLabel.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,21 +70,22 @@ class VlogPageViewController: UIViewController {
         applyConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        isVisible = true
         scrollView.isScrollEnabled = false
-        if controllerService.vlog != nil {
+        if controllerService.vlog != nil && player.currentTime() == CMTime(seconds: 0, preferredTimescale: 60) {
             playPlayer()
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        isVisible = false
         player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
         stopPlayer()
     }
     
     /**
      Run when we want to stop or pause the player.
-     This function has also a parameter that is a boolean which indicate if we want to make a fully stop on the video or just want to pause to possibly resume later on.
     */
     private func stopPlayer() {
         player.pause()
@@ -83,18 +94,28 @@ class VlogPageViewController: UIViewController {
     
     /**
      Run when we want to start the player.
-     This function has also a parameter that is a boolean which indicate if we resume the video or if we will start the video for the first time.
      */
     private func playPlayer() {
-        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: controllerService.vlog.vlogUrl)!))
         
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspectFill
-        playerLayer.frame = view.bounds
-        playerView.layer.addSublayer(playerLayer)
-        player.play()
+        if playerItem == nil {
+            playerItem = AVPlayerItem(url: URL(string: controllerService.vlog.vlogUrl)!)
+            player.replaceCurrentItem(with: playerItem!)
+        }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(videoEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        if isVisible {
+            player.play()
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(videoEnd),
+                                                   name: Notification.Name.AVPlayerItemDidPlayToEndTime,
+                                                   object: nil)
+            if controllerService.vlog.vlogIsLive {
+                containerView.addSubview(isLiveLabel)
+                NSLayoutConstraint.activate([
+                    isLiveLabel.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor),
+                    isLiveLabel.rightAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.rightAnchor)
+                ])
+            }
+        }
     }
     
 }
@@ -107,13 +128,6 @@ extension VlogPageViewController: VlogPageViewControllerServiceDelegate {
         reactionCountLabel.text = String(sender.vlog.vlogTotalReactions)
         userUsernameLabel.text = sender.vlog.userUsername
         userProfileImageView.imageFromUrl(sender.vlog.userProfileImageUrl)
-        if sender.vlog.vlogIsLive {
-            containerView.addSubview(isLiveLabel)
-            NSLayoutConstraint.activate([
-                isLiveLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                isLiveLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-            ])
-        }
         playPlayer()
     }
 }
@@ -159,6 +173,10 @@ extension VlogPageViewController: BaseViewProtocol {
         containerView.frame = view.bounds
         
         view.addSubview(scrollView)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.frame = view.bounds
+        playerView.layer.addSublayer(playerLayer)
         containerView.addSubview(playerView)
         
         // add ui components to current view
@@ -232,7 +250,10 @@ extension VlogPageViewController {
             return
         }
         
+        // TODO: probably on profile video, need to change in future
         guard parent.isKind(of: UIPageViewController.self) else {
+            player.seek(to: CMTime(seconds: 0, preferredTimescale: 60))
+            player.play()
             return
         }
         
@@ -255,7 +276,7 @@ extension VlogPageViewController {
      This will handle all actions required to handle the click of the reaction button.
      */
     @objc private func clickedReactButton() {
-        //present(VlogReactionViewController(vlog: vlog), animated: true, completion: nil)
+        present(VlogReactionViewController(vlogId: ""), animated: true)
     }
     
     /**
@@ -280,10 +301,11 @@ extension VlogPageViewController {
     @objc private func tappedVideoToLoveIt() {
         controllerService.giveLoveIt(for: vlogId) { (error) in
             guard error == nil else {
-                BasicErrorDialog.createAlert(message: error, context: self)
+                BasicDialog.createAlert(message: error, context: self)
                 return
             }
-            print("Liked")
+            
+            BasicDialog.createAlert(title: "Success", message: "You have liked the video!", context: self)
         }
     }
 }

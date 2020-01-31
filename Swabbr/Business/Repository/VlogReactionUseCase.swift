@@ -22,4 +22,8 @@ class VlogReactionUseCase {
         repository.getVlogReactions(id: id, refresh: refresh, completionHandler: completionHandler)
     }
     
+    func createReaction(vlogReaction: CreatedVlogReactionModel, completionHandler: @escaping (String?) -> Void) {
+        repository.createReaction(vlogReaction: vlogReaction, completionHandler: completionHandler)
+    }
+    
 }

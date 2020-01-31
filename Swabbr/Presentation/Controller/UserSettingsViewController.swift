@@ -74,6 +74,7 @@ class UserSettingsViewController: FormViewController {
     */
     private func saveButtonClicked() {
         if controllerService.userSettings! == userSettingsItem! {
+            BasicDialog.createAlert(message: "The settings have not been changed!", context: self)
             return
         }
         controllerService.updateUserSettings(userSettingsItem: userSettingsItem!)
@@ -92,7 +93,7 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
     func retrievedUserSettings(errorString: String?) {
 
         if let errorString = errorString {
-            BasicErrorDialog.createAlert(message: errorString, handler: { (_) in
+            BasicDialog.createAlert(message: errorString, handler: { [unowned self] (_) in
                 self.dismiss(animated: true, completion: nil)
             }, context: self)
             return
@@ -106,21 +107,21 @@ extension UserSettingsViewController: UserSettingsViewControllerServiceDelegate 
     
     func updatedUserSettings(errorString: String?) {
         if let errorString = errorString {
-            BasicErrorDialog.createAlert(message: errorString, context: self)
+            BasicDialog.createAlert(message: errorString, context: self)
             userSettingsItem = controllerService.userSettings
             reloadTableData()
         }
+        
+        BasicDialog.createAlert(title: "Success", message: "Settings have been saved!", context: self)
     }
     
     func logoutStatus(errorString: String?) {
         if let errorString = errorString {
-            BasicErrorDialog.createAlert(message: errorString, context: self)
+            BasicDialog.createAlert(message: errorString, context: self)
             return
         }
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.window!.rootViewController = LoginViewController()
-        }
+        UIApplication.shared.keyWindow!.rootViewController = LoginViewController()
         
     }
     

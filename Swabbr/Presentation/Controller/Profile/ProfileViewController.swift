@@ -117,12 +117,8 @@ class ProfileViewController: UIViewController {
     */
     private func addProfileVlogOverviewController() {
         
-        if let profileCollectionOverviewController = profileCollectionOverviewController {
-            profileCollectionOverviewController.loadData()
-            return
-        }
-        
         profileCollectionOverviewController = ProfileCollectionOverviewViewController(vlogOwnerId: userId!)
+        view.addSubview(profileCollectionOverviewController!.view)
         contentView.addSubview(profileCollectionOverviewController!.view)
 
         profileCollectionOverviewController!.view.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +145,7 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
             profileButton.setTitle("Sent", for: .normal)
             return
         }
-        BasicErrorDialog.createAlert(message: errorString, context: self)
+        BasicDialog.createAlert(message: errorString, context: self)
     }
     
     func setFollowStatus(_ followStatus: Int?) {
@@ -165,7 +161,7 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
     func didRetrieveUser(_ sender: ProfileViewControllerService) {
         
         guard let user = sender.user else {
-            BasicErrorDialog.createAlert(message: "Unknown user", context: self)
+            BasicDialog.createAlert(message: "Unknown user", context: self)
             return
         }
         
@@ -190,6 +186,8 @@ extension ProfileViewController: ProfileViewControllerServiceDelegate {
             refreshing = true
             
         }
+        
+        profileCollectionOverviewController?.loadData()
     }
 }
 
@@ -218,11 +216,11 @@ extension ProfileViewController: BaseViewProtocol {
         let tapFollowersGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowers))
         countFollowersLabel.isUserInteractionEnabled = true
         countFollowersLabel.addGestureRecognizer(tapFollowersGesture)
-        
+
         let tapFollowingGesture = UITapGestureRecognizer(target: self, action: #selector(showFollowing))
         countFollowingLabel.isUserInteractionEnabled = true
         countFollowingLabel.addGestureRecognizer(tapFollowingGesture)
-        
+
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }

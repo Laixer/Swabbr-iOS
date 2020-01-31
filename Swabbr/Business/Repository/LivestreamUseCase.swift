@@ -22,4 +22,8 @@ class LivestreamUseCase {
         repository.stop(id: id, completionHandler: completionHandler)
     }
     
+    func publish(id: String, completionHandler: @escaping (String?) -> Void) {
+        repository.publish(id: id, completionHandler: completionHandler)
+    }
+    
 }

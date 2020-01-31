@@ -6,6 +6,8 @@
 //  Copyright © 2019 Laixer. All rights reserved.
 //
 
+// swiftlint:disable force_cast
+
 import Eureka
 
 class RegistrationViewController: FormViewController {
@@ -142,18 +144,18 @@ class RegistrationViewController: FormViewController {
     */
     func sendRegisterForm() {
         let dictionary = form.values()
-        controllerService.registerUser(registrationUserItem: RegistrationUserItem(firstName: String(describing: dictionary["firstname"]),
-                                                                                  lastName: String(describing: dictionary["lastname"]),
-                                                                                  gender: Int(String(describing: dictionary["gender"]))!,
-                                                                                  country: String(describing: dictionary["country"]),
-                                                                                  email: String(describing: dictionary["email"]),
-                                                                                  password: String(describing: dictionary["password"]),
-                                                                                  birthdate: DateFormatter().date(from: String(describing: dictionary["dob"]))!,
+        controllerService.registerUser(registrationUserItem: RegistrationUserItem(firstName: dictionary["firstname"] as! String,
+                                                                                  lastName: dictionary["lastname"] as! String,
+                                                                                  gender: dictionary["gender"] as! Int,
+                                                                                  country: dictionary["country"] as! String,
+                                                                                  email: dictionary["email"] as! String,
+                                                                                  password: dictionary["password"] as! String,
+                                                                                  birthdate: dictionary["dob"] as! Date,
                                                                                   timezone: TimeZone.current.abbreviation() ?? "CST",
-                                                                                  username: String(describing: dictionary["username"]),
+                                                                                  username: dictionary["username"] as! String,
                                                                                   profileImageUrl: nil,
-                                                                                  isPrivate: Bool(String(describing: dictionary["private"]))!,
-                                                                                  phoneNumber: String(describing: dictionary["phone"])))
+                                                                                  isPrivate: NSString(string: String(describing: dictionary["private"])).boolValue,
+                                                                                  phoneNumber: dictionary["phone"] as! String))
     }
     
 }
@@ -161,12 +163,10 @@ class RegistrationViewController: FormViewController {
 extension RegistrationViewController: RegistrationViewControllerServiceDelegate {
     func registeredUser(errorString: String?) {
         if let errorString = errorString {
-            BasicErrorDialog.createAlert(message: errorString, context: self)
+            BasicDialog.createAlert(message: errorString, context: self)
             return
         }
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.window!.rootViewController = MainTabBarViewController()
-        }
+        UIApplication.shared.keyWindow!.rootViewController = MainTabBarViewController()
     }
 }

@@ -33,7 +33,7 @@ class NotificationRegistrationService: NetworkProtocol {
     func unregister() {
         
         var request = buildUrl(path: "unregister", authorization: true)
-        request.httpMethod = "POST"
+        request.httpMethod = "DELETE"
         AF.request(request).responseData { (response) in
             #if DEBUG
             print("Notification unregister status code: \(String(describing: response.response?.statusCode))")

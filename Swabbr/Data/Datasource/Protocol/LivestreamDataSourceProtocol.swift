@@ -12,4 +12,6 @@ protocol LivestreamDataSourceProtocol {
     
     func stop(id: String, completionHandler: @escaping (String?) -> Void)
     
+    func publish(id: String, completionHandler: @escaping (String?) -> Void)
+    
 }

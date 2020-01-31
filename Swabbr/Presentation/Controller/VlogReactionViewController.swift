@@ -15,11 +15,15 @@ class VlogReactionViewController: VlogMakerBaseViewController {
     
     private let nextLevel = NextLevel.shared
     private var started = false
+    
+    private let vlogId: String
+    
+    private var thumbImage: UIImage?
+    
+    let modalHandler = ModalHandler()
 
-    private let vlog: Vlog!
-
-    init(vlog: Vlog) {
-        self.vlog = vlog
+    init(vlogId: String) {
+        self.vlogId = vlogId
         super.init(isStreaming: false)
     }
 
@@ -28,8 +32,10 @@ class VlogReactionViewController: VlogMakerBaseViewController {
     }
 
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
 
-//        nextLevel.videoConfiguration.maximumCaptureDuration = CMTimeMakeWithSeconds(8, preferredTimescale: 60)
+        nextLevel.videoConfiguration.maximumCaptureDuration = CMTimeMakeWithSeconds(8, preferredTimescale: 60)
         nextLevel.audioConfiguration.bitRate = 44100
         nextLevel.videoConfiguration.preset = .hd1280x720
         nextLevel.videoConfiguration.bitRate = 5500000
@@ -39,21 +45,28 @@ class VlogReactionViewController: VlogMakerBaseViewController {
         nextLevel.deviceDelegate = self
         nextLevel.videoDelegate = self
         
-        controlView!.startOperateView {
-            self.nextLevel.record()
-        }
+        modalHandler.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        try? nextLevel.start()
+        super.viewWillAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         nextLevel.stop()
     }
 
     override func prepareForVlog() {
-        try? nextLevel.start()
+        controlView!.startOperateView { [unowned self] in
+            self.nextLevel.record()
+            self.nextLevel.capturePhotoFromVideo()
+        }
     }
 
     override func recordButtonClicked() {
-        nextLevel.pause(withCompletionHandler: {
+        nextLevel.pause(withCompletionHandler: { [unowned self] in
             self.endCapture()
         })
     }
@@ -67,6 +80,7 @@ class VlogReactionViewController: VlogMakerBaseViewController {
 
 extension VlogReactionViewController {
     internal func endCapture() {
+        
         nextLevel.stop()
 
         guard let session = nextLevel.session else {
@@ -74,7 +88,7 @@ extension VlogReactionViewController {
         }
 
         if session.clips.count > 1 {
-            session.mergeClips(usingPreset: AVAssetExportPresetHighestQuality, completionHandler: { (url: URL?, error: Error?) in
+            session.mergeClips(usingPreset: AVAssetExportPresetHighestQuality, completionHandler: { [unowned self] (url: URL?, error: Error?) in
                 if let url = url {
                     self.saveVideo(withURL: url)
                 } else if error != nil {
@@ -84,7 +98,7 @@ extension VlogReactionViewController {
         } else if let lastClipUrl = session.lastClipUrl {
             self.saveVideo(withURL: lastClipUrl)
         } else if session.currentClipHasStarted {
-            session.endClip(completionHandler: { (clip, error) in
+            session.endClip(completionHandler: { [unowned self] (clip, error) in
                 if error == nil {
                     self.saveVideo(withURL: (clip?.url)!)
                 } else {
@@ -101,7 +115,10 @@ extension VlogReactionViewController {
     }
 
     internal func saveVideo(withURL url: URL) {
-//        present(VlogPreviewViewController(url: url), animated: true, completion: nil)
+        show(UINavigationController(rootViewController: VlogPreviewViewController(vlogId: "",
+                                                                                     image: thumbImage!,
+                                                                                     context: modalHandler)),
+             sender: nil)
     }
 }
 
@@ -213,11 +230,25 @@ extension VlogReactionViewController: NextLevelVideoDelegate {
     }
 
     func nextLevel(_ nextLevel: NextLevel, didCompleteSession session: NextLevelSession) {
-//        endCapture()
+        endCapture()
     }
 
     func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String: Any]?) {
-
+        if thumbImage == nil {
+            if let dictionary = photoDict,
+                let photoData = dictionary[NextLevelPhotoJPEGKey] as? Data,
+                let photoImage = UIImage(data: photoData) {
+                thumbImage = photoImage
+            }
+        }
     }
 
+}
+
+extension VlogReactionViewController: ModalHandlerDelegate {
+    func dismissModals() {
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
 }

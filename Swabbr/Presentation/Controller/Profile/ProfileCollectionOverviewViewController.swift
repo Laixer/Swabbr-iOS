@@ -146,6 +146,8 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDataSource {
         if type == DataType.vlogs {
             cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "vlogCell", for: indexPath) as? VlogCollectionViewCell)!
             let vlog = controllerService.vlogs[indexPath.row]
+            (cell as? VlogCollectionViewCell)!.thumbView.backgroundColor = UIColor.blue
+            (cell as? VlogCollectionViewCell)!.vlogUrl = vlog.videoUrl
             (cell as? VlogCollectionViewCell)!.durationLabel.text = vlog.duration
         } else {
             cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as? UserCollectionViewCell)!
@@ -174,6 +176,18 @@ extension ProfileCollectionOverviewViewController: UICollectionViewDelegateFlowL
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if type == DataType.vlogs {
+            let vlog = controllerService.vlogs[indexPath.row]
+            let controller = VlogPageViewController(vlogId: vlog.id)
+            controller.displayFromProfile()
+            self.navigationController!.pushViewController(controller, animated: true)
+        } else {
+            let user = controllerService.users[indexPath.row]
+            self.navigationController!.pushViewController(ProfileViewController(userId: user.id), animated: true)
+        }
     }
     
 }

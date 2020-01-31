@@ -106,7 +106,7 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
     }
     
     func onWOWZError(_ status: WOWZBroadcastStatus!) {
-        BasicErrorDialog.createAlert(message: String(describing: status), handler: { [weak self](_) in
+        BasicDialog.createAlert(message: String(describing: status), handler: { [weak self](_) in
             self?.goCoder?.endStreaming(self)
             self?.dismiss(animated: true, completion: nil)
             }, context: self)
@@ -148,24 +148,26 @@ class VlogStreamViewController: VlogMakerBaseViewController, WOWZBroadcastStatus
 
 extension VlogStreamViewController: VlogStreamViewControllerServiceDelegate {
     func tryStartingStream(errorString: String?) {
+        goCoder?.startStreaming(self)
         guard errorString == nil else {
-            BasicErrorDialog.createAlert(message: errorString, handler: { [weak self](_) in
+            BasicDialog.createAlert(message: errorString, handler: { [weak self](_) in
                 self?.dismiss(animated: true, completion: nil)
             }, context: self)
             return
         }
-        goCoder?.startStreaming(self)
     }
     
     func tryEndingStream(errorString: String?) {
+        goCoder?.endStreaming(self)
         if let errorString = errorString {
-            BasicErrorDialog.createAlert(message: errorString, handler: { [weak self](_) in
+            BasicDialog.createAlert(message: errorString, handler: { [weak self](_) in
                 self?.dismiss(animated: true, completion: nil)
                 }, context: self)
             return
         }
-        goCoder?.endStreaming(self)
-        show(UINavigationController(rootViewController: VlogPreviewViewController(image: frameImage!, context: modalHandler)), sender: nil)
+        show(UINavigationController(rootViewController: VlogPreviewViewController(vlogId: streamCreds.0,
+                                                                                  image: frameImage!,
+                                                                                  context: modalHandler)), sender: nil)
     }
     
 }

@@ -12,6 +12,7 @@ import UIKit
 class VlogPreviewViewController: UIViewController, BaseViewProtocol {
     
     let image: UIImage
+    private let vlogId: String
     
     let imageHolderView = UIImageView()
     
@@ -24,12 +25,10 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
     
     var context: ModalHandler?
     
-    init(image: UIImage) {
-        self.image = image
-        super.init(nibName: nil, bundle: nil)
-    }
+    private let controllerService = VlogPreviewViewControllerService()
     
-    init(image: UIImage, context: ModalHandler) {
+    init(vlogId: String, image: UIImage, context: ModalHandler) {
+        self.vlogId = vlogId
         self.image = image
         self.context = context
         super.init(nibName: nil, bundle: nil)
@@ -45,6 +44,8 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(deniedToUpload))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(agreedToUpload))
+        
+        controllerService.delegate = self
         
         initElements()
         applyConstraints()
@@ -71,7 +72,11 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
      Handles action when user wants to upload.
     */
     @objc private func agreedToUpload() {
-        
+        if vlogId.isEmpty {
+            saveVlog(errorString: nil)
+        } else {
+            controllerService.publishStream(id: vlogId)
+        }
     }
     
     /**
@@ -81,4 +86,19 @@ class VlogPreviewViewController: UIViewController, BaseViewProtocol {
         context?.dismissAllModals()
     }
     
+}
+
+extension VlogPreviewViewController: VlogPreviewViewControllerServiceDelegate {
+    func saveVlog(errorString: String?) {
+        if let errorString = errorString {
+            BasicDialog.createAlert(message: errorString, handler: { (_) in
+                self.context?.dismissAllModals()
+            }, context: self)
+            return
+        }
+        
+        BasicDialog.createAlert(title: "Success", message: "The video has been published!", handler: { [unowned self] (_) in
+            self.context?.dismissAllModals()
+        }, context: self)
+    }
 }

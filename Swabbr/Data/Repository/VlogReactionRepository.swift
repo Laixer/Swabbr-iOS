@@ -44,4 +44,10 @@ class VlogReactionRepository: VlogReactionRepositoryProtocol {
             )
         })
     }
+    
+    func createReaction(vlogReaction: CreatedVlogReactionModel, completionHandler: @escaping (String?) -> Void) {
+        network.createReaction(vlogReaction: CreatedVlogReaction.mapToEntity(model: vlogReaction)) { (errorString) in
+            completionHandler(errorString)
+        }
+    }
 }

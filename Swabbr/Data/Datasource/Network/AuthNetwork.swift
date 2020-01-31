@@ -54,6 +54,7 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         AF.request(request).response(completionHandler: { (response) in
             switch response.result {
             case .success:
+                NotificationRegistrationService.shared.unregister()
                 UserDefaults.standard.set(false, forKey: "rememberMe")
                 KeychainService.shared.remove(key: "access_token")
                 completionHandler(nil)

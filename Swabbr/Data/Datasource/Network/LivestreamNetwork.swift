@@ -38,4 +38,17 @@ class LivestreamNetwork: NetworkProtocol, LivestreamDataSourceProtocol {
         })
     }
     
+    func publish(id: String, completionHandler: @escaping (String?) -> Void) {
+        var request = buildUrl(path: "\(id)/publish", authorization: true)
+        request.httpMethod = "PUT"
+        AF.request(request).response(completionHandler: { (response) in
+            switch response.result {
+            case .success:
+                completionHandler(nil)
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
+            }
+        })
+    }
+    
 }

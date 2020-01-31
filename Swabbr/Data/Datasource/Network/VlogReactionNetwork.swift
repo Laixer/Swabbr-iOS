@@ -37,4 +37,19 @@ class VlogReactionNetwork: NetworkProtocol, VlogReactionDataSourceProtocol {
             }
         }
     }
+    
+    func createReaction(vlogReaction: CreatedVlogReaction, completionHandler: @escaping (String?) -> Void) {
+        var request = buildUrl(path: "create")
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONEncoder().encode(vlogReaction)
+        AF.request(request).response { (response) in
+            switch response.result {
+            case .success:
+                completionHandler(nil)
+            case .failure(let error):
+                completionHandler(error.localizedDescription)
+                // failure handling
+            }
+        }
+    }
 }

@@ -118,6 +118,7 @@ extension User: Codable {
         try container.encode(totalFollowing, forKey: .totalFollowing)
         try container.encode(String(longitude), forKey: .longitude)
         try container.encode(String(latitude), forKey: .latitude)
+        try container.encode(isPrivate, forKey: .isPrivate)
         
     }
 
