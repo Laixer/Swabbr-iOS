@@ -17,15 +17,20 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         request.httpMethod = "POST"
         request.httpBody = try? JSONEncoder().encode(loginUser)
         request.addValue("text/json", forHTTPHeaderField: "Content-Type")
-        AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
-            switch response.result {
-            case .success(let authUser):
+        AF.request(request).responseData { response in
+            guard let data = response.result.value else {
+                completionHandler(nil, "Server Error")
+                return
+            }
+            
+            if let authUser = try? JSONDecoder().decode(AuthorizedUser.self, from: data) {
                 UserDefaults.standard.set(loginUser.rememberMe, forKey: "rememberMe")
                 KeychainService.shared.set(key: "access_token", value: authUser.accessToken)
                 completionHandler(authUser, nil)
-            case .failure(let error):
-                completionHandler(nil,
-                                  error.localizedDescription)
+            }
+            
+            if let error = try? JSONDecoder().decode(SError.self, from: data) {
+                completionHandler(nil, error.message)
             }
         }
     }
@@ -35,15 +40,20 @@ class AuthNetwork: NetworkProtocol, AuthDataSourceProtocol {
         request.httpMethod = "POST"
         request.httpBody = try? JSONEncoder().encode(registrationUser)
         request.addValue("text/json", forHTTPHeaderField: "Content-Type")
-        AF.request(request).responseDecodable { (response: DataResponse<AuthorizedUser>) in
-            switch response.result {
-            case .success(let authUser):
+        AF.request(request).responseData { response in
+            guard let data = response.result.value else {
+                completionHandler(nil, "Server Error")
+                return
+            }
+            
+            if let authUser = try? JSONDecoder().decode(AuthorizedUser.self, from: data) {
                 UserDefaults.standard.set(false, forKey: "rememberMe")
                 KeychainService.shared.set(key: "access_token", value: authUser.accessToken)
                 completionHandler(authUser, nil)
-            case .failure(let error):
-                completionHandler(nil,
-                                  error.localizedDescription)
+            }
+            
+            if let error = try? JSONDecoder().decode(SError.self, from: data) {
+                completionHandler(nil, error.message)
             }
         }
     }

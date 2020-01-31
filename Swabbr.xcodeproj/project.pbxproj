@@ -35,6 +35,7 @@
 		C219D15423E1C6CC005EBC06 /* CreatedVlogReactionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15323E1C6CC005EBC06 /* CreatedVlogReactionItem.swift */; };
 		C219D15623E1C70D005EBC06 /* CreatedVlogReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15523E1C70D005EBC06 /* CreatedVlogReactionModel.swift */; };
 		C219D15823E1C868005EBC06 /* CreatedVlogReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */; };
+		C219D15A23E46D25005EBC06 /* SError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C219D15923E46D25005EBC06 /* SError.swift */; };
 		C29FA3FC2374516700C22F67 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; };
 		C29FA3FD2374516700C22F67 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C29FA4002375A70E00C22F67 /* VlogPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */; };
@@ -237,6 +238,7 @@
 		C219D15323E1C6CC005EBC06 /* CreatedVlogReactionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReactionItem.swift; sourceTree = "<group>"; };
 		C219D15523E1C70D005EBC06 /* CreatedVlogReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReactionModel.swift; sourceTree = "<group>"; };
 		C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVlogReaction.swift; sourceTree = "<group>"; };
+		C219D15923E46D25005EBC06 /* SError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SError.swift; sourceTree = "<group>"; };
 		C29FA3F623743A4C00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = "../../../Downloads/gocoder-sdk-ios-build-1377-v1.9.0/WowzaGoCoderSDK.framework"; sourceTree = "<group>"; };
 		C29FA3FA23743FCF00C22F67 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C29FA3FF2375A70E00C22F67 /* VlogPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VlogPreviewViewController.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				C2C3C46523A39A85007F6814 /* LoginUser.swift */,
 				C2B5412D23A7B19E000A1AD3 /* AuthorizedUser.swift */,
 				C219D15723E1C868005EBC06 /* CreatedVlogReaction.swift */,
+				C219D15923E46D25005EBC06 /* SError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1160,6 +1163,7 @@
 				C2E776D9233A295A0071B828 /* FocusIndicatorView.swift in Sources */,
 				C29FA407237D552000C22F67 /* UserUseCase.swift in Sources */,
 				C2AEABA9239FAE9E006B19A4 /* UserSettingsViewController.swift in Sources */,
+				C219D15A23E46D25005EBC06 /* SError.swift in Sources */,
 				C2E776CF2338D18A0071B828 /* CountdownLabel.swift in Sources */,
 				C2E776AF23325AB90071B828 /* ProfileViewController.swift in Sources */,
 				C2E776EF2344EFF10071B828 /* VlogCollectionViewCell.swift in Sources */,
