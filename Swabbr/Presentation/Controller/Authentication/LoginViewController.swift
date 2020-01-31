@@ -55,7 +55,7 @@ class LoginViewController: FormViewController {
             <<< ButtonRow {
                 $0.title = "Register"
                 $0.onCellSelection({[weak self] (_, _) in
-                    self?.present(UINavigationController(rootViewController: RegistrationViewController()), animated: true, completion: nil)
+                    self?.present(RegistrationViewController(), animated: true, completion: nil)
                 })
         }
     }
