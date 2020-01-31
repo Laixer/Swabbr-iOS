@@ -24,7 +24,7 @@ struct VlogUserItem {
         vlogTotalReactions = vlogModel.totalReactions
         vlogTotalViews = vlogModel.totalViews
         vlogIsLive = vlogModel.isLive
-        vlogUrl = (vlogIsLive) ? "https://wowzaprod270-i.akamaihd.net/hls/live/1003477/7ed632e7/playlist.m3u8" : "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        vlogUrl = vlogModel.videoUrl
         userId = userModel.id
         userUsername = userModel.username
         userProfileImageUrl = userModel.profileImageUrl
