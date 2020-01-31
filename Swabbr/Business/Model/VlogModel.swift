@@ -18,6 +18,7 @@ struct VlogModel {
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
+    var videoUrl: String
     var ownerId: String
     
 }

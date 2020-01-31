@@ -8,11 +8,12 @@
 
 struct VlogItem: Equatable {
     
-    var id: String
-    var duration: String
-    var totalLikes: Int
-    var totalReactions: Int
-    var totalViews: Int
+    let id: String
+    let duration: String
+    let totalLikes: Int
+    let totalReactions: Int
+    let totalViews: Int
+    let videoUrl: String
     
     init(vlogModel: VlogModel) {
         id = vlogModel.id
@@ -20,6 +21,7 @@ struct VlogItem: Equatable {
         totalLikes = vlogModel.totalLikes
         totalReactions = vlogModel.totalReactions
         totalViews = vlogModel.totalViews
+        videoUrl = vlogModel.videoUrl
     }
     
 }

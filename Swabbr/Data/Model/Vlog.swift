@@ -18,6 +18,7 @@ struct Vlog {
     var totalReactions: Int
     var totalViews: Int
     var isLive: Bool
+    var videoUrl: String
     var ownerId: String
     
     func mapToBusiness() -> VlogModel {
@@ -29,6 +30,7 @@ struct Vlog {
                          totalReactions: totalReactions,
                          totalViews: totalViews,
                          isLive: isLive,
+                         videoUrl: videoUrl,
                          ownerId: ownerId)
     }
     
@@ -46,7 +48,7 @@ extension Vlog: Codable {
         case duration, startDate = "dateStarted"
         case totalLikes, totalReactions, totalViews, isLive
         case ownerId = "userId"
-        
+        case videoUrl = "downloadUrl"
     }
 
     init(from decoder: Decoder) throws {
@@ -65,6 +67,8 @@ extension Vlog: Codable {
         isLive = try container.decode(Bool.self, forKey: .isLive)
         ownerId = try container.decode(String.self, forKey: .ownerId)
         
+        videoUrl = try container.decodeIfPresent(String.self, forKey: .videoUrl) ?? "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        
     }
     
     func encode(to encoder: Encoder) throws {
@@ -80,6 +84,7 @@ extension Vlog: Codable {
         try container.encode(totalReactions, forKey: .totalReactions)
         try container.encode(totalViews, forKey: .totalViews)
         try container.encode(isLive, forKey: .isLive)
+        try container.encode(videoUrl, forKey: .videoUrl)
         
     }
     
